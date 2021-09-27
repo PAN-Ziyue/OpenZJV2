@@ -34785,8 +34785,8 @@ module DcacheDP(
   wire [31:0] wb_refill_addr = {wb_tag,wb_index,5'h0}; // @[Cat.scala 30:58]
   reg [63:0] wb_mask; // @[Dcache.scala 362:27]
   reg [5:0] wb_shift; // @[Dcache.scala 363:27]
-  wire  df_mmio_valid = (dp_resp_valid | ~dp_valid & ~wb_valid) & io_cpu_req_bits_addr[31:29] == 3'h5 & io_cpu_req_valid
-    ; // @[Dcache.scala 382:109]
+  wire  df_mmio_valid = (dp_resp_valid | ~dp_valid & ~wb_valid) & io_cpu_req_bits_addr[31:24] == 8'h2 & io_cpu_req_valid
+    ; // @[Dcache.scala 382:108]
   wire  _T = ~mmio_state; // @[Conditional.scala 37:30]
   wire  _GEN_16 = mmio_state & io_bar_resp_valid; // @[Conditional.scala 39:67 Dcache.scala 391:26 Dcache.scala 384:22]
   wire  df_mmio_resp_valid = _T ? 1'h0 : _GEN_16; // @[Conditional.scala 40:58 Dcache.scala 384:22]
