@@ -1410,7 +1410,6 @@ module Dec(
   output [63:0] io_mops_target_pc,
   output        io_mops_ysyx_debug
 );
-  wire [4:0] IRS = io_inst[19:15]; // @[Decode.scala 44:22]
   wire [4:0] IRD = io_inst[11:7]; // @[Decode.scala 45:22]
   wire [11:0] CSR = io_inst[31:20]; // @[Decode.scala 46:22]
   wire [51:0] aluIIMM_hi = io_inst[31] ? 52'hfffffffffffff : 52'h0; // @[Bitwise.scala 72:12]
@@ -1432,7 +1431,7 @@ module Dec(
   wire [5:0] BIMM_lo_hi_hi = io_inst[30:25]; // @[Decode.scala 56:84]
   wire [3:0] BIMM_lo_hi_lo = io_inst[11:8]; // @[Decode.scala 56:101]
   wire [63:0] BIMM = {BIMM_hi_hi_hi,io_inst[31],BIMM_hi_lo,BIMM_lo_hi_hi,BIMM_lo_hi_lo,1'h0}; // @[Cat.scala 30:58]
-  wire [63:0] CSRIMM = {59'h0,IRS}; // @[Cat.scala 30:58]
+  wire [63:0] CSRIMM = {52'h0,CSR}; // @[Cat.scala 30:58]
   wire [31:0] _control_signal_T = io_inst & 32'h7f; // @[Lookup.scala 31:38]
   wire  _control_signal_T_1 = 32'h37 == _control_signal_T; // @[Lookup.scala 31:38]
   wire  _control_signal_T_3 = 32'h17 == _control_signal_T; // @[Lookup.scala 31:38]
@@ -1869,9 +1868,9 @@ module Dec(
   wire [63:0] _bju_signal_T_114 = _control_signal_T_143 ? CSRIMM : 64'h0; // @[Lookup.scala 33:37]
   wire [63:0] _bju_signal_T_115 = _control_signal_T_141 ? CSRIMM : _bju_signal_T_114; // @[Lookup.scala 33:37]
   wire [63:0] _bju_signal_T_116 = _control_signal_T_139 ? CSRIMM : _bju_signal_T_115; // @[Lookup.scala 33:37]
-  wire [63:0] _bju_signal_T_117 = _control_signal_T_137 ? 64'h0 : _bju_signal_T_116; // @[Lookup.scala 33:37]
-  wire [63:0] _bju_signal_T_118 = _control_signal_T_135 ? 64'h0 : _bju_signal_T_117; // @[Lookup.scala 33:37]
-  wire [63:0] _bju_signal_T_119 = _control_signal_T_133 ? 64'h0 : _bju_signal_T_118; // @[Lookup.scala 33:37]
+  wire [63:0] _bju_signal_T_117 = _control_signal_T_137 ? CSRIMM : _bju_signal_T_116; // @[Lookup.scala 33:37]
+  wire [63:0] _bju_signal_T_118 = _control_signal_T_135 ? CSRIMM : _bju_signal_T_117; // @[Lookup.scala 33:37]
+  wire [63:0] _bju_signal_T_119 = _control_signal_T_133 ? CSRIMM : _bju_signal_T_118; // @[Lookup.scala 33:37]
   wire [63:0] _bju_signal_T_120 = _control_signal_T_53 ? 64'h0 : _bju_signal_T_119; // @[Lookup.scala 33:37]
   wire [63:0] _bju_signal_T_121 = _control_signal_T_51 ? 64'h0 : _bju_signal_T_120; // @[Lookup.scala 33:37]
   wire [63:0] _bju_signal_T_122 = _control_signal_T_21 ? 64'h0 : _bju_signal_T_121; // @[Lookup.scala 33:37]
