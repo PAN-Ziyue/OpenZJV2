@@ -7742,6 +7742,8 @@ module Backend(
   wire  ldMisaligned = exInsts_2_write_dest & memMisaligned; // @[Backend.scala 308:62]
   wire  _stMisaligned_T = ~exInsts_2_write_dest; // @[Backend.scala 309:41]
   wire  stMisaligned = ~exInsts_2_write_dest & memMisaligned; // @[Backend.scala 309:62]
+  wire  dcacheMask = io_dcache_req_bits_addr[28:0] == 29'h1faffff0; // @[Backend.scala 311:49]
+  wire  _io_dcache_req_valid_T_1 = exMemRealValid & ~dcacheMask; // @[Backend.scala 313:41]
   reg [31:0] exLastMemReq_addr; // @[Backend.scala 316:29]
   reg [63:0] exLastMemReq_wdata; // @[Backend.scala 316:29]
   reg  exLastMemReq_wen; // @[Backend.scala 316:29]
@@ -8065,7 +8067,7 @@ module Backend(
   assign io_fb_bmfs_bpu_target = wbBpuTarget; // @[Backend.scala 497:30]
   assign io_fb_bmfs_bpu_taken = wbBpuTaken; // @[Backend.scala 498:30]
   assign io_fb_fmbs_please_wait = ~issueQueue_io_sufficient; // @[Backend.scala 141:29]
-  assign io_dcache_req_valid = exMemRealValid | dcacheStall; // @[Backend.scala 313:56]
+  assign io_dcache_req_valid = exMemRealValid & ~dcacheMask | dcacheStall; // @[Backend.scala 313:56]
   assign io_dcache_req_bits_addr = dcacheStall ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 356:28]
   assign io_dcache_req_bits_wdata = dcacheStall ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 356:28]
   assign io_dcache_req_bits_wen = dcacheStall ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 356:28]
@@ -8243,7 +8245,7 @@ module Backend(
     if (reset) begin // @[Backend.scala 305:34]
       exLastMemReqValid <= 1'h0; // @[Backend.scala 305:34]
     end else if (_kill_x_T) begin // @[Backend.scala 350:23]
-      exLastMemReqValid <= exMemRealValid; // @[Backend.scala 351:23]
+      exLastMemReqValid <= _io_dcache_req_valid_T_1; // @[Backend.scala 351:23]
     end
     if (reset) begin // @[Backend.scala 69:29]
       exInsts_0_illegal <= 1'h0; // @[Backend.scala 69:29]
@@ -35144,1314 +35146,1122 @@ module SimMem(
   reg [31:0] _RAND_2;
   reg [255:0] _RAND_3;
 `endif // RANDOMIZE_REG_INIT
-  reg /* sparse */ [7:0] memory [0:134217727]; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_0_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_0_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_0_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_0_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_1_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_1_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_1_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_1_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_2_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_2_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_2_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_2_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_3_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_3_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_3_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_3_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_4_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_4_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_4_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_4_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_5_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_5_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_5_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_5_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_6_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_6_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_6_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_6_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_7_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_7_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_7_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_7_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_8_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_8_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_8_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_8_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_9_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_9_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_9_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_9_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_10_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_10_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_10_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_10_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_11_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_11_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_11_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_11_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_12_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_12_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_12_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_12_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_13_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_13_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_13_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_13_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_14_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_14_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_14_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_14_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_15_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_15_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_15_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_15_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_16_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_16_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_16_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_16_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_17_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_17_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_17_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_17_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_18_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_18_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_18_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_18_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_19_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_19_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_19_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_19_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_20_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_20_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_20_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_20_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_21_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_21_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_21_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_21_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_22_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_22_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_22_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_22_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_23_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_23_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_23_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_23_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_24_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_24_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_24_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_24_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_25_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_25_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_25_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_25_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_26_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_26_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_26_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_26_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_27_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_27_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_27_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_27_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_28_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_28_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_28_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_28_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_29_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_29_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_29_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_29_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_30_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_30_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_30_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_30_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_icandidates_31_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_icandidates_31_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_dcandidates_31_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_dcandidates_31_MPORT_addr; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_1_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_1_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_1_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_1_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_2_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_2_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_2_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_2_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_3_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_3_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_3_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_3_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_4_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_4_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_4_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_4_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_5_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_5_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_5_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_5_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_6_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_6_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_6_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_6_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_7_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_7_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_7_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_7_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_8_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_8_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_8_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_8_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_9_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_9_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_9_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_9_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_10_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_10_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_10_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_10_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_11_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_11_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_11_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_11_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_12_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_12_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_12_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_12_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_13_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_13_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_13_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_13_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_14_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_14_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_14_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_14_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_15_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_15_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_15_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_15_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_16_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_16_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_16_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_16_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_17_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_17_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_17_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_17_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_18_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_18_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_18_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_18_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_19_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_19_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_19_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_19_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_20_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_20_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_20_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_20_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_21_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_21_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_21_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_21_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_22_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_22_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_22_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_22_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_23_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_23_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_23_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_23_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_24_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_24_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_24_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_24_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_25_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_25_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_25_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_25_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_26_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_26_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_26_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_26_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_27_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_27_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_27_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_27_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_28_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_28_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_28_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_28_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_29_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_29_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_29_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_29_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_30_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_30_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_30_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_30_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_31_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_31_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_31_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_31_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_32_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_32_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_32_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_32_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_33_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_33_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_33_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_33_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_34_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_34_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_34_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_34_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_35_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_35_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_35_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_35_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_36_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_36_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_36_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_36_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_37_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_37_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_37_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_37_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_38_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_38_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_38_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_38_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_39_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_39_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_39_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_39_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_40_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_40_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_40_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_40_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_41_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_41_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_41_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_41_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_42_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_42_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_42_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_42_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_43_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_43_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_43_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_43_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_44_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_44_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_44_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_44_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_45_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_45_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_45_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_45_en; // @[SimMem.scala 43:19]
-  wire [7:0] memory_MPORT_46_data; // @[SimMem.scala 43:19]
-  wire [26:0] memory_MPORT_46_addr; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_46_mask; // @[SimMem.scala 43:19]
-  wire  memory_MPORT_46_en; // @[SimMem.scala 43:19]
-  wire  _T = io_icache_io_req_addr >= 32'h84000000; // @[SimMem.scala 34:32]
-  wire  _T_2 = ~reset; // @[SimMem.scala 35:14]
-  wire [32:0] _icandidates_0_T = {{1'd0}, io_icache_io_req_addr}; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_0_T_5 = _icandidates_0_T[31:0] + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_0_T_6 = _icandidates_0_T[28] ? _icandidates_0_T_5 : _icandidates_0_T[31:0]; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_0_T_7 = 32'h3ffffff & _icandidates_0_T_6; // @[SimMem.scala 47:14]
-  wire [29:0] dcandidates_0_hi = io_dcache_io_req_addr[31:2]; // @[SimMem.scala 52:69]
+  reg [7:0] memory [0:67108863]; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_0_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_0_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_0_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_0_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_1_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_1_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_1_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_1_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_2_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_2_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_2_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_2_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_3_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_3_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_3_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_3_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_4_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_4_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_4_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_4_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_5_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_5_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_5_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_5_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_6_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_6_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_6_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_6_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_7_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_7_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_7_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_7_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_8_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_8_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_8_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_8_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_9_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_9_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_9_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_9_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_10_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_10_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_10_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_10_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_11_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_11_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_11_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_11_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_12_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_12_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_12_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_12_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_13_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_13_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_13_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_13_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_14_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_14_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_14_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_14_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_15_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_15_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_15_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_15_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_16_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_16_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_16_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_16_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_17_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_17_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_17_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_17_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_18_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_18_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_18_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_18_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_19_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_19_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_19_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_19_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_20_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_20_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_20_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_20_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_21_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_21_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_21_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_21_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_22_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_22_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_22_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_22_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_23_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_23_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_23_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_23_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_24_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_24_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_24_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_24_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_25_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_25_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_25_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_25_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_26_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_26_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_26_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_26_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_27_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_27_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_27_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_27_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_28_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_28_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_28_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_28_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_29_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_29_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_29_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_29_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_30_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_30_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_30_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_30_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_icandidates_31_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_icandidates_31_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_dcandidates_31_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_dcandidates_31_MPORT_addr; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_1_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_1_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_1_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_1_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_2_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_2_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_2_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_2_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_3_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_3_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_3_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_3_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_4_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_4_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_4_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_4_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_5_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_5_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_5_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_5_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_6_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_6_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_6_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_6_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_7_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_7_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_7_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_7_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_8_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_8_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_8_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_8_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_9_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_9_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_9_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_9_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_10_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_10_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_10_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_10_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_11_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_11_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_11_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_11_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_12_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_12_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_12_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_12_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_13_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_13_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_13_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_13_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_14_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_14_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_14_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_14_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_15_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_15_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_15_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_15_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_16_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_16_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_16_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_16_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_17_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_17_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_17_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_17_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_18_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_18_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_18_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_18_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_19_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_19_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_19_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_19_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_20_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_20_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_20_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_20_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_21_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_21_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_21_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_21_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_22_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_22_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_22_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_22_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_23_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_23_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_23_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_23_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_24_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_24_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_24_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_24_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_25_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_25_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_25_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_25_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_26_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_26_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_26_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_26_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_27_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_27_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_27_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_27_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_28_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_28_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_28_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_28_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_29_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_29_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_29_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_29_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_30_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_30_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_30_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_30_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_31_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_31_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_31_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_31_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_32_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_32_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_32_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_32_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_33_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_33_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_33_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_33_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_34_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_34_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_34_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_34_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_35_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_35_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_35_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_35_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_36_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_36_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_36_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_36_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_37_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_37_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_37_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_37_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_38_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_38_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_38_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_38_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_39_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_39_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_39_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_39_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_40_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_40_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_40_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_40_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_41_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_41_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_41_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_41_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_42_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_42_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_42_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_42_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_43_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_43_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_43_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_43_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_44_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_44_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_44_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_44_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_45_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_45_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_45_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_45_en; // @[SimMem.scala 42:19]
+  wire [7:0] memory_MPORT_46_data; // @[SimMem.scala 42:19]
+  wire [25:0] memory_MPORT_46_addr; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_46_mask; // @[SimMem.scala 42:19]
+  wire  memory_MPORT_46_en; // @[SimMem.scala 42:19]
+  wire  _GEN_0 = io_dcache_io_req_addr[29:0] >= 30'h4000000 ? 1'h0 : 1'h1; // @[SimMem.scala 24:56 SimMem.scala 25:17]
+  wire  _GEN_1 = io_dcache_io_req_valid ? _GEN_0 : 1'h1; // @[SimMem.scala 23:32]
+  wire  _T_7 = io_icache_io_req_addr >= 32'h84000000; // @[SimMem.scala 34:32]
+  wire  _T_9 = ~reset; // @[SimMem.scala 35:14]
+  wire [32:0] _icandidates_0_T = {{1'd0}, io_icache_io_req_addr}; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_0_T_2 = 32'h3ffffff & _icandidates_0_T[31:0]; // @[SimMem.scala 46:44]
+  wire [29:0] dcandidates_0_hi = io_dcache_io_req_addr[31:2]; // @[SimMem.scala 47:72]
   wire [31:0] _dcandidates_0_T = {dcandidates_0_hi,2'h0}; // @[Cat.scala 30:58]
-  wire [32:0] _dcandidates_0_T_1 = {{1'd0}, _dcandidates_0_T}; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_0_T_6 = _dcandidates_0_T_1[31:0] + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_0_T_7 = _dcandidates_0_T_1[28] ? _dcandidates_0_T_6 : _dcandidates_0_T_1[31:0]; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_0_T_8 = 32'h3ffffff & _dcandidates_0_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_1_T_1 = io_icache_io_req_addr + 32'h1; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_1_T_5 = _icandidates_1_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_1_T_6 = _icandidates_1_T_1[28] ? _icandidates_1_T_5 : _icandidates_1_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_1_T_7 = 32'h3ffffff & _icandidates_1_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_1_T_2 = _dcandidates_0_T + 32'h1; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_1_T_6 = _dcandidates_1_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_1_T_7 = _dcandidates_1_T_2[28] ? _dcandidates_1_T_6 : _dcandidates_1_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_1_T_8 = 32'h3ffffff & _dcandidates_1_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_2_T_1 = io_icache_io_req_addr + 32'h2; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_2_T_5 = _icandidates_2_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_2_T_6 = _icandidates_2_T_1[28] ? _icandidates_2_T_5 : _icandidates_2_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_2_T_7 = 32'h3ffffff & _icandidates_2_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_2_T_2 = _dcandidates_0_T + 32'h2; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_2_T_6 = _dcandidates_2_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_2_T_7 = _dcandidates_2_T_2[28] ? _dcandidates_2_T_6 : _dcandidates_2_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_2_T_8 = 32'h3ffffff & _dcandidates_2_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_3_T_1 = io_icache_io_req_addr + 32'h3; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_3_T_5 = _icandidates_3_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_3_T_6 = _icandidates_3_T_1[28] ? _icandidates_3_T_5 : _icandidates_3_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_3_T_7 = 32'h3ffffff & _icandidates_3_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_3_T_2 = _dcandidates_0_T + 32'h3; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_3_T_6 = _dcandidates_3_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_3_T_7 = _dcandidates_3_T_2[28] ? _dcandidates_3_T_6 : _dcandidates_3_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_3_T_8 = 32'h3ffffff & _dcandidates_3_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_4_T_1 = io_icache_io_req_addr + 32'h4; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_4_T_5 = _icandidates_4_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_4_T_6 = _icandidates_4_T_1[28] ? _icandidates_4_T_5 : _icandidates_4_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_4_T_7 = 32'h3ffffff & _icandidates_4_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_4_T_2 = _dcandidates_0_T + 32'h4; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_4_T_6 = _dcandidates_4_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_4_T_7 = _dcandidates_4_T_2[28] ? _dcandidates_4_T_6 : _dcandidates_4_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_4_T_8 = 32'h3ffffff & _dcandidates_4_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_5_T_1 = io_icache_io_req_addr + 32'h5; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_5_T_5 = _icandidates_5_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_5_T_6 = _icandidates_5_T_1[28] ? _icandidates_5_T_5 : _icandidates_5_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_5_T_7 = 32'h3ffffff & _icandidates_5_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_5_T_2 = _dcandidates_0_T + 32'h5; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_5_T_6 = _dcandidates_5_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_5_T_7 = _dcandidates_5_T_2[28] ? _dcandidates_5_T_6 : _dcandidates_5_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_5_T_8 = 32'h3ffffff & _dcandidates_5_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_6_T_1 = io_icache_io_req_addr + 32'h6; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_6_T_5 = _icandidates_6_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_6_T_6 = _icandidates_6_T_1[28] ? _icandidates_6_T_5 : _icandidates_6_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_6_T_7 = 32'h3ffffff & _icandidates_6_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_6_T_2 = _dcandidates_0_T + 32'h6; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_6_T_6 = _dcandidates_6_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_6_T_7 = _dcandidates_6_T_2[28] ? _dcandidates_6_T_6 : _dcandidates_6_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_6_T_8 = 32'h3ffffff & _dcandidates_6_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_7_T_1 = io_icache_io_req_addr + 32'h7; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_7_T_5 = _icandidates_7_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_7_T_6 = _icandidates_7_T_1[28] ? _icandidates_7_T_5 : _icandidates_7_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_7_T_7 = 32'h3ffffff & _icandidates_7_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_7_T_2 = _dcandidates_0_T + 32'h7; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_7_T_6 = _dcandidates_7_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_7_T_7 = _dcandidates_7_T_2[28] ? _dcandidates_7_T_6 : _dcandidates_7_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_7_T_8 = 32'h3ffffff & _dcandidates_7_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_8_T_1 = io_icache_io_req_addr + 32'h8; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_8_T_5 = _icandidates_8_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_8_T_6 = _icandidates_8_T_1[28] ? _icandidates_8_T_5 : _icandidates_8_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_8_T_7 = 32'h3ffffff & _icandidates_8_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_8_T_2 = _dcandidates_0_T + 32'h8; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_8_T_6 = _dcandidates_8_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_8_T_7 = _dcandidates_8_T_2[28] ? _dcandidates_8_T_6 : _dcandidates_8_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_8_T_8 = 32'h3ffffff & _dcandidates_8_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_9_T_1 = io_icache_io_req_addr + 32'h9; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_9_T_5 = _icandidates_9_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_9_T_6 = _icandidates_9_T_1[28] ? _icandidates_9_T_5 : _icandidates_9_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_9_T_7 = 32'h3ffffff & _icandidates_9_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_9_T_2 = _dcandidates_0_T + 32'h9; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_9_T_6 = _dcandidates_9_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_9_T_7 = _dcandidates_9_T_2[28] ? _dcandidates_9_T_6 : _dcandidates_9_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_9_T_8 = 32'h3ffffff & _dcandidates_9_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_10_T_1 = io_icache_io_req_addr + 32'ha; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_10_T_5 = _icandidates_10_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_10_T_6 = _icandidates_10_T_1[28] ? _icandidates_10_T_5 : _icandidates_10_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_10_T_7 = 32'h3ffffff & _icandidates_10_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_10_T_2 = _dcandidates_0_T + 32'ha; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_10_T_6 = _dcandidates_10_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_10_T_7 = _dcandidates_10_T_2[28] ? _dcandidates_10_T_6 : _dcandidates_10_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_10_T_8 = 32'h3ffffff & _dcandidates_10_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_11_T_1 = io_icache_io_req_addr + 32'hb; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_11_T_5 = _icandidates_11_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_11_T_6 = _icandidates_11_T_1[28] ? _icandidates_11_T_5 : _icandidates_11_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_11_T_7 = 32'h3ffffff & _icandidates_11_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_11_T_2 = _dcandidates_0_T + 32'hb; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_11_T_6 = _dcandidates_11_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_11_T_7 = _dcandidates_11_T_2[28] ? _dcandidates_11_T_6 : _dcandidates_11_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_11_T_8 = 32'h3ffffff & _dcandidates_11_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_12_T_1 = io_icache_io_req_addr + 32'hc; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_12_T_5 = _icandidates_12_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_12_T_6 = _icandidates_12_T_1[28] ? _icandidates_12_T_5 : _icandidates_12_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_12_T_7 = 32'h3ffffff & _icandidates_12_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_12_T_2 = _dcandidates_0_T + 32'hc; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_12_T_6 = _dcandidates_12_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_12_T_7 = _dcandidates_12_T_2[28] ? _dcandidates_12_T_6 : _dcandidates_12_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_12_T_8 = 32'h3ffffff & _dcandidates_12_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_13_T_1 = io_icache_io_req_addr + 32'hd; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_13_T_5 = _icandidates_13_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_13_T_6 = _icandidates_13_T_1[28] ? _icandidates_13_T_5 : _icandidates_13_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_13_T_7 = 32'h3ffffff & _icandidates_13_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_13_T_2 = _dcandidates_0_T + 32'hd; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_13_T_6 = _dcandidates_13_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_13_T_7 = _dcandidates_13_T_2[28] ? _dcandidates_13_T_6 : _dcandidates_13_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_13_T_8 = 32'h3ffffff & _dcandidates_13_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_14_T_1 = io_icache_io_req_addr + 32'he; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_14_T_5 = _icandidates_14_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_14_T_6 = _icandidates_14_T_1[28] ? _icandidates_14_T_5 : _icandidates_14_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_14_T_7 = 32'h3ffffff & _icandidates_14_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_14_T_2 = _dcandidates_0_T + 32'he; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_14_T_6 = _dcandidates_14_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_14_T_7 = _dcandidates_14_T_2[28] ? _dcandidates_14_T_6 : _dcandidates_14_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_14_T_8 = 32'h3ffffff & _dcandidates_14_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_15_T_1 = io_icache_io_req_addr + 32'hf; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_15_T_5 = _icandidates_15_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_15_T_6 = _icandidates_15_T_1[28] ? _icandidates_15_T_5 : _icandidates_15_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_15_T_7 = 32'h3ffffff & _icandidates_15_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_15_T_2 = _dcandidates_0_T + 32'hf; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_15_T_6 = _dcandidates_15_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_15_T_7 = _dcandidates_15_T_2[28] ? _dcandidates_15_T_6 : _dcandidates_15_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_15_T_8 = 32'h3ffffff & _dcandidates_15_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_16_T_1 = io_icache_io_req_addr + 32'h10; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_16_T_5 = _icandidates_16_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_16_T_6 = _icandidates_16_T_1[28] ? _icandidates_16_T_5 : _icandidates_16_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_16_T_7 = 32'h3ffffff & _icandidates_16_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_16_T_2 = _dcandidates_0_T + 32'h10; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_16_T_6 = _dcandidates_16_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_16_T_7 = _dcandidates_16_T_2[28] ? _dcandidates_16_T_6 : _dcandidates_16_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_16_T_8 = 32'h3ffffff & _dcandidates_16_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_17_T_1 = io_icache_io_req_addr + 32'h11; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_17_T_5 = _icandidates_17_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_17_T_6 = _icandidates_17_T_1[28] ? _icandidates_17_T_5 : _icandidates_17_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_17_T_7 = 32'h3ffffff & _icandidates_17_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_17_T_2 = _dcandidates_0_T + 32'h11; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_17_T_6 = _dcandidates_17_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_17_T_7 = _dcandidates_17_T_2[28] ? _dcandidates_17_T_6 : _dcandidates_17_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_17_T_8 = 32'h3ffffff & _dcandidates_17_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_18_T_1 = io_icache_io_req_addr + 32'h12; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_18_T_5 = _icandidates_18_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_18_T_6 = _icandidates_18_T_1[28] ? _icandidates_18_T_5 : _icandidates_18_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_18_T_7 = 32'h3ffffff & _icandidates_18_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_18_T_2 = _dcandidates_0_T + 32'h12; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_18_T_6 = _dcandidates_18_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_18_T_7 = _dcandidates_18_T_2[28] ? _dcandidates_18_T_6 : _dcandidates_18_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_18_T_8 = 32'h3ffffff & _dcandidates_18_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_19_T_1 = io_icache_io_req_addr + 32'h13; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_19_T_5 = _icandidates_19_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_19_T_6 = _icandidates_19_T_1[28] ? _icandidates_19_T_5 : _icandidates_19_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_19_T_7 = 32'h3ffffff & _icandidates_19_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_19_T_2 = _dcandidates_0_T + 32'h13; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_19_T_6 = _dcandidates_19_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_19_T_7 = _dcandidates_19_T_2[28] ? _dcandidates_19_T_6 : _dcandidates_19_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_19_T_8 = 32'h3ffffff & _dcandidates_19_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_20_T_1 = io_icache_io_req_addr + 32'h14; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_20_T_5 = _icandidates_20_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_20_T_6 = _icandidates_20_T_1[28] ? _icandidates_20_T_5 : _icandidates_20_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_20_T_7 = 32'h3ffffff & _icandidates_20_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_20_T_2 = _dcandidates_0_T + 32'h14; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_20_T_6 = _dcandidates_20_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_20_T_7 = _dcandidates_20_T_2[28] ? _dcandidates_20_T_6 : _dcandidates_20_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_20_T_8 = 32'h3ffffff & _dcandidates_20_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_21_T_1 = io_icache_io_req_addr + 32'h15; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_21_T_5 = _icandidates_21_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_21_T_6 = _icandidates_21_T_1[28] ? _icandidates_21_T_5 : _icandidates_21_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_21_T_7 = 32'h3ffffff & _icandidates_21_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_21_T_2 = _dcandidates_0_T + 32'h15; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_21_T_6 = _dcandidates_21_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_21_T_7 = _dcandidates_21_T_2[28] ? _dcandidates_21_T_6 : _dcandidates_21_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_21_T_8 = 32'h3ffffff & _dcandidates_21_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_22_T_1 = io_icache_io_req_addr + 32'h16; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_22_T_5 = _icandidates_22_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_22_T_6 = _icandidates_22_T_1[28] ? _icandidates_22_T_5 : _icandidates_22_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_22_T_7 = 32'h3ffffff & _icandidates_22_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_22_T_2 = _dcandidates_0_T + 32'h16; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_22_T_6 = _dcandidates_22_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_22_T_7 = _dcandidates_22_T_2[28] ? _dcandidates_22_T_6 : _dcandidates_22_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_22_T_8 = 32'h3ffffff & _dcandidates_22_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_23_T_1 = io_icache_io_req_addr + 32'h17; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_23_T_5 = _icandidates_23_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_23_T_6 = _icandidates_23_T_1[28] ? _icandidates_23_T_5 : _icandidates_23_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_23_T_7 = 32'h3ffffff & _icandidates_23_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_23_T_2 = _dcandidates_0_T + 32'h17; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_23_T_6 = _dcandidates_23_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_23_T_7 = _dcandidates_23_T_2[28] ? _dcandidates_23_T_6 : _dcandidates_23_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_23_T_8 = 32'h3ffffff & _dcandidates_23_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_24_T_1 = io_icache_io_req_addr + 32'h18; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_24_T_5 = _icandidates_24_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_24_T_6 = _icandidates_24_T_1[28] ? _icandidates_24_T_5 : _icandidates_24_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_24_T_7 = 32'h3ffffff & _icandidates_24_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_24_T_2 = _dcandidates_0_T + 32'h18; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_24_T_6 = _dcandidates_24_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_24_T_7 = _dcandidates_24_T_2[28] ? _dcandidates_24_T_6 : _dcandidates_24_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_24_T_8 = 32'h3ffffff & _dcandidates_24_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_25_T_1 = io_icache_io_req_addr + 32'h19; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_25_T_5 = _icandidates_25_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_25_T_6 = _icandidates_25_T_1[28] ? _icandidates_25_T_5 : _icandidates_25_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_25_T_7 = 32'h3ffffff & _icandidates_25_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_25_T_2 = _dcandidates_0_T + 32'h19; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_25_T_6 = _dcandidates_25_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_25_T_7 = _dcandidates_25_T_2[28] ? _dcandidates_25_T_6 : _dcandidates_25_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_25_T_8 = 32'h3ffffff & _dcandidates_25_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_26_T_1 = io_icache_io_req_addr + 32'h1a; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_26_T_5 = _icandidates_26_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_26_T_6 = _icandidates_26_T_1[28] ? _icandidates_26_T_5 : _icandidates_26_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_26_T_7 = 32'h3ffffff & _icandidates_26_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_26_T_2 = _dcandidates_0_T + 32'h1a; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_26_T_6 = _dcandidates_26_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_26_T_7 = _dcandidates_26_T_2[28] ? _dcandidates_26_T_6 : _dcandidates_26_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_26_T_8 = 32'h3ffffff & _dcandidates_26_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_27_T_1 = io_icache_io_req_addr + 32'h1b; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_27_T_5 = _icandidates_27_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_27_T_6 = _icandidates_27_T_1[28] ? _icandidates_27_T_5 : _icandidates_27_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_27_T_7 = 32'h3ffffff & _icandidates_27_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_27_T_2 = _dcandidates_0_T + 32'h1b; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_27_T_6 = _dcandidates_27_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_27_T_7 = _dcandidates_27_T_2[28] ? _dcandidates_27_T_6 : _dcandidates_27_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_27_T_8 = 32'h3ffffff & _dcandidates_27_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_28_T_1 = io_icache_io_req_addr + 32'h1c; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_28_T_5 = _icandidates_28_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_28_T_6 = _icandidates_28_T_1[28] ? _icandidates_28_T_5 : _icandidates_28_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_28_T_7 = 32'h3ffffff & _icandidates_28_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_28_T_2 = _dcandidates_0_T + 32'h1c; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_28_T_6 = _dcandidates_28_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_28_T_7 = _dcandidates_28_T_2[28] ? _dcandidates_28_T_6 : _dcandidates_28_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_28_T_8 = 32'h3ffffff & _dcandidates_28_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_29_T_1 = io_icache_io_req_addr + 32'h1d; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_29_T_5 = _icandidates_29_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_29_T_6 = _icandidates_29_T_1[28] ? _icandidates_29_T_5 : _icandidates_29_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_29_T_7 = 32'h3ffffff & _icandidates_29_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_29_T_2 = _dcandidates_0_T + 32'h1d; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_29_T_6 = _dcandidates_29_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_29_T_7 = _dcandidates_29_T_2[28] ? _dcandidates_29_T_6 : _dcandidates_29_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_29_T_8 = 32'h3ffffff & _dcandidates_29_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_30_T_1 = io_icache_io_req_addr + 32'h1e; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_30_T_5 = _icandidates_30_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_30_T_6 = _icandidates_30_T_1[28] ? _icandidates_30_T_5 : _icandidates_30_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_30_T_7 = 32'h3ffffff & _icandidates_30_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_30_T_2 = _dcandidates_0_T + 32'h1e; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_30_T_6 = _dcandidates_30_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_30_T_7 = _dcandidates_30_T_2[28] ? _dcandidates_30_T_6 : _dcandidates_30_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_30_T_8 = 32'h3ffffff & _dcandidates_30_T_7; // @[SimMem.scala 47:14]
-  wire [31:0] _icandidates_31_T_1 = io_icache_io_req_addr + 32'h1f; // @[SimMem.scala 51:66]
-  wire [31:0] _icandidates_31_T_5 = _icandidates_31_T_1 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _icandidates_31_T_6 = _icandidates_31_T_1[28] ? _icandidates_31_T_5 : _icandidates_31_T_1; // @[SimMem.scala 47:19]
-  wire [31:0] _icandidates_31_T_7 = 32'h3ffffff & _icandidates_31_T_6; // @[SimMem.scala 47:14]
-  wire [31:0] _dcandidates_31_T_2 = _dcandidates_0_T + 32'h1f; // @[SimMem.scala 52:86]
-  wire [31:0] _dcandidates_31_T_6 = _dcandidates_31_T_2 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _dcandidates_31_T_7 = _dcandidates_31_T_2[28] ? _dcandidates_31_T_6 : _dcandidates_31_T_2; // @[SimMem.scala 47:19]
-  wire [31:0] _dcandidates_31_T_8 = 32'h3ffffff & _dcandidates_31_T_7; // @[SimMem.scala 47:14]
-  wire  _T_5 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000; // @[SimMem.scala 54:31]
-  wire  _T_6 = 32'hbfd003fd == io_dcache_io_req_addr; // @[Conditional.scala 37:30]
-  wire  _T_7 = 32'hbfd00071 == io_dcache_io_req_addr; // @[Conditional.scala 37:30]
-  wire [31:0] _GEN_0 = _T_7 ? 32'hff : 32'hdeadbeef; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 56:20]
-  wire [7:0] _GEN_1 = _T_7 ? 8'hff : memory_dcandidates_1_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [7:0] _GEN_2 = _T_7 ? 8'hff : memory_dcandidates_2_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [7:0] _GEN_3 = _T_7 ? 8'hff : memory_dcandidates_3_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [7:0] _GEN_4 = _T_7 ? 8'hff : memory_dcandidates_4_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [7:0] _GEN_5 = _T_7 ? 8'hff : memory_dcandidates_5_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [7:0] _GEN_6 = _T_7 ? 8'hff : memory_dcandidates_6_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [7:0] _GEN_7 = _T_7 ? 8'hff : memory_dcandidates_7_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 59:61 SimMem.scala 52:20]
-  wire [31:0] _GEN_8 = _T_6 ? 32'h60 : _GEN_0; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_9 = _T_6 ? 8'h60 : _GEN_1; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_10 = _T_6 ? 8'h60 : _GEN_2; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_11 = _T_6 ? 8'h60 : _GEN_3; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_12 = _T_6 ? 8'h60 : _GEN_4; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_13 = _T_6 ? 8'h60 : _GEN_5; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_14 = _T_6 ? 8'h60 : _GEN_6; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire [7:0] _GEN_15 = _T_6 ? 8'h60 : _GEN_7; // @[Conditional.scala 40:58 SimMem.scala 58:61]
-  wire  write_ram = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? 1'h0 : 1'h1; // @[SimMem.scala 54:81 SimMem.scala 55:15]
-  wire [31:0] _GEN_17 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_8 : {{24'd0},
-    memory_dcandidates_0_MPORT_data}; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_1 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_9 :
-    memory_dcandidates_1_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_2 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_10 :
-    memory_dcandidates_2_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_3 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_11 :
-    memory_dcandidates_3_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_4 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_12 :
-    memory_dcandidates_4_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_5 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_13 :
-    memory_dcandidates_5_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_6 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_14 :
-    memory_dcandidates_6_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  wire [7:0] dcandidates_7 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_15 :
-    memory_dcandidates_7_MPORT_data; // @[SimMem.scala 54:81 SimMem.scala 52:20]
-  reg  io_icache_io_resp_valid_REG; // @[SimMem.scala 68:37]
-  wire [7:0] icandidates_1 = memory_icandidates_1_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_0 = memory_icandidates_0_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_3 = memory_icandidates_3_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_2 = memory_icandidates_2_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_5 = memory_icandidates_5_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_4 = memory_icandidates_4_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_7 = memory_icandidates_7_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_6 = memory_icandidates_6_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
+  wire [32:0] _dcandidates_0_T_1 = {{1'd0}, _dcandidates_0_T}; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_0_T_3 = 32'h3ffffff & _dcandidates_0_T_1[31:0]; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_1_T_1 = io_icache_io_req_addr + 32'h1; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_1_T_2 = 32'h3ffffff & _icandidates_1_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_1_T_2 = _dcandidates_0_T + 32'h1; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_1_T_3 = 32'h3ffffff & _dcandidates_1_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_2_T_1 = io_icache_io_req_addr + 32'h2; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_2_T_2 = 32'h3ffffff & _icandidates_2_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_2_T_2 = _dcandidates_0_T + 32'h2; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_2_T_3 = 32'h3ffffff & _dcandidates_2_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_3_T_1 = io_icache_io_req_addr + 32'h3; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_3_T_2 = 32'h3ffffff & _icandidates_3_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_3_T_2 = _dcandidates_0_T + 32'h3; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_3_T_3 = 32'h3ffffff & _dcandidates_3_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_4_T_1 = io_icache_io_req_addr + 32'h4; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_4_T_2 = 32'h3ffffff & _icandidates_4_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_4_T_2 = _dcandidates_0_T + 32'h4; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_4_T_3 = 32'h3ffffff & _dcandidates_4_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_5_T_1 = io_icache_io_req_addr + 32'h5; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_5_T_2 = 32'h3ffffff & _icandidates_5_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_5_T_2 = _dcandidates_0_T + 32'h5; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_5_T_3 = 32'h3ffffff & _dcandidates_5_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_6_T_1 = io_icache_io_req_addr + 32'h6; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_6_T_2 = 32'h3ffffff & _icandidates_6_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_6_T_2 = _dcandidates_0_T + 32'h6; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_6_T_3 = 32'h3ffffff & _dcandidates_6_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_7_T_1 = io_icache_io_req_addr + 32'h7; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_7_T_2 = 32'h3ffffff & _icandidates_7_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_7_T_2 = _dcandidates_0_T + 32'h7; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_7_T_3 = 32'h3ffffff & _dcandidates_7_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_8_T_1 = io_icache_io_req_addr + 32'h8; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_8_T_2 = 32'h3ffffff & _icandidates_8_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_8_T_2 = _dcandidates_0_T + 32'h8; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_8_T_3 = 32'h3ffffff & _dcandidates_8_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_9_T_1 = io_icache_io_req_addr + 32'h9; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_9_T_2 = 32'h3ffffff & _icandidates_9_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_9_T_2 = _dcandidates_0_T + 32'h9; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_9_T_3 = 32'h3ffffff & _dcandidates_9_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_10_T_1 = io_icache_io_req_addr + 32'ha; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_10_T_2 = 32'h3ffffff & _icandidates_10_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_10_T_2 = _dcandidates_0_T + 32'ha; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_10_T_3 = 32'h3ffffff & _dcandidates_10_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_11_T_1 = io_icache_io_req_addr + 32'hb; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_11_T_2 = 32'h3ffffff & _icandidates_11_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_11_T_2 = _dcandidates_0_T + 32'hb; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_11_T_3 = 32'h3ffffff & _dcandidates_11_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_12_T_1 = io_icache_io_req_addr + 32'hc; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_12_T_2 = 32'h3ffffff & _icandidates_12_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_12_T_2 = _dcandidates_0_T + 32'hc; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_12_T_3 = 32'h3ffffff & _dcandidates_12_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_13_T_1 = io_icache_io_req_addr + 32'hd; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_13_T_2 = 32'h3ffffff & _icandidates_13_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_13_T_2 = _dcandidates_0_T + 32'hd; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_13_T_3 = 32'h3ffffff & _dcandidates_13_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_14_T_1 = io_icache_io_req_addr + 32'he; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_14_T_2 = 32'h3ffffff & _icandidates_14_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_14_T_2 = _dcandidates_0_T + 32'he; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_14_T_3 = 32'h3ffffff & _dcandidates_14_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_15_T_1 = io_icache_io_req_addr + 32'hf; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_15_T_2 = 32'h3ffffff & _icandidates_15_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_15_T_2 = _dcandidates_0_T + 32'hf; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_15_T_3 = 32'h3ffffff & _dcandidates_15_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_16_T_1 = io_icache_io_req_addr + 32'h10; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_16_T_2 = 32'h3ffffff & _icandidates_16_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_16_T_2 = _dcandidates_0_T + 32'h10; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_16_T_3 = 32'h3ffffff & _dcandidates_16_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_17_T_1 = io_icache_io_req_addr + 32'h11; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_17_T_2 = 32'h3ffffff & _icandidates_17_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_17_T_2 = _dcandidates_0_T + 32'h11; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_17_T_3 = 32'h3ffffff & _dcandidates_17_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_18_T_1 = io_icache_io_req_addr + 32'h12; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_18_T_2 = 32'h3ffffff & _icandidates_18_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_18_T_2 = _dcandidates_0_T + 32'h12; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_18_T_3 = 32'h3ffffff & _dcandidates_18_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_19_T_1 = io_icache_io_req_addr + 32'h13; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_19_T_2 = 32'h3ffffff & _icandidates_19_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_19_T_2 = _dcandidates_0_T + 32'h13; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_19_T_3 = 32'h3ffffff & _dcandidates_19_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_20_T_1 = io_icache_io_req_addr + 32'h14; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_20_T_2 = 32'h3ffffff & _icandidates_20_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_20_T_2 = _dcandidates_0_T + 32'h14; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_20_T_3 = 32'h3ffffff & _dcandidates_20_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_21_T_1 = io_icache_io_req_addr + 32'h15; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_21_T_2 = 32'h3ffffff & _icandidates_21_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_21_T_2 = _dcandidates_0_T + 32'h15; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_21_T_3 = 32'h3ffffff & _dcandidates_21_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_22_T_1 = io_icache_io_req_addr + 32'h16; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_22_T_2 = 32'h3ffffff & _icandidates_22_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_22_T_2 = _dcandidates_0_T + 32'h16; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_22_T_3 = 32'h3ffffff & _dcandidates_22_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_23_T_1 = io_icache_io_req_addr + 32'h17; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_23_T_2 = 32'h3ffffff & _icandidates_23_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_23_T_2 = _dcandidates_0_T + 32'h17; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_23_T_3 = 32'h3ffffff & _dcandidates_23_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_24_T_1 = io_icache_io_req_addr + 32'h18; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_24_T_2 = 32'h3ffffff & _icandidates_24_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_24_T_2 = _dcandidates_0_T + 32'h18; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_24_T_3 = 32'h3ffffff & _dcandidates_24_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_25_T_1 = io_icache_io_req_addr + 32'h19; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_25_T_2 = 32'h3ffffff & _icandidates_25_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_25_T_2 = _dcandidates_0_T + 32'h19; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_25_T_3 = 32'h3ffffff & _dcandidates_25_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_26_T_1 = io_icache_io_req_addr + 32'h1a; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_26_T_2 = 32'h3ffffff & _icandidates_26_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_26_T_2 = _dcandidates_0_T + 32'h1a; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_26_T_3 = 32'h3ffffff & _dcandidates_26_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_27_T_1 = io_icache_io_req_addr + 32'h1b; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_27_T_2 = 32'h3ffffff & _icandidates_27_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_27_T_2 = _dcandidates_0_T + 32'h1b; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_27_T_3 = 32'h3ffffff & _dcandidates_27_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_28_T_1 = io_icache_io_req_addr + 32'h1c; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_28_T_2 = 32'h3ffffff & _icandidates_28_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_28_T_2 = _dcandidates_0_T + 32'h1c; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_28_T_3 = 32'h3ffffff & _dcandidates_28_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_29_T_1 = io_icache_io_req_addr + 32'h1d; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_29_T_2 = 32'h3ffffff & _icandidates_29_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_29_T_2 = _dcandidates_0_T + 32'h1d; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_29_T_3 = 32'h3ffffff & _dcandidates_29_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_30_T_1 = io_icache_io_req_addr + 32'h1e; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_30_T_2 = 32'h3ffffff & _icandidates_30_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_30_T_2 = _dcandidates_0_T + 32'h1e; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_30_T_3 = 32'h3ffffff & _dcandidates_30_T_2; // @[SimMem.scala 47:44]
+  wire [31:0] _icandidates_31_T_1 = io_icache_io_req_addr + 32'h1f; // @[SimMem.scala 46:69]
+  wire [31:0] _icandidates_31_T_2 = 32'h3ffffff & _icandidates_31_T_1; // @[SimMem.scala 46:44]
+  wire [31:0] _dcandidates_31_T_2 = _dcandidates_0_T + 32'h1f; // @[SimMem.scala 47:89]
+  wire [31:0] _dcandidates_31_T_3 = 32'h3ffffff & _dcandidates_31_T_2; // @[SimMem.scala 47:44]
+  wire  _T_12 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000; // @[SimMem.scala 49:31]
+  wire  _T_13 = 32'hbfd003fd == io_dcache_io_req_addr; // @[Conditional.scala 37:30]
+  wire  _T_14 = 32'hbfd00071 == io_dcache_io_req_addr; // @[Conditional.scala 37:30]
+  wire [31:0] _GEN_2 = _T_14 ? 32'hff : 32'hdeadbeef; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 51:20]
+  wire [7:0] _GEN_3 = _T_14 ? 8'hff : memory_dcandidates_1_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [7:0] _GEN_4 = _T_14 ? 8'hff : memory_dcandidates_2_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [7:0] _GEN_5 = _T_14 ? 8'hff : memory_dcandidates_3_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [7:0] _GEN_6 = _T_14 ? 8'hff : memory_dcandidates_4_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [7:0] _GEN_7 = _T_14 ? 8'hff : memory_dcandidates_5_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [7:0] _GEN_8 = _T_14 ? 8'hff : memory_dcandidates_6_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [7:0] _GEN_9 = _T_14 ? 8'hff : memory_dcandidates_7_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
+  wire [31:0] _GEN_10 = _T_13 ? 32'h60 : _GEN_2; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_11 = _T_13 ? 8'h60 : _GEN_3; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_12 = _T_13 ? 8'h60 : _GEN_4; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_13 = _T_13 ? 8'h60 : _GEN_5; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_14 = _T_13 ? 8'h60 : _GEN_6; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_15 = _T_13 ? 8'h60 : _GEN_7; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_16 = _T_13 ? 8'h60 : _GEN_8; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire [7:0] _GEN_17 = _T_13 ? 8'h60 : _GEN_9; // @[Conditional.scala 40:58 SimMem.scala 53:61]
+  wire  write_ram = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? 1'h0 : _GEN_1; // @[SimMem.scala 49:81 SimMem.scala 50:15]
+  wire [31:0] _GEN_19 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_10 : {{24'd0},
+    memory_dcandidates_0_MPORT_data}; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_1 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_11 :
+    memory_dcandidates_1_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_2 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_12 :
+    memory_dcandidates_2_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_3 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_13 :
+    memory_dcandidates_3_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_4 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_14 :
+    memory_dcandidates_4_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_5 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_15 :
+    memory_dcandidates_5_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_6 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_16 :
+    memory_dcandidates_6_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  wire [7:0] dcandidates_7 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_17 :
+    memory_dcandidates_7_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
+  reg  io_icache_io_resp_valid_REG; // @[SimMem.scala 63:37]
+  wire [7:0] icandidates_1 = memory_icandidates_1_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_0 = memory_icandidates_0_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_3 = memory_icandidates_3_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_2 = memory_icandidates_2_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_5 = memory_icandidates_5_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_4 = memory_icandidates_4_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_7 = memory_icandidates_7_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_6 = memory_icandidates_6_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [63:0] io_icache_io_resp_data_lo_lo = {icandidates_7,icandidates_6,icandidates_5,icandidates_4,icandidates_3,
-    icandidates_2,icandidates_1,icandidates_0}; // @[SimMem.scala 69:50]
-  wire [7:0] icandidates_9 = memory_icandidates_9_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_8 = memory_icandidates_8_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_11 = memory_icandidates_11_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_10 = memory_icandidates_10_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_13 = memory_icandidates_13_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_12 = memory_icandidates_12_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_15 = memory_icandidates_15_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_14 = memory_icandidates_14_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
+    icandidates_2,icandidates_1,icandidates_0}; // @[SimMem.scala 64:50]
+  wire [7:0] icandidates_9 = memory_icandidates_9_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_8 = memory_icandidates_8_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_11 = memory_icandidates_11_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_10 = memory_icandidates_10_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_13 = memory_icandidates_13_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_12 = memory_icandidates_12_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_15 = memory_icandidates_15_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_14 = memory_icandidates_14_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [127:0] io_icache_io_resp_data_lo = {icandidates_15,icandidates_14,icandidates_13,icandidates_12,icandidates_11,
-    icandidates_10,icandidates_9,icandidates_8,io_icache_io_resp_data_lo_lo}; // @[SimMem.scala 69:50]
-  wire [7:0] icandidates_17 = memory_icandidates_17_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_16 = memory_icandidates_16_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_19 = memory_icandidates_19_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_18 = memory_icandidates_18_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_21 = memory_icandidates_21_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_20 = memory_icandidates_20_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_23 = memory_icandidates_23_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_22 = memory_icandidates_22_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
+    icandidates_10,icandidates_9,icandidates_8,io_icache_io_resp_data_lo_lo}; // @[SimMem.scala 64:50]
+  wire [7:0] icandidates_17 = memory_icandidates_17_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_16 = memory_icandidates_16_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_19 = memory_icandidates_19_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_18 = memory_icandidates_18_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_21 = memory_icandidates_21_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_20 = memory_icandidates_20_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_23 = memory_icandidates_23_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_22 = memory_icandidates_22_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [63:0] io_icache_io_resp_data_hi_lo = {icandidates_23,icandidates_22,icandidates_21,icandidates_20,icandidates_19
-    ,icandidates_18,icandidates_17,icandidates_16}; // @[SimMem.scala 69:50]
-  wire [7:0] icandidates_25 = memory_icandidates_25_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_24 = memory_icandidates_24_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_27 = memory_icandidates_27_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_26 = memory_icandidates_26_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_29 = memory_icandidates_29_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_28 = memory_icandidates_28_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_31 = memory_icandidates_31_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
-  wire [7:0] icandidates_30 = memory_icandidates_30_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 51:20]
+    ,icandidates_18,icandidates_17,icandidates_16}; // @[SimMem.scala 64:50]
+  wire [7:0] icandidates_25 = memory_icandidates_25_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_24 = memory_icandidates_24_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_27 = memory_icandidates_27_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_26 = memory_icandidates_26_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_29 = memory_icandidates_29_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_28 = memory_icandidates_28_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_31 = memory_icandidates_31_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
+  wire [7:0] icandidates_30 = memory_icandidates_30_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [127:0] io_icache_io_resp_data_hi = {icandidates_31,icandidates_30,icandidates_29,icandidates_28,icandidates_27,
-    icandidates_26,icandidates_25,icandidates_24,io_icache_io_resp_data_hi_lo}; // @[SimMem.scala 69:50]
-  reg [255:0] io_icache_io_resp_data_REG; // @[SimMem.scala 69:37]
-  reg  io_dcache_io_resp_valid_REG; // @[SimMem.scala 70:37]
-  wire [7:0] dcandidates_0 = _GEN_17[7:0]; // @[SimMem.scala 21:25]
+    icandidates_26,icandidates_25,icandidates_24,io_icache_io_resp_data_hi_lo}; // @[SimMem.scala 64:50]
+  reg [255:0] io_icache_io_resp_data_REG; // @[SimMem.scala 64:37]
+  reg  io_dcache_io_resp_valid_REG; // @[SimMem.scala 65:37]
+  wire [7:0] dcandidates_0 = _GEN_19[7:0]; // @[SimMem.scala 21:25]
   wire [63:0] io_dcache_io_resp_data_lo_lo = {dcandidates_7,dcandidates_6,dcandidates_5,dcandidates_4,dcandidates_3,
-    dcandidates_2,dcandidates_1,dcandidates_0}; // @[SimMem.scala 71:50]
-  wire [7:0] dcandidates_9 = memory_dcandidates_9_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_8 = memory_dcandidates_8_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_11 = memory_dcandidates_11_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_10 = memory_dcandidates_10_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_13 = memory_dcandidates_13_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_12 = memory_dcandidates_12_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_15 = memory_dcandidates_15_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_14 = memory_dcandidates_14_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
+    dcandidates_2,dcandidates_1,dcandidates_0}; // @[SimMem.scala 66:50]
+  wire [7:0] dcandidates_9 = memory_dcandidates_9_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_8 = memory_dcandidates_8_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_11 = memory_dcandidates_11_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_10 = memory_dcandidates_10_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_13 = memory_dcandidates_13_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_12 = memory_dcandidates_12_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_15 = memory_dcandidates_15_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_14 = memory_dcandidates_14_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [127:0] io_dcache_io_resp_data_lo = {dcandidates_15,dcandidates_14,dcandidates_13,dcandidates_12,dcandidates_11,
-    dcandidates_10,dcandidates_9,dcandidates_8,io_dcache_io_resp_data_lo_lo}; // @[SimMem.scala 71:50]
-  wire [7:0] dcandidates_17 = memory_dcandidates_17_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_16 = memory_dcandidates_16_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_19 = memory_dcandidates_19_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_18 = memory_dcandidates_18_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_21 = memory_dcandidates_21_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_20 = memory_dcandidates_20_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_23 = memory_dcandidates_23_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_22 = memory_dcandidates_22_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
+    dcandidates_10,dcandidates_9,dcandidates_8,io_dcache_io_resp_data_lo_lo}; // @[SimMem.scala 66:50]
+  wire [7:0] dcandidates_17 = memory_dcandidates_17_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_16 = memory_dcandidates_16_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_19 = memory_dcandidates_19_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_18 = memory_dcandidates_18_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_21 = memory_dcandidates_21_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_20 = memory_dcandidates_20_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_23 = memory_dcandidates_23_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_22 = memory_dcandidates_22_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [63:0] io_dcache_io_resp_data_hi_lo = {dcandidates_23,dcandidates_22,dcandidates_21,dcandidates_20,dcandidates_19
-    ,dcandidates_18,dcandidates_17,dcandidates_16}; // @[SimMem.scala 71:50]
-  wire [7:0] dcandidates_25 = memory_dcandidates_25_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_24 = memory_dcandidates_24_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_27 = memory_dcandidates_27_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_26 = memory_dcandidates_26_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_29 = memory_dcandidates_29_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_28 = memory_dcandidates_28_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_31 = memory_dcandidates_31_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
-  wire [7:0] dcandidates_30 = memory_dcandidates_30_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 52:20]
+    ,dcandidates_18,dcandidates_17,dcandidates_16}; // @[SimMem.scala 66:50]
+  wire [7:0] dcandidates_25 = memory_dcandidates_25_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_24 = memory_dcandidates_24_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_27 = memory_dcandidates_27_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_26 = memory_dcandidates_26_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_29 = memory_dcandidates_29_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_28 = memory_dcandidates_28_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_31 = memory_dcandidates_31_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_30 = memory_dcandidates_30_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [127:0] io_dcache_io_resp_data_hi = {dcandidates_31,dcandidates_30,dcandidates_29,dcandidates_28,dcandidates_27,
-    dcandidates_26,dcandidates_25,dcandidates_24,io_dcache_io_resp_data_hi_lo}; // @[SimMem.scala 71:50]
-  reg [255:0] io_dcache_io_resp_data_REG; // @[SimMem.scala 71:37]
-  wire  _T_12 = io_dcache_io_req_wen & write_ram & io_dcache_io_req_valid; // @[SimMem.scala 75:42]
-  wire  _T_13 = 3'h0 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_17 = io_dcache_io_req_addr + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_18 = io_dcache_io_req_addr[28] ? _T_17 : io_dcache_io_req_addr; // @[SimMem.scala 47:19]
-  wire [31:0] _T_19 = 32'h3ffffff & _T_18; // @[SimMem.scala 47:14]
-  wire  _T_22 = 3'h1 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_32 = io_dcache_io_req_addr + 32'h1; // @[SimMem.scala 84:53]
-  wire [31:0] _T_36 = _T_32 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_37 = _T_32[28] ? _T_36 : _T_32; // @[SimMem.scala 47:19]
-  wire [31:0] _T_38 = 32'h3ffffff & _T_37; // @[SimMem.scala 47:14]
-  wire  _T_41 = 3'h2 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_61 = io_dcache_io_req_addr + 32'h2; // @[SimMem.scala 90:53]
-  wire [31:0] _T_65 = _T_61 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_66 = _T_61[28] ? _T_65 : _T_61; // @[SimMem.scala 47:19]
-  wire [31:0] _T_67 = 32'h3ffffff & _T_66; // @[SimMem.scala 47:14]
-  wire [31:0] _T_71 = io_dcache_io_req_addr + 32'h3; // @[SimMem.scala 91:53]
-  wire [31:0] _T_75 = _T_71 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_76 = _T_71[28] ? _T_75 : _T_71; // @[SimMem.scala 47:19]
-  wire [31:0] _T_77 = 32'h3ffffff & _T_76; // @[SimMem.scala 47:14]
-  wire  _T_80 = 3'h3 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [32:0] _T_81 = {{1'd0}, io_dcache_io_req_addr}; // @[SimMem.scala 96:55]
-  wire [31:0] _T_86 = _T_81[31:0] + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_87 = _T_81[28] ? _T_86 : _T_81[31:0]; // @[SimMem.scala 47:19]
-  wire [31:0] _T_88 = 32'h3ffffff & _T_87; // @[SimMem.scala 47:14]
-  wire [31:0] _T_122 = io_dcache_io_req_addr + 32'h4; // @[SimMem.scala 96:55]
-  wire [31:0] _T_126 = _T_122 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_127 = _T_122[28] ? _T_126 : _T_122; // @[SimMem.scala 47:19]
-  wire [31:0] _T_128 = 32'h3ffffff & _T_127; // @[SimMem.scala 47:14]
-  wire [31:0] _T_132 = io_dcache_io_req_addr + 32'h5; // @[SimMem.scala 96:55]
-  wire [31:0] _T_136 = _T_132 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_137 = _T_132[28] ? _T_136 : _T_132; // @[SimMem.scala 47:19]
-  wire [31:0] _T_138 = 32'h3ffffff & _T_137; // @[SimMem.scala 47:14]
-  wire [31:0] _T_142 = io_dcache_io_req_addr + 32'h6; // @[SimMem.scala 96:55]
-  wire [31:0] _T_146 = _T_142 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_147 = _T_142[28] ? _T_146 : _T_142; // @[SimMem.scala 47:19]
-  wire [31:0] _T_148 = 32'h3ffffff & _T_147; // @[SimMem.scala 47:14]
-  wire [31:0] _T_152 = io_dcache_io_req_addr + 32'h7; // @[SimMem.scala 96:55]
-  wire [31:0] _T_156 = _T_152 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_157 = _T_152[28] ? _T_156 : _T_152; // @[SimMem.scala 47:19]
-  wire [31:0] _T_158 = 32'h3ffffff & _T_157; // @[SimMem.scala 47:14]
-  wire  _T_161 = 3'h4 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_243 = io_dcache_io_req_addr + 32'h8; // @[SimMem.scala 102:55]
-  wire [31:0] _T_247 = _T_243 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_248 = _T_243[28] ? _T_247 : _T_243; // @[SimMem.scala 47:19]
-  wire [31:0] _T_249 = 32'h3ffffff & _T_248; // @[SimMem.scala 47:14]
-  wire [31:0] _T_253 = io_dcache_io_req_addr + 32'h9; // @[SimMem.scala 102:55]
-  wire [31:0] _T_257 = _T_253 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_258 = _T_253[28] ? _T_257 : _T_253; // @[SimMem.scala 47:19]
-  wire [31:0] _T_259 = 32'h3ffffff & _T_258; // @[SimMem.scala 47:14]
-  wire [31:0] _T_263 = io_dcache_io_req_addr + 32'ha; // @[SimMem.scala 102:55]
-  wire [31:0] _T_267 = _T_263 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_268 = _T_263[28] ? _T_267 : _T_263; // @[SimMem.scala 47:19]
-  wire [31:0] _T_269 = 32'h3ffffff & _T_268; // @[SimMem.scala 47:14]
-  wire [31:0] _T_273 = io_dcache_io_req_addr + 32'hb; // @[SimMem.scala 102:55]
-  wire [31:0] _T_277 = _T_273 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_278 = _T_273[28] ? _T_277 : _T_273; // @[SimMem.scala 47:19]
-  wire [31:0] _T_279 = 32'h3ffffff & _T_278; // @[SimMem.scala 47:14]
-  wire [31:0] _T_283 = io_dcache_io_req_addr + 32'hc; // @[SimMem.scala 102:55]
-  wire [31:0] _T_287 = _T_283 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_288 = _T_283[28] ? _T_287 : _T_283; // @[SimMem.scala 47:19]
-  wire [31:0] _T_289 = 32'h3ffffff & _T_288; // @[SimMem.scala 47:14]
-  wire [31:0] _T_293 = io_dcache_io_req_addr + 32'hd; // @[SimMem.scala 102:55]
-  wire [31:0] _T_297 = _T_293 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_298 = _T_293[28] ? _T_297 : _T_293; // @[SimMem.scala 47:19]
-  wire [31:0] _T_299 = 32'h3ffffff & _T_298; // @[SimMem.scala 47:14]
-  wire [31:0] _T_303 = io_dcache_io_req_addr + 32'he; // @[SimMem.scala 102:55]
-  wire [31:0] _T_307 = _T_303 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_308 = _T_303[28] ? _T_307 : _T_303; // @[SimMem.scala 47:19]
-  wire [31:0] _T_309 = 32'h3ffffff & _T_308; // @[SimMem.scala 47:14]
-  wire [31:0] _T_313 = io_dcache_io_req_addr + 32'hf; // @[SimMem.scala 102:55]
-  wire [31:0] _T_317 = _T_313 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_318 = _T_313[28] ? _T_317 : _T_313; // @[SimMem.scala 47:19]
-  wire [31:0] _T_319 = 32'h3ffffff & _T_318; // @[SimMem.scala 47:14]
-  wire [31:0] _T_323 = io_dcache_io_req_addr + 32'h10; // @[SimMem.scala 102:55]
-  wire [31:0] _T_327 = _T_323 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_328 = _T_323[28] ? _T_327 : _T_323; // @[SimMem.scala 47:19]
-  wire [31:0] _T_329 = 32'h3ffffff & _T_328; // @[SimMem.scala 47:14]
-  wire [31:0] _T_333 = io_dcache_io_req_addr + 32'h11; // @[SimMem.scala 102:55]
-  wire [31:0] _T_337 = _T_333 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_338 = _T_333[28] ? _T_337 : _T_333; // @[SimMem.scala 47:19]
-  wire [31:0] _T_339 = 32'h3ffffff & _T_338; // @[SimMem.scala 47:14]
-  wire [31:0] _T_343 = io_dcache_io_req_addr + 32'h12; // @[SimMem.scala 102:55]
-  wire [31:0] _T_347 = _T_343 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_348 = _T_343[28] ? _T_347 : _T_343; // @[SimMem.scala 47:19]
-  wire [31:0] _T_349 = 32'h3ffffff & _T_348; // @[SimMem.scala 47:14]
-  wire [31:0] _T_353 = io_dcache_io_req_addr + 32'h13; // @[SimMem.scala 102:55]
-  wire [31:0] _T_357 = _T_353 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_358 = _T_353[28] ? _T_357 : _T_353; // @[SimMem.scala 47:19]
-  wire [31:0] _T_359 = 32'h3ffffff & _T_358; // @[SimMem.scala 47:14]
-  wire [31:0] _T_363 = io_dcache_io_req_addr + 32'h14; // @[SimMem.scala 102:55]
-  wire [31:0] _T_367 = _T_363 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_368 = _T_363[28] ? _T_367 : _T_363; // @[SimMem.scala 47:19]
-  wire [31:0] _T_369 = 32'h3ffffff & _T_368; // @[SimMem.scala 47:14]
-  wire [31:0] _T_373 = io_dcache_io_req_addr + 32'h15; // @[SimMem.scala 102:55]
-  wire [31:0] _T_377 = _T_373 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_378 = _T_373[28] ? _T_377 : _T_373; // @[SimMem.scala 47:19]
-  wire [31:0] _T_379 = 32'h3ffffff & _T_378; // @[SimMem.scala 47:14]
-  wire [31:0] _T_383 = io_dcache_io_req_addr + 32'h16; // @[SimMem.scala 102:55]
-  wire [31:0] _T_387 = _T_383 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_388 = _T_383[28] ? _T_387 : _T_383; // @[SimMem.scala 47:19]
-  wire [31:0] _T_389 = 32'h3ffffff & _T_388; // @[SimMem.scala 47:14]
-  wire [31:0] _T_393 = io_dcache_io_req_addr + 32'h17; // @[SimMem.scala 102:55]
-  wire [31:0] _T_397 = _T_393 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_398 = _T_393[28] ? _T_397 : _T_393; // @[SimMem.scala 47:19]
-  wire [31:0] _T_399 = 32'h3ffffff & _T_398; // @[SimMem.scala 47:14]
-  wire [31:0] _T_403 = io_dcache_io_req_addr + 32'h18; // @[SimMem.scala 102:55]
-  wire [31:0] _T_407 = _T_403 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_408 = _T_403[28] ? _T_407 : _T_403; // @[SimMem.scala 47:19]
-  wire [31:0] _T_409 = 32'h3ffffff & _T_408; // @[SimMem.scala 47:14]
-  wire [31:0] _T_413 = io_dcache_io_req_addr + 32'h19; // @[SimMem.scala 102:55]
-  wire [31:0] _T_417 = _T_413 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_418 = _T_413[28] ? _T_417 : _T_413; // @[SimMem.scala 47:19]
-  wire [31:0] _T_419 = 32'h3ffffff & _T_418; // @[SimMem.scala 47:14]
-  wire [31:0] _T_423 = io_dcache_io_req_addr + 32'h1a; // @[SimMem.scala 102:55]
-  wire [31:0] _T_427 = _T_423 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_428 = _T_423[28] ? _T_427 : _T_423; // @[SimMem.scala 47:19]
-  wire [31:0] _T_429 = 32'h3ffffff & _T_428; // @[SimMem.scala 47:14]
-  wire [31:0] _T_433 = io_dcache_io_req_addr + 32'h1b; // @[SimMem.scala 102:55]
-  wire [31:0] _T_437 = _T_433 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_438 = _T_433[28] ? _T_437 : _T_433; // @[SimMem.scala 47:19]
-  wire [31:0] _T_439 = 32'h3ffffff & _T_438; // @[SimMem.scala 47:14]
-  wire [31:0] _T_443 = io_dcache_io_req_addr + 32'h1c; // @[SimMem.scala 102:55]
-  wire [31:0] _T_447 = _T_443 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_448 = _T_443[28] ? _T_447 : _T_443; // @[SimMem.scala 47:19]
-  wire [31:0] _T_449 = 32'h3ffffff & _T_448; // @[SimMem.scala 47:14]
-  wire [31:0] _T_453 = io_dcache_io_req_addr + 32'h1d; // @[SimMem.scala 102:55]
-  wire [31:0] _T_457 = _T_453 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_458 = _T_453[28] ? _T_457 : _T_453; // @[SimMem.scala 47:19]
-  wire [31:0] _T_459 = 32'h3ffffff & _T_458; // @[SimMem.scala 47:14]
-  wire [31:0] _T_463 = io_dcache_io_req_addr + 32'h1e; // @[SimMem.scala 102:55]
-  wire [31:0] _T_467 = _T_463 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_468 = _T_463[28] ? _T_467 : _T_463; // @[SimMem.scala 47:19]
-  wire [31:0] _T_469 = 32'h3ffffff & _T_468; // @[SimMem.scala 47:14]
-  wire [31:0] _T_473 = io_dcache_io_req_addr + 32'h1f; // @[SimMem.scala 102:55]
-  wire [31:0] _T_477 = _T_473 + 32'h4000000; // @[SimMem.scala 47:43]
-  wire [31:0] _T_478 = _T_473[28] ? _T_477 : _T_473; // @[SimMem.scala 47:19]
-  wire [31:0] _T_479 = 32'h3ffffff & _T_478; // @[SimMem.scala 47:14]
-  wire  _GEN_113 = _T_80 ? 1'h0 : _T_161; // @[Conditional.scala 39:67 SimMem.scala 43:19]
-  wire  _GEN_191 = _T_41 ? 1'h0 : _T_80; // @[Conditional.scala 39:67 SimMem.scala 43:19]
-  wire  _GEN_210 = _T_41 ? 1'h0 : _GEN_113; // @[Conditional.scala 39:67 SimMem.scala 43:19]
-  wire  _GEN_284 = _T_22 ? 1'h0 : _T_41; // @[Conditional.scala 39:67 SimMem.scala 43:19]
-  wire  _GEN_295 = _T_22 ? 1'h0 : _GEN_191; // @[Conditional.scala 39:67 SimMem.scala 43:19]
-  wire  _GEN_314 = _T_22 ? 1'h0 : _GEN_210; // @[Conditional.scala 39:67 SimMem.scala 43:19]
-  wire  _GEN_386 = _T_13 ? 1'h0 : _T_22; // @[Conditional.scala 40:58 SimMem.scala 43:19]
-  wire  _GEN_393 = _T_13 ? 1'h0 : _GEN_284; // @[Conditional.scala 40:58 SimMem.scala 43:19]
-  wire  _GEN_404 = _T_13 ? 1'h0 : _GEN_295; // @[Conditional.scala 40:58 SimMem.scala 43:19]
-  wire  _GEN_423 = _T_13 ? 1'h0 : _GEN_314; // @[Conditional.scala 40:58 SimMem.scala 43:19]
-  assign memory_icandidates_0_MPORT_addr = _icandidates_0_T_7[26:0];
-  assign memory_icandidates_0_MPORT_data = memory[memory_icandidates_0_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_0_MPORT_addr = _dcandidates_0_T_8[26:0];
-  assign memory_dcandidates_0_MPORT_data = memory[memory_dcandidates_0_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_1_MPORT_addr = _icandidates_1_T_7[26:0];
-  assign memory_icandidates_1_MPORT_data = memory[memory_icandidates_1_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_1_MPORT_addr = _dcandidates_1_T_8[26:0];
-  assign memory_dcandidates_1_MPORT_data = memory[memory_dcandidates_1_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_2_MPORT_addr = _icandidates_2_T_7[26:0];
-  assign memory_icandidates_2_MPORT_data = memory[memory_icandidates_2_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_2_MPORT_addr = _dcandidates_2_T_8[26:0];
-  assign memory_dcandidates_2_MPORT_data = memory[memory_dcandidates_2_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_3_MPORT_addr = _icandidates_3_T_7[26:0];
-  assign memory_icandidates_3_MPORT_data = memory[memory_icandidates_3_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_3_MPORT_addr = _dcandidates_3_T_8[26:0];
-  assign memory_dcandidates_3_MPORT_data = memory[memory_dcandidates_3_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_4_MPORT_addr = _icandidates_4_T_7[26:0];
-  assign memory_icandidates_4_MPORT_data = memory[memory_icandidates_4_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_4_MPORT_addr = _dcandidates_4_T_8[26:0];
-  assign memory_dcandidates_4_MPORT_data = memory[memory_dcandidates_4_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_5_MPORT_addr = _icandidates_5_T_7[26:0];
-  assign memory_icandidates_5_MPORT_data = memory[memory_icandidates_5_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_5_MPORT_addr = _dcandidates_5_T_8[26:0];
-  assign memory_dcandidates_5_MPORT_data = memory[memory_dcandidates_5_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_6_MPORT_addr = _icandidates_6_T_7[26:0];
-  assign memory_icandidates_6_MPORT_data = memory[memory_icandidates_6_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_6_MPORT_addr = _dcandidates_6_T_8[26:0];
-  assign memory_dcandidates_6_MPORT_data = memory[memory_dcandidates_6_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_7_MPORT_addr = _icandidates_7_T_7[26:0];
-  assign memory_icandidates_7_MPORT_data = memory[memory_icandidates_7_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_7_MPORT_addr = _dcandidates_7_T_8[26:0];
-  assign memory_dcandidates_7_MPORT_data = memory[memory_dcandidates_7_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_8_MPORT_addr = _icandidates_8_T_7[26:0];
-  assign memory_icandidates_8_MPORT_data = memory[memory_icandidates_8_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_8_MPORT_addr = _dcandidates_8_T_8[26:0];
-  assign memory_dcandidates_8_MPORT_data = memory[memory_dcandidates_8_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_9_MPORT_addr = _icandidates_9_T_7[26:0];
-  assign memory_icandidates_9_MPORT_data = memory[memory_icandidates_9_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_9_MPORT_addr = _dcandidates_9_T_8[26:0];
-  assign memory_dcandidates_9_MPORT_data = memory[memory_dcandidates_9_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_10_MPORT_addr = _icandidates_10_T_7[26:0];
-  assign memory_icandidates_10_MPORT_data = memory[memory_icandidates_10_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_10_MPORT_addr = _dcandidates_10_T_8[26:0];
-  assign memory_dcandidates_10_MPORT_data = memory[memory_dcandidates_10_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_11_MPORT_addr = _icandidates_11_T_7[26:0];
-  assign memory_icandidates_11_MPORT_data = memory[memory_icandidates_11_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_11_MPORT_addr = _dcandidates_11_T_8[26:0];
-  assign memory_dcandidates_11_MPORT_data = memory[memory_dcandidates_11_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_12_MPORT_addr = _icandidates_12_T_7[26:0];
-  assign memory_icandidates_12_MPORT_data = memory[memory_icandidates_12_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_12_MPORT_addr = _dcandidates_12_T_8[26:0];
-  assign memory_dcandidates_12_MPORT_data = memory[memory_dcandidates_12_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_13_MPORT_addr = _icandidates_13_T_7[26:0];
-  assign memory_icandidates_13_MPORT_data = memory[memory_icandidates_13_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_13_MPORT_addr = _dcandidates_13_T_8[26:0];
-  assign memory_dcandidates_13_MPORT_data = memory[memory_dcandidates_13_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_14_MPORT_addr = _icandidates_14_T_7[26:0];
-  assign memory_icandidates_14_MPORT_data = memory[memory_icandidates_14_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_14_MPORT_addr = _dcandidates_14_T_8[26:0];
-  assign memory_dcandidates_14_MPORT_data = memory[memory_dcandidates_14_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_15_MPORT_addr = _icandidates_15_T_7[26:0];
-  assign memory_icandidates_15_MPORT_data = memory[memory_icandidates_15_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_15_MPORT_addr = _dcandidates_15_T_8[26:0];
-  assign memory_dcandidates_15_MPORT_data = memory[memory_dcandidates_15_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_16_MPORT_addr = _icandidates_16_T_7[26:0];
-  assign memory_icandidates_16_MPORT_data = memory[memory_icandidates_16_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_16_MPORT_addr = _dcandidates_16_T_8[26:0];
-  assign memory_dcandidates_16_MPORT_data = memory[memory_dcandidates_16_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_17_MPORT_addr = _icandidates_17_T_7[26:0];
-  assign memory_icandidates_17_MPORT_data = memory[memory_icandidates_17_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_17_MPORT_addr = _dcandidates_17_T_8[26:0];
-  assign memory_dcandidates_17_MPORT_data = memory[memory_dcandidates_17_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_18_MPORT_addr = _icandidates_18_T_7[26:0];
-  assign memory_icandidates_18_MPORT_data = memory[memory_icandidates_18_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_18_MPORT_addr = _dcandidates_18_T_8[26:0];
-  assign memory_dcandidates_18_MPORT_data = memory[memory_dcandidates_18_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_19_MPORT_addr = _icandidates_19_T_7[26:0];
-  assign memory_icandidates_19_MPORT_data = memory[memory_icandidates_19_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_19_MPORT_addr = _dcandidates_19_T_8[26:0];
-  assign memory_dcandidates_19_MPORT_data = memory[memory_dcandidates_19_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_20_MPORT_addr = _icandidates_20_T_7[26:0];
-  assign memory_icandidates_20_MPORT_data = memory[memory_icandidates_20_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_20_MPORT_addr = _dcandidates_20_T_8[26:0];
-  assign memory_dcandidates_20_MPORT_data = memory[memory_dcandidates_20_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_21_MPORT_addr = _icandidates_21_T_7[26:0];
-  assign memory_icandidates_21_MPORT_data = memory[memory_icandidates_21_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_21_MPORT_addr = _dcandidates_21_T_8[26:0];
-  assign memory_dcandidates_21_MPORT_data = memory[memory_dcandidates_21_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_22_MPORT_addr = _icandidates_22_T_7[26:0];
-  assign memory_icandidates_22_MPORT_data = memory[memory_icandidates_22_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_22_MPORT_addr = _dcandidates_22_T_8[26:0];
-  assign memory_dcandidates_22_MPORT_data = memory[memory_dcandidates_22_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_23_MPORT_addr = _icandidates_23_T_7[26:0];
-  assign memory_icandidates_23_MPORT_data = memory[memory_icandidates_23_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_23_MPORT_addr = _dcandidates_23_T_8[26:0];
-  assign memory_dcandidates_23_MPORT_data = memory[memory_dcandidates_23_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_24_MPORT_addr = _icandidates_24_T_7[26:0];
-  assign memory_icandidates_24_MPORT_data = memory[memory_icandidates_24_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_24_MPORT_addr = _dcandidates_24_T_8[26:0];
-  assign memory_dcandidates_24_MPORT_data = memory[memory_dcandidates_24_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_25_MPORT_addr = _icandidates_25_T_7[26:0];
-  assign memory_icandidates_25_MPORT_data = memory[memory_icandidates_25_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_25_MPORT_addr = _dcandidates_25_T_8[26:0];
-  assign memory_dcandidates_25_MPORT_data = memory[memory_dcandidates_25_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_26_MPORT_addr = _icandidates_26_T_7[26:0];
-  assign memory_icandidates_26_MPORT_data = memory[memory_icandidates_26_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_26_MPORT_addr = _dcandidates_26_T_8[26:0];
-  assign memory_dcandidates_26_MPORT_data = memory[memory_dcandidates_26_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_27_MPORT_addr = _icandidates_27_T_7[26:0];
-  assign memory_icandidates_27_MPORT_data = memory[memory_icandidates_27_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_27_MPORT_addr = _dcandidates_27_T_8[26:0];
-  assign memory_dcandidates_27_MPORT_data = memory[memory_dcandidates_27_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_28_MPORT_addr = _icandidates_28_T_7[26:0];
-  assign memory_icandidates_28_MPORT_data = memory[memory_icandidates_28_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_28_MPORT_addr = _dcandidates_28_T_8[26:0];
-  assign memory_dcandidates_28_MPORT_data = memory[memory_dcandidates_28_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_29_MPORT_addr = _icandidates_29_T_7[26:0];
-  assign memory_icandidates_29_MPORT_data = memory[memory_icandidates_29_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_29_MPORT_addr = _dcandidates_29_T_8[26:0];
-  assign memory_dcandidates_29_MPORT_data = memory[memory_dcandidates_29_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_30_MPORT_addr = _icandidates_30_T_7[26:0];
-  assign memory_icandidates_30_MPORT_data = memory[memory_icandidates_30_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_30_MPORT_addr = _dcandidates_30_T_8[26:0];
-  assign memory_dcandidates_30_MPORT_data = memory[memory_dcandidates_30_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_icandidates_31_MPORT_addr = _icandidates_31_T_7[26:0];
-  assign memory_icandidates_31_MPORT_data = memory[memory_icandidates_31_MPORT_addr]; // @[SimMem.scala 43:19]
-  assign memory_dcandidates_31_MPORT_addr = _dcandidates_31_T_8[26:0];
-  assign memory_dcandidates_31_MPORT_data = memory[memory_dcandidates_31_MPORT_addr]; // @[SimMem.scala 43:19]
+    dcandidates_26,dcandidates_25,dcandidates_24,io_dcache_io_resp_data_hi_lo}; // @[SimMem.scala 66:50]
+  reg [255:0] io_dcache_io_resp_data_REG; // @[SimMem.scala 66:37]
+  wire  _T_19 = io_dcache_io_req_wen & write_ram & io_dcache_io_req_valid; // @[SimMem.scala 70:42]
+  wire  _T_20 = 3'h0 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_21 = io_dcache_io_req_addr & 32'h3ffffff; // @[SimMem.scala 74:44]
+  wire  _T_24 = 3'h1 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_29 = io_dcache_io_req_addr + 32'h1; // @[SimMem.scala 79:45]
+  wire [31:0] _T_30 = _T_29 & 32'h3ffffff; // @[SimMem.scala 79:52]
+  wire  _T_33 = 3'h2 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_43 = io_dcache_io_req_addr + 32'h2; // @[SimMem.scala 85:45]
+  wire [31:0] _T_44 = _T_43 & 32'h3ffffff; // @[SimMem.scala 85:52]
+  wire [31:0] _T_48 = io_dcache_io_req_addr + 32'h3; // @[SimMem.scala 86:45]
+  wire [31:0] _T_49 = _T_48 & 32'h3ffffff; // @[SimMem.scala 86:52]
+  wire  _T_52 = 3'h3 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [32:0] _T_53 = {{1'd0}, io_dcache_io_req_addr}; // @[SimMem.scala 91:47]
+  wire [31:0] _T_55 = _T_53[31:0] & 32'h3ffffff; // @[SimMem.scala 91:54]
+  wire [31:0] _T_74 = io_dcache_io_req_addr + 32'h4; // @[SimMem.scala 91:47]
+  wire [31:0] _T_75 = _T_74 & 32'h3ffffff; // @[SimMem.scala 91:54]
+  wire [31:0] _T_79 = io_dcache_io_req_addr + 32'h5; // @[SimMem.scala 91:47]
+  wire [31:0] _T_80 = _T_79 & 32'h3ffffff; // @[SimMem.scala 91:54]
+  wire [31:0] _T_84 = io_dcache_io_req_addr + 32'h6; // @[SimMem.scala 91:47]
+  wire [31:0] _T_85 = _T_84 & 32'h3ffffff; // @[SimMem.scala 91:54]
+  wire [31:0] _T_89 = io_dcache_io_req_addr + 32'h7; // @[SimMem.scala 91:47]
+  wire [31:0] _T_90 = _T_89 & 32'h3ffffff; // @[SimMem.scala 91:54]
+  wire  _T_93 = 3'h4 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_135 = io_dcache_io_req_addr + 32'h8; // @[SimMem.scala 97:47]
+  wire [31:0] _T_136 = _T_135 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_140 = io_dcache_io_req_addr + 32'h9; // @[SimMem.scala 97:47]
+  wire [31:0] _T_141 = _T_140 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_145 = io_dcache_io_req_addr + 32'ha; // @[SimMem.scala 97:47]
+  wire [31:0] _T_146 = _T_145 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_150 = io_dcache_io_req_addr + 32'hb; // @[SimMem.scala 97:47]
+  wire [31:0] _T_151 = _T_150 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_155 = io_dcache_io_req_addr + 32'hc; // @[SimMem.scala 97:47]
+  wire [31:0] _T_156 = _T_155 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_160 = io_dcache_io_req_addr + 32'hd; // @[SimMem.scala 97:47]
+  wire [31:0] _T_161 = _T_160 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_165 = io_dcache_io_req_addr + 32'he; // @[SimMem.scala 97:47]
+  wire [31:0] _T_166 = _T_165 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_170 = io_dcache_io_req_addr + 32'hf; // @[SimMem.scala 97:47]
+  wire [31:0] _T_171 = _T_170 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_175 = io_dcache_io_req_addr + 32'h10; // @[SimMem.scala 97:47]
+  wire [31:0] _T_176 = _T_175 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_180 = io_dcache_io_req_addr + 32'h11; // @[SimMem.scala 97:47]
+  wire [31:0] _T_181 = _T_180 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_185 = io_dcache_io_req_addr + 32'h12; // @[SimMem.scala 97:47]
+  wire [31:0] _T_186 = _T_185 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_190 = io_dcache_io_req_addr + 32'h13; // @[SimMem.scala 97:47]
+  wire [31:0] _T_191 = _T_190 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_195 = io_dcache_io_req_addr + 32'h14; // @[SimMem.scala 97:47]
+  wire [31:0] _T_196 = _T_195 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_200 = io_dcache_io_req_addr + 32'h15; // @[SimMem.scala 97:47]
+  wire [31:0] _T_201 = _T_200 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_205 = io_dcache_io_req_addr + 32'h16; // @[SimMem.scala 97:47]
+  wire [31:0] _T_206 = _T_205 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_210 = io_dcache_io_req_addr + 32'h17; // @[SimMem.scala 97:47]
+  wire [31:0] _T_211 = _T_210 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_215 = io_dcache_io_req_addr + 32'h18; // @[SimMem.scala 97:47]
+  wire [31:0] _T_216 = _T_215 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_220 = io_dcache_io_req_addr + 32'h19; // @[SimMem.scala 97:47]
+  wire [31:0] _T_221 = _T_220 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_225 = io_dcache_io_req_addr + 32'h1a; // @[SimMem.scala 97:47]
+  wire [31:0] _T_226 = _T_225 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_230 = io_dcache_io_req_addr + 32'h1b; // @[SimMem.scala 97:47]
+  wire [31:0] _T_231 = _T_230 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_235 = io_dcache_io_req_addr + 32'h1c; // @[SimMem.scala 97:47]
+  wire [31:0] _T_236 = _T_235 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_240 = io_dcache_io_req_addr + 32'h1d; // @[SimMem.scala 97:47]
+  wire [31:0] _T_241 = _T_240 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_245 = io_dcache_io_req_addr + 32'h1e; // @[SimMem.scala 97:47]
+  wire [31:0] _T_246 = _T_245 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire [31:0] _T_250 = io_dcache_io_req_addr + 32'h1f; // @[SimMem.scala 97:47]
+  wire [31:0] _T_251 = _T_250 & 32'h3ffffff; // @[SimMem.scala 97:54]
+  wire  _GEN_115 = _T_52 ? 1'h0 : _T_93; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_193 = _T_33 ? 1'h0 : _T_52; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_212 = _T_33 ? 1'h0 : _GEN_115; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_286 = _T_24 ? 1'h0 : _T_33; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_297 = _T_24 ? 1'h0 : _GEN_193; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_316 = _T_24 ? 1'h0 : _GEN_212; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_388 = _T_20 ? 1'h0 : _T_24; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  wire  _GEN_395 = _T_20 ? 1'h0 : _GEN_286; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  wire  _GEN_406 = _T_20 ? 1'h0 : _GEN_297; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  wire  _GEN_425 = _T_20 ? 1'h0 : _GEN_316; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  assign memory_icandidates_0_MPORT_addr = _icandidates_0_T_2[25:0];
+  assign memory_icandidates_0_MPORT_data = memory[memory_icandidates_0_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_0_MPORT_addr = _dcandidates_0_T_3[25:0];
+  assign memory_dcandidates_0_MPORT_data = memory[memory_dcandidates_0_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_1_MPORT_addr = _icandidates_1_T_2[25:0];
+  assign memory_icandidates_1_MPORT_data = memory[memory_icandidates_1_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_1_MPORT_addr = _dcandidates_1_T_3[25:0];
+  assign memory_dcandidates_1_MPORT_data = memory[memory_dcandidates_1_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_2_MPORT_addr = _icandidates_2_T_2[25:0];
+  assign memory_icandidates_2_MPORT_data = memory[memory_icandidates_2_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_2_MPORT_addr = _dcandidates_2_T_3[25:0];
+  assign memory_dcandidates_2_MPORT_data = memory[memory_dcandidates_2_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_3_MPORT_addr = _icandidates_3_T_2[25:0];
+  assign memory_icandidates_3_MPORT_data = memory[memory_icandidates_3_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_3_MPORT_addr = _dcandidates_3_T_3[25:0];
+  assign memory_dcandidates_3_MPORT_data = memory[memory_dcandidates_3_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_4_MPORT_addr = _icandidates_4_T_2[25:0];
+  assign memory_icandidates_4_MPORT_data = memory[memory_icandidates_4_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_4_MPORT_addr = _dcandidates_4_T_3[25:0];
+  assign memory_dcandidates_4_MPORT_data = memory[memory_dcandidates_4_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_5_MPORT_addr = _icandidates_5_T_2[25:0];
+  assign memory_icandidates_5_MPORT_data = memory[memory_icandidates_5_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_5_MPORT_addr = _dcandidates_5_T_3[25:0];
+  assign memory_dcandidates_5_MPORT_data = memory[memory_dcandidates_5_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_6_MPORT_addr = _icandidates_6_T_2[25:0];
+  assign memory_icandidates_6_MPORT_data = memory[memory_icandidates_6_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_6_MPORT_addr = _dcandidates_6_T_3[25:0];
+  assign memory_dcandidates_6_MPORT_data = memory[memory_dcandidates_6_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_7_MPORT_addr = _icandidates_7_T_2[25:0];
+  assign memory_icandidates_7_MPORT_data = memory[memory_icandidates_7_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_7_MPORT_addr = _dcandidates_7_T_3[25:0];
+  assign memory_dcandidates_7_MPORT_data = memory[memory_dcandidates_7_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_8_MPORT_addr = _icandidates_8_T_2[25:0];
+  assign memory_icandidates_8_MPORT_data = memory[memory_icandidates_8_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_8_MPORT_addr = _dcandidates_8_T_3[25:0];
+  assign memory_dcandidates_8_MPORT_data = memory[memory_dcandidates_8_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_9_MPORT_addr = _icandidates_9_T_2[25:0];
+  assign memory_icandidates_9_MPORT_data = memory[memory_icandidates_9_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_9_MPORT_addr = _dcandidates_9_T_3[25:0];
+  assign memory_dcandidates_9_MPORT_data = memory[memory_dcandidates_9_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_10_MPORT_addr = _icandidates_10_T_2[25:0];
+  assign memory_icandidates_10_MPORT_data = memory[memory_icandidates_10_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_10_MPORT_addr = _dcandidates_10_T_3[25:0];
+  assign memory_dcandidates_10_MPORT_data = memory[memory_dcandidates_10_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_11_MPORT_addr = _icandidates_11_T_2[25:0];
+  assign memory_icandidates_11_MPORT_data = memory[memory_icandidates_11_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_11_MPORT_addr = _dcandidates_11_T_3[25:0];
+  assign memory_dcandidates_11_MPORT_data = memory[memory_dcandidates_11_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_12_MPORT_addr = _icandidates_12_T_2[25:0];
+  assign memory_icandidates_12_MPORT_data = memory[memory_icandidates_12_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_12_MPORT_addr = _dcandidates_12_T_3[25:0];
+  assign memory_dcandidates_12_MPORT_data = memory[memory_dcandidates_12_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_13_MPORT_addr = _icandidates_13_T_2[25:0];
+  assign memory_icandidates_13_MPORT_data = memory[memory_icandidates_13_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_13_MPORT_addr = _dcandidates_13_T_3[25:0];
+  assign memory_dcandidates_13_MPORT_data = memory[memory_dcandidates_13_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_14_MPORT_addr = _icandidates_14_T_2[25:0];
+  assign memory_icandidates_14_MPORT_data = memory[memory_icandidates_14_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_14_MPORT_addr = _dcandidates_14_T_3[25:0];
+  assign memory_dcandidates_14_MPORT_data = memory[memory_dcandidates_14_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_15_MPORT_addr = _icandidates_15_T_2[25:0];
+  assign memory_icandidates_15_MPORT_data = memory[memory_icandidates_15_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_15_MPORT_addr = _dcandidates_15_T_3[25:0];
+  assign memory_dcandidates_15_MPORT_data = memory[memory_dcandidates_15_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_16_MPORT_addr = _icandidates_16_T_2[25:0];
+  assign memory_icandidates_16_MPORT_data = memory[memory_icandidates_16_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_16_MPORT_addr = _dcandidates_16_T_3[25:0];
+  assign memory_dcandidates_16_MPORT_data = memory[memory_dcandidates_16_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_17_MPORT_addr = _icandidates_17_T_2[25:0];
+  assign memory_icandidates_17_MPORT_data = memory[memory_icandidates_17_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_17_MPORT_addr = _dcandidates_17_T_3[25:0];
+  assign memory_dcandidates_17_MPORT_data = memory[memory_dcandidates_17_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_18_MPORT_addr = _icandidates_18_T_2[25:0];
+  assign memory_icandidates_18_MPORT_data = memory[memory_icandidates_18_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_18_MPORT_addr = _dcandidates_18_T_3[25:0];
+  assign memory_dcandidates_18_MPORT_data = memory[memory_dcandidates_18_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_19_MPORT_addr = _icandidates_19_T_2[25:0];
+  assign memory_icandidates_19_MPORT_data = memory[memory_icandidates_19_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_19_MPORT_addr = _dcandidates_19_T_3[25:0];
+  assign memory_dcandidates_19_MPORT_data = memory[memory_dcandidates_19_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_20_MPORT_addr = _icandidates_20_T_2[25:0];
+  assign memory_icandidates_20_MPORT_data = memory[memory_icandidates_20_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_20_MPORT_addr = _dcandidates_20_T_3[25:0];
+  assign memory_dcandidates_20_MPORT_data = memory[memory_dcandidates_20_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_21_MPORT_addr = _icandidates_21_T_2[25:0];
+  assign memory_icandidates_21_MPORT_data = memory[memory_icandidates_21_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_21_MPORT_addr = _dcandidates_21_T_3[25:0];
+  assign memory_dcandidates_21_MPORT_data = memory[memory_dcandidates_21_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_22_MPORT_addr = _icandidates_22_T_2[25:0];
+  assign memory_icandidates_22_MPORT_data = memory[memory_icandidates_22_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_22_MPORT_addr = _dcandidates_22_T_3[25:0];
+  assign memory_dcandidates_22_MPORT_data = memory[memory_dcandidates_22_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_23_MPORT_addr = _icandidates_23_T_2[25:0];
+  assign memory_icandidates_23_MPORT_data = memory[memory_icandidates_23_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_23_MPORT_addr = _dcandidates_23_T_3[25:0];
+  assign memory_dcandidates_23_MPORT_data = memory[memory_dcandidates_23_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_24_MPORT_addr = _icandidates_24_T_2[25:0];
+  assign memory_icandidates_24_MPORT_data = memory[memory_icandidates_24_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_24_MPORT_addr = _dcandidates_24_T_3[25:0];
+  assign memory_dcandidates_24_MPORT_data = memory[memory_dcandidates_24_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_25_MPORT_addr = _icandidates_25_T_2[25:0];
+  assign memory_icandidates_25_MPORT_data = memory[memory_icandidates_25_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_25_MPORT_addr = _dcandidates_25_T_3[25:0];
+  assign memory_dcandidates_25_MPORT_data = memory[memory_dcandidates_25_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_26_MPORT_addr = _icandidates_26_T_2[25:0];
+  assign memory_icandidates_26_MPORT_data = memory[memory_icandidates_26_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_26_MPORT_addr = _dcandidates_26_T_3[25:0];
+  assign memory_dcandidates_26_MPORT_data = memory[memory_dcandidates_26_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_27_MPORT_addr = _icandidates_27_T_2[25:0];
+  assign memory_icandidates_27_MPORT_data = memory[memory_icandidates_27_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_27_MPORT_addr = _dcandidates_27_T_3[25:0];
+  assign memory_dcandidates_27_MPORT_data = memory[memory_dcandidates_27_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_28_MPORT_addr = _icandidates_28_T_2[25:0];
+  assign memory_icandidates_28_MPORT_data = memory[memory_icandidates_28_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_28_MPORT_addr = _dcandidates_28_T_3[25:0];
+  assign memory_dcandidates_28_MPORT_data = memory[memory_dcandidates_28_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_29_MPORT_addr = _icandidates_29_T_2[25:0];
+  assign memory_icandidates_29_MPORT_data = memory[memory_icandidates_29_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_29_MPORT_addr = _dcandidates_29_T_3[25:0];
+  assign memory_dcandidates_29_MPORT_data = memory[memory_dcandidates_29_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_30_MPORT_addr = _icandidates_30_T_2[25:0];
+  assign memory_icandidates_30_MPORT_data = memory[memory_icandidates_30_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_30_MPORT_addr = _dcandidates_30_T_3[25:0];
+  assign memory_dcandidates_30_MPORT_data = memory[memory_dcandidates_30_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_icandidates_31_MPORT_addr = _icandidates_31_T_2[25:0];
+  assign memory_icandidates_31_MPORT_data = memory[memory_icandidates_31_MPORT_addr]; // @[SimMem.scala 42:19]
+  assign memory_dcandidates_31_MPORT_addr = _dcandidates_31_T_3[25:0];
+  assign memory_dcandidates_31_MPORT_data = memory[memory_dcandidates_31_MPORT_addr]; // @[SimMem.scala 42:19]
   assign memory_MPORT_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_addr = _T_19[26:0];
+  assign memory_MPORT_addr = _T_21[25:0];
   assign memory_MPORT_mask = 1'h1;
-  assign memory_MPORT_en = _T_12 & _T_13;
+  assign memory_MPORT_en = _T_19 & _T_20;
   assign memory_MPORT_1_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_1_addr = _T_19[26:0];
+  assign memory_MPORT_1_addr = _T_21[25:0];
   assign memory_MPORT_1_mask = 1'h1;
-  assign memory_MPORT_1_en = _T_12 & _GEN_386;
+  assign memory_MPORT_1_en = _T_19 & _GEN_388;
   assign memory_MPORT_2_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_2_addr = _T_38[26:0];
+  assign memory_MPORT_2_addr = _T_30[25:0];
   assign memory_MPORT_2_mask = 1'h1;
-  assign memory_MPORT_2_en = _T_12 & _GEN_386;
+  assign memory_MPORT_2_en = _T_19 & _GEN_388;
   assign memory_MPORT_3_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_3_addr = _T_19[26:0];
+  assign memory_MPORT_3_addr = _T_21[25:0];
   assign memory_MPORT_3_mask = 1'h1;
-  assign memory_MPORT_3_en = _T_12 & _GEN_393;
+  assign memory_MPORT_3_en = _T_19 & _GEN_395;
   assign memory_MPORT_4_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_4_addr = _T_38[26:0];
+  assign memory_MPORT_4_addr = _T_30[25:0];
   assign memory_MPORT_4_mask = 1'h1;
-  assign memory_MPORT_4_en = _T_12 & _GEN_393;
+  assign memory_MPORT_4_en = _T_19 & _GEN_395;
   assign memory_MPORT_5_data = io_dcache_io_req_data[23:16];
-  assign memory_MPORT_5_addr = _T_67[26:0];
+  assign memory_MPORT_5_addr = _T_44[25:0];
   assign memory_MPORT_5_mask = 1'h1;
-  assign memory_MPORT_5_en = _T_12 & _GEN_393;
+  assign memory_MPORT_5_en = _T_19 & _GEN_395;
   assign memory_MPORT_6_data = io_dcache_io_req_data[31:24];
-  assign memory_MPORT_6_addr = _T_77[26:0];
+  assign memory_MPORT_6_addr = _T_49[25:0];
   assign memory_MPORT_6_mask = 1'h1;
-  assign memory_MPORT_6_en = _T_12 & _GEN_393;
+  assign memory_MPORT_6_en = _T_19 & _GEN_395;
   assign memory_MPORT_7_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_7_addr = _T_88[26:0];
+  assign memory_MPORT_7_addr = _T_55[25:0];
   assign memory_MPORT_7_mask = 1'h1;
-  assign memory_MPORT_7_en = _T_12 & _GEN_404;
+  assign memory_MPORT_7_en = _T_19 & _GEN_406;
   assign memory_MPORT_8_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_8_addr = _T_38[26:0];
+  assign memory_MPORT_8_addr = _T_30[25:0];
   assign memory_MPORT_8_mask = 1'h1;
-  assign memory_MPORT_8_en = _T_12 & _GEN_404;
+  assign memory_MPORT_8_en = _T_19 & _GEN_406;
   assign memory_MPORT_9_data = io_dcache_io_req_data[23:16];
-  assign memory_MPORT_9_addr = _T_67[26:0];
+  assign memory_MPORT_9_addr = _T_44[25:0];
   assign memory_MPORT_9_mask = 1'h1;
-  assign memory_MPORT_9_en = _T_12 & _GEN_404;
+  assign memory_MPORT_9_en = _T_19 & _GEN_406;
   assign memory_MPORT_10_data = io_dcache_io_req_data[31:24];
-  assign memory_MPORT_10_addr = _T_77[26:0];
+  assign memory_MPORT_10_addr = _T_49[25:0];
   assign memory_MPORT_10_mask = 1'h1;
-  assign memory_MPORT_10_en = _T_12 & _GEN_404;
+  assign memory_MPORT_10_en = _T_19 & _GEN_406;
   assign memory_MPORT_11_data = io_dcache_io_req_data[39:32];
-  assign memory_MPORT_11_addr = _T_128[26:0];
+  assign memory_MPORT_11_addr = _T_75[25:0];
   assign memory_MPORT_11_mask = 1'h1;
-  assign memory_MPORT_11_en = _T_12 & _GEN_404;
+  assign memory_MPORT_11_en = _T_19 & _GEN_406;
   assign memory_MPORT_12_data = io_dcache_io_req_data[47:40];
-  assign memory_MPORT_12_addr = _T_138[26:0];
+  assign memory_MPORT_12_addr = _T_80[25:0];
   assign memory_MPORT_12_mask = 1'h1;
-  assign memory_MPORT_12_en = _T_12 & _GEN_404;
+  assign memory_MPORT_12_en = _T_19 & _GEN_406;
   assign memory_MPORT_13_data = io_dcache_io_req_data[55:48];
-  assign memory_MPORT_13_addr = _T_148[26:0];
+  assign memory_MPORT_13_addr = _T_85[25:0];
   assign memory_MPORT_13_mask = 1'h1;
-  assign memory_MPORT_13_en = _T_12 & _GEN_404;
+  assign memory_MPORT_13_en = _T_19 & _GEN_406;
   assign memory_MPORT_14_data = io_dcache_io_req_data[63:56];
-  assign memory_MPORT_14_addr = _T_158[26:0];
+  assign memory_MPORT_14_addr = _T_90[25:0];
   assign memory_MPORT_14_mask = 1'h1;
-  assign memory_MPORT_14_en = _T_12 & _GEN_404;
+  assign memory_MPORT_14_en = _T_19 & _GEN_406;
   assign memory_MPORT_15_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_15_addr = _T_88[26:0];
+  assign memory_MPORT_15_addr = _T_55[25:0];
   assign memory_MPORT_15_mask = 1'h1;
-  assign memory_MPORT_15_en = _T_12 & _GEN_423;
+  assign memory_MPORT_15_en = _T_19 & _GEN_425;
   assign memory_MPORT_16_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_16_addr = _T_38[26:0];
+  assign memory_MPORT_16_addr = _T_30[25:0];
   assign memory_MPORT_16_mask = 1'h1;
-  assign memory_MPORT_16_en = _T_12 & _GEN_423;
+  assign memory_MPORT_16_en = _T_19 & _GEN_425;
   assign memory_MPORT_17_data = io_dcache_io_req_data[23:16];
-  assign memory_MPORT_17_addr = _T_67[26:0];
+  assign memory_MPORT_17_addr = _T_44[25:0];
   assign memory_MPORT_17_mask = 1'h1;
-  assign memory_MPORT_17_en = _T_12 & _GEN_423;
+  assign memory_MPORT_17_en = _T_19 & _GEN_425;
   assign memory_MPORT_18_data = io_dcache_io_req_data[31:24];
-  assign memory_MPORT_18_addr = _T_77[26:0];
+  assign memory_MPORT_18_addr = _T_49[25:0];
   assign memory_MPORT_18_mask = 1'h1;
-  assign memory_MPORT_18_en = _T_12 & _GEN_423;
+  assign memory_MPORT_18_en = _T_19 & _GEN_425;
   assign memory_MPORT_19_data = io_dcache_io_req_data[39:32];
-  assign memory_MPORT_19_addr = _T_128[26:0];
+  assign memory_MPORT_19_addr = _T_75[25:0];
   assign memory_MPORT_19_mask = 1'h1;
-  assign memory_MPORT_19_en = _T_12 & _GEN_423;
+  assign memory_MPORT_19_en = _T_19 & _GEN_425;
   assign memory_MPORT_20_data = io_dcache_io_req_data[47:40];
-  assign memory_MPORT_20_addr = _T_138[26:0];
+  assign memory_MPORT_20_addr = _T_80[25:0];
   assign memory_MPORT_20_mask = 1'h1;
-  assign memory_MPORT_20_en = _T_12 & _GEN_423;
+  assign memory_MPORT_20_en = _T_19 & _GEN_425;
   assign memory_MPORT_21_data = io_dcache_io_req_data[55:48];
-  assign memory_MPORT_21_addr = _T_148[26:0];
+  assign memory_MPORT_21_addr = _T_85[25:0];
   assign memory_MPORT_21_mask = 1'h1;
-  assign memory_MPORT_21_en = _T_12 & _GEN_423;
+  assign memory_MPORT_21_en = _T_19 & _GEN_425;
   assign memory_MPORT_22_data = io_dcache_io_req_data[63:56];
-  assign memory_MPORT_22_addr = _T_158[26:0];
+  assign memory_MPORT_22_addr = _T_90[25:0];
   assign memory_MPORT_22_mask = 1'h1;
-  assign memory_MPORT_22_en = _T_12 & _GEN_423;
+  assign memory_MPORT_22_en = _T_19 & _GEN_425;
   assign memory_MPORT_23_data = io_dcache_io_req_data[71:64];
-  assign memory_MPORT_23_addr = _T_249[26:0];
+  assign memory_MPORT_23_addr = _T_136[25:0];
   assign memory_MPORT_23_mask = 1'h1;
-  assign memory_MPORT_23_en = _T_12 & _GEN_423;
+  assign memory_MPORT_23_en = _T_19 & _GEN_425;
   assign memory_MPORT_24_data = io_dcache_io_req_data[79:72];
-  assign memory_MPORT_24_addr = _T_259[26:0];
+  assign memory_MPORT_24_addr = _T_141[25:0];
   assign memory_MPORT_24_mask = 1'h1;
-  assign memory_MPORT_24_en = _T_12 & _GEN_423;
+  assign memory_MPORT_24_en = _T_19 & _GEN_425;
   assign memory_MPORT_25_data = io_dcache_io_req_data[87:80];
-  assign memory_MPORT_25_addr = _T_269[26:0];
+  assign memory_MPORT_25_addr = _T_146[25:0];
   assign memory_MPORT_25_mask = 1'h1;
-  assign memory_MPORT_25_en = _T_12 & _GEN_423;
+  assign memory_MPORT_25_en = _T_19 & _GEN_425;
   assign memory_MPORT_26_data = io_dcache_io_req_data[95:88];
-  assign memory_MPORT_26_addr = _T_279[26:0];
+  assign memory_MPORT_26_addr = _T_151[25:0];
   assign memory_MPORT_26_mask = 1'h1;
-  assign memory_MPORT_26_en = _T_12 & _GEN_423;
+  assign memory_MPORT_26_en = _T_19 & _GEN_425;
   assign memory_MPORT_27_data = io_dcache_io_req_data[103:96];
-  assign memory_MPORT_27_addr = _T_289[26:0];
+  assign memory_MPORT_27_addr = _T_156[25:0];
   assign memory_MPORT_27_mask = 1'h1;
-  assign memory_MPORT_27_en = _T_12 & _GEN_423;
+  assign memory_MPORT_27_en = _T_19 & _GEN_425;
   assign memory_MPORT_28_data = io_dcache_io_req_data[111:104];
-  assign memory_MPORT_28_addr = _T_299[26:0];
+  assign memory_MPORT_28_addr = _T_161[25:0];
   assign memory_MPORT_28_mask = 1'h1;
-  assign memory_MPORT_28_en = _T_12 & _GEN_423;
+  assign memory_MPORT_28_en = _T_19 & _GEN_425;
   assign memory_MPORT_29_data = io_dcache_io_req_data[119:112];
-  assign memory_MPORT_29_addr = _T_309[26:0];
+  assign memory_MPORT_29_addr = _T_166[25:0];
   assign memory_MPORT_29_mask = 1'h1;
-  assign memory_MPORT_29_en = _T_12 & _GEN_423;
+  assign memory_MPORT_29_en = _T_19 & _GEN_425;
   assign memory_MPORT_30_data = io_dcache_io_req_data[127:120];
-  assign memory_MPORT_30_addr = _T_319[26:0];
+  assign memory_MPORT_30_addr = _T_171[25:0];
   assign memory_MPORT_30_mask = 1'h1;
-  assign memory_MPORT_30_en = _T_12 & _GEN_423;
+  assign memory_MPORT_30_en = _T_19 & _GEN_425;
   assign memory_MPORT_31_data = io_dcache_io_req_data[135:128];
-  assign memory_MPORT_31_addr = _T_329[26:0];
+  assign memory_MPORT_31_addr = _T_176[25:0];
   assign memory_MPORT_31_mask = 1'h1;
-  assign memory_MPORT_31_en = _T_12 & _GEN_423;
+  assign memory_MPORT_31_en = _T_19 & _GEN_425;
   assign memory_MPORT_32_data = io_dcache_io_req_data[143:136];
-  assign memory_MPORT_32_addr = _T_339[26:0];
+  assign memory_MPORT_32_addr = _T_181[25:0];
   assign memory_MPORT_32_mask = 1'h1;
-  assign memory_MPORT_32_en = _T_12 & _GEN_423;
+  assign memory_MPORT_32_en = _T_19 & _GEN_425;
   assign memory_MPORT_33_data = io_dcache_io_req_data[151:144];
-  assign memory_MPORT_33_addr = _T_349[26:0];
+  assign memory_MPORT_33_addr = _T_186[25:0];
   assign memory_MPORT_33_mask = 1'h1;
-  assign memory_MPORT_33_en = _T_12 & _GEN_423;
+  assign memory_MPORT_33_en = _T_19 & _GEN_425;
   assign memory_MPORT_34_data = io_dcache_io_req_data[159:152];
-  assign memory_MPORT_34_addr = _T_359[26:0];
+  assign memory_MPORT_34_addr = _T_191[25:0];
   assign memory_MPORT_34_mask = 1'h1;
-  assign memory_MPORT_34_en = _T_12 & _GEN_423;
+  assign memory_MPORT_34_en = _T_19 & _GEN_425;
   assign memory_MPORT_35_data = io_dcache_io_req_data[167:160];
-  assign memory_MPORT_35_addr = _T_369[26:0];
+  assign memory_MPORT_35_addr = _T_196[25:0];
   assign memory_MPORT_35_mask = 1'h1;
-  assign memory_MPORT_35_en = _T_12 & _GEN_423;
+  assign memory_MPORT_35_en = _T_19 & _GEN_425;
   assign memory_MPORT_36_data = io_dcache_io_req_data[175:168];
-  assign memory_MPORT_36_addr = _T_379[26:0];
+  assign memory_MPORT_36_addr = _T_201[25:0];
   assign memory_MPORT_36_mask = 1'h1;
-  assign memory_MPORT_36_en = _T_12 & _GEN_423;
+  assign memory_MPORT_36_en = _T_19 & _GEN_425;
   assign memory_MPORT_37_data = io_dcache_io_req_data[183:176];
-  assign memory_MPORT_37_addr = _T_389[26:0];
+  assign memory_MPORT_37_addr = _T_206[25:0];
   assign memory_MPORT_37_mask = 1'h1;
-  assign memory_MPORT_37_en = _T_12 & _GEN_423;
+  assign memory_MPORT_37_en = _T_19 & _GEN_425;
   assign memory_MPORT_38_data = io_dcache_io_req_data[191:184];
-  assign memory_MPORT_38_addr = _T_399[26:0];
+  assign memory_MPORT_38_addr = _T_211[25:0];
   assign memory_MPORT_38_mask = 1'h1;
-  assign memory_MPORT_38_en = _T_12 & _GEN_423;
+  assign memory_MPORT_38_en = _T_19 & _GEN_425;
   assign memory_MPORT_39_data = io_dcache_io_req_data[199:192];
-  assign memory_MPORT_39_addr = _T_409[26:0];
+  assign memory_MPORT_39_addr = _T_216[25:0];
   assign memory_MPORT_39_mask = 1'h1;
-  assign memory_MPORT_39_en = _T_12 & _GEN_423;
+  assign memory_MPORT_39_en = _T_19 & _GEN_425;
   assign memory_MPORT_40_data = io_dcache_io_req_data[207:200];
-  assign memory_MPORT_40_addr = _T_419[26:0];
+  assign memory_MPORT_40_addr = _T_221[25:0];
   assign memory_MPORT_40_mask = 1'h1;
-  assign memory_MPORT_40_en = _T_12 & _GEN_423;
+  assign memory_MPORT_40_en = _T_19 & _GEN_425;
   assign memory_MPORT_41_data = io_dcache_io_req_data[215:208];
-  assign memory_MPORT_41_addr = _T_429[26:0];
+  assign memory_MPORT_41_addr = _T_226[25:0];
   assign memory_MPORT_41_mask = 1'h1;
-  assign memory_MPORT_41_en = _T_12 & _GEN_423;
+  assign memory_MPORT_41_en = _T_19 & _GEN_425;
   assign memory_MPORT_42_data = io_dcache_io_req_data[223:216];
-  assign memory_MPORT_42_addr = _T_439[26:0];
+  assign memory_MPORT_42_addr = _T_231[25:0];
   assign memory_MPORT_42_mask = 1'h1;
-  assign memory_MPORT_42_en = _T_12 & _GEN_423;
+  assign memory_MPORT_42_en = _T_19 & _GEN_425;
   assign memory_MPORT_43_data = io_dcache_io_req_data[231:224];
-  assign memory_MPORT_43_addr = _T_449[26:0];
+  assign memory_MPORT_43_addr = _T_236[25:0];
   assign memory_MPORT_43_mask = 1'h1;
-  assign memory_MPORT_43_en = _T_12 & _GEN_423;
+  assign memory_MPORT_43_en = _T_19 & _GEN_425;
   assign memory_MPORT_44_data = io_dcache_io_req_data[239:232];
-  assign memory_MPORT_44_addr = _T_459[26:0];
+  assign memory_MPORT_44_addr = _T_241[25:0];
   assign memory_MPORT_44_mask = 1'h1;
-  assign memory_MPORT_44_en = _T_12 & _GEN_423;
+  assign memory_MPORT_44_en = _T_19 & _GEN_425;
   assign memory_MPORT_45_data = io_dcache_io_req_data[247:240];
-  assign memory_MPORT_45_addr = _T_469[26:0];
+  assign memory_MPORT_45_addr = _T_246[25:0];
   assign memory_MPORT_45_mask = 1'h1;
-  assign memory_MPORT_45_en = _T_12 & _GEN_423;
+  assign memory_MPORT_45_en = _T_19 & _GEN_425;
   assign memory_MPORT_46_data = io_dcache_io_req_data[255:248];
-  assign memory_MPORT_46_addr = _T_479[26:0];
+  assign memory_MPORT_46_addr = _T_251[25:0];
   assign memory_MPORT_46_mask = 1'h1;
-  assign memory_MPORT_46_en = _T_12 & _GEN_423;
-  assign io_icache_io_resp_valid = io_icache_io_resp_valid_REG; // @[SimMem.scala 68:27]
-  assign io_icache_io_resp_data = io_icache_io_resp_data_REG; // @[SimMem.scala 69:27]
-  assign io_dcache_io_resp_valid = io_dcache_io_resp_valid_REG; // @[SimMem.scala 70:27]
-  assign io_dcache_io_resp_data = io_dcache_io_resp_data_REG; // @[SimMem.scala 71:27]
+  assign memory_MPORT_46_en = _T_19 & _GEN_425;
+  assign io_icache_io_resp_valid = io_icache_io_resp_valid_REG; // @[SimMem.scala 63:27]
+  assign io_icache_io_resp_data = io_icache_io_resp_data_REG; // @[SimMem.scala 64:27]
+  assign io_dcache_io_resp_valid = io_dcache_io_resp_valid_REG; // @[SimMem.scala 65:27]
+  assign io_dcache_io_resp_data = io_dcache_io_resp_data_REG; // @[SimMem.scala 66:27]
   always @(posedge clock) begin
     if(memory_MPORT_en & memory_MPORT_mask) begin
-      memory[memory_MPORT_addr] <= memory_MPORT_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_addr] <= memory_MPORT_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_1_en & memory_MPORT_1_mask) begin
-      memory[memory_MPORT_1_addr] <= memory_MPORT_1_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_1_addr] <= memory_MPORT_1_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_2_en & memory_MPORT_2_mask) begin
-      memory[memory_MPORT_2_addr] <= memory_MPORT_2_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_2_addr] <= memory_MPORT_2_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_3_en & memory_MPORT_3_mask) begin
-      memory[memory_MPORT_3_addr] <= memory_MPORT_3_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_3_addr] <= memory_MPORT_3_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_4_en & memory_MPORT_4_mask) begin
-      memory[memory_MPORT_4_addr] <= memory_MPORT_4_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_4_addr] <= memory_MPORT_4_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_5_en & memory_MPORT_5_mask) begin
-      memory[memory_MPORT_5_addr] <= memory_MPORT_5_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_5_addr] <= memory_MPORT_5_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_6_en & memory_MPORT_6_mask) begin
-      memory[memory_MPORT_6_addr] <= memory_MPORT_6_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_6_addr] <= memory_MPORT_6_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_7_en & memory_MPORT_7_mask) begin
-      memory[memory_MPORT_7_addr] <= memory_MPORT_7_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_7_addr] <= memory_MPORT_7_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_8_en & memory_MPORT_8_mask) begin
-      memory[memory_MPORT_8_addr] <= memory_MPORT_8_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_8_addr] <= memory_MPORT_8_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_9_en & memory_MPORT_9_mask) begin
-      memory[memory_MPORT_9_addr] <= memory_MPORT_9_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_9_addr] <= memory_MPORT_9_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_10_en & memory_MPORT_10_mask) begin
-      memory[memory_MPORT_10_addr] <= memory_MPORT_10_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_10_addr] <= memory_MPORT_10_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_11_en & memory_MPORT_11_mask) begin
-      memory[memory_MPORT_11_addr] <= memory_MPORT_11_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_11_addr] <= memory_MPORT_11_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_12_en & memory_MPORT_12_mask) begin
-      memory[memory_MPORT_12_addr] <= memory_MPORT_12_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_12_addr] <= memory_MPORT_12_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_13_en & memory_MPORT_13_mask) begin
-      memory[memory_MPORT_13_addr] <= memory_MPORT_13_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_13_addr] <= memory_MPORT_13_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_14_en & memory_MPORT_14_mask) begin
-      memory[memory_MPORT_14_addr] <= memory_MPORT_14_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_14_addr] <= memory_MPORT_14_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_15_en & memory_MPORT_15_mask) begin
-      memory[memory_MPORT_15_addr] <= memory_MPORT_15_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_15_addr] <= memory_MPORT_15_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_16_en & memory_MPORT_16_mask) begin
-      memory[memory_MPORT_16_addr] <= memory_MPORT_16_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_16_addr] <= memory_MPORT_16_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_17_en & memory_MPORT_17_mask) begin
-      memory[memory_MPORT_17_addr] <= memory_MPORT_17_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_17_addr] <= memory_MPORT_17_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_18_en & memory_MPORT_18_mask) begin
-      memory[memory_MPORT_18_addr] <= memory_MPORT_18_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_18_addr] <= memory_MPORT_18_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_19_en & memory_MPORT_19_mask) begin
-      memory[memory_MPORT_19_addr] <= memory_MPORT_19_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_19_addr] <= memory_MPORT_19_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_20_en & memory_MPORT_20_mask) begin
-      memory[memory_MPORT_20_addr] <= memory_MPORT_20_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_20_addr] <= memory_MPORT_20_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_21_en & memory_MPORT_21_mask) begin
-      memory[memory_MPORT_21_addr] <= memory_MPORT_21_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_21_addr] <= memory_MPORT_21_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_22_en & memory_MPORT_22_mask) begin
-      memory[memory_MPORT_22_addr] <= memory_MPORT_22_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_22_addr] <= memory_MPORT_22_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_23_en & memory_MPORT_23_mask) begin
-      memory[memory_MPORT_23_addr] <= memory_MPORT_23_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_23_addr] <= memory_MPORT_23_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_24_en & memory_MPORT_24_mask) begin
-      memory[memory_MPORT_24_addr] <= memory_MPORT_24_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_24_addr] <= memory_MPORT_24_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_25_en & memory_MPORT_25_mask) begin
-      memory[memory_MPORT_25_addr] <= memory_MPORT_25_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_25_addr] <= memory_MPORT_25_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_26_en & memory_MPORT_26_mask) begin
-      memory[memory_MPORT_26_addr] <= memory_MPORT_26_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_26_addr] <= memory_MPORT_26_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_27_en & memory_MPORT_27_mask) begin
-      memory[memory_MPORT_27_addr] <= memory_MPORT_27_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_27_addr] <= memory_MPORT_27_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_28_en & memory_MPORT_28_mask) begin
-      memory[memory_MPORT_28_addr] <= memory_MPORT_28_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_28_addr] <= memory_MPORT_28_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_29_en & memory_MPORT_29_mask) begin
-      memory[memory_MPORT_29_addr] <= memory_MPORT_29_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_29_addr] <= memory_MPORT_29_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_30_en & memory_MPORT_30_mask) begin
-      memory[memory_MPORT_30_addr] <= memory_MPORT_30_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_30_addr] <= memory_MPORT_30_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_31_en & memory_MPORT_31_mask) begin
-      memory[memory_MPORT_31_addr] <= memory_MPORT_31_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_31_addr] <= memory_MPORT_31_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_32_en & memory_MPORT_32_mask) begin
-      memory[memory_MPORT_32_addr] <= memory_MPORT_32_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_32_addr] <= memory_MPORT_32_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_33_en & memory_MPORT_33_mask) begin
-      memory[memory_MPORT_33_addr] <= memory_MPORT_33_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_33_addr] <= memory_MPORT_33_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_34_en & memory_MPORT_34_mask) begin
-      memory[memory_MPORT_34_addr] <= memory_MPORT_34_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_34_addr] <= memory_MPORT_34_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_35_en & memory_MPORT_35_mask) begin
-      memory[memory_MPORT_35_addr] <= memory_MPORT_35_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_35_addr] <= memory_MPORT_35_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_36_en & memory_MPORT_36_mask) begin
-      memory[memory_MPORT_36_addr] <= memory_MPORT_36_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_36_addr] <= memory_MPORT_36_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_37_en & memory_MPORT_37_mask) begin
-      memory[memory_MPORT_37_addr] <= memory_MPORT_37_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_37_addr] <= memory_MPORT_37_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_38_en & memory_MPORT_38_mask) begin
-      memory[memory_MPORT_38_addr] <= memory_MPORT_38_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_38_addr] <= memory_MPORT_38_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_39_en & memory_MPORT_39_mask) begin
-      memory[memory_MPORT_39_addr] <= memory_MPORT_39_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_39_addr] <= memory_MPORT_39_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_40_en & memory_MPORT_40_mask) begin
-      memory[memory_MPORT_40_addr] <= memory_MPORT_40_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_40_addr] <= memory_MPORT_40_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_41_en & memory_MPORT_41_mask) begin
-      memory[memory_MPORT_41_addr] <= memory_MPORT_41_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_41_addr] <= memory_MPORT_41_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_42_en & memory_MPORT_42_mask) begin
-      memory[memory_MPORT_42_addr] <= memory_MPORT_42_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_42_addr] <= memory_MPORT_42_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_43_en & memory_MPORT_43_mask) begin
-      memory[memory_MPORT_43_addr] <= memory_MPORT_43_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_43_addr] <= memory_MPORT_43_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_44_en & memory_MPORT_44_mask) begin
-      memory[memory_MPORT_44_addr] <= memory_MPORT_44_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_44_addr] <= memory_MPORT_44_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_45_en & memory_MPORT_45_mask) begin
-      memory[memory_MPORT_45_addr] <= memory_MPORT_45_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_45_addr] <= memory_MPORT_45_data; // @[SimMem.scala 42:19]
     end
     if(memory_MPORT_46_en & memory_MPORT_46_mask) begin
-      memory[memory_MPORT_46_addr] <= memory_MPORT_46_data; // @[SimMem.scala 43:19]
+      memory[memory_MPORT_46_addr] <= memory_MPORT_46_data; // @[SimMem.scala 42:19]
     end
-    io_icache_io_resp_valid_REG <= io_icache_io_req_valid; // @[SimMem.scala 68:37]
-    io_icache_io_resp_data_REG <= {io_icache_io_resp_data_hi,io_icache_io_resp_data_lo}; // @[SimMem.scala 69:50]
-    io_dcache_io_resp_valid_REG <= io_dcache_io_req_valid; // @[SimMem.scala 70:37]
-    io_dcache_io_resp_data_REG <= {io_dcache_io_resp_data_hi,io_dcache_io_resp_data_lo}; // @[SimMem.scala 71:50]
+    io_icache_io_resp_valid_REG <= io_icache_io_req_valid; // @[SimMem.scala 63:37]
+    io_icache_io_resp_data_REG <= {io_icache_io_resp_data_hi,io_icache_io_resp_data_lo}; // @[SimMem.scala 64:50]
+    io_dcache_io_resp_valid_REG <= io_dcache_io_req_valid; // @[SimMem.scala 65:37]
+    io_dcache_io_resp_data_REG <= {io_dcache_io_resp_data_hi,io_dcache_io_resp_data_lo}; // @[SimMem.scala 66:50]
     `ifndef SYNTHESIS
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (io_icache_io_req_valid & _T & ~reset) begin
+        if (io_icache_io_req_valid & _T_7 & ~reset) begin
           $fwrite(32'h80000002,"icache is accessing %x, ram overflow\n",io_icache_io_req_addr); // @[SimMem.scala 35:14]
         end
     `ifdef PRINTF_COND
@@ -36462,8 +36272,8 @@ module SimMem(
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_5 & _T_2) begin
-          $fwrite(32'h80000002,"%c",io_dcache_io_req_data[7:0]); // @[SimMem.scala 61:11]
+        if (_T_12 & _T_9) begin
+          $fwrite(32'h80000002,"%c",io_dcache_io_req_data[7:0]); // @[SimMem.scala 56:11]
         end
     `ifdef PRINTF_COND
       end
