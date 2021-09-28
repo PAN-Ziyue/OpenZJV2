@@ -35463,10 +35463,11 @@ module SimMem(
   wire [25:0] memory_MPORT_46_addr; // @[SimMem.scala 42:19]
   wire  memory_MPORT_46_mask; // @[SimMem.scala 42:19]
   wire  memory_MPORT_46_en; // @[SimMem.scala 42:19]
-  wire  _GEN_0 = io_dcache_io_req_addr[29:0] >= 30'h4000000 ? 1'h0 : 1'h1; // @[SimMem.scala 24:56 SimMem.scala 25:17]
-  wire  _GEN_1 = io_dcache_io_req_valid ? _GEN_0 : 1'h1; // @[SimMem.scala 23:32]
-  wire  _T_7 = io_icache_io_req_addr >= 32'h84000000; // @[SimMem.scala 34:32]
-  wire  _T_9 = ~reset; // @[SimMem.scala 35:14]
+  wire  _GEN_0 = io_dcache_io_req_addr[29:0] >= 30'h4000000 ? 1'h0 : 1'h1; // @[SimMem.scala 25:56 SimMem.scala 26:17]
+  wire  _T_6 = io_dcache_io_req_addr == 32'h10000000 & io_dcache_io_req_wen & ~io_dcache_io_resp_valid; // @[SimMem.scala 29:83]
+  wire  _T_9 = ~reset; // @[SimMem.scala 30:14]
+  wire  write_ram = io_dcache_io_req_valid ? _GEN_0 : 1'h1; // @[SimMem.scala 24:32]
+  wire  _T_10 = io_icache_io_req_addr >= 32'h84000000; // @[SimMem.scala 35:32]
   wire [32:0] _icandidates_0_T = {{1'd0}, io_icache_io_req_addr}; // @[SimMem.scala 46:69]
   wire [31:0] _icandidates_0_T_2 = 32'h3ffffff & _icandidates_0_T[31:0]; // @[SimMem.scala 46:44]
   wire [29:0] dcandidates_0_hi = io_dcache_io_req_addr[31:2]; // @[SimMem.scala 47:72]
@@ -35597,45 +35598,10 @@ module SimMem(
   wire [31:0] _icandidates_31_T_2 = 32'h3ffffff & _icandidates_31_T_1; // @[SimMem.scala 46:44]
   wire [31:0] _dcandidates_31_T_2 = _dcandidates_0_T + 32'h1f; // @[SimMem.scala 47:89]
   wire [31:0] _dcandidates_31_T_3 = 32'h3ffffff & _dcandidates_31_T_2; // @[SimMem.scala 47:44]
-  wire  _T_12 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000; // @[SimMem.scala 49:31]
-  wire  _T_13 = 32'hbfd003fd == io_dcache_io_req_addr; // @[Conditional.scala 37:30]
-  wire  _T_14 = 32'hbfd00071 == io_dcache_io_req_addr; // @[Conditional.scala 37:30]
-  wire [31:0] _GEN_2 = _T_14 ? 32'hff : 32'hdeadbeef; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 51:20]
-  wire [7:0] _GEN_3 = _T_14 ? 8'hff : memory_dcandidates_1_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [7:0] _GEN_4 = _T_14 ? 8'hff : memory_dcandidates_2_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [7:0] _GEN_5 = _T_14 ? 8'hff : memory_dcandidates_3_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [7:0] _GEN_6 = _T_14 ? 8'hff : memory_dcandidates_4_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [7:0] _GEN_7 = _T_14 ? 8'hff : memory_dcandidates_5_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [7:0] _GEN_8 = _T_14 ? 8'hff : memory_dcandidates_6_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [7:0] _GEN_9 = _T_14 ? 8'hff : memory_dcandidates_7_MPORT_data; // @[Conditional.scala 39:67 SimMem.scala 54:61 SimMem.scala 47:20]
-  wire [31:0] _GEN_10 = _T_13 ? 32'h60 : _GEN_2; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_11 = _T_13 ? 8'h60 : _GEN_3; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_12 = _T_13 ? 8'h60 : _GEN_4; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_13 = _T_13 ? 8'h60 : _GEN_5; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_14 = _T_13 ? 8'h60 : _GEN_6; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_15 = _T_13 ? 8'h60 : _GEN_7; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_16 = _T_13 ? 8'h60 : _GEN_8; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire [7:0] _GEN_17 = _T_13 ? 8'h60 : _GEN_9; // @[Conditional.scala 40:58 SimMem.scala 53:61]
-  wire  write_ram = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? 1'h0 : _GEN_1; // @[SimMem.scala 49:81 SimMem.scala 50:15]
-  wire [31:0] _GEN_19 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_10 : {{24'd0},
-    memory_dcandidates_0_MPORT_data}; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_1 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_11 :
-    memory_dcandidates_1_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_2 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_12 :
-    memory_dcandidates_2_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_3 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_13 :
-    memory_dcandidates_3_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_4 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_14 :
-    memory_dcandidates_4_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_5 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_15 :
-    memory_dcandidates_5_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_6 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_16 :
-    memory_dcandidates_6_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  wire [7:0] dcandidates_7 = io_dcache_io_req_valid & io_dcache_io_req_addr >= 32'ha0000000 ? _GEN_17 :
-    memory_dcandidates_7_MPORT_data; // @[SimMem.scala 49:81 SimMem.scala 47:20]
-  reg  io_icache_io_resp_valid_REG; // @[SimMem.scala 63:37]
+  wire [7:0] icandidates_0 = io_icache_io_req_valid & io_icache_io_req_addr == 32'h10000003 ? 8'h0 :
+    memory_icandidates_0_MPORT_data; // @[SimMem.scala 57:77 SimMem.scala 59:20 SimMem.scala 46:20]
+  reg  io_icache_io_resp_valid_REG; // @[SimMem.scala 64:37]
   wire [7:0] icandidates_1 = memory_icandidates_1_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
-  wire [7:0] icandidates_0 = memory_icandidates_0_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_3 = memory_icandidates_3_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_2 = memory_icandidates_2_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_5 = memory_icandidates_5_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
@@ -35643,7 +35609,7 @@ module SimMem(
   wire [7:0] icandidates_7 = memory_icandidates_7_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_6 = memory_icandidates_6_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [63:0] io_icache_io_resp_data_lo_lo = {icandidates_7,icandidates_6,icandidates_5,icandidates_4,icandidates_3,
-    icandidates_2,icandidates_1,icandidates_0}; // @[SimMem.scala 64:50]
+    icandidates_2,icandidates_1,icandidates_0}; // @[SimMem.scala 65:50]
   wire [7:0] icandidates_9 = memory_icandidates_9_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_8 = memory_icandidates_8_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_11 = memory_icandidates_11_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
@@ -35653,7 +35619,7 @@ module SimMem(
   wire [7:0] icandidates_15 = memory_icandidates_15_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_14 = memory_icandidates_14_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [127:0] io_icache_io_resp_data_lo = {icandidates_15,icandidates_14,icandidates_13,icandidates_12,icandidates_11,
-    icandidates_10,icandidates_9,icandidates_8,io_icache_io_resp_data_lo_lo}; // @[SimMem.scala 64:50]
+    icandidates_10,icandidates_9,icandidates_8,io_icache_io_resp_data_lo_lo}; // @[SimMem.scala 65:50]
   wire [7:0] icandidates_17 = memory_icandidates_17_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_16 = memory_icandidates_16_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_19 = memory_icandidates_19_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
@@ -35663,7 +35629,7 @@ module SimMem(
   wire [7:0] icandidates_23 = memory_icandidates_23_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_22 = memory_icandidates_22_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [63:0] io_icache_io_resp_data_hi_lo = {icandidates_23,icandidates_22,icandidates_21,icandidates_20,icandidates_19
-    ,icandidates_18,icandidates_17,icandidates_16}; // @[SimMem.scala 64:50]
+    ,icandidates_18,icandidates_17,icandidates_16}; // @[SimMem.scala 65:50]
   wire [7:0] icandidates_25 = memory_icandidates_25_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_24 = memory_icandidates_24_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_27 = memory_icandidates_27_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
@@ -35673,12 +35639,19 @@ module SimMem(
   wire [7:0] icandidates_31 = memory_icandidates_31_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [7:0] icandidates_30 = memory_icandidates_30_MPORT_data; // @[SimMem.scala 20:25 SimMem.scala 46:20]
   wire [127:0] io_icache_io_resp_data_hi = {icandidates_31,icandidates_30,icandidates_29,icandidates_28,icandidates_27,
-    icandidates_26,icandidates_25,icandidates_24,io_icache_io_resp_data_hi_lo}; // @[SimMem.scala 64:50]
-  reg [255:0] io_icache_io_resp_data_REG; // @[SimMem.scala 64:37]
-  reg  io_dcache_io_resp_valid_REG; // @[SimMem.scala 65:37]
-  wire [7:0] dcandidates_0 = _GEN_19[7:0]; // @[SimMem.scala 21:25]
+    icandidates_26,icandidates_25,icandidates_24,io_icache_io_resp_data_hi_lo}; // @[SimMem.scala 65:50]
+  reg [255:0] io_icache_io_resp_data_REG; // @[SimMem.scala 65:37]
+  reg  io_dcache_io_resp_valid_REG; // @[SimMem.scala 66:37]
+  wire [7:0] dcandidates_1 = memory_dcandidates_1_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_0 = memory_dcandidates_0_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_3 = memory_dcandidates_3_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_2 = memory_dcandidates_2_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_5 = memory_dcandidates_5_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_4 = memory_dcandidates_4_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_7 = memory_dcandidates_7_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
+  wire [7:0] dcandidates_6 = memory_dcandidates_6_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [63:0] io_dcache_io_resp_data_lo_lo = {dcandidates_7,dcandidates_6,dcandidates_5,dcandidates_4,dcandidates_3,
-    dcandidates_2,dcandidates_1,dcandidates_0}; // @[SimMem.scala 66:50]
+    dcandidates_2,dcandidates_1,dcandidates_0}; // @[SimMem.scala 67:50]
   wire [7:0] dcandidates_9 = memory_dcandidates_9_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_8 = memory_dcandidates_8_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_11 = memory_dcandidates_11_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
@@ -35688,7 +35661,7 @@ module SimMem(
   wire [7:0] dcandidates_15 = memory_dcandidates_15_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_14 = memory_dcandidates_14_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [127:0] io_dcache_io_resp_data_lo = {dcandidates_15,dcandidates_14,dcandidates_13,dcandidates_12,dcandidates_11,
-    dcandidates_10,dcandidates_9,dcandidates_8,io_dcache_io_resp_data_lo_lo}; // @[SimMem.scala 66:50]
+    dcandidates_10,dcandidates_9,dcandidates_8,io_dcache_io_resp_data_lo_lo}; // @[SimMem.scala 67:50]
   wire [7:0] dcandidates_17 = memory_dcandidates_17_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_16 = memory_dcandidates_16_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_19 = memory_dcandidates_19_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
@@ -35698,7 +35671,7 @@ module SimMem(
   wire [7:0] dcandidates_23 = memory_dcandidates_23_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_22 = memory_dcandidates_22_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [63:0] io_dcache_io_resp_data_hi_lo = {dcandidates_23,dcandidates_22,dcandidates_21,dcandidates_20,dcandidates_19
-    ,dcandidates_18,dcandidates_17,dcandidates_16}; // @[SimMem.scala 66:50]
+    ,dcandidates_18,dcandidates_17,dcandidates_16}; // @[SimMem.scala 67:50]
   wire [7:0] dcandidates_25 = memory_dcandidates_25_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_24 = memory_dcandidates_24_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_27 = memory_dcandidates_27_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
@@ -35708,89 +35681,89 @@ module SimMem(
   wire [7:0] dcandidates_31 = memory_dcandidates_31_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [7:0] dcandidates_30 = memory_dcandidates_30_MPORT_data; // @[SimMem.scala 21:25 SimMem.scala 47:20]
   wire [127:0] io_dcache_io_resp_data_hi = {dcandidates_31,dcandidates_30,dcandidates_29,dcandidates_28,dcandidates_27,
-    dcandidates_26,dcandidates_25,dcandidates_24,io_dcache_io_resp_data_hi_lo}; // @[SimMem.scala 66:50]
-  reg [255:0] io_dcache_io_resp_data_REG; // @[SimMem.scala 66:37]
-  wire  _T_19 = io_dcache_io_req_wen & write_ram & io_dcache_io_req_valid; // @[SimMem.scala 70:42]
-  wire  _T_20 = 3'h0 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_21 = io_dcache_io_req_addr & 32'h3ffffff; // @[SimMem.scala 74:44]
-  wire  _T_24 = 3'h1 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_29 = io_dcache_io_req_addr + 32'h1; // @[SimMem.scala 79:45]
-  wire [31:0] _T_30 = _T_29 & 32'h3ffffff; // @[SimMem.scala 79:52]
-  wire  _T_33 = 3'h2 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_43 = io_dcache_io_req_addr + 32'h2; // @[SimMem.scala 85:45]
-  wire [31:0] _T_44 = _T_43 & 32'h3ffffff; // @[SimMem.scala 85:52]
-  wire [31:0] _T_48 = io_dcache_io_req_addr + 32'h3; // @[SimMem.scala 86:45]
-  wire [31:0] _T_49 = _T_48 & 32'h3ffffff; // @[SimMem.scala 86:52]
-  wire  _T_52 = 3'h3 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [32:0] _T_53 = {{1'd0}, io_dcache_io_req_addr}; // @[SimMem.scala 91:47]
-  wire [31:0] _T_55 = _T_53[31:0] & 32'h3ffffff; // @[SimMem.scala 91:54]
-  wire [31:0] _T_74 = io_dcache_io_req_addr + 32'h4; // @[SimMem.scala 91:47]
-  wire [31:0] _T_75 = _T_74 & 32'h3ffffff; // @[SimMem.scala 91:54]
-  wire [31:0] _T_79 = io_dcache_io_req_addr + 32'h5; // @[SimMem.scala 91:47]
-  wire [31:0] _T_80 = _T_79 & 32'h3ffffff; // @[SimMem.scala 91:54]
-  wire [31:0] _T_84 = io_dcache_io_req_addr + 32'h6; // @[SimMem.scala 91:47]
-  wire [31:0] _T_85 = _T_84 & 32'h3ffffff; // @[SimMem.scala 91:54]
-  wire [31:0] _T_89 = io_dcache_io_req_addr + 32'h7; // @[SimMem.scala 91:47]
-  wire [31:0] _T_90 = _T_89 & 32'h3ffffff; // @[SimMem.scala 91:54]
-  wire  _T_93 = 3'h4 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
-  wire [31:0] _T_135 = io_dcache_io_req_addr + 32'h8; // @[SimMem.scala 97:47]
-  wire [31:0] _T_136 = _T_135 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_140 = io_dcache_io_req_addr + 32'h9; // @[SimMem.scala 97:47]
-  wire [31:0] _T_141 = _T_140 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_145 = io_dcache_io_req_addr + 32'ha; // @[SimMem.scala 97:47]
-  wire [31:0] _T_146 = _T_145 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_150 = io_dcache_io_req_addr + 32'hb; // @[SimMem.scala 97:47]
-  wire [31:0] _T_151 = _T_150 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_155 = io_dcache_io_req_addr + 32'hc; // @[SimMem.scala 97:47]
-  wire [31:0] _T_156 = _T_155 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_160 = io_dcache_io_req_addr + 32'hd; // @[SimMem.scala 97:47]
-  wire [31:0] _T_161 = _T_160 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_165 = io_dcache_io_req_addr + 32'he; // @[SimMem.scala 97:47]
-  wire [31:0] _T_166 = _T_165 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_170 = io_dcache_io_req_addr + 32'hf; // @[SimMem.scala 97:47]
-  wire [31:0] _T_171 = _T_170 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_175 = io_dcache_io_req_addr + 32'h10; // @[SimMem.scala 97:47]
-  wire [31:0] _T_176 = _T_175 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_180 = io_dcache_io_req_addr + 32'h11; // @[SimMem.scala 97:47]
-  wire [31:0] _T_181 = _T_180 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_185 = io_dcache_io_req_addr + 32'h12; // @[SimMem.scala 97:47]
-  wire [31:0] _T_186 = _T_185 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_190 = io_dcache_io_req_addr + 32'h13; // @[SimMem.scala 97:47]
-  wire [31:0] _T_191 = _T_190 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_195 = io_dcache_io_req_addr + 32'h14; // @[SimMem.scala 97:47]
-  wire [31:0] _T_196 = _T_195 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_200 = io_dcache_io_req_addr + 32'h15; // @[SimMem.scala 97:47]
-  wire [31:0] _T_201 = _T_200 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_205 = io_dcache_io_req_addr + 32'h16; // @[SimMem.scala 97:47]
-  wire [31:0] _T_206 = _T_205 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_210 = io_dcache_io_req_addr + 32'h17; // @[SimMem.scala 97:47]
-  wire [31:0] _T_211 = _T_210 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_215 = io_dcache_io_req_addr + 32'h18; // @[SimMem.scala 97:47]
-  wire [31:0] _T_216 = _T_215 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_220 = io_dcache_io_req_addr + 32'h19; // @[SimMem.scala 97:47]
-  wire [31:0] _T_221 = _T_220 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_225 = io_dcache_io_req_addr + 32'h1a; // @[SimMem.scala 97:47]
-  wire [31:0] _T_226 = _T_225 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_230 = io_dcache_io_req_addr + 32'h1b; // @[SimMem.scala 97:47]
-  wire [31:0] _T_231 = _T_230 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_235 = io_dcache_io_req_addr + 32'h1c; // @[SimMem.scala 97:47]
-  wire [31:0] _T_236 = _T_235 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_240 = io_dcache_io_req_addr + 32'h1d; // @[SimMem.scala 97:47]
-  wire [31:0] _T_241 = _T_240 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_245 = io_dcache_io_req_addr + 32'h1e; // @[SimMem.scala 97:47]
-  wire [31:0] _T_246 = _T_245 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire [31:0] _T_250 = io_dcache_io_req_addr + 32'h1f; // @[SimMem.scala 97:47]
-  wire [31:0] _T_251 = _T_250 & 32'h3ffffff; // @[SimMem.scala 97:54]
-  wire  _GEN_115 = _T_52 ? 1'h0 : _T_93; // @[Conditional.scala 39:67 SimMem.scala 42:19]
-  wire  _GEN_193 = _T_33 ? 1'h0 : _T_52; // @[Conditional.scala 39:67 SimMem.scala 42:19]
-  wire  _GEN_212 = _T_33 ? 1'h0 : _GEN_115; // @[Conditional.scala 39:67 SimMem.scala 42:19]
-  wire  _GEN_286 = _T_24 ? 1'h0 : _T_33; // @[Conditional.scala 39:67 SimMem.scala 42:19]
-  wire  _GEN_297 = _T_24 ? 1'h0 : _GEN_193; // @[Conditional.scala 39:67 SimMem.scala 42:19]
-  wire  _GEN_316 = _T_24 ? 1'h0 : _GEN_212; // @[Conditional.scala 39:67 SimMem.scala 42:19]
-  wire  _GEN_388 = _T_20 ? 1'h0 : _T_24; // @[Conditional.scala 40:58 SimMem.scala 42:19]
-  wire  _GEN_395 = _T_20 ? 1'h0 : _GEN_286; // @[Conditional.scala 40:58 SimMem.scala 42:19]
-  wire  _GEN_406 = _T_20 ? 1'h0 : _GEN_297; // @[Conditional.scala 40:58 SimMem.scala 42:19]
-  wire  _GEN_425 = _T_20 ? 1'h0 : _GEN_316; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+    dcandidates_26,dcandidates_25,dcandidates_24,io_dcache_io_resp_data_hi_lo}; // @[SimMem.scala 67:50]
+  reg [255:0] io_dcache_io_resp_data_REG; // @[SimMem.scala 67:37]
+  wire  _T_16 = io_dcache_io_req_wen & write_ram & io_dcache_io_req_valid; // @[SimMem.scala 71:42]
+  wire  _T_17 = 3'h0 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_18 = io_dcache_io_req_addr & 32'h3ffffff; // @[SimMem.scala 75:44]
+  wire  _T_21 = 3'h1 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_26 = io_dcache_io_req_addr + 32'h1; // @[SimMem.scala 80:45]
+  wire [31:0] _T_27 = _T_26 & 32'h3ffffff; // @[SimMem.scala 80:52]
+  wire  _T_30 = 3'h2 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_40 = io_dcache_io_req_addr + 32'h2; // @[SimMem.scala 86:45]
+  wire [31:0] _T_41 = _T_40 & 32'h3ffffff; // @[SimMem.scala 86:52]
+  wire [31:0] _T_45 = io_dcache_io_req_addr + 32'h3; // @[SimMem.scala 87:45]
+  wire [31:0] _T_46 = _T_45 & 32'h3ffffff; // @[SimMem.scala 87:52]
+  wire  _T_49 = 3'h3 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [32:0] _T_50 = {{1'd0}, io_dcache_io_req_addr}; // @[SimMem.scala 92:47]
+  wire [31:0] _T_52 = _T_50[31:0] & 32'h3ffffff; // @[SimMem.scala 92:54]
+  wire [31:0] _T_71 = io_dcache_io_req_addr + 32'h4; // @[SimMem.scala 92:47]
+  wire [31:0] _T_72 = _T_71 & 32'h3ffffff; // @[SimMem.scala 92:54]
+  wire [31:0] _T_76 = io_dcache_io_req_addr + 32'h5; // @[SimMem.scala 92:47]
+  wire [31:0] _T_77 = _T_76 & 32'h3ffffff; // @[SimMem.scala 92:54]
+  wire [31:0] _T_81 = io_dcache_io_req_addr + 32'h6; // @[SimMem.scala 92:47]
+  wire [31:0] _T_82 = _T_81 & 32'h3ffffff; // @[SimMem.scala 92:54]
+  wire [31:0] _T_86 = io_dcache_io_req_addr + 32'h7; // @[SimMem.scala 92:47]
+  wire [31:0] _T_87 = _T_86 & 32'h3ffffff; // @[SimMem.scala 92:54]
+  wire  _T_90 = 3'h4 == io_dcache_io_req_mtype; // @[Conditional.scala 37:30]
+  wire [31:0] _T_132 = io_dcache_io_req_addr + 32'h8; // @[SimMem.scala 98:47]
+  wire [31:0] _T_133 = _T_132 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_137 = io_dcache_io_req_addr + 32'h9; // @[SimMem.scala 98:47]
+  wire [31:0] _T_138 = _T_137 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_142 = io_dcache_io_req_addr + 32'ha; // @[SimMem.scala 98:47]
+  wire [31:0] _T_143 = _T_142 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_147 = io_dcache_io_req_addr + 32'hb; // @[SimMem.scala 98:47]
+  wire [31:0] _T_148 = _T_147 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_152 = io_dcache_io_req_addr + 32'hc; // @[SimMem.scala 98:47]
+  wire [31:0] _T_153 = _T_152 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_157 = io_dcache_io_req_addr + 32'hd; // @[SimMem.scala 98:47]
+  wire [31:0] _T_158 = _T_157 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_162 = io_dcache_io_req_addr + 32'he; // @[SimMem.scala 98:47]
+  wire [31:0] _T_163 = _T_162 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_167 = io_dcache_io_req_addr + 32'hf; // @[SimMem.scala 98:47]
+  wire [31:0] _T_168 = _T_167 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_172 = io_dcache_io_req_addr + 32'h10; // @[SimMem.scala 98:47]
+  wire [31:0] _T_173 = _T_172 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_177 = io_dcache_io_req_addr + 32'h11; // @[SimMem.scala 98:47]
+  wire [31:0] _T_178 = _T_177 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_182 = io_dcache_io_req_addr + 32'h12; // @[SimMem.scala 98:47]
+  wire [31:0] _T_183 = _T_182 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_187 = io_dcache_io_req_addr + 32'h13; // @[SimMem.scala 98:47]
+  wire [31:0] _T_188 = _T_187 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_192 = io_dcache_io_req_addr + 32'h14; // @[SimMem.scala 98:47]
+  wire [31:0] _T_193 = _T_192 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_197 = io_dcache_io_req_addr + 32'h15; // @[SimMem.scala 98:47]
+  wire [31:0] _T_198 = _T_197 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_202 = io_dcache_io_req_addr + 32'h16; // @[SimMem.scala 98:47]
+  wire [31:0] _T_203 = _T_202 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_207 = io_dcache_io_req_addr + 32'h17; // @[SimMem.scala 98:47]
+  wire [31:0] _T_208 = _T_207 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_212 = io_dcache_io_req_addr + 32'h18; // @[SimMem.scala 98:47]
+  wire [31:0] _T_213 = _T_212 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_217 = io_dcache_io_req_addr + 32'h19; // @[SimMem.scala 98:47]
+  wire [31:0] _T_218 = _T_217 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_222 = io_dcache_io_req_addr + 32'h1a; // @[SimMem.scala 98:47]
+  wire [31:0] _T_223 = _T_222 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_227 = io_dcache_io_req_addr + 32'h1b; // @[SimMem.scala 98:47]
+  wire [31:0] _T_228 = _T_227 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_232 = io_dcache_io_req_addr + 32'h1c; // @[SimMem.scala 98:47]
+  wire [31:0] _T_233 = _T_232 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_237 = io_dcache_io_req_addr + 32'h1d; // @[SimMem.scala 98:47]
+  wire [31:0] _T_238 = _T_237 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_242 = io_dcache_io_req_addr + 32'h1e; // @[SimMem.scala 98:47]
+  wire [31:0] _T_243 = _T_242 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire [31:0] _T_247 = io_dcache_io_req_addr + 32'h1f; // @[SimMem.scala 98:47]
+  wire [31:0] _T_248 = _T_247 & 32'h3ffffff; // @[SimMem.scala 98:54]
+  wire  _GEN_91 = _T_49 ? 1'h0 : _T_90; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_169 = _T_30 ? 1'h0 : _T_49; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_188 = _T_30 ? 1'h0 : _GEN_91; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_262 = _T_21 ? 1'h0 : _T_30; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_273 = _T_21 ? 1'h0 : _GEN_169; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_292 = _T_21 ? 1'h0 : _GEN_188; // @[Conditional.scala 39:67 SimMem.scala 42:19]
+  wire  _GEN_364 = _T_17 ? 1'h0 : _T_21; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  wire  _GEN_371 = _T_17 ? 1'h0 : _GEN_262; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  wire  _GEN_382 = _T_17 ? 1'h0 : _GEN_273; // @[Conditional.scala 40:58 SimMem.scala 42:19]
+  wire  _GEN_401 = _T_17 ? 1'h0 : _GEN_292; // @[Conditional.scala 40:58 SimMem.scala 42:19]
   assign memory_icandidates_0_MPORT_addr = _icandidates_0_T_2[25:0];
   assign memory_icandidates_0_MPORT_data = memory[memory_icandidates_0_MPORT_addr]; // @[SimMem.scala 42:19]
   assign memory_dcandidates_0_MPORT_addr = _dcandidates_0_T_3[25:0];
@@ -35920,197 +35893,197 @@ module SimMem(
   assign memory_dcandidates_31_MPORT_addr = _dcandidates_31_T_3[25:0];
   assign memory_dcandidates_31_MPORT_data = memory[memory_dcandidates_31_MPORT_addr]; // @[SimMem.scala 42:19]
   assign memory_MPORT_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_addr = _T_21[25:0];
+  assign memory_MPORT_addr = _T_18[25:0];
   assign memory_MPORT_mask = 1'h1;
-  assign memory_MPORT_en = _T_19 & _T_20;
+  assign memory_MPORT_en = _T_16 & _T_17;
   assign memory_MPORT_1_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_1_addr = _T_21[25:0];
+  assign memory_MPORT_1_addr = _T_18[25:0];
   assign memory_MPORT_1_mask = 1'h1;
-  assign memory_MPORT_1_en = _T_19 & _GEN_388;
+  assign memory_MPORT_1_en = _T_16 & _GEN_364;
   assign memory_MPORT_2_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_2_addr = _T_30[25:0];
+  assign memory_MPORT_2_addr = _T_27[25:0];
   assign memory_MPORT_2_mask = 1'h1;
-  assign memory_MPORT_2_en = _T_19 & _GEN_388;
+  assign memory_MPORT_2_en = _T_16 & _GEN_364;
   assign memory_MPORT_3_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_3_addr = _T_21[25:0];
+  assign memory_MPORT_3_addr = _T_18[25:0];
   assign memory_MPORT_3_mask = 1'h1;
-  assign memory_MPORT_3_en = _T_19 & _GEN_395;
+  assign memory_MPORT_3_en = _T_16 & _GEN_371;
   assign memory_MPORT_4_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_4_addr = _T_30[25:0];
+  assign memory_MPORT_4_addr = _T_27[25:0];
   assign memory_MPORT_4_mask = 1'h1;
-  assign memory_MPORT_4_en = _T_19 & _GEN_395;
+  assign memory_MPORT_4_en = _T_16 & _GEN_371;
   assign memory_MPORT_5_data = io_dcache_io_req_data[23:16];
-  assign memory_MPORT_5_addr = _T_44[25:0];
+  assign memory_MPORT_5_addr = _T_41[25:0];
   assign memory_MPORT_5_mask = 1'h1;
-  assign memory_MPORT_5_en = _T_19 & _GEN_395;
+  assign memory_MPORT_5_en = _T_16 & _GEN_371;
   assign memory_MPORT_6_data = io_dcache_io_req_data[31:24];
-  assign memory_MPORT_6_addr = _T_49[25:0];
+  assign memory_MPORT_6_addr = _T_46[25:0];
   assign memory_MPORT_6_mask = 1'h1;
-  assign memory_MPORT_6_en = _T_19 & _GEN_395;
+  assign memory_MPORT_6_en = _T_16 & _GEN_371;
   assign memory_MPORT_7_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_7_addr = _T_55[25:0];
+  assign memory_MPORT_7_addr = _T_52[25:0];
   assign memory_MPORT_7_mask = 1'h1;
-  assign memory_MPORT_7_en = _T_19 & _GEN_406;
+  assign memory_MPORT_7_en = _T_16 & _GEN_382;
   assign memory_MPORT_8_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_8_addr = _T_30[25:0];
+  assign memory_MPORT_8_addr = _T_27[25:0];
   assign memory_MPORT_8_mask = 1'h1;
-  assign memory_MPORT_8_en = _T_19 & _GEN_406;
+  assign memory_MPORT_8_en = _T_16 & _GEN_382;
   assign memory_MPORT_9_data = io_dcache_io_req_data[23:16];
-  assign memory_MPORT_9_addr = _T_44[25:0];
+  assign memory_MPORT_9_addr = _T_41[25:0];
   assign memory_MPORT_9_mask = 1'h1;
-  assign memory_MPORT_9_en = _T_19 & _GEN_406;
+  assign memory_MPORT_9_en = _T_16 & _GEN_382;
   assign memory_MPORT_10_data = io_dcache_io_req_data[31:24];
-  assign memory_MPORT_10_addr = _T_49[25:0];
+  assign memory_MPORT_10_addr = _T_46[25:0];
   assign memory_MPORT_10_mask = 1'h1;
-  assign memory_MPORT_10_en = _T_19 & _GEN_406;
+  assign memory_MPORT_10_en = _T_16 & _GEN_382;
   assign memory_MPORT_11_data = io_dcache_io_req_data[39:32];
-  assign memory_MPORT_11_addr = _T_75[25:0];
+  assign memory_MPORT_11_addr = _T_72[25:0];
   assign memory_MPORT_11_mask = 1'h1;
-  assign memory_MPORT_11_en = _T_19 & _GEN_406;
+  assign memory_MPORT_11_en = _T_16 & _GEN_382;
   assign memory_MPORT_12_data = io_dcache_io_req_data[47:40];
-  assign memory_MPORT_12_addr = _T_80[25:0];
+  assign memory_MPORT_12_addr = _T_77[25:0];
   assign memory_MPORT_12_mask = 1'h1;
-  assign memory_MPORT_12_en = _T_19 & _GEN_406;
+  assign memory_MPORT_12_en = _T_16 & _GEN_382;
   assign memory_MPORT_13_data = io_dcache_io_req_data[55:48];
-  assign memory_MPORT_13_addr = _T_85[25:0];
+  assign memory_MPORT_13_addr = _T_82[25:0];
   assign memory_MPORT_13_mask = 1'h1;
-  assign memory_MPORT_13_en = _T_19 & _GEN_406;
+  assign memory_MPORT_13_en = _T_16 & _GEN_382;
   assign memory_MPORT_14_data = io_dcache_io_req_data[63:56];
-  assign memory_MPORT_14_addr = _T_90[25:0];
+  assign memory_MPORT_14_addr = _T_87[25:0];
   assign memory_MPORT_14_mask = 1'h1;
-  assign memory_MPORT_14_en = _T_19 & _GEN_406;
+  assign memory_MPORT_14_en = _T_16 & _GEN_382;
   assign memory_MPORT_15_data = io_dcache_io_req_data[7:0];
-  assign memory_MPORT_15_addr = _T_55[25:0];
+  assign memory_MPORT_15_addr = _T_52[25:0];
   assign memory_MPORT_15_mask = 1'h1;
-  assign memory_MPORT_15_en = _T_19 & _GEN_425;
+  assign memory_MPORT_15_en = _T_16 & _GEN_401;
   assign memory_MPORT_16_data = io_dcache_io_req_data[15:8];
-  assign memory_MPORT_16_addr = _T_30[25:0];
+  assign memory_MPORT_16_addr = _T_27[25:0];
   assign memory_MPORT_16_mask = 1'h1;
-  assign memory_MPORT_16_en = _T_19 & _GEN_425;
+  assign memory_MPORT_16_en = _T_16 & _GEN_401;
   assign memory_MPORT_17_data = io_dcache_io_req_data[23:16];
-  assign memory_MPORT_17_addr = _T_44[25:0];
+  assign memory_MPORT_17_addr = _T_41[25:0];
   assign memory_MPORT_17_mask = 1'h1;
-  assign memory_MPORT_17_en = _T_19 & _GEN_425;
+  assign memory_MPORT_17_en = _T_16 & _GEN_401;
   assign memory_MPORT_18_data = io_dcache_io_req_data[31:24];
-  assign memory_MPORT_18_addr = _T_49[25:0];
+  assign memory_MPORT_18_addr = _T_46[25:0];
   assign memory_MPORT_18_mask = 1'h1;
-  assign memory_MPORT_18_en = _T_19 & _GEN_425;
+  assign memory_MPORT_18_en = _T_16 & _GEN_401;
   assign memory_MPORT_19_data = io_dcache_io_req_data[39:32];
-  assign memory_MPORT_19_addr = _T_75[25:0];
+  assign memory_MPORT_19_addr = _T_72[25:0];
   assign memory_MPORT_19_mask = 1'h1;
-  assign memory_MPORT_19_en = _T_19 & _GEN_425;
+  assign memory_MPORT_19_en = _T_16 & _GEN_401;
   assign memory_MPORT_20_data = io_dcache_io_req_data[47:40];
-  assign memory_MPORT_20_addr = _T_80[25:0];
+  assign memory_MPORT_20_addr = _T_77[25:0];
   assign memory_MPORT_20_mask = 1'h1;
-  assign memory_MPORT_20_en = _T_19 & _GEN_425;
+  assign memory_MPORT_20_en = _T_16 & _GEN_401;
   assign memory_MPORT_21_data = io_dcache_io_req_data[55:48];
-  assign memory_MPORT_21_addr = _T_85[25:0];
+  assign memory_MPORT_21_addr = _T_82[25:0];
   assign memory_MPORT_21_mask = 1'h1;
-  assign memory_MPORT_21_en = _T_19 & _GEN_425;
+  assign memory_MPORT_21_en = _T_16 & _GEN_401;
   assign memory_MPORT_22_data = io_dcache_io_req_data[63:56];
-  assign memory_MPORT_22_addr = _T_90[25:0];
+  assign memory_MPORT_22_addr = _T_87[25:0];
   assign memory_MPORT_22_mask = 1'h1;
-  assign memory_MPORT_22_en = _T_19 & _GEN_425;
+  assign memory_MPORT_22_en = _T_16 & _GEN_401;
   assign memory_MPORT_23_data = io_dcache_io_req_data[71:64];
-  assign memory_MPORT_23_addr = _T_136[25:0];
+  assign memory_MPORT_23_addr = _T_133[25:0];
   assign memory_MPORT_23_mask = 1'h1;
-  assign memory_MPORT_23_en = _T_19 & _GEN_425;
+  assign memory_MPORT_23_en = _T_16 & _GEN_401;
   assign memory_MPORT_24_data = io_dcache_io_req_data[79:72];
-  assign memory_MPORT_24_addr = _T_141[25:0];
+  assign memory_MPORT_24_addr = _T_138[25:0];
   assign memory_MPORT_24_mask = 1'h1;
-  assign memory_MPORT_24_en = _T_19 & _GEN_425;
+  assign memory_MPORT_24_en = _T_16 & _GEN_401;
   assign memory_MPORT_25_data = io_dcache_io_req_data[87:80];
-  assign memory_MPORT_25_addr = _T_146[25:0];
+  assign memory_MPORT_25_addr = _T_143[25:0];
   assign memory_MPORT_25_mask = 1'h1;
-  assign memory_MPORT_25_en = _T_19 & _GEN_425;
+  assign memory_MPORT_25_en = _T_16 & _GEN_401;
   assign memory_MPORT_26_data = io_dcache_io_req_data[95:88];
-  assign memory_MPORT_26_addr = _T_151[25:0];
+  assign memory_MPORT_26_addr = _T_148[25:0];
   assign memory_MPORT_26_mask = 1'h1;
-  assign memory_MPORT_26_en = _T_19 & _GEN_425;
+  assign memory_MPORT_26_en = _T_16 & _GEN_401;
   assign memory_MPORT_27_data = io_dcache_io_req_data[103:96];
-  assign memory_MPORT_27_addr = _T_156[25:0];
+  assign memory_MPORT_27_addr = _T_153[25:0];
   assign memory_MPORT_27_mask = 1'h1;
-  assign memory_MPORT_27_en = _T_19 & _GEN_425;
+  assign memory_MPORT_27_en = _T_16 & _GEN_401;
   assign memory_MPORT_28_data = io_dcache_io_req_data[111:104];
-  assign memory_MPORT_28_addr = _T_161[25:0];
+  assign memory_MPORT_28_addr = _T_158[25:0];
   assign memory_MPORT_28_mask = 1'h1;
-  assign memory_MPORT_28_en = _T_19 & _GEN_425;
+  assign memory_MPORT_28_en = _T_16 & _GEN_401;
   assign memory_MPORT_29_data = io_dcache_io_req_data[119:112];
-  assign memory_MPORT_29_addr = _T_166[25:0];
+  assign memory_MPORT_29_addr = _T_163[25:0];
   assign memory_MPORT_29_mask = 1'h1;
-  assign memory_MPORT_29_en = _T_19 & _GEN_425;
+  assign memory_MPORT_29_en = _T_16 & _GEN_401;
   assign memory_MPORT_30_data = io_dcache_io_req_data[127:120];
-  assign memory_MPORT_30_addr = _T_171[25:0];
+  assign memory_MPORT_30_addr = _T_168[25:0];
   assign memory_MPORT_30_mask = 1'h1;
-  assign memory_MPORT_30_en = _T_19 & _GEN_425;
+  assign memory_MPORT_30_en = _T_16 & _GEN_401;
   assign memory_MPORT_31_data = io_dcache_io_req_data[135:128];
-  assign memory_MPORT_31_addr = _T_176[25:0];
+  assign memory_MPORT_31_addr = _T_173[25:0];
   assign memory_MPORT_31_mask = 1'h1;
-  assign memory_MPORT_31_en = _T_19 & _GEN_425;
+  assign memory_MPORT_31_en = _T_16 & _GEN_401;
   assign memory_MPORT_32_data = io_dcache_io_req_data[143:136];
-  assign memory_MPORT_32_addr = _T_181[25:0];
+  assign memory_MPORT_32_addr = _T_178[25:0];
   assign memory_MPORT_32_mask = 1'h1;
-  assign memory_MPORT_32_en = _T_19 & _GEN_425;
+  assign memory_MPORT_32_en = _T_16 & _GEN_401;
   assign memory_MPORT_33_data = io_dcache_io_req_data[151:144];
-  assign memory_MPORT_33_addr = _T_186[25:0];
+  assign memory_MPORT_33_addr = _T_183[25:0];
   assign memory_MPORT_33_mask = 1'h1;
-  assign memory_MPORT_33_en = _T_19 & _GEN_425;
+  assign memory_MPORT_33_en = _T_16 & _GEN_401;
   assign memory_MPORT_34_data = io_dcache_io_req_data[159:152];
-  assign memory_MPORT_34_addr = _T_191[25:0];
+  assign memory_MPORT_34_addr = _T_188[25:0];
   assign memory_MPORT_34_mask = 1'h1;
-  assign memory_MPORT_34_en = _T_19 & _GEN_425;
+  assign memory_MPORT_34_en = _T_16 & _GEN_401;
   assign memory_MPORT_35_data = io_dcache_io_req_data[167:160];
-  assign memory_MPORT_35_addr = _T_196[25:0];
+  assign memory_MPORT_35_addr = _T_193[25:0];
   assign memory_MPORT_35_mask = 1'h1;
-  assign memory_MPORT_35_en = _T_19 & _GEN_425;
+  assign memory_MPORT_35_en = _T_16 & _GEN_401;
   assign memory_MPORT_36_data = io_dcache_io_req_data[175:168];
-  assign memory_MPORT_36_addr = _T_201[25:0];
+  assign memory_MPORT_36_addr = _T_198[25:0];
   assign memory_MPORT_36_mask = 1'h1;
-  assign memory_MPORT_36_en = _T_19 & _GEN_425;
+  assign memory_MPORT_36_en = _T_16 & _GEN_401;
   assign memory_MPORT_37_data = io_dcache_io_req_data[183:176];
-  assign memory_MPORT_37_addr = _T_206[25:0];
+  assign memory_MPORT_37_addr = _T_203[25:0];
   assign memory_MPORT_37_mask = 1'h1;
-  assign memory_MPORT_37_en = _T_19 & _GEN_425;
+  assign memory_MPORT_37_en = _T_16 & _GEN_401;
   assign memory_MPORT_38_data = io_dcache_io_req_data[191:184];
-  assign memory_MPORT_38_addr = _T_211[25:0];
+  assign memory_MPORT_38_addr = _T_208[25:0];
   assign memory_MPORT_38_mask = 1'h1;
-  assign memory_MPORT_38_en = _T_19 & _GEN_425;
+  assign memory_MPORT_38_en = _T_16 & _GEN_401;
   assign memory_MPORT_39_data = io_dcache_io_req_data[199:192];
-  assign memory_MPORT_39_addr = _T_216[25:0];
+  assign memory_MPORT_39_addr = _T_213[25:0];
   assign memory_MPORT_39_mask = 1'h1;
-  assign memory_MPORT_39_en = _T_19 & _GEN_425;
+  assign memory_MPORT_39_en = _T_16 & _GEN_401;
   assign memory_MPORT_40_data = io_dcache_io_req_data[207:200];
-  assign memory_MPORT_40_addr = _T_221[25:0];
+  assign memory_MPORT_40_addr = _T_218[25:0];
   assign memory_MPORT_40_mask = 1'h1;
-  assign memory_MPORT_40_en = _T_19 & _GEN_425;
+  assign memory_MPORT_40_en = _T_16 & _GEN_401;
   assign memory_MPORT_41_data = io_dcache_io_req_data[215:208];
-  assign memory_MPORT_41_addr = _T_226[25:0];
+  assign memory_MPORT_41_addr = _T_223[25:0];
   assign memory_MPORT_41_mask = 1'h1;
-  assign memory_MPORT_41_en = _T_19 & _GEN_425;
+  assign memory_MPORT_41_en = _T_16 & _GEN_401;
   assign memory_MPORT_42_data = io_dcache_io_req_data[223:216];
-  assign memory_MPORT_42_addr = _T_231[25:0];
+  assign memory_MPORT_42_addr = _T_228[25:0];
   assign memory_MPORT_42_mask = 1'h1;
-  assign memory_MPORT_42_en = _T_19 & _GEN_425;
+  assign memory_MPORT_42_en = _T_16 & _GEN_401;
   assign memory_MPORT_43_data = io_dcache_io_req_data[231:224];
-  assign memory_MPORT_43_addr = _T_236[25:0];
+  assign memory_MPORT_43_addr = _T_233[25:0];
   assign memory_MPORT_43_mask = 1'h1;
-  assign memory_MPORT_43_en = _T_19 & _GEN_425;
+  assign memory_MPORT_43_en = _T_16 & _GEN_401;
   assign memory_MPORT_44_data = io_dcache_io_req_data[239:232];
-  assign memory_MPORT_44_addr = _T_241[25:0];
+  assign memory_MPORT_44_addr = _T_238[25:0];
   assign memory_MPORT_44_mask = 1'h1;
-  assign memory_MPORT_44_en = _T_19 & _GEN_425;
+  assign memory_MPORT_44_en = _T_16 & _GEN_401;
   assign memory_MPORT_45_data = io_dcache_io_req_data[247:240];
-  assign memory_MPORT_45_addr = _T_246[25:0];
+  assign memory_MPORT_45_addr = _T_243[25:0];
   assign memory_MPORT_45_mask = 1'h1;
-  assign memory_MPORT_45_en = _T_19 & _GEN_425;
+  assign memory_MPORT_45_en = _T_16 & _GEN_401;
   assign memory_MPORT_46_data = io_dcache_io_req_data[255:248];
-  assign memory_MPORT_46_addr = _T_251[25:0];
+  assign memory_MPORT_46_addr = _T_248[25:0];
   assign memory_MPORT_46_mask = 1'h1;
-  assign memory_MPORT_46_en = _T_19 & _GEN_425;
-  assign io_icache_io_resp_valid = io_icache_io_resp_valid_REG; // @[SimMem.scala 63:27]
-  assign io_icache_io_resp_data = io_icache_io_resp_data_REG; // @[SimMem.scala 64:27]
-  assign io_dcache_io_resp_valid = io_dcache_io_resp_valid_REG; // @[SimMem.scala 65:27]
-  assign io_dcache_io_resp_data = io_dcache_io_resp_data_REG; // @[SimMem.scala 66:27]
+  assign memory_MPORT_46_en = _T_16 & _GEN_401;
+  assign io_icache_io_resp_valid = io_icache_io_resp_valid_REG; // @[SimMem.scala 64:27]
+  assign io_icache_io_resp_data = io_icache_io_resp_data_REG; // @[SimMem.scala 65:27]
+  assign io_dcache_io_resp_valid = io_dcache_io_resp_valid_REG; // @[SimMem.scala 66:27]
+  assign io_dcache_io_resp_data = io_dcache_io_resp_data_REG; // @[SimMem.scala 67:27]
   always @(posedge clock) begin
     if(memory_MPORT_en & memory_MPORT_mask) begin
       memory[memory_MPORT_addr] <= memory_MPORT_data; // @[SimMem.scala 42:19]
@@ -36253,16 +36226,16 @@ module SimMem(
     if(memory_MPORT_46_en & memory_MPORT_46_mask) begin
       memory[memory_MPORT_46_addr] <= memory_MPORT_46_data; // @[SimMem.scala 42:19]
     end
-    io_icache_io_resp_valid_REG <= io_icache_io_req_valid; // @[SimMem.scala 63:37]
-    io_icache_io_resp_data_REG <= {io_icache_io_resp_data_hi,io_icache_io_resp_data_lo}; // @[SimMem.scala 64:50]
-    io_dcache_io_resp_valid_REG <= io_dcache_io_req_valid; // @[SimMem.scala 65:37]
-    io_dcache_io_resp_data_REG <= {io_dcache_io_resp_data_hi,io_dcache_io_resp_data_lo}; // @[SimMem.scala 66:50]
+    io_icache_io_resp_valid_REG <= io_icache_io_req_valid; // @[SimMem.scala 64:37]
+    io_icache_io_resp_data_REG <= {io_icache_io_resp_data_hi,io_icache_io_resp_data_lo}; // @[SimMem.scala 65:50]
+    io_dcache_io_resp_valid_REG <= io_dcache_io_req_valid; // @[SimMem.scala 66:37]
+    io_dcache_io_resp_data_REG <= {io_dcache_io_resp_data_hi,io_dcache_io_resp_data_lo}; // @[SimMem.scala 67:50]
     `ifndef SYNTHESIS
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (io_icache_io_req_valid & _T_7 & ~reset) begin
-          $fwrite(32'h80000002,"icache is accessing %x, ram overflow\n",io_icache_io_req_addr); // @[SimMem.scala 35:14]
+        if (io_dcache_io_req_valid & _T_6 & ~reset) begin
+          $fwrite(32'h80000002,"%c",io_dcache_io_req_data[7:0]); // @[SimMem.scala 30:14]
         end
     `ifdef PRINTF_COND
       end
@@ -36272,8 +36245,8 @@ module SimMem(
     `ifdef PRINTF_COND
       if (`PRINTF_COND) begin
     `endif
-        if (_T_12 & _T_9) begin
-          $fwrite(32'h80000002,"%c",io_dcache_io_req_data[7:0]); // @[SimMem.scala 56:11]
+        if (io_icache_io_req_valid & _T_10 & _T_9) begin
+          $fwrite(32'h80000002,"icache is accessing %x, ram overflow\n",io_icache_io_req_addr); // @[SimMem.scala 36:14]
         end
     `ifdef PRINTF_COND
       end
