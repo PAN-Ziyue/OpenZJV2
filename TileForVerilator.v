@@ -6856,7 +6856,8 @@ module CSR(
   wire [5:0] mip_new_lo_1 = {mip_mask_5,1'h0,mip_mask_3,1'h0,mip_mask_1,1'h0}; // @[CSR.scala 331:48]
   wire [11:0] _mip_new_T_1 = {mip_mask_11,1'h0,mip_mask_9,1'h0,mip_mask_7,1'h0,mip_new_lo_1}; // @[CSR.scala 331:48]
   wire [63:0] _GEN_51 = {{52'd0}, _mip_new_T_1}; // @[CSR.scala 331:31]
-  wire [63:0] mip_new = _mip_new_T & _GEN_51; // @[CSR.scala 331:31]
+  wire [63:0] _mip_new_T_2 = _mip_new_T & _GEN_51; // @[CSR.scala 331:31]
+  wire [63:0] mip_new = _mip_new_T_2 & mie; // @[CSR.scala 331:51]
   wire [63:0] mipWire = mip_new & 64'hfffffffffffffdff; // @[CSR.scala 344:22]
   wire [63:0] _mip_T = mipWire | mipReg; // @[CSR.scala 127:26]
   wire [5:0] mip_lo = {_mip_T[5],_mip_T[4],_mip_T[3],_mip_T[2],_mip_T[1],_mip_T[0]}; // @[CSR.scala 127:66]
@@ -7195,7 +7196,7 @@ module CSR(
   wire [63:0] csrs_mcause = mcause; // @[CSR.scala 423:20 CSR.scala 432:19]
   wire [63:0] csrs_scause = scause; // @[CSR.scala 423:20 CSR.scala 433:19]
   wire [63:0] csrs_satp = satp; // @[CSR.scala 423:20 CSR.scala 434:19]
-  wire [63:0] csrs_mip = mie; // @[CSR.scala 423:20 CSR.scala 435:19]
+  wire [63:0] csrs_mip = mip; // @[CSR.scala 127:66]
   wire [63:0] csrs_mie = mie; // @[CSR.scala 423:20 CSR.scala 436:19]
   wire [63:0] csrs_mscratch = mscratch; // @[CSR.scala 423:20 CSR.scala 437:19]
   wire [63:0] csrs_sscratch = sscratch; // @[CSR.scala 423:20 CSR.scala 438:19]
@@ -7216,7 +7217,7 @@ module CSR(
   assign csrs_0_mcause = _rdata_T_7;
   assign csrs_0_scause = _rdata_T_28;
   assign csrs_0_satp = _rdata_T_2;
-  assign csrs_0_mip = _rdata_T_15;
+  assign csrs_0_mip = csrs_mip;
   assign csrs_0_mie = _rdata_T_15;
   assign csrs_0_mscratch = _rdata_T_22;
   assign csrs_0_sscratch = _rdata_T_3;
