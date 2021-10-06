@@ -8715,8 +8715,8 @@ module Backend(
     .current_mode_0(csr_current_mode_0),
     .mtimecmp_0(csr_mtimecmp_0)
   );
-  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 513:44]
-  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 514:36]
+  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 513:42]
+  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 514:34]
   assign io_fb_bmfs_bpu_v = wbBpuV; // @[Backend.scala 515:30]
   assign io_fb_bmfs_bpu_errpr = wbBpuErrpr; // @[Backend.scala 516:30]
   assign io_fb_bmfs_bpu_pc_br = wbBpuPCBr; // @[Backend.scala 517:30]
