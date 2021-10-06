@@ -8267,7 +8267,7 @@ module Backend(
   wire [63:0] _wbLdData_T_13 = {wbLdData_hi_4,wbLdData_lo_4}; // @[Cat.scala 30:58]
   wire  _T_48 = 3'h6 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_14 = {32'h0,wbLdData_lo_4}; // @[Cat.scala 30:58]
-  reg  wbMMIOValid; // @[Backend.scala 464:24]
+  reg  wbMMIOValid; // @[Backend.scala 464:28]
   reg [63:0] wb_mmio_ld_data; // @[Backend.scala 465:32]
   wire [63:0] _wbLdData_T_2 = wbMMIOValid & wbInsts__2_write_dest ? wb_mmio_ld_data : dataFromDcache; // @[Backend.scala 467:18]
   wire [63:0] _GEN_223 = _T_48 ? _wbLdData_T_14 : _wbLdData_T_2; // @[Conditional.scala 39:67 Backend.scala 474:41 Backend.scala 467:12]
@@ -8715,8 +8715,8 @@ module Backend(
     .current_mode_0(csr_current_mode_0),
     .mtimecmp_0(csr_mtimecmp_0)
   );
-  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 513:42]
-  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 514:34]
+  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 513:44]
+  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 514:36]
   assign io_fb_bmfs_bpu_v = wbBpuV; // @[Backend.scala 515:30]
   assign io_fb_bmfs_bpu_errpr = wbBpuErrpr; // @[Backend.scala 516:30]
   assign io_fb_bmfs_bpu_pc_br = wbBpuPCBr; // @[Backend.scala 517:30]
@@ -9615,7 +9615,9 @@ module Backend(
     if (_kill_x_T) begin // @[Reg.scala 16:19]
       delayed_req_bits <= _delayed_req_bits_T_1; // @[Reg.scala 16:23]
     end
-    if (!(kill_x)) begin // @[Backend.scala 480:17]
+    if (reset) begin // @[Backend.scala 464:28]
+      wbMMIOValid <= 1'h0; // @[Backend.scala 464:28]
+    end else if (!(kill_x)) begin // @[Backend.scala 480:17]
       if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 486:26]
         wbMMIOValid <= exMMIOValid; // @[Backend.scala 487:17]
       end
