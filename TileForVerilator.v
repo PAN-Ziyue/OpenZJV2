@@ -6837,7 +6837,8 @@ module CSR(
   output [63:0] csrs_0_medeleg,
   output [63:0] mtime_0,
   output [1:0]  current_mode_0,
-  output [63:0] mtimecmp_0
+  output [63:0] mtimecmp_0,
+  output        REG_0
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -6865,6 +6866,7 @@ module CSR(
   reg [63:0] _RAND_22;
   reg [63:0] _RAND_23;
   reg [63:0] _RAND_24;
+  reg [31:0] _RAND_25;
 `endif // RANDOMIZE_REG_INIT
   reg [1:0] current_mode; // @[CSR.scala 99:29]
   wire  true_deal_with_int = io_event_io_deal_with_int & io_event_io_call_for_int; // @[CSR.scala 100:54]
@@ -7245,24 +7247,25 @@ module CSR(
   wire [66:0] _GEN_63 = {{3'd0}, tvec}; // @[CSR.scala 408:26]
   wire [66:0] trap_target = _GEN_63 & _trap_target_T_5; // @[CSR.scala 408:26]
   wire [66:0] _io_event_io_redirect_pc_T = has_excp_intr ? trap_target : {{3'd0}, ret_target}; // @[CSR.scala 409:33]
+  reg  REG; // @[CSR.scala 416:34]
   wire [63:0] _csrs_sstatus_T_73 = _rdata_T_13; // @[CSRRegMap.scala 53:75]
-  wire [63:0] csrs_mstatus = mstatus; // @[CSR.scala 421:20 CSR.scala 422:19]
+  wire [63:0] csrs_mstatus = mstatus; // @[CSR.scala 424:20 CSR.scala 425:19]
   wire [63:0] csrs_sstatus = _rdata_T_13; // @[CSRRegMap.scala 53:75]
-  wire [63:0] csrs_mepc = mepc; // @[CSR.scala 421:20 CSR.scala 424:19]
-  wire [63:0] csrs_sepc = sepc; // @[CSR.scala 421:20 CSR.scala 425:19]
-  wire [63:0] csrs_mtval = mtval; // @[CSR.scala 421:20 CSR.scala 426:19]
-  wire [63:0] csrs_stval = stval; // @[CSR.scala 421:20 CSR.scala 427:19]
-  wire [63:0] csrs_mtvec = mtvec; // @[CSR.scala 421:20 CSR.scala 428:19]
-  wire [63:0] csrs_stvec = stvec; // @[CSR.scala 421:20 CSR.scala 429:19]
-  wire [63:0] csrs_mcause = mcause; // @[CSR.scala 421:20 CSR.scala 430:19]
-  wire [63:0] csrs_scause = scause; // @[CSR.scala 421:20 CSR.scala 431:19]
-  wire [63:0] csrs_satp = satp; // @[CSR.scala 421:20 CSR.scala 432:19]
-  wire [63:0] csrs_mip = mip; // @[CSR.scala 421:20 CSR.scala 433:19]
-  wire [63:0] csrs_mie = mie; // @[CSR.scala 421:20 CSR.scala 434:19]
-  wire [63:0] csrs_mscratch = mscratch; // @[CSR.scala 421:20 CSR.scala 435:19]
-  wire [63:0] csrs_sscratch = sscratch; // @[CSR.scala 421:20 CSR.scala 436:19]
-  wire [63:0] csrs_mideleg = mideleg; // @[CSR.scala 421:20 CSR.scala 437:19]
-  wire [63:0] csrs_medeleg = medeleg; // @[CSR.scala 421:20 CSR.scala 438:19]
+  wire [63:0] csrs_mepc = mepc; // @[CSR.scala 424:20 CSR.scala 427:19]
+  wire [63:0] csrs_sepc = sepc; // @[CSR.scala 424:20 CSR.scala 428:19]
+  wire [63:0] csrs_mtval = mtval; // @[CSR.scala 424:20 CSR.scala 429:19]
+  wire [63:0] csrs_stval = stval; // @[CSR.scala 424:20 CSR.scala 430:19]
+  wire [63:0] csrs_mtvec = mtvec; // @[CSR.scala 424:20 CSR.scala 431:19]
+  wire [63:0] csrs_stvec = stvec; // @[CSR.scala 424:20 CSR.scala 432:19]
+  wire [63:0] csrs_mcause = mcause; // @[CSR.scala 424:20 CSR.scala 433:19]
+  wire [63:0] csrs_scause = scause; // @[CSR.scala 424:20 CSR.scala 434:19]
+  wire [63:0] csrs_satp = satp; // @[CSR.scala 424:20 CSR.scala 435:19]
+  wire [63:0] csrs_mip = mip; // @[CSR.scala 424:20 CSR.scala 436:19]
+  wire [63:0] csrs_mie = mie; // @[CSR.scala 424:20 CSR.scala 437:19]
+  wire [63:0] csrs_mscratch = mscratch; // @[CSR.scala 424:20 CSR.scala 438:19]
+  wire [63:0] csrs_sscratch = sscratch; // @[CSR.scala 424:20 CSR.scala 439:19]
+  wire [63:0] csrs_mideleg = mideleg; // @[CSR.scala 424:20 CSR.scala 440:19]
+  wire [63:0] csrs_medeleg = medeleg; // @[CSR.scala 424:20 CSR.scala 441:19]
   assign io_common_io_out = _rdata_T_49 ? 64'h1 : _io_common_io_out_T_4; // @[Mux.scala 80:57]
   assign io_event_io_call_for_int = |intrVec; // @[CSR.scala 350:38]
   assign io_event_io_except_kill = _T_113 | io_event_io_is_mret | io_event_io_is_sret; // @[CSR.scala 410:84]
@@ -7287,6 +7290,7 @@ module CSR(
   assign mtime_0 = mtime;
   assign current_mode_0 = current_mode;
   assign mtimecmp_0 = mtimecmp;
+  assign REG_0 = REG;
   always @(posedge clock) begin
     if (reset) begin // @[CSR.scala 99:29]
       current_mode <= 2'h3; // @[CSR.scala 99:29]
@@ -7467,6 +7471,7 @@ module CSR(
     end else if (wen & io_common_io_num == 12'h180) begin // @[CSRRegMap.scala 41:71]
       satp <= io_common_io_in; // @[CSRRegMap.scala 42:11]
     end
+    REG <= io_event_io_deal_with_int & io_event_io_call_for_int; // @[CSR.scala 100:54]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -7554,6 +7559,8 @@ initial begin
   stval = _RAND_23[63:0];
   _RAND_24 = {2{`RANDOM}};
   satp = _RAND_24[63:0];
+  _RAND_25 = {1{`RANDOM}};
+  REG = _RAND_25[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -7658,7 +7665,7 @@ module Backend(
   output [1:0]   _WIRE_2_0_2,
   input          difftest_sync,
   output         wbInsts_0_ysyx_debug,
-  output         REG_12_0
+  output         REG_0
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -7781,7 +7788,6 @@ module Backend(
   reg [31:0] _RAND_117;
   reg [31:0] _RAND_118;
   reg [31:0] _RAND_119;
-  reg [31:0] _RAND_120;
 `endif // RANDOMIZE_REG_INIT
   wire [63:0] alu_io_a; // @[Backend.scala 51:28]
   wire [63:0] alu_io_b; // @[Backend.scala 51:28]
@@ -8080,6 +8086,7 @@ module Backend(
   wire [63:0] csr_mtime_0; // @[Backend.scala 124:32]
   wire [1:0] csr_current_mode_0; // @[Backend.scala 124:32]
   wire [63:0] csr_mtimecmp_0; // @[Backend.scala 124:32]
+  wire  csr_REG_0; // @[Backend.scala 124:32]
   reg  exLastMemReqValid; // @[Backend.scala 321:34]
   wire  dcacheStall = exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 322:36]
   wire  _kill_x_T = ~dcacheStall; // @[Backend.scala 71:22]
@@ -8392,11 +8399,10 @@ module Backend(
   reg [31:0] REG_9; // @[Backend.scala 618:60]
   reg [31:0] REG_10; // @[Backend.scala 618:60]
   reg [31:0] REG_11; // @[Backend.scala 618:60]
-  reg  REG_12; // @[Backend.scala 619:34]
-  reg  REG_13; // @[Backend.scala 620:72]
-  reg  REG_14; // @[Backend.scala 626:60]
-  reg  REG_15; // @[Backend.scala 626:60]
-  reg  REG_16; // @[Backend.scala 626:60]
+  reg  REG_12; // @[Backend.scala 619:72]
+  reg  REG_13; // @[Backend.scala 625:60]
+  reg  REG_14; // @[Backend.scala 625:60]
+  reg  REG_15; // @[Backend.scala 625:60]
   wire  _WIRE__0 = REG; // @[Backend.scala 615:34 Backend.scala 615:34]
   wire  _WIRE__1 = REG_1; // @[Backend.scala 615:34 Backend.scala 615:34]
   wire  _WIRE__2 = REG_2; // @[Backend.scala 615:34 Backend.scala 615:34]
@@ -8409,12 +8415,12 @@ module Backend(
   wire [31:0] _WIRE_3_0 = REG_9; // @[Backend.scala 618:34 Backend.scala 618:34]
   wire [31:0] _WIRE_3_1 = REG_10; // @[Backend.scala 618:34 Backend.scala 618:34]
   wire [31:0] _WIRE_3_2 = REG_11; // @[Backend.scala 618:34 Backend.scala 618:34]
-  wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 620:34 Backend.scala 620:34]
-  wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 620:34 Backend.scala 620:34]
-  wire  _WIRE_4_2 = REG_13; // @[Backend.scala 620:34 Backend.scala 620:34]
-  wire  _WIRE_5_0 = REG_14; // @[Backend.scala 626:34 Backend.scala 626:34]
-  wire  _WIRE_5_1 = REG_15; // @[Backend.scala 626:34 Backend.scala 626:34]
-  wire  _WIRE_5_2 = REG_16; // @[Backend.scala 626:34 Backend.scala 626:34]
+  wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 619:34 Backend.scala 619:34]
+  wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 619:34 Backend.scala 619:34]
+  wire  _WIRE_4_2 = REG_12; // @[Backend.scala 619:34 Backend.scala 619:34]
+  wire  _WIRE_5_0 = REG_13; // @[Backend.scala 625:34 Backend.scala 625:34]
+  wire  _WIRE_5_1 = REG_14; // @[Backend.scala 625:34 Backend.scala 625:34]
+  wire  _WIRE_5_2 = REG_15; // @[Backend.scala 625:34 Backend.scala 625:34]
   ALU alu ( // @[Backend.scala 51:28]
     .io_a(alu_io_a),
     .io_b(alu_io_b),
@@ -8722,7 +8728,8 @@ module Backend(
     .csrs_0_medeleg(csr_csrs_0_medeleg),
     .mtime_0(csr_mtime_0),
     .current_mode_0(csr_current_mode_0),
-    .mtimecmp_0(csr_mtimecmp_0)
+    .mtimecmp_0(csr_mtimecmp_0),
+    .REG_0(csr_REG_0)
   );
   assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 513:42]
   assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 514:34]
@@ -8808,7 +8815,7 @@ module Backend(
   assign _WIRE_2_0_1 = _WIRE_2_1;
   assign _WIRE_2_0_2 = _WIRE_2_2;
   assign wbInsts_0_ysyx_debug = wbInsts__0_ysyx_debug;
-  assign REG_12_0 = REG_12;
+  assign REG_0 = csr_REG_0;
   assign alu_io_a = 2'h1 == exInsts_0_src_a ? _alu_io_a_T_4 : _alu_io_a_T_6; // @[Mux.scala 80:57]
   assign alu_io_b = 2'h2 == exInsts_0_src_b ? _alu_io_b_T_1 : _alu_io_b_T_3; // @[Mux.scala 80:57]
   assign alu_io_aluOp = exInsts_0_alu_op; // @[Backend.scala 308:16]
@@ -9699,11 +9706,10 @@ module Backend(
     REG_9 <= wbInsts__0_inst; // @[Backend.scala 618:60]
     REG_10 <= wbInsts__1_inst; // @[Backend.scala 618:60]
     REG_11 <= wbInsts__2_inst; // @[Backend.scala 618:60]
-    REG_12 <= wbInterruptd & wbInstsValid_0; // @[Backend.scala 619:48]
-    REG_13 <= wbMMIOValid; // @[Backend.scala 620:72]
-    REG_14 <= wbInsts__0_ysyx_print; // @[Backend.scala 626:60]
-    REG_15 <= wbInsts__1_ysyx_print; // @[Backend.scala 626:60]
-    REG_16 <= wbInsts__2_ysyx_print; // @[Backend.scala 626:60]
+    REG_12 <= wbMMIOValid; // @[Backend.scala 619:72]
+    REG_13 <= wbInsts__0_ysyx_print; // @[Backend.scala 625:60]
+    REG_14 <= wbInsts__1_ysyx_print; // @[Backend.scala 625:60]
+    REG_15 <= wbInsts__2_ysyx_print; // @[Backend.scala 625:60]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -9981,8 +9987,6 @@ initial begin
   REG_14 = _RAND_118[0:0];
   _RAND_119 = {1{`RANDOM}};
   REG_15 = _RAND_119[0:0];
-  _RAND_120 = {1{`RANDOM}};
-  REG_16 = _RAND_120[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -10082,7 +10086,7 @@ module Core(
   output [1:0]  _WIRE_2_2,
   input         difftest_sync,
   output        wbInsts_0_ysyx_debug,
-  output        REG_12
+  output        REG_0
 );
   wire  fe_clock; // @[Core.scala 96:18]
   wire  fe_reset; // @[Core.scala 96:18]
@@ -10199,7 +10203,7 @@ module Core(
   wire [1:0] be__WIRE_2_0_2; // @[Core.scala 97:18]
   wire  be_difftest_sync; // @[Core.scala 97:18]
   wire  be_wbInsts_0_ysyx_debug; // @[Core.scala 97:18]
-  wire  be_REG_12_0; // @[Core.scala 97:18]
+  wire  be_REG_0; // @[Core.scala 97:18]
   Frontend fe ( // @[Core.scala 96:18]
     .clock(fe_clock),
     .reset(fe_reset),
@@ -10318,7 +10322,7 @@ module Core(
     ._WIRE_2_0_2(be__WIRE_2_0_2),
     .difftest_sync(be_difftest_sync),
     .wbInsts_0_ysyx_debug(be_wbInsts_0_ysyx_debug),
-    .REG_12_0(be_REG_12_0)
+    .REG_0(be_REG_0)
   );
   assign io_icache_req_bits_addr = fe_io_icache_req_bits_addr; // @[Core.scala 102:13]
   assign io_icache_req_bits_mtype = fe_io_icache_req_bits_mtype; // @[Core.scala 102:13]
@@ -10398,7 +10402,7 @@ module Core(
   assign _WIRE_2_1 = be__WIRE_2_0_1;
   assign _WIRE_2_2 = be__WIRE_2_0_2;
   assign wbInsts_0_ysyx_debug = be_wbInsts_0_ysyx_debug;
-  assign REG_12 = be_REG_12_0;
+  assign REG_0 = be_REG_0;
   assign fe_clock = clock;
   assign fe_reset = reset;
   assign fe_io_fb_bmfs_redirect_kill = be_io_fb_bmfs_redirect_kill; // @[Core.scala 99:12]
@@ -37609,7 +37613,7 @@ module TileForVerilator(
   wire [1:0] core__WIRE_2_2; // @[Tile.scala 87:20]
   wire  core_difftest_sync; // @[Tile.scala 87:20]
   wire  core_wbInsts_0_ysyx_debug; // @[Tile.scala 87:20]
-  wire  core_REG_12; // @[Tile.scala 87:20]
+  wire  core_REG_0; // @[Tile.scala 87:20]
   wire  icache_clock; // @[Tile.scala 88:22]
   wire  icache_reset; // @[Tile.scala 88:22]
   wire [31:0] icache_io_cpu_req_bits_addr; // @[Tile.scala 88:22]
@@ -37748,7 +37752,7 @@ module TileForVerilator(
     ._WIRE_2_2(core__WIRE_2_2),
     .difftest_sync(core_difftest_sync),
     .wbInsts_0_ysyx_debug(core_wbInsts_0_ysyx_debug),
-    .REG_12(core_REG_12)
+    .REG_0(core_REG_0)
   );
   ICache icache ( // @[Tile.scala 88:22]
     .clock(icache_clock),
@@ -37861,7 +37865,7 @@ module TileForVerilator(
   assign io_difftest_csrs_sscratch = core_csrs_sscratch; // @[Tile.scala 118:15]
   assign io_difftest_csrs_mideleg = core_csrs_mideleg; // @[Tile.scala 118:15]
   assign io_difftest_csrs_medeleg = core_csrs_medeleg; // @[Tile.scala 118:15]
-  assign io_difftest_int = core_REG_12; // @[Tile.scala 118:15]
+  assign io_difftest_int = core_REG_0; // @[Tile.scala 118:15]
   assign io_difftest_finish = core_wbInsts_0_ysyx_debug; // @[Tile.scala 118:15]
   assign io_difftest_mmio_0 = core__WIRE_4_0; // @[Tile.scala 118:15]
   assign io_difftest_mmio_1 = core__WIRE_4_1; // @[Tile.scala 118:15]
