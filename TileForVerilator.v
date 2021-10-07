@@ -7156,7 +7156,7 @@ module CSR(
   wire [5:0] int_cause_lo = {detect_int_5,1'h0,1'h0,3'h0}; // @[CSR.scala 303:39]
   wire [5:0] int_cause_hi = {3'h0,1'h0,detect_int_5,1'h0}; // @[CSR.scala 303:39]
   wire [11:0] _int_cause_T = {3'h0,1'h0,detect_int_5,1'h0,detect_int_5,1'h0,1'h0,3'h0}; // @[CSR.scala 303:39]
-  wire [63:0] _mtime_T_5 = mtime + 64'h10; // @[CSR.scala 305:18]
+  wire [63:0] _mtime_T_5 = mtime + 64'h1; // @[CSR.scala 305:18]
   wire  _intrVecEnable_0_T_56 = current_mode < 2'h3; // @[CSR.scala 342:107]
   wire  _intrVecEnable_0_T_57 = _csrExcpVec_11_T & old_mstatus_MIE | current_mode < 2'h3; // @[CSR.scala 342:90]
   wire  intrVecEnable_0 = interrupt_deleg[0] ? _csrExcpVec_9_T & old_mstatus_SIE | current_mode < 2'h1 :
@@ -8194,7 +8194,7 @@ module Backend(
   reg [31:0] wbInsts__2_inst; // @[Backend.scala 120:33]
   reg  wbReBranch; // @[Backend.scala 126:33]
   reg [31:0] wbMisalignedAddr; // @[Backend.scala 129:33]
-  reg  wbInterruptd; // @[Backend.scala 130:29]
+  reg  wbInterruptd; // @[Backend.scala 130:33]
   reg  wbLdMa; // @[Backend.scala 131:33]
   reg  wbStMa; // @[Backend.scala 132:33]
   reg  wbBpuV; // @[Backend.scala 133:33]
@@ -9569,7 +9569,9 @@ module Backend(
       wbReBranch <= reBranch; // @[Backend.scala 506:16]
     end
     wbMisalignedAddr <= io_dcache_req_bits_addr; // @[Backend.scala 129:33]
-    if (!(kill_x)) begin // @[Backend.scala 480:17]
+    if (reset) begin // @[Backend.scala 130:33]
+      wbInterruptd <= 1'h0; // @[Backend.scala 130:33]
+    end else if (!(kill_x)) begin // @[Backend.scala 480:17]
       if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 486:26]
         wbInterruptd <= exInterruptd & ~io_fb_bmfs_redirect_kill; // @[Backend.scala 488:18]
       end
