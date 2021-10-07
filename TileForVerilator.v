@@ -9670,9 +9670,9 @@ module Backend(
     end else begin
       wb_mmio_num <= 12'h0;
     end
-    REG <= wbInstsValid_0 & _issueQueue_io_deqReq_T; // @[Backend.scala 615:77]
-    REG_1 <= wbInstsValid_1 & _issueQueue_io_deqReq_T; // @[Backend.scala 615:77]
-    REG_2 <= wbInstsValid_2 & _issueQueue_io_deqReq_T; // @[Backend.scala 615:77]
+    REG <= wbInstsValid_0 & _issueQueue_io_deqReq_T & |wbInsts__0_inst; // @[Backend.scala 615:90]
+    REG_1 <= wbInstsValid_1 & _issueQueue_io_deqReq_T & |wbInsts__1_inst; // @[Backend.scala 615:90]
+    REG_2 <= wbInstsValid_2 & _issueQueue_io_deqReq_T & |wbInsts__2_inst; // @[Backend.scala 615:90]
     if (wbInstsValid_0) begin // @[Backend.scala 616:64]
       REG_3 <= wbInsts__0_pc;
     end else begin
