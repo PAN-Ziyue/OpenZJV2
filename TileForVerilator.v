@@ -7239,9 +7239,9 @@ module CSR(
   wire [63:0] _mstatus_T_11 = {old_mstatus_SD,old_mstatus_WPRI36,old_mstatus_SXL,old_mstatus_UXL,old_mstatus_WPRI23,
     old_mstatus_TSR,mstatus_hi_lo_1,mstatus_lo_3}; // @[CSR.scala 400:34]
   wire [63:0] tvec = deleg_to_s ? stvec : mtvec; // @[CSR.scala 404:24]
-  wire [2:0] _trap_target_T_2 = {tvec[0], 2'h0}; // @[CSR.scala 405:65]
-  wire [66:0] _trap_target_T_3 = _trap_target_T_2 * cause_no; // @[CSR.scala 405:71]
-  wire [66:0] _trap_target_T_5 = 67'hffffffffffffffee + _trap_target_T_3; // @[CSR.scala 405:45]
+  wire [2:0] _trap_target_T_2 = {tvec[0], 2'h0}; // @[CSR.scala 405:61]
+  wire [66:0] _trap_target_T_3 = _trap_target_T_2 * cause_no; // @[CSR.scala 405:67]
+  wire [66:0] _trap_target_T_5 = 67'hfffffffffffffffc + _trap_target_T_3; // @[CSR.scala 405:41]
   wire [66:0] _GEN_63 = {{3'd0}, tvec}; // @[CSR.scala 405:26]
   wire [66:0] trap_target = _GEN_63 & _trap_target_T_5; // @[CSR.scala 405:26]
   wire [66:0] _io_event_io_redirect_pc_T = has_excp_intr ? trap_target : {{3'd0}, ret_target}; // @[CSR.scala 406:33]
