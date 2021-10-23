@@ -2342,7 +2342,7 @@ module ALU(
   input  [4:0]  io_aluOp,
   input         io_aluExpand,
   output [63:0] io_r,
-  output [63:0] io_zero
+  output        io_zero
 );
   wire [63:0] addResult = io_a + io_b; // @[ALU.scala 33:25]
   wire [63:0] subResult = io_a - io_b; // @[ALU.scala 34:25]
@@ -2385,9 +2385,8 @@ module ALU(
   wire [31:0] io_r_lo = result[31:0]; // @[ALU.scala 53:70]
   wire [63:0] _io_r_T_3 = {io_r_hi,io_r_lo}; // @[Cat.scala 30:58]
   wire [126:0] _io_r_T_4 = io_aluExpand ? {{63'd0}, _io_r_T_3} : result; // @[ALU.scala 53:14]
-  wire  _io_zero_T_1 = ~(|io_r); // @[ALU.scala 54:14]
   assign io_r = _io_r_T_4[63:0]; // @[ALU.scala 53:8]
-  assign io_zero = {{63'd0}, _io_zero_T_1}; // @[ALU.scala 54:14]
+  assign io_zero = ~(|io_r); // @[ALU.scala 54:14]
 endmodule
 module Divider(
   input         clock,
@@ -2571,7 +2570,7 @@ module MDU(
   wire [4:0] alu_io_aluOp; // @[MDU.scala 85:23]
   wire  alu_io_aluExpand; // @[MDU.scala 85:23]
   wire [63:0] alu_io_r; // @[MDU.scala 85:23]
-  wire [63:0] alu_io_zero; // @[MDU.scala 85:23]
+  wire  alu_io_zero; // @[MDU.scala 85:23]
   reg [127:0] mul_res; // @[MDU.scala 50:24]
   reg [127:0] mulu_res; // @[MDU.scala 51:25]
   wire [64:0] _mulsu_res_T_1 = {1'b0,$signed(io_req_in2)}; // @[MDU.scala 52:47]
@@ -7790,7 +7789,7 @@ module Backend(
   wire [4:0] alu_io_aluOp; // @[Backend.scala 52:28]
   wire  alu_io_aluExpand; // @[Backend.scala 52:28]
   wire [63:0] alu_io_r; // @[Backend.scala 52:28]
-  wire [63:0] alu_io_zero; // @[Backend.scala 52:28]
+  wire  alu_io_zero; // @[Backend.scala 52:28]
   wire  mdu_clock; // @[Backend.scala 53:28]
   wire  mdu_reset; // @[Backend.scala 53:28]
   wire  mdu_io_req_valid; // @[Backend.scala 53:28]
@@ -8153,8 +8152,8 @@ module Backend(
   wire  _reBranchBrTaken_T_9 = ~alu_io_r[0]; // @[Backend.scala 393:44]
   wire  _reBranchBrTaken_T_5 = $signed(alu_io_r) < 64'sh0; // @[Backend.scala 391:48]
   wire  _reBranchBrTaken_T_3 = $signed(alu_io_r) >= 64'sh0; // @[Backend.scala 390:48]
-  wire  _reBranchBrTaken_T_1 = alu_io_zero == 64'h0; // @[Backend.scala 389:44]
-  wire  _reBranchBrTaken_T = alu_io_zero == 64'h1; // @[Backend.scala 387:72]
+  wire  _reBranchBrTaken_T_1 = ~alu_io_zero; // @[Backend.scala 389:44]
+  wire  _reBranchBrTaken_T = alu_io_zero; // @[Backend.scala 387:72]
   wire  _reBranchBrTaken_T_11 = 4'h2 == exInsts_0_branch_type ? _reBranchBrTaken_T_1 : _reBranchBrTaken_T; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_13 = 4'h3 == exInsts_0_branch_type ? _reBranchBrTaken_T_3 : _reBranchBrTaken_T_11; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_15 = 4'h6 == exInsts_0_branch_type ? _reBranchBrTaken_T_5 : _reBranchBrTaken_T_13; // @[Mux.scala 80:57]
@@ -8227,9 +8226,7 @@ module Backend(
   wire [11:0] _ex_mmio_num_T_1 = 64'h200bff8 == ldstAddr ? 12'hfff : 12'h0; // @[Mux.scala 80:57]
   wire [11:0] ex_mmio_num = 64'h2004000 == ldstAddr ? 12'hffe : _ex_mmio_num_T_1; // @[Mux.scala 80:57]
   wire  exMMIOValid = exInstsValid_2 & |ex_mmio_num; // @[Backend.scala 173:37]
-  wire [63:0] _issueArbiter_io_ld_dest_ex_T_1 = exInstsValid_2 ? 64'hffffffffffffffff : 64'h0; // @[Bitwise.scala 72:12]
-  wire [63:0] _GEN_389 = {{59'd0}, exInsts_2_rd}; // @[Backend.scala 178:64]
-  wire [63:0] _issueArbiter_io_ld_dest_ex_T_2 = _issueArbiter_io_ld_dest_ex_T_1 & _GEN_389; // @[Backend.scala 178:64]
+  wire [4:0] _issueArbiter_io_ld_dest_ex_T_1 = exInstsValid_2 ? 5'h1f : 5'h0; // @[Bitwise.scala 72:12]
   wire [4:0] issueInsts_0_rs1 = issueQueue_io_dout_0_rs1; // @[Backend.scala 58:26 Backend.scala 153:19]
   wire [63:0] rsData_0 = regFile_io_rs_data_vec_0; // @[Backend.scala 67:26 Backend.scala 238:15]
   wire [63:0] _GEN_0 = wbInsts__0_rd == issueInsts_0_rs1 ? wbResult_0 : rsData_0; // @[Backend.scala 196:51 Backend.scala 197:24 Backend.scala 189:18]
@@ -8379,9 +8376,8 @@ module Backend(
   wire [63:0] _wb_pc_min_T_4 = wb_pc_1 < wb_pc_2 ? wb_pc_1 : wb_pc_2; // @[Backend.scala 574:8]
   wire [63:0] wb_pc_min = wb_pc_0 < wb_pc_1 ? _wb_pc_min_T_2 : _wb_pc_min_T_4; // @[Backend.scala 572:22]
   wire [63:0] _csr_io_event_io_epc_T_2 = wbALUSysReal | wbALUBpReal | illegal ? wbInsts__0_pc : wbInsts__1_pc; // @[Backend.scala 588:8]
-  wire [12:0] _csr_io_common_io_num_T_1 = wbMMIOValid ? {{1'd0}, wb_mmio_num} : wbInsts__0_imm[12:0]; // @[Backend.scala 594:8]
-  wire [12:0] _csr_io_common_io_num_T_3 = exMMIOValid ? {{1'd0}, ex_mmio_num} : exInsts_0_imm[12:0]; // @[Backend.scala 595:8]
-  wire [12:0] _csr_io_common_io_num_T_4 = csr_io_common_io_wen ? _csr_io_common_io_num_T_1 : _csr_io_common_io_num_T_3; // @[Backend.scala 593:37]
+  wire [11:0] _csr_io_common_io_num_T_1 = wbMMIOValid ? wb_mmio_num : wbInsts__0_imm[11:0]; // @[Backend.scala 594:8]
+  wire [11:0] _csr_io_common_io_num_T_3 = exMMIOValid ? ex_mmio_num : exInsts_0_imm[11:0]; // @[Backend.scala 595:8]
   reg  REG; // @[Backend.scala 614:60]
   reg  REG_1; // @[Backend.scala 614:60]
   reg  REG_2; // @[Backend.scala 614:60]
@@ -8910,7 +8906,7 @@ module Backend(
   assign issueArbiter_io_insts_in_1_ysyx_print = issueQueue_io_dout_1_ysyx_print; // @[Backend.scala 58:26 Backend.scala 153:19]
   assign issueArbiter_io_insts_in_1_inst = issueQueue_io_dout_1_inst; // @[Backend.scala 58:26 Backend.scala 153:19]
   assign issueArbiter_io_queue_items = blockSecondItem ? {{3'd0}, trap_ret_items0} : issueQueue_io_items; // @[Backend.scala 174:37]
-  assign issueArbiter_io_ld_dest_ex = _issueArbiter_io_ld_dest_ex_T_2[4:0]; // @[Backend.scala 178:31]
+  assign issueArbiter_io_ld_dest_ex = _issueArbiter_io_ld_dest_ex_T_1 & exInsts_2_rd; // @[Backend.scala 178:73]
   assign issueArbiter_io_rss_in_0 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_32 : _GEN_28; // @[Backend.scala 216:96]
   assign issueArbiter_io_rss_in_1 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_34 : _GEN_30; // @[Backend.scala 216:96]
   assign issueArbiter_io_rts_in_0 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_33 : _GEN_29; // @[Backend.scala 216:96]
@@ -8936,7 +8932,7 @@ module Backend(
   assign csr_reset = reset;
   assign csr_io_common_io_in = wbMMIOValid ? wb_mmio_sd_data : wbCsrData; // @[Backend.scala 596:37]
   assign csr_io_common_io_wen = csrWbValid & wbInstsValid_0 | wbMMIOValid & ~wbInsts__2_write_dest; // @[Backend.scala 592:66]
-  assign csr_io_common_io_num = _csr_io_common_io_num_T_4[11:0]; // @[Backend.scala 593:31]
+  assign csr_io_common_io_num = csr_io_common_io_wen ? _csr_io_common_io_num_T_1 : _csr_io_common_io_num_T_3; // @[Backend.scala 593:37]
   assign csr_io_event_io_exception_vec_2 = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 543:42]
   assign csr_io_event_io_exception_vec_3 = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 542:64]
   assign csr_io_event_io_exception_vec_4 = wbLdMaReal | wbFetchMaReal; // @[Backend.scala 559:59]
