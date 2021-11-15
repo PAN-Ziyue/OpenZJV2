@@ -1405,9 +1405,9 @@ module Dec(
   output [4:0]  io_mops_rs2,
   output [4:0]  io_mops_rd,
   output [20:0] io_mops_imm,
-  output [63:0] io_mops_pc,
+  output [31:0] io_mops_pc,
   output        io_mops_predict_taken,
-  output [63:0] io_mops_target_pc,
+  output [31:0] io_mops_target_pc,
   output        io_mops_ysyx_debug,
   output        io_mops_ysyx_print,
   output [31:0] io_mops_inst
@@ -1915,9 +1915,9 @@ module Dec(
   assign io_mops_rs2 = io_inst[24:20]; // @[Decode.scala 46:22]
   assign io_mops_rd = io_inst[11:7]; // @[Decode.scala 48:22]
   assign io_mops_imm = _io_mops_imm_T_5[20:0]; // @[Decode.scala 351:25]
-  assign io_mops_pc = io_pc; // @[Decode.scala 358:25]
+  assign io_mops_pc = io_pc[31:0]; // @[Decode.scala 358:25]
   assign io_mops_predict_taken = io_bht_predict_taken; // @[Decode.scala 359:25]
-  assign io_mops_target_pc = io_target_pc; // @[Decode.scala 360:25]
+  assign io_mops_target_pc = io_target_pc[31:0]; // @[Decode.scala 360:25]
   assign io_mops_ysyx_debug = 32'h6b == io_inst; // @[Decode.scala 362:35]
   assign io_mops_ysyx_print = 32'h7b == io_inst; // @[Decode.scala 363:35]
   assign io_mops_inst = io_inst; // @[Decode.scala 364:24]
@@ -1933,8 +1933,8 @@ module Frontend(
   input  [63:0]  io_fb_bmfs_bpu_target,
   input          io_fb_bmfs_bpu_taken,
   output [1:0]   io_fb_fmbs_instn,
-  output [224:0] io_fb_fmbs_inst_ops_0,
-  output [224:0] io_fb_fmbs_inst_ops_1,
+  output [160:0] io_fb_fmbs_inst_ops_0,
+  output [160:0] io_fb_fmbs_inst_ops_1,
   input          io_fb_fmbs_please_wait,
   output         io_icache_req_valid,
   output [31:0]  io_icache_req_bits_addr,
@@ -1997,9 +1997,9 @@ module Frontend(
   wire [4:0] Dec_io_mops_rs2; // @[Frontend.scala 85:62]
   wire [4:0] Dec_io_mops_rd; // @[Frontend.scala 85:62]
   wire [20:0] Dec_io_mops_imm; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_io_mops_pc; // @[Frontend.scala 85:62]
+  wire [31:0] Dec_io_mops_pc; // @[Frontend.scala 85:62]
   wire  Dec_io_mops_predict_taken; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_io_mops_target_pc; // @[Frontend.scala 85:62]
+  wire [31:0] Dec_io_mops_target_pc; // @[Frontend.scala 85:62]
   wire  Dec_io_mops_ysyx_debug; // @[Frontend.scala 85:62]
   wire  Dec_io_mops_ysyx_print; // @[Frontend.scala 85:62]
   wire [31:0] Dec_io_mops_inst; // @[Frontend.scala 85:62]
@@ -2022,9 +2022,9 @@ module Frontend(
   wire [4:0] Dec_1_io_mops_rs2; // @[Frontend.scala 85:62]
   wire [4:0] Dec_1_io_mops_rd; // @[Frontend.scala 85:62]
   wire [20:0] Dec_1_io_mops_imm; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_1_io_mops_pc; // @[Frontend.scala 85:62]
+  wire [31:0] Dec_1_io_mops_pc; // @[Frontend.scala 85:62]
   wire  Dec_1_io_mops_predict_taken; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_1_io_mops_target_pc; // @[Frontend.scala 85:62]
+  wire [31:0] Dec_1_io_mops_target_pc; // @[Frontend.scala 85:62]
   wire  Dec_1_io_mops_ysyx_debug; // @[Frontend.scala 85:62]
   wire  Dec_1_io_mops_ysyx_print; // @[Frontend.scala 85:62]
   wire [31:0] Dec_1_io_mops_inst; // @[Frontend.scala 85:62]
@@ -2062,14 +2062,14 @@ module Frontend(
   wire  frontend_fire = _T_1 & decode_valid_reg & ~delayed_early_update; // @[Frontend.scala 170:53]
   wire [1:0] _io_fb_fmbs_instn_T = frontend_fire ? fire_number_respn : 2'h0; // @[Frontend.scala 171:44]
   wire [64:0] _T_4 = {{1'd0}, decode_pc_low_reg}; // @[Frontend.scala 174:39]
-  wire [198:0] io_fb_fmbs_inst_ops_0_lo = {Dec_io_mops_rs1,Dec_io_mops_rs2,Dec_io_mops_rd,Dec_io_mops_imm,Dec_io_mops_pc
+  wire [134:0] io_fb_fmbs_inst_ops_0_lo = {Dec_io_mops_rs1,Dec_io_mops_rs2,Dec_io_mops_rd,Dec_io_mops_imm,Dec_io_mops_pc
     ,Dec_io_mops_predict_taken,Dec_io_mops_target_pc,Dec_io_mops_ysyx_debug,Dec_io_mops_ysyx_print,Dec_io_mops_inst}; // @[Frontend.scala 183:44]
   wire [11:0] io_fb_fmbs_inst_ops_0_hi_lo = {Dec_io_mops_write_dest,Dec_io_mops_alu_op,Dec_io_mops_alu_expand,
     Dec_io_mops_mem_width,Dec_io_mops_write_src}; // @[Frontend.scala 183:44]
   wire [25:0] io_fb_fmbs_inst_ops_0_hi = {Dec_io_mops_illegal,Dec_io_mops_next_pc,Dec_io_mops_alu_mdu_lsu,
     Dec_io_mops_branch_type,Dec_io_mops_src_a,Dec_io_mops_src_b,io_fb_fmbs_inst_ops_0_hi_lo}; // @[Frontend.scala 183:44]
   wire [31:0] _T_14 = {30'h0,decode_pc_second_state}; // @[Cat.scala 30:58]
-  wire [198:0] io_fb_fmbs_inst_ops_1_lo = {Dec_1_io_mops_rs1,Dec_1_io_mops_rs2,Dec_1_io_mops_rd,Dec_1_io_mops_imm,
+  wire [134:0] io_fb_fmbs_inst_ops_1_lo = {Dec_1_io_mops_rs1,Dec_1_io_mops_rs2,Dec_1_io_mops_rd,Dec_1_io_mops_imm,
     Dec_1_io_mops_pc,Dec_1_io_mops_predict_taken,Dec_1_io_mops_target_pc,Dec_1_io_mops_ysyx_debug,
     Dec_1_io_mops_ysyx_print,Dec_1_io_mops_inst}; // @[Frontend.scala 183:44]
   wire [11:0] io_fb_fmbs_inst_ops_1_hi_lo = {Dec_1_io_mops_write_dest,Dec_1_io_mops_alu_op,Dec_1_io_mops_alu_expand,
@@ -2742,9 +2742,9 @@ module FIFO(
   output [4:0]  io_dout_0_rs2,
   output [4:0]  io_dout_0_rd,
   output [20:0] io_dout_0_imm,
-  output [63:0] io_dout_0_pc,
+  output [31:0] io_dout_0_pc,
   output        io_dout_0_predict_taken,
-  output [63:0] io_dout_0_target_pc,
+  output [31:0] io_dout_0_target_pc,
   output        io_dout_0_ysyx_debug,
   output        io_dout_0_ysyx_print,
   output [31:0] io_dout_0_inst,
@@ -2763,9 +2763,9 @@ module FIFO(
   output [4:0]  io_dout_1_rs2,
   output [4:0]  io_dout_1_rd,
   output [20:0] io_dout_1_imm,
-  output [63:0] io_dout_1_pc,
+  output [31:0] io_dout_1_pc,
   output        io_dout_1_predict_taken,
-  output [63:0] io_dout_1_target_pc,
+  output [31:0] io_dout_1_target_pc,
   output        io_dout_1_ysyx_debug,
   output        io_dout_1_ysyx_print,
   output [31:0] io_dout_1_inst,
@@ -2788,9 +2788,9 @@ module FIFO(
   input  [4:0]  io_din_0_rs2,
   input  [4:0]  io_din_0_rd,
   input  [20:0] io_din_0_imm,
-  input  [63:0] io_din_0_pc,
+  input  [31:0] io_din_0_pc,
   input         io_din_0_predict_taken,
-  input  [63:0] io_din_0_target_pc,
+  input  [31:0] io_din_0_target_pc,
   input         io_din_0_ysyx_debug,
   input         io_din_0_ysyx_print,
   input  [31:0] io_din_0_inst,
@@ -2809,9 +2809,9 @@ module FIFO(
   input  [4:0]  io_din_1_rs2,
   input  [4:0]  io_din_1_rd,
   input  [20:0] io_din_1_imm,
-  input  [63:0] io_din_1_pc,
+  input  [31:0] io_din_1_pc,
   input         io_din_1_predict_taken,
-  input  [63:0] io_din_1_target_pc,
+  input  [31:0] io_din_1_target_pc,
   input         io_din_1_ysyx_debug,
   input         io_din_1_ysyx_print,
   input  [31:0] io_din_1_inst,
@@ -2835,9 +2835,9 @@ module FIFO(
   reg [31:0] _RAND_12;
   reg [31:0] _RAND_13;
   reg [31:0] _RAND_14;
-  reg [63:0] _RAND_15;
+  reg [31:0] _RAND_15;
   reg [31:0] _RAND_16;
-  reg [63:0] _RAND_17;
+  reg [31:0] _RAND_17;
   reg [31:0] _RAND_18;
   reg [31:0] _RAND_19;
   reg [31:0] _RAND_20;
@@ -2856,9 +2856,9 @@ module FIFO(
   reg [31:0] _RAND_33;
   reg [31:0] _RAND_34;
   reg [31:0] _RAND_35;
-  reg [63:0] _RAND_36;
+  reg [31:0] _RAND_36;
   reg [31:0] _RAND_37;
-  reg [63:0] _RAND_38;
+  reg [31:0] _RAND_38;
   reg [31:0] _RAND_39;
   reg [31:0] _RAND_40;
   reg [31:0] _RAND_41;
@@ -2877,9 +2877,9 @@ module FIFO(
   reg [31:0] _RAND_54;
   reg [31:0] _RAND_55;
   reg [31:0] _RAND_56;
-  reg [63:0] _RAND_57;
+  reg [31:0] _RAND_57;
   reg [31:0] _RAND_58;
-  reg [63:0] _RAND_59;
+  reg [31:0] _RAND_59;
   reg [31:0] _RAND_60;
   reg [31:0] _RAND_61;
   reg [31:0] _RAND_62;
@@ -2898,9 +2898,9 @@ module FIFO(
   reg [31:0] _RAND_75;
   reg [31:0] _RAND_76;
   reg [31:0] _RAND_77;
-  reg [63:0] _RAND_78;
+  reg [31:0] _RAND_78;
   reg [31:0] _RAND_79;
-  reg [63:0] _RAND_80;
+  reg [31:0] _RAND_80;
   reg [31:0] _RAND_81;
   reg [31:0] _RAND_82;
   reg [31:0] _RAND_83;
@@ -2919,9 +2919,9 @@ module FIFO(
   reg [31:0] _RAND_96;
   reg [31:0] _RAND_97;
   reg [31:0] _RAND_98;
-  reg [63:0] _RAND_99;
+  reg [31:0] _RAND_99;
   reg [31:0] _RAND_100;
-  reg [63:0] _RAND_101;
+  reg [31:0] _RAND_101;
   reg [31:0] _RAND_102;
   reg [31:0] _RAND_103;
   reg [31:0] _RAND_104;
@@ -2940,9 +2940,9 @@ module FIFO(
   reg [31:0] _RAND_117;
   reg [31:0] _RAND_118;
   reg [31:0] _RAND_119;
-  reg [63:0] _RAND_120;
+  reg [31:0] _RAND_120;
   reg [31:0] _RAND_121;
-  reg [63:0] _RAND_122;
+  reg [31:0] _RAND_122;
   reg [31:0] _RAND_123;
   reg [31:0] _RAND_124;
   reg [31:0] _RAND_125;
@@ -2961,9 +2961,9 @@ module FIFO(
   reg [31:0] _RAND_138;
   reg [31:0] _RAND_139;
   reg [31:0] _RAND_140;
-  reg [63:0] _RAND_141;
+  reg [31:0] _RAND_141;
   reg [31:0] _RAND_142;
-  reg [63:0] _RAND_143;
+  reg [31:0] _RAND_143;
   reg [31:0] _RAND_144;
   reg [31:0] _RAND_145;
   reg [31:0] _RAND_146;
@@ -2982,9 +2982,9 @@ module FIFO(
   reg [31:0] _RAND_159;
   reg [31:0] _RAND_160;
   reg [31:0] _RAND_161;
-  reg [63:0] _RAND_162;
+  reg [31:0] _RAND_162;
   reg [31:0] _RAND_163;
-  reg [63:0] _RAND_164;
+  reg [31:0] _RAND_164;
   reg [31:0] _RAND_165;
   reg [31:0] _RAND_166;
   reg [31:0] _RAND_167;
@@ -3007,9 +3007,9 @@ module FIFO(
   reg [4:0] mem_0_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_0_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_0_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_0_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_0_pc; // @[FIFO.scala 21:16]
   reg  mem_0_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_0_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_0_target_pc; // @[FIFO.scala 21:16]
   reg  mem_0_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_0_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_0_inst; // @[FIFO.scala 21:16]
@@ -3028,9 +3028,9 @@ module FIFO(
   reg [4:0] mem_1_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_1_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_1_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_1_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_1_pc; // @[FIFO.scala 21:16]
   reg  mem_1_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_1_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_1_target_pc; // @[FIFO.scala 21:16]
   reg  mem_1_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_1_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_1_inst; // @[FIFO.scala 21:16]
@@ -3049,9 +3049,9 @@ module FIFO(
   reg [4:0] mem_2_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_2_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_2_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_2_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_2_pc; // @[FIFO.scala 21:16]
   reg  mem_2_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_2_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_2_target_pc; // @[FIFO.scala 21:16]
   reg  mem_2_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_2_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_2_inst; // @[FIFO.scala 21:16]
@@ -3070,9 +3070,9 @@ module FIFO(
   reg [4:0] mem_3_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_3_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_3_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_3_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_3_pc; // @[FIFO.scala 21:16]
   reg  mem_3_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_3_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_3_target_pc; // @[FIFO.scala 21:16]
   reg  mem_3_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_3_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_3_inst; // @[FIFO.scala 21:16]
@@ -3091,9 +3091,9 @@ module FIFO(
   reg [4:0] mem_4_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_4_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_4_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_4_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_4_pc; // @[FIFO.scala 21:16]
   reg  mem_4_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_4_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_4_target_pc; // @[FIFO.scala 21:16]
   reg  mem_4_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_4_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_4_inst; // @[FIFO.scala 21:16]
@@ -3112,9 +3112,9 @@ module FIFO(
   reg [4:0] mem_5_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_5_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_5_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_5_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_5_pc; // @[FIFO.scala 21:16]
   reg  mem_5_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_5_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_5_target_pc; // @[FIFO.scala 21:16]
   reg  mem_5_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_5_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_5_inst; // @[FIFO.scala 21:16]
@@ -3133,9 +3133,9 @@ module FIFO(
   reg [4:0] mem_6_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_6_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_6_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_6_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_6_pc; // @[FIFO.scala 21:16]
   reg  mem_6_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_6_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_6_target_pc; // @[FIFO.scala 21:16]
   reg  mem_6_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_6_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_6_inst; // @[FIFO.scala 21:16]
@@ -3154,9 +3154,9 @@ module FIFO(
   reg [4:0] mem_7_rs2; // @[FIFO.scala 21:16]
   reg [4:0] mem_7_rd; // @[FIFO.scala 21:16]
   reg [20:0] mem_7_imm; // @[FIFO.scala 21:16]
-  reg [63:0] mem_7_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_7_pc; // @[FIFO.scala 21:16]
   reg  mem_7_predict_taken; // @[FIFO.scala 21:16]
-  reg [63:0] mem_7_target_pc; // @[FIFO.scala 21:16]
+  reg [31:0] mem_7_target_pc; // @[FIFO.scala 21:16]
   reg  mem_7_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_7_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_7_inst; // @[FIFO.scala 21:16]
@@ -3204,24 +3204,24 @@ module FIFO(
   wire  _GEN_527 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_ysyx_debug : _GEN_526; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_528 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_ysyx_debug : _GEN_527; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_529 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_ysyx_debug : _GEN_528; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_532 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_533 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_target_pc : _GEN_532; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_534 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_target_pc : _GEN_533; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_535 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_target_pc : _GEN_534; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_536 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_target_pc : _GEN_535; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_537 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_target_pc : _GEN_536; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_532 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_533 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_target_pc : _GEN_532; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_534 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_target_pc : _GEN_533; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_535 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_target_pc : _GEN_534; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_536 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_target_pc : _GEN_535; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_537 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_target_pc : _GEN_536; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_540 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_predict_taken : mem_0_predict_taken; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_541 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_predict_taken : _GEN_540; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_542 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_predict_taken : _GEN_541; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_543 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_predict_taken : _GEN_542; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_544 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_predict_taken : _GEN_543; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_545 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_predict_taken : _GEN_544; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_548 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_549 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_pc : _GEN_548; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_550 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_pc : _GEN_549; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_551 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_pc : _GEN_550; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_552 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_pc : _GEN_551; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_553 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_pc : _GEN_552; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_548 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_549 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_pc : _GEN_548; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_550 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_pc : _GEN_549; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_551 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_pc : _GEN_550; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_552 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_pc : _GEN_551; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_553 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_pc : _GEN_552; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire [20:0] _GEN_556 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_imm : mem_0_imm; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire [20:0] _GEN_557 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_imm : _GEN_556; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire [20:0] _GEN_558 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_imm : _GEN_557; // @[FIFO.scala 57:16 FIFO.scala 57:16]
@@ -3333,24 +3333,24 @@ module FIFO(
   wire  _GEN_695 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_ysyx_debug : _GEN_694; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_696 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_ysyx_debug : _GEN_695; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_697 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_ysyx_debug : _GEN_696; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_700 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_701 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_target_pc : _GEN_700; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_702 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_target_pc : _GEN_701; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_703 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_target_pc : _GEN_702; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_704 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_target_pc : _GEN_703; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_705 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_target_pc : _GEN_704; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_700 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_701 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_target_pc : _GEN_700; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_702 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_target_pc : _GEN_701; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_703 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_target_pc : _GEN_702; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_704 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_target_pc : _GEN_703; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_705 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_target_pc : _GEN_704; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_708 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_predict_taken : mem_0_predict_taken; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_709 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_predict_taken : _GEN_708; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_710 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_predict_taken : _GEN_709; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_711 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_predict_taken : _GEN_710; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_712 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_predict_taken : _GEN_711; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire  _GEN_713 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_predict_taken : _GEN_712; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_716 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_717 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_pc : _GEN_716; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_718 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_pc : _GEN_717; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_719 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_pc : _GEN_718; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_720 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_pc : _GEN_719; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [63:0] _GEN_721 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_pc : _GEN_720; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_716 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_717 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_pc : _GEN_716; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_718 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_pc : _GEN_717; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_719 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_pc : _GEN_718; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_720 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_pc : _GEN_719; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_721 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_pc : _GEN_720; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire [20:0] _GEN_724 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_imm : mem_0_imm; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire [20:0] _GEN_725 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_imm : _GEN_724; // @[FIFO.scala 57:16 FIFO.scala 57:16]
   wire [20:0] _GEN_726 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_imm : _GEN_725; // @[FIFO.scala 57:16 FIFO.scala 57:16]
@@ -4758,12 +4758,12 @@ initial begin
   mem_0_rd = _RAND_13[4:0];
   _RAND_14 = {1{`RANDOM}};
   mem_0_imm = _RAND_14[20:0];
-  _RAND_15 = {2{`RANDOM}};
-  mem_0_pc = _RAND_15[63:0];
+  _RAND_15 = {1{`RANDOM}};
+  mem_0_pc = _RAND_15[31:0];
   _RAND_16 = {1{`RANDOM}};
   mem_0_predict_taken = _RAND_16[0:0];
-  _RAND_17 = {2{`RANDOM}};
-  mem_0_target_pc = _RAND_17[63:0];
+  _RAND_17 = {1{`RANDOM}};
+  mem_0_target_pc = _RAND_17[31:0];
   _RAND_18 = {1{`RANDOM}};
   mem_0_ysyx_debug = _RAND_18[0:0];
   _RAND_19 = {1{`RANDOM}};
@@ -4800,12 +4800,12 @@ initial begin
   mem_1_rd = _RAND_34[4:0];
   _RAND_35 = {1{`RANDOM}};
   mem_1_imm = _RAND_35[20:0];
-  _RAND_36 = {2{`RANDOM}};
-  mem_1_pc = _RAND_36[63:0];
+  _RAND_36 = {1{`RANDOM}};
+  mem_1_pc = _RAND_36[31:0];
   _RAND_37 = {1{`RANDOM}};
   mem_1_predict_taken = _RAND_37[0:0];
-  _RAND_38 = {2{`RANDOM}};
-  mem_1_target_pc = _RAND_38[63:0];
+  _RAND_38 = {1{`RANDOM}};
+  mem_1_target_pc = _RAND_38[31:0];
   _RAND_39 = {1{`RANDOM}};
   mem_1_ysyx_debug = _RAND_39[0:0];
   _RAND_40 = {1{`RANDOM}};
@@ -4842,12 +4842,12 @@ initial begin
   mem_2_rd = _RAND_55[4:0];
   _RAND_56 = {1{`RANDOM}};
   mem_2_imm = _RAND_56[20:0];
-  _RAND_57 = {2{`RANDOM}};
-  mem_2_pc = _RAND_57[63:0];
+  _RAND_57 = {1{`RANDOM}};
+  mem_2_pc = _RAND_57[31:0];
   _RAND_58 = {1{`RANDOM}};
   mem_2_predict_taken = _RAND_58[0:0];
-  _RAND_59 = {2{`RANDOM}};
-  mem_2_target_pc = _RAND_59[63:0];
+  _RAND_59 = {1{`RANDOM}};
+  mem_2_target_pc = _RAND_59[31:0];
   _RAND_60 = {1{`RANDOM}};
   mem_2_ysyx_debug = _RAND_60[0:0];
   _RAND_61 = {1{`RANDOM}};
@@ -4884,12 +4884,12 @@ initial begin
   mem_3_rd = _RAND_76[4:0];
   _RAND_77 = {1{`RANDOM}};
   mem_3_imm = _RAND_77[20:0];
-  _RAND_78 = {2{`RANDOM}};
-  mem_3_pc = _RAND_78[63:0];
+  _RAND_78 = {1{`RANDOM}};
+  mem_3_pc = _RAND_78[31:0];
   _RAND_79 = {1{`RANDOM}};
   mem_3_predict_taken = _RAND_79[0:0];
-  _RAND_80 = {2{`RANDOM}};
-  mem_3_target_pc = _RAND_80[63:0];
+  _RAND_80 = {1{`RANDOM}};
+  mem_3_target_pc = _RAND_80[31:0];
   _RAND_81 = {1{`RANDOM}};
   mem_3_ysyx_debug = _RAND_81[0:0];
   _RAND_82 = {1{`RANDOM}};
@@ -4926,12 +4926,12 @@ initial begin
   mem_4_rd = _RAND_97[4:0];
   _RAND_98 = {1{`RANDOM}};
   mem_4_imm = _RAND_98[20:0];
-  _RAND_99 = {2{`RANDOM}};
-  mem_4_pc = _RAND_99[63:0];
+  _RAND_99 = {1{`RANDOM}};
+  mem_4_pc = _RAND_99[31:0];
   _RAND_100 = {1{`RANDOM}};
   mem_4_predict_taken = _RAND_100[0:0];
-  _RAND_101 = {2{`RANDOM}};
-  mem_4_target_pc = _RAND_101[63:0];
+  _RAND_101 = {1{`RANDOM}};
+  mem_4_target_pc = _RAND_101[31:0];
   _RAND_102 = {1{`RANDOM}};
   mem_4_ysyx_debug = _RAND_102[0:0];
   _RAND_103 = {1{`RANDOM}};
@@ -4968,12 +4968,12 @@ initial begin
   mem_5_rd = _RAND_118[4:0];
   _RAND_119 = {1{`RANDOM}};
   mem_5_imm = _RAND_119[20:0];
-  _RAND_120 = {2{`RANDOM}};
-  mem_5_pc = _RAND_120[63:0];
+  _RAND_120 = {1{`RANDOM}};
+  mem_5_pc = _RAND_120[31:0];
   _RAND_121 = {1{`RANDOM}};
   mem_5_predict_taken = _RAND_121[0:0];
-  _RAND_122 = {2{`RANDOM}};
-  mem_5_target_pc = _RAND_122[63:0];
+  _RAND_122 = {1{`RANDOM}};
+  mem_5_target_pc = _RAND_122[31:0];
   _RAND_123 = {1{`RANDOM}};
   mem_5_ysyx_debug = _RAND_123[0:0];
   _RAND_124 = {1{`RANDOM}};
@@ -5010,12 +5010,12 @@ initial begin
   mem_6_rd = _RAND_139[4:0];
   _RAND_140 = {1{`RANDOM}};
   mem_6_imm = _RAND_140[20:0];
-  _RAND_141 = {2{`RANDOM}};
-  mem_6_pc = _RAND_141[63:0];
+  _RAND_141 = {1{`RANDOM}};
+  mem_6_pc = _RAND_141[31:0];
   _RAND_142 = {1{`RANDOM}};
   mem_6_predict_taken = _RAND_142[0:0];
-  _RAND_143 = {2{`RANDOM}};
-  mem_6_target_pc = _RAND_143[63:0];
+  _RAND_143 = {1{`RANDOM}};
+  mem_6_target_pc = _RAND_143[31:0];
   _RAND_144 = {1{`RANDOM}};
   mem_6_ysyx_debug = _RAND_144[0:0];
   _RAND_145 = {1{`RANDOM}};
@@ -5052,12 +5052,12 @@ initial begin
   mem_7_rd = _RAND_160[4:0];
   _RAND_161 = {1{`RANDOM}};
   mem_7_imm = _RAND_161[20:0];
-  _RAND_162 = {2{`RANDOM}};
-  mem_7_pc = _RAND_162[63:0];
+  _RAND_162 = {1{`RANDOM}};
+  mem_7_pc = _RAND_162[31:0];
   _RAND_163 = {1{`RANDOM}};
   mem_7_predict_taken = _RAND_163[0:0];
-  _RAND_164 = {2{`RANDOM}};
-  mem_7_target_pc = _RAND_164[63:0];
+  _RAND_164 = {1{`RANDOM}};
+  mem_7_target_pc = _RAND_164[31:0];
   _RAND_165 = {1{`RANDOM}};
   mem_7_ysyx_debug = _RAND_165[0:0];
   _RAND_166 = {1{`RANDOM}};
@@ -5094,9 +5094,9 @@ module IssueArbiter(
   input  [4:0]  io_insts_in_0_rs2,
   input  [4:0]  io_insts_in_0_rd,
   input  [20:0] io_insts_in_0_imm,
-  input  [63:0] io_insts_in_0_pc,
+  input  [31:0] io_insts_in_0_pc,
   input         io_insts_in_0_predict_taken,
-  input  [63:0] io_insts_in_0_target_pc,
+  input  [31:0] io_insts_in_0_target_pc,
   input         io_insts_in_0_ysyx_debug,
   input         io_insts_in_0_ysyx_print,
   input  [31:0] io_insts_in_0_inst,
@@ -5115,9 +5115,9 @@ module IssueArbiter(
   input  [4:0]  io_insts_in_1_rs2,
   input  [4:0]  io_insts_in_1_rd,
   input  [20:0] io_insts_in_1_imm,
-  input  [63:0] io_insts_in_1_pc,
+  input  [31:0] io_insts_in_1_pc,
   input         io_insts_in_1_predict_taken,
-  input  [63:0] io_insts_in_1_target_pc,
+  input  [31:0] io_insts_in_1_target_pc,
   input         io_insts_in_1_ysyx_debug,
   input         io_insts_in_1_ysyx_print,
   input  [31:0] io_insts_in_1_inst,
@@ -5134,7 +5134,6 @@ module IssueArbiter(
   output [63:0] io_rts_out_1,
   output [63:0] io_rts_out_2,
   input         io_csr_ex,
-  input         io_mmio_ex,
   output        io_insts_out_0_illegal,
   output [2:0]  io_insts_out_0_next_pc,
   output [1:0]  io_insts_out_0_alu_mdu_lsu,
@@ -5148,9 +5147,9 @@ module IssueArbiter(
   output [4:0]  io_insts_out_0_rs1,
   output [4:0]  io_insts_out_0_rd,
   output [20:0] io_insts_out_0_imm,
-  output [63:0] io_insts_out_0_pc,
+  output [31:0] io_insts_out_0_pc,
   output        io_insts_out_0_predict_taken,
-  output [63:0] io_insts_out_0_target_pc,
+  output [31:0] io_insts_out_0_target_pc,
   output        io_insts_out_0_ysyx_debug,
   output        io_insts_out_0_ysyx_print,
   output [31:0] io_insts_out_0_inst,
@@ -5161,7 +5160,7 @@ module IssueArbiter(
   output        io_insts_out_1_alu_expand,
   output [4:0]  io_insts_out_1_rd,
   output [20:0] io_insts_out_1_imm,
-  output [63:0] io_insts_out_1_pc,
+  output [31:0] io_insts_out_1_pc,
   output        io_insts_out_1_ysyx_print,
   output [31:0] io_insts_out_1_inst,
   output [1:0]  io_insts_out_2_src_a,
@@ -5170,7 +5169,7 @@ module IssueArbiter(
   output [2:0]  io_insts_out_2_mem_width,
   output [4:0]  io_insts_out_2_rd,
   output [20:0] io_insts_out_2_imm,
-  output [63:0] io_insts_out_2_pc,
+  output [31:0] io_insts_out_2_pc,
   output        io_insts_out_2_ysyx_print,
   output [31:0] io_insts_out_2_inst,
   output [1:0]  io_issue_num,
@@ -5181,731 +5180,728 @@ module IssueArbiter(
   output [1:0]  io_insts_order_1,
   output [1:0]  io_insts_order_2
 );
-  wire  _T_1 = io_csr_ex | io_mmio_ex; // @[IssueArbiter.scala 76:92]
-  wire  _T_12 = (io_ld_dest_ex == 5'h0 | io_insts_in_0_rs1 != io_ld_dest_ex & io_insts_in_0_rs2 != io_ld_dest_ex) & (~
-    _T_1 | io_insts_in_0_src_b != 2'h2 & io_insts_in_0_alu_mdu_lsu != 2'h2); // @[IssueArbiter.scala 41:66]
-  wire  issue_valid_0 = io_queue_items > 4'h0 & _T_12; // @[IssueArbiter.scala 76:29]
-  wire  _T_15 = io_insts_in_0_rd != 5'h0; // @[IssueArbiter.scala 33:14]
-  wire  _T_19 = io_insts_in_0_rd != 5'h0 & (io_insts_in_0_rd == io_insts_in_1_rs1 | io_insts_in_0_rd ==
-    io_insts_in_1_rs2); // @[IssueArbiter.scala 33:22]
-  wire  _T_22 = _T_15 & io_insts_in_0_rd == io_insts_in_1_rd; // @[IssueArbiter.scala 29:22]
-  wire  _T_23 = _T_19 | _T_22; // @[IssueArbiter.scala 37:25]
-  wire  _T_26 = io_insts_in_0_alu_mdu_lsu == 2'h3; // @[IssueArbiter.scala 48:29]
-  wire  _T_27 = io_insts_in_1_alu_mdu_lsu == 2'h3; // @[IssueArbiter.scala 48:62]
-  wire  _T_28 = io_insts_in_0_alu_mdu_lsu == 2'h3 & io_insts_in_1_alu_mdu_lsu == 2'h3; // @[IssueArbiter.scala 48:41]
-  wire  _T_29 = io_insts_in_0_alu_mdu_lsu != io_insts_in_1_alu_mdu_lsu | _T_28; // @[IssueArbiter.scala 47:48]
-  wire  _T_30 = ~_T_23 & _T_29; // @[IssueArbiter.scala 46:33]
-  wire  _T_31 = io_insts_in_0_alu_mdu_lsu != 2'h0; // @[IssueArbiter.scala 49:25]
-  wire  _T_32 = _T_30 & _T_31; // @[IssueArbiter.scala 48:75]
-  wire  _T_36 = ~(io_insts_in_0_alu_mdu_lsu == 2'h2 & io_insts_in_1_alu_mdu_lsu == 2'h0); // @[IssueArbiter.scala 51:7]
-  wire  _T_37 = _T_32 & _T_36; // @[IssueArbiter.scala 49:37]
-  wire  _T_50 = (io_ld_dest_ex == 5'h0 | io_insts_in_1_rs1 != io_ld_dest_ex & io_insts_in_1_rs2 != io_ld_dest_ex) & (~
-    _T_1 | io_insts_in_1_src_b != 2'h2 & io_insts_in_1_alu_mdu_lsu != 2'h2); // @[IssueArbiter.scala 41:66]
-  wire  _T_51 = io_queue_items > 4'h1 & _T_37 & _T_50; // @[IssueArbiter.scala 79:79]
-  wire [1:0] _GEN_1 = _T_51 ? 2'h2 : 2'h1; // @[IssueArbiter.scala 80:83 IssueArbiter.scala 83:20 IssueArbiter.scala 78:18]
-  wire  issue_valid_1 = issue_valid_0 & _T_51; // @[IssueArbiter.scala 76:108]
-  wire  _T_52 = 2'h0 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
-  wire  _T_53 = 2'h1 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
-  wire  _T_54 = 2'h2 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
-  wire [31:0] _GEN_5 = _T_54 ? io_insts_in_0_inst : 32'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire  _GEN_6 = _T_54 & io_insts_in_0_ysyx_print; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_10 = _T_54 ? io_insts_in_0_pc : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_11 = _T_54 ? io_insts_in_0_imm : 21'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_12 = _T_54 ? io_insts_in_0_rd : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [2:0] _GEN_16 = _T_54 ? io_insts_in_0_mem_width : 3'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_18 = _T_54 ? io_insts_in_0_alu_op : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire  _GEN_19 = _T_54 & io_insts_in_0_write_dest; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_21 = _T_54 ? io_insts_in_0_src_a : 2'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_26 = _T_54 ? io_rss_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 128:25 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_27 = _T_54 ? io_rts_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 129:25 IssueArbiter.scala 103:19]
-  wire [31:0] _GEN_30 = _T_53 ? io_insts_in_0_inst : 32'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire  _GEN_31 = _T_53 & io_insts_in_0_ysyx_print; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_35 = _T_53 ? io_insts_in_0_pc : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_36 = _T_53 ? io_insts_in_0_imm : 21'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_37 = _T_53 ? io_insts_in_0_rd : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire  _GEN_42 = _T_53 & io_insts_in_0_alu_expand; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_43 = _T_53 ? io_insts_in_0_alu_op : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire  _GEN_44 = _T_53 & io_insts_in_0_write_dest; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_45 = _T_53 ? io_insts_in_0_src_b : 2'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_46 = _T_53 ? io_insts_in_0_src_a : 2'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_51 = _T_53 ? io_rss_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 120:25 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_52 = _T_53 ? io_rts_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 121:25 IssueArbiter.scala 103:19]
-  wire [31:0] _GEN_55 = _T_53 ? 32'h0 : _GEN_5; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire  _GEN_56 = _T_53 ? 1'h0 : _GEN_6; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_60 = _T_53 ? 64'h0 : _GEN_10; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_61 = _T_53 ? 21'h0 : _GEN_11; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_62 = _T_53 ? 5'h0 : _GEN_12; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [2:0] _GEN_66 = _T_53 ? 3'h0 : _GEN_16; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_68 = _T_53 ? 5'h0 : _GEN_18; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire  _GEN_69 = _T_53 ? 1'h0 : _GEN_19; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_71 = _T_53 ? 2'h0 : _GEN_21; // @[Conditional.scala 39:67 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_76 = _T_53 ? 64'h0 : _GEN_26; // @[Conditional.scala 39:67 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_77 = _T_53 ? 64'h0 : _GEN_27; // @[Conditional.scala 39:67 IssueArbiter.scala 103:19]
-  wire  _GEN_79 = _T_53 ? 1'h0 : _T_54; // @[Conditional.scala 39:67 IssueArbiter.scala 105:26]
-  wire [31:0] _GEN_80 = _T_52 ? io_insts_in_0_inst : 32'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire  _GEN_81 = _T_52 & io_insts_in_0_ysyx_print; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire  _GEN_82 = _T_52 & io_insts_in_0_ysyx_debug; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_83 = _T_52 ? io_insts_in_0_target_pc : 64'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire  _GEN_84 = _T_52 & io_insts_in_0_predict_taken; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_85 = _T_52 ? io_insts_in_0_pc : 64'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_86 = _T_52 ? io_insts_in_0_imm : 21'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_87 = _T_52 ? io_insts_in_0_rd : 5'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_89 = _T_52 ? io_insts_in_0_rs1 : 5'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_90 = _T_52 ? io_insts_in_0_write_src : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire  _GEN_92 = _T_52 & io_insts_in_0_alu_expand; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_93 = _T_52 ? io_insts_in_0_alu_op : 5'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire  _GEN_94 = _T_52 & io_insts_in_0_write_dest; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_95 = _T_52 ? io_insts_in_0_src_b : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_96 = _T_52 ? io_insts_in_0_src_a : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [3:0] _GEN_97 = _T_52 ? io_insts_in_0_branch_type : 4'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_98 = _T_52 ? io_insts_in_0_alu_mdu_lsu : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [2:0] _GEN_99 = _T_52 ? io_insts_in_0_next_pc : 3'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire  _GEN_100 = _T_52 & io_insts_in_0_illegal; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_101 = _T_52 ? io_rss_in_0 : 64'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 112:25 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_102 = _T_52 ? io_rts_in_0 : 64'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 113:25 IssueArbiter.scala 103:19]
-  wire [31:0] _GEN_105 = _T_52 ? 32'h0 : _GEN_30; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire  _GEN_106 = _T_52 ? 1'h0 : _GEN_31; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_110 = _T_52 ? 64'h0 : _GEN_35; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_111 = _T_52 ? 21'h0 : _GEN_36; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_112 = _T_52 ? 5'h0 : _GEN_37; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire  _GEN_117 = _T_52 ? 1'h0 : _GEN_42; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_118 = _T_52 ? 5'h0 : _GEN_43; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire  _GEN_119 = _T_52 ? 1'h0 : _GEN_44; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_120 = _T_52 ? 2'h0 : _GEN_45; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_121 = _T_52 ? 2'h0 : _GEN_46; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_126 = _T_52 ? 64'h0 : _GEN_51; // @[Conditional.scala 40:58 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_127 = _T_52 ? 64'h0 : _GEN_52; // @[Conditional.scala 40:58 IssueArbiter.scala 103:19]
-  wire  _GEN_129 = _T_52 ? 1'h0 : _T_53; // @[Conditional.scala 40:58 IssueArbiter.scala 105:26]
-  wire [31:0] _GEN_130 = _T_52 ? 32'h0 : _GEN_55; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire  _GEN_131 = _T_52 ? 1'h0 : _GEN_56; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_135 = _T_52 ? 64'h0 : _GEN_60; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_136 = _T_52 ? 21'h0 : _GEN_61; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_137 = _T_52 ? 5'h0 : _GEN_62; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [2:0] _GEN_141 = _T_52 ? 3'h0 : _GEN_66; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_143 = _T_52 ? 5'h0 : _GEN_68; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire  _GEN_144 = _T_52 ? 1'h0 : _GEN_69; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_146 = _T_52 ? 2'h0 : _GEN_71; // @[Conditional.scala 40:58 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_151 = _T_52 ? 64'h0 : _GEN_76; // @[Conditional.scala 40:58 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_152 = _T_52 ? 64'h0 : _GEN_77; // @[Conditional.scala 40:58 IssueArbiter.scala 103:19]
-  wire  _GEN_154 = _T_52 ? 1'h0 : _GEN_79; // @[Conditional.scala 40:58 IssueArbiter.scala 105:26]
-  wire [31:0] _GEN_155 = issue_valid_0 ? _GEN_80 : 32'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_156 = issue_valid_0 & _GEN_81; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_157 = issue_valid_0 & _GEN_82; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_158 = issue_valid_0 ? _GEN_83 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_159 = issue_valid_0 & _GEN_84; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_160 = issue_valid_0 ? _GEN_85 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_161 = issue_valid_0 ? _GEN_86 : 21'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_162 = issue_valid_0 ? _GEN_87 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_164 = issue_valid_0 ? _GEN_89 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_165 = issue_valid_0 ? _GEN_90 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_167 = issue_valid_0 & _GEN_92; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_168 = issue_valid_0 ? _GEN_93 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_169 = issue_valid_0 & _GEN_94; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_170 = issue_valid_0 ? _GEN_95 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_171 = issue_valid_0 ? _GEN_96 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [3:0] _GEN_172 = issue_valid_0 ? _GEN_97 : 4'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_173 = issue_valid_0 ? _GEN_98 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [2:0] _GEN_174 = issue_valid_0 ? _GEN_99 : 3'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_175 = issue_valid_0 & _GEN_100; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_176 = issue_valid_0 ? _GEN_101 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_177 = issue_valid_0 ? _GEN_102 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 103:19]
-  wire  _GEN_179 = issue_valid_0 & _T_52; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 105:26]
-  wire [31:0] _GEN_180 = issue_valid_0 ? _GEN_105 : 32'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_181 = issue_valid_0 & _GEN_106; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_185 = issue_valid_0 ? _GEN_110 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_186 = issue_valid_0 ? _GEN_111 : 21'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_187 = issue_valid_0 ? _GEN_112 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_192 = issue_valid_0 & _GEN_117; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_193 = issue_valid_0 ? _GEN_118 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_194 = issue_valid_0 & _GEN_119; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_195 = issue_valid_0 ? _GEN_120 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_196 = issue_valid_0 ? _GEN_121 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_201 = issue_valid_0 ? _GEN_126 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_202 = issue_valid_0 ? _GEN_127 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 103:19]
-  wire  _GEN_204 = issue_valid_0 & _GEN_129; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 105:26]
-  wire [31:0] _GEN_205 = issue_valid_0 ? _GEN_130 : 32'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_206 = issue_valid_0 & _GEN_131; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_210 = issue_valid_0 ? _GEN_135 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [20:0] _GEN_211 = issue_valid_0 ? _GEN_136 : 21'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_212 = issue_valid_0 ? _GEN_137 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [2:0] _GEN_216 = issue_valid_0 ? _GEN_141 : 3'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [4:0] _GEN_218 = issue_valid_0 ? _GEN_143 : 5'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire  _GEN_219 = issue_valid_0 & _GEN_144; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [1:0] _GEN_221 = issue_valid_0 ? _GEN_146 : 2'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 101:21]
-  wire [63:0] _GEN_226 = issue_valid_0 ? _GEN_151 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 102:19]
-  wire [63:0] _GEN_227 = issue_valid_0 ? _GEN_152 : 64'h0; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 103:19]
-  wire  _GEN_229 = issue_valid_0 & _GEN_154; // @[IssueArbiter.scala 108:26 IssueArbiter.scala 105:26]
-  wire  _T_63 = 2'h0 == io_insts_in_1_alu_mdu_lsu; // @[Conditional.scala 37:30]
-  wire  _GEN_581 = _T_63 | _GEN_179; // @[Conditional.scala 40:58 IssueArbiter.scala 116:22]
-  wire  alu_occupy = issue_valid_1 ? _GEN_581 : _GEN_179; // @[IssueArbiter.scala 108:26]
-  wire  _T_57 = ~alu_occupy; // @[IssueArbiter.scala 138:14]
-  wire  _T_64 = 2'h1 == io_insts_in_1_alu_mdu_lsu; // @[Conditional.scala 37:30]
-  wire  _GEN_530 = _T_64 | _GEN_204; // @[Conditional.scala 39:67 IssueArbiter.scala 124:22]
-  wire  _GEN_607 = _T_63 ? _GEN_204 : _GEN_530; // @[Conditional.scala 40:58]
-  wire  mdu_occupy = issue_valid_1 ? _GEN_607 : _GEN_204; // @[IssueArbiter.scala 108:26]
-  wire  _T_58 = ~mdu_occupy; // @[IssueArbiter.scala 144:21]
-  wire [31:0] _GEN_230 = ~mdu_occupy ? io_insts_in_0_inst : _GEN_180; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_231 = ~mdu_occupy ? io_insts_in_0_ysyx_print : _GEN_181; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_235 = ~mdu_occupy ? io_insts_in_0_pc : _GEN_185; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [20:0] _GEN_236 = ~mdu_occupy ? io_insts_in_0_imm : _GEN_186; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_237 = ~mdu_occupy ? io_insts_in_0_rd : _GEN_187; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_242 = ~mdu_occupy ? io_insts_in_0_alu_expand : _GEN_192; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_243 = ~mdu_occupy ? io_insts_in_0_alu_op : _GEN_193; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_244 = ~mdu_occupy ? io_insts_in_0_write_dest : _GEN_194; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_245 = ~mdu_occupy ? io_insts_in_0_src_b : _GEN_195; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_246 = ~mdu_occupy ? io_insts_in_0_src_a : _GEN_196; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_251 = ~mdu_occupy ? io_rss_in_0 : _GEN_201; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 146:25]
-  wire [63:0] _GEN_252 = ~mdu_occupy ? io_rts_in_0 : _GEN_202; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 147:25]
-  wire  _GEN_254 = ~mdu_occupy | _GEN_204; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 149:32]
-  wire [31:0] _GEN_255 = ~alu_occupy ? io_insts_in_0_inst : _GEN_155; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_256 = ~alu_occupy ? io_insts_in_0_ysyx_print : _GEN_156; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_257 = ~alu_occupy ? io_insts_in_0_ysyx_debug : _GEN_157; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_258 = ~alu_occupy ? io_insts_in_0_target_pc : _GEN_158; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_259 = ~alu_occupy ? io_insts_in_0_predict_taken : _GEN_159; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_260 = ~alu_occupy ? io_insts_in_0_pc : _GEN_160; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [20:0] _GEN_261 = ~alu_occupy ? io_insts_in_0_imm : _GEN_161; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_262 = ~alu_occupy ? io_insts_in_0_rd : _GEN_162; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_264 = ~alu_occupy ? io_insts_in_0_rs1 : _GEN_164; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_265 = ~alu_occupy ? io_insts_in_0_write_src : _GEN_165; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_267 = ~alu_occupy ? io_insts_in_0_alu_expand : _GEN_167; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_268 = ~alu_occupy ? io_insts_in_0_alu_op : _GEN_168; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_269 = ~alu_occupy ? io_insts_in_0_write_dest : _GEN_169; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_270 = ~alu_occupy ? io_insts_in_0_src_b : _GEN_170; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_271 = ~alu_occupy ? io_insts_in_0_src_a : _GEN_171; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [3:0] _GEN_272 = ~alu_occupy ? io_insts_in_0_branch_type : _GEN_172; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_273 = ~alu_occupy ? io_insts_in_0_alu_mdu_lsu : _GEN_173; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [2:0] _GEN_274 = ~alu_occupy ? io_insts_in_0_next_pc : _GEN_174; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_275 = ~alu_occupy ? io_insts_in_0_illegal : _GEN_175; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_276 = ~alu_occupy ? io_rss_in_0 : _GEN_176; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 140:25]
-  wire [63:0] _GEN_277 = ~alu_occupy ? io_rts_in_0 : _GEN_177; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 141:25]
-  wire  _GEN_279 = ~alu_occupy | _GEN_179; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 143:32]
-  wire [31:0] _GEN_280 = ~alu_occupy ? _GEN_180 : _GEN_230; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_281 = ~alu_occupy ? _GEN_181 : _GEN_231; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_285 = ~alu_occupy ? _GEN_185 : _GEN_235; // @[IssueArbiter.scala 138:27]
-  wire [20:0] _GEN_286 = ~alu_occupy ? _GEN_186 : _GEN_236; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_287 = ~alu_occupy ? _GEN_187 : _GEN_237; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_292 = ~alu_occupy ? _GEN_192 : _GEN_242; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_293 = ~alu_occupy ? _GEN_193 : _GEN_243; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_294 = ~alu_occupy ? _GEN_194 : _GEN_244; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_295 = ~alu_occupy ? _GEN_195 : _GEN_245; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_296 = ~alu_occupy ? _GEN_196 : _GEN_246; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_301 = ~alu_occupy ? _GEN_201 : _GEN_251; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_302 = ~alu_occupy ? _GEN_202 : _GEN_252; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_304 = ~alu_occupy ? _GEN_204 : _GEN_254; // @[IssueArbiter.scala 138:27]
-  wire [31:0] _GEN_305 = issue_valid_0 & _T_26 ? _GEN_255 : _GEN_155; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_306 = issue_valid_0 & _T_26 ? _GEN_256 : _GEN_156; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_307 = issue_valid_0 & _T_26 ? _GEN_257 : _GEN_157; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_308 = issue_valid_0 & _T_26 ? _GEN_258 : _GEN_158; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_309 = issue_valid_0 & _T_26 ? _GEN_259 : _GEN_159; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_310 = issue_valid_0 & _T_26 ? _GEN_260 : _GEN_160; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_311 = issue_valid_0 & _T_26 ? _GEN_261 : _GEN_161; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_312 = issue_valid_0 & _T_26 ? _GEN_262 : _GEN_162; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_314 = issue_valid_0 & _T_26 ? _GEN_264 : _GEN_164; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_315 = issue_valid_0 & _T_26 ? _GEN_265 : _GEN_165; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_317 = issue_valid_0 & _T_26 ? _GEN_267 : _GEN_167; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_318 = issue_valid_0 & _T_26 ? _GEN_268 : _GEN_168; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_319 = issue_valid_0 & _T_26 ? _GEN_269 : _GEN_169; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_320 = issue_valid_0 & _T_26 ? _GEN_270 : _GEN_170; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_321 = issue_valid_0 & _T_26 ? _GEN_271 : _GEN_171; // @[IssueArbiter.scala 137:70]
-  wire [3:0] _GEN_322 = issue_valid_0 & _T_26 ? _GEN_272 : _GEN_172; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_323 = issue_valid_0 & _T_26 ? _GEN_273 : _GEN_173; // @[IssueArbiter.scala 137:70]
-  wire [2:0] _GEN_324 = issue_valid_0 & _T_26 ? _GEN_274 : _GEN_174; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_325 = issue_valid_0 & _T_26 ? _GEN_275 : _GEN_175; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_326 = issue_valid_0 & _T_26 ? _GEN_276 : _GEN_176; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_327 = issue_valid_0 & _T_26 ? _GEN_277 : _GEN_177; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_329 = issue_valid_0 & _T_26 ? _GEN_279 : _GEN_179; // @[IssueArbiter.scala 137:70]
-  wire [31:0] _GEN_330 = issue_valid_0 & _T_26 ? _GEN_280 : _GEN_180; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_331 = issue_valid_0 & _T_26 ? _GEN_281 : _GEN_181; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_335 = issue_valid_0 & _T_26 ? _GEN_285 : _GEN_185; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_336 = issue_valid_0 & _T_26 ? _GEN_286 : _GEN_186; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_337 = issue_valid_0 & _T_26 ? _GEN_287 : _GEN_187; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_342 = issue_valid_0 & _T_26 ? _GEN_292 : _GEN_192; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_343 = issue_valid_0 & _T_26 ? _GEN_293 : _GEN_193; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_344 = issue_valid_0 & _T_26 ? _GEN_294 : _GEN_194; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_345 = issue_valid_0 & _T_26 ? _GEN_295 : _GEN_195; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_346 = issue_valid_0 & _T_26 ? _GEN_296 : _GEN_196; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_351 = issue_valid_0 & _T_26 ? _GEN_301 : _GEN_201; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_352 = issue_valid_0 & _T_26 ? _GEN_302 : _GEN_202; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_354 = issue_valid_0 & _T_26 ? _GEN_304 : _GEN_204; // @[IssueArbiter.scala 137:70]
-  wire [31:0] _GEN_355 = ~mdu_occupy ? io_insts_in_1_inst : _GEN_330; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_356 = ~mdu_occupy ? io_insts_in_1_ysyx_print : _GEN_331; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_360 = ~mdu_occupy ? io_insts_in_1_pc : _GEN_335; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [20:0] _GEN_361 = ~mdu_occupy ? io_insts_in_1_imm : _GEN_336; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_362 = ~mdu_occupy ? io_insts_in_1_rd : _GEN_337; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_367 = ~mdu_occupy ? io_insts_in_1_alu_expand : _GEN_342; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_368 = ~mdu_occupy ? io_insts_in_1_alu_op : _GEN_343; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_369 = ~mdu_occupy ? io_insts_in_1_write_dest : _GEN_344; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_370 = ~mdu_occupy ? io_insts_in_1_src_b : _GEN_345; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_371 = ~mdu_occupy ? io_insts_in_1_src_a : _GEN_346; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_376 = ~mdu_occupy ? io_rss_in_1 : _GEN_351; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 146:25]
-  wire [63:0] _GEN_377 = ~mdu_occupy ? io_rts_in_1 : _GEN_352; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 147:25]
-  wire  _GEN_379 = ~mdu_occupy | _GEN_354; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 149:32]
-  wire [31:0] _GEN_380 = ~alu_occupy ? io_insts_in_1_inst : _GEN_305; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_381 = ~alu_occupy ? io_insts_in_1_ysyx_print : _GEN_306; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_382 = ~alu_occupy ? io_insts_in_1_ysyx_debug : _GEN_307; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_383 = ~alu_occupy ? io_insts_in_1_target_pc : _GEN_308; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_384 = ~alu_occupy ? io_insts_in_1_predict_taken : _GEN_309; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_385 = ~alu_occupy ? io_insts_in_1_pc : _GEN_310; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [20:0] _GEN_386 = ~alu_occupy ? io_insts_in_1_imm : _GEN_311; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_387 = ~alu_occupy ? io_insts_in_1_rd : _GEN_312; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_389 = ~alu_occupy ? io_insts_in_1_rs1 : _GEN_314; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_390 = ~alu_occupy ? io_insts_in_1_write_src : _GEN_315; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_392 = ~alu_occupy ? io_insts_in_1_alu_expand : _GEN_317; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_393 = ~alu_occupy ? io_insts_in_1_alu_op : _GEN_318; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_394 = ~alu_occupy ? io_insts_in_1_write_dest : _GEN_319; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_395 = ~alu_occupy ? io_insts_in_1_src_b : _GEN_320; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_396 = ~alu_occupy ? io_insts_in_1_src_a : _GEN_321; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [3:0] _GEN_397 = ~alu_occupy ? io_insts_in_1_branch_type : _GEN_322; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_398 = ~alu_occupy ? io_insts_in_1_alu_mdu_lsu : _GEN_323; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [2:0] _GEN_399 = ~alu_occupy ? io_insts_in_1_next_pc : _GEN_324; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_400 = ~alu_occupy ? io_insts_in_1_illegal : _GEN_325; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_401 = ~alu_occupy ? io_rss_in_1 : _GEN_326; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 140:25]
-  wire [63:0] _GEN_402 = ~alu_occupy ? io_rts_in_1 : _GEN_327; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 141:25]
-  wire  _GEN_404 = ~alu_occupy | _GEN_329; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 143:32]
-  wire [31:0] _GEN_405 = ~alu_occupy ? _GEN_330 : _GEN_355; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_406 = ~alu_occupy ? _GEN_331 : _GEN_356; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_410 = ~alu_occupy ? _GEN_335 : _GEN_360; // @[IssueArbiter.scala 138:27]
-  wire [20:0] _GEN_411 = ~alu_occupy ? _GEN_336 : _GEN_361; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_412 = ~alu_occupy ? _GEN_337 : _GEN_362; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_417 = ~alu_occupy ? _GEN_342 : _GEN_367; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_418 = ~alu_occupy ? _GEN_343 : _GEN_368; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_419 = ~alu_occupy ? _GEN_344 : _GEN_369; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_420 = ~alu_occupy ? _GEN_345 : _GEN_370; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_421 = ~alu_occupy ? _GEN_346 : _GEN_371; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_426 = ~alu_occupy ? _GEN_351 : _GEN_376; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_427 = ~alu_occupy ? _GEN_352 : _GEN_377; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_428 = ~alu_occupy ? 1'h0 : _T_58; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_429 = ~alu_occupy ? _GEN_354 : _GEN_379; // @[IssueArbiter.scala 138:27]
-  wire [31:0] _GEN_430 = issue_valid_1 & _T_27 ? _GEN_380 : _GEN_305; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_431 = issue_valid_1 & _T_27 ? _GEN_381 : _GEN_306; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_432 = issue_valid_1 & _T_27 ? _GEN_382 : _GEN_307; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_433 = issue_valid_1 & _T_27 ? _GEN_383 : _GEN_308; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_434 = issue_valid_1 & _T_27 ? _GEN_384 : _GEN_309; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_435 = issue_valid_1 & _T_27 ? _GEN_385 : _GEN_310; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_436 = issue_valid_1 & _T_27 ? _GEN_386 : _GEN_311; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_437 = issue_valid_1 & _T_27 ? _GEN_387 : _GEN_312; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_439 = issue_valid_1 & _T_27 ? _GEN_389 : _GEN_314; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_440 = issue_valid_1 & _T_27 ? _GEN_390 : _GEN_315; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_442 = issue_valid_1 & _T_27 ? _GEN_392 : _GEN_317; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_443 = issue_valid_1 & _T_27 ? _GEN_393 : _GEN_318; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_444 = issue_valid_1 & _T_27 ? _GEN_394 : _GEN_319; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_445 = issue_valid_1 & _T_27 ? _GEN_395 : _GEN_320; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_446 = issue_valid_1 & _T_27 ? _GEN_396 : _GEN_321; // @[IssueArbiter.scala 137:70]
-  wire [3:0] _GEN_447 = issue_valid_1 & _T_27 ? _GEN_397 : _GEN_322; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_448 = issue_valid_1 & _T_27 ? _GEN_398 : _GEN_323; // @[IssueArbiter.scala 137:70]
-  wire [2:0] _GEN_449 = issue_valid_1 & _T_27 ? _GEN_399 : _GEN_324; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_450 = issue_valid_1 & _T_27 ? _GEN_400 : _GEN_325; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_451 = issue_valid_1 & _T_27 ? _GEN_401 : _GEN_326; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_452 = issue_valid_1 & _T_27 ? _GEN_402 : _GEN_327; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_453 = issue_valid_1 & _T_27 & _T_57; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_454 = issue_valid_1 & _T_27 ? _GEN_404 : _GEN_329; // @[IssueArbiter.scala 137:70]
-  wire [31:0] _GEN_455 = issue_valid_1 & _T_27 ? _GEN_405 : _GEN_330; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_456 = issue_valid_1 & _T_27 ? _GEN_406 : _GEN_331; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_460 = issue_valid_1 & _T_27 ? _GEN_410 : _GEN_335; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_461 = issue_valid_1 & _T_27 ? _GEN_411 : _GEN_336; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_462 = issue_valid_1 & _T_27 ? _GEN_412 : _GEN_337; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_467 = issue_valid_1 & _T_27 ? _GEN_417 : _GEN_342; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_468 = issue_valid_1 & _T_27 ? _GEN_418 : _GEN_343; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_469 = issue_valid_1 & _T_27 ? _GEN_419 : _GEN_344; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_470 = issue_valid_1 & _T_27 ? _GEN_420 : _GEN_345; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_471 = issue_valid_1 & _T_27 ? _GEN_421 : _GEN_346; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_476 = issue_valid_1 & _T_27 ? _GEN_426 : _GEN_351; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_477 = issue_valid_1 & _T_27 ? _GEN_427 : _GEN_352; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_478 = issue_valid_1 & _T_27 & _GEN_428; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_479 = issue_valid_1 & _T_27 ? _GEN_429 : _GEN_354; // @[IssueArbiter.scala 137:70]
-  wire  _T_65 = 2'h2 == io_insts_in_1_alu_mdu_lsu; // @[Conditional.scala 37:30]
-  wire [31:0] _GEN_480 = _T_65 ? io_insts_in_1_inst : _GEN_205; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire  _GEN_481 = _T_65 ? io_insts_in_1_ysyx_print : _GEN_206; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [63:0] _GEN_485 = _T_65 ? io_insts_in_1_pc : _GEN_210; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [20:0] _GEN_486 = _T_65 ? io_insts_in_1_imm : _GEN_211; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [4:0] _GEN_487 = _T_65 ? io_insts_in_1_rd : _GEN_212; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [2:0] _GEN_491 = _T_65 ? io_insts_in_1_mem_width : _GEN_216; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [4:0] _GEN_493 = _T_65 ? io_insts_in_1_alu_op : _GEN_218; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire  _GEN_494 = _T_65 ? io_insts_in_1_write_dest : _GEN_219; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [1:0] _GEN_496 = _T_65 ? io_insts_in_1_src_a : _GEN_221; // @[Conditional.scala 39:67 IssueArbiter.scala 127:27]
-  wire [63:0] _GEN_501 = _T_65 ? io_rss_in_1 : _GEN_226; // @[Conditional.scala 39:67 IssueArbiter.scala 128:25]
-  wire [63:0] _GEN_502 = _T_65 ? io_rts_in_1 : _GEN_227; // @[Conditional.scala 39:67 IssueArbiter.scala 129:25]
-  wire  _GEN_504 = _T_65 | _GEN_229; // @[Conditional.scala 39:67 IssueArbiter.scala 131:32]
-  wire [31:0] _GEN_505 = _T_64 ? io_insts_in_1_inst : _GEN_455; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire  _GEN_506 = _T_64 ? io_insts_in_1_ysyx_print : _GEN_456; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [63:0] _GEN_510 = _T_64 ? io_insts_in_1_pc : _GEN_460; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [20:0] _GEN_511 = _T_64 ? io_insts_in_1_imm : _GEN_461; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [4:0] _GEN_512 = _T_64 ? io_insts_in_1_rd : _GEN_462; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire  _GEN_517 = _T_64 ? io_insts_in_1_alu_expand : _GEN_467; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [4:0] _GEN_518 = _T_64 ? io_insts_in_1_alu_op : _GEN_468; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire  _GEN_519 = _T_64 ? io_insts_in_1_write_dest : _GEN_469; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [1:0] _GEN_520 = _T_64 ? io_insts_in_1_src_b : _GEN_470; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [1:0] _GEN_521 = _T_64 ? io_insts_in_1_src_a : _GEN_471; // @[Conditional.scala 39:67 IssueArbiter.scala 119:27]
-  wire [63:0] _GEN_526 = _T_64 ? io_rss_in_1 : _GEN_476; // @[Conditional.scala 39:67 IssueArbiter.scala 120:25]
-  wire [63:0] _GEN_527 = _T_64 ? io_rts_in_1 : _GEN_477; // @[Conditional.scala 39:67 IssueArbiter.scala 121:25]
-  wire  _GEN_528 = _T_64 | _GEN_478; // @[Conditional.scala 39:67 IssueArbiter.scala 122:29]
-  wire  _GEN_529 = _T_64 | _GEN_479; // @[Conditional.scala 39:67 IssueArbiter.scala 123:32]
-  wire [31:0] _GEN_531 = _T_64 ? _GEN_205 : _GEN_480; // @[Conditional.scala 39:67]
-  wire  _GEN_532 = _T_64 ? _GEN_206 : _GEN_481; // @[Conditional.scala 39:67]
-  wire [63:0] _GEN_536 = _T_64 ? _GEN_210 : _GEN_485; // @[Conditional.scala 39:67]
-  wire [20:0] _GEN_537 = _T_64 ? _GEN_211 : _GEN_486; // @[Conditional.scala 39:67]
-  wire [4:0] _GEN_538 = _T_64 ? _GEN_212 : _GEN_487; // @[Conditional.scala 39:67]
-  wire [2:0] _GEN_542 = _T_64 ? _GEN_216 : _GEN_491; // @[Conditional.scala 39:67]
-  wire [4:0] _GEN_544 = _T_64 ? _GEN_218 : _GEN_493; // @[Conditional.scala 39:67]
-  wire  _GEN_545 = _T_64 ? _GEN_219 : _GEN_494; // @[Conditional.scala 39:67]
-  wire [1:0] _GEN_547 = _T_64 ? _GEN_221 : _GEN_496; // @[Conditional.scala 39:67]
-  wire [63:0] _GEN_552 = _T_64 ? _GEN_226 : _GEN_501; // @[Conditional.scala 39:67]
-  wire [63:0] _GEN_553 = _T_64 ? _GEN_227 : _GEN_502; // @[Conditional.scala 39:67]
-  wire  _GEN_554 = _T_64 ? 1'h0 : _T_65; // @[Conditional.scala 39:67]
-  wire  _GEN_555 = _T_64 ? _GEN_229 : _GEN_504; // @[Conditional.scala 39:67]
-  wire [31:0] _GEN_556 = _T_63 ? io_insts_in_1_inst : _GEN_430; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire  _GEN_557 = _T_63 ? io_insts_in_1_ysyx_print : _GEN_431; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire  _GEN_558 = _T_63 ? io_insts_in_1_ysyx_debug : _GEN_432; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [63:0] _GEN_559 = _T_63 ? io_insts_in_1_target_pc : _GEN_433; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire  _GEN_560 = _T_63 ? io_insts_in_1_predict_taken : _GEN_434; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [63:0] _GEN_561 = _T_63 ? io_insts_in_1_pc : _GEN_435; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [20:0] _GEN_562 = _T_63 ? io_insts_in_1_imm : _GEN_436; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [4:0] _GEN_563 = _T_63 ? io_insts_in_1_rd : _GEN_437; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [4:0] _GEN_565 = _T_63 ? io_insts_in_1_rs1 : _GEN_439; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [1:0] _GEN_566 = _T_63 ? io_insts_in_1_write_src : _GEN_440; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire  _GEN_568 = _T_63 ? io_insts_in_1_alu_expand : _GEN_442; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [4:0] _GEN_569 = _T_63 ? io_insts_in_1_alu_op : _GEN_443; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire  _GEN_570 = _T_63 ? io_insts_in_1_write_dest : _GEN_444; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [1:0] _GEN_571 = _T_63 ? io_insts_in_1_src_b : _GEN_445; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [1:0] _GEN_572 = _T_63 ? io_insts_in_1_src_a : _GEN_446; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [3:0] _GEN_573 = _T_63 ? io_insts_in_1_branch_type : _GEN_447; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [1:0] _GEN_574 = _T_63 ? io_insts_in_1_alu_mdu_lsu : _GEN_448; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [2:0] _GEN_575 = _T_63 ? io_insts_in_1_next_pc : _GEN_449; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire  _GEN_576 = _T_63 ? io_insts_in_1_illegal : _GEN_450; // @[Conditional.scala 40:58 IssueArbiter.scala 111:27]
-  wire [63:0] _GEN_577 = _T_63 ? io_rss_in_1 : _GEN_451; // @[Conditional.scala 40:58 IssueArbiter.scala 112:25]
-  wire [63:0] _GEN_578 = _T_63 ? io_rts_in_1 : _GEN_452; // @[Conditional.scala 40:58 IssueArbiter.scala 113:25]
-  wire  _GEN_579 = _T_63 | _GEN_453; // @[Conditional.scala 40:58 IssueArbiter.scala 114:29]
-  wire  _GEN_580 = _T_63 | _GEN_454; // @[Conditional.scala 40:58 IssueArbiter.scala 115:32]
-  wire [31:0] _GEN_582 = _T_63 ? _GEN_455 : _GEN_505; // @[Conditional.scala 40:58]
-  wire  _GEN_583 = _T_63 ? _GEN_456 : _GEN_506; // @[Conditional.scala 40:58]
-  wire [63:0] _GEN_587 = _T_63 ? _GEN_460 : _GEN_510; // @[Conditional.scala 40:58]
-  wire [20:0] _GEN_588 = _T_63 ? _GEN_461 : _GEN_511; // @[Conditional.scala 40:58]
-  wire [4:0] _GEN_589 = _T_63 ? _GEN_462 : _GEN_512; // @[Conditional.scala 40:58]
-  wire  _GEN_594 = _T_63 ? _GEN_467 : _GEN_517; // @[Conditional.scala 40:58]
-  wire [4:0] _GEN_595 = _T_63 ? _GEN_468 : _GEN_518; // @[Conditional.scala 40:58]
-  wire  _GEN_596 = _T_63 ? _GEN_469 : _GEN_519; // @[Conditional.scala 40:58]
-  wire [1:0] _GEN_597 = _T_63 ? _GEN_470 : _GEN_520; // @[Conditional.scala 40:58]
-  wire [1:0] _GEN_598 = _T_63 ? _GEN_471 : _GEN_521; // @[Conditional.scala 40:58]
-  wire [63:0] _GEN_603 = _T_63 ? _GEN_476 : _GEN_526; // @[Conditional.scala 40:58]
-  wire [63:0] _GEN_604 = _T_63 ? _GEN_477 : _GEN_527; // @[Conditional.scala 40:58]
-  wire  _GEN_605 = _T_63 ? _GEN_478 : _GEN_528; // @[Conditional.scala 40:58]
-  wire  _GEN_606 = _T_63 ? _GEN_479 : _GEN_529; // @[Conditional.scala 40:58]
-  wire [31:0] _GEN_608 = _T_63 ? _GEN_205 : _GEN_531; // @[Conditional.scala 40:58]
-  wire  _GEN_609 = _T_63 ? _GEN_206 : _GEN_532; // @[Conditional.scala 40:58]
-  wire [63:0] _GEN_613 = _T_63 ? _GEN_210 : _GEN_536; // @[Conditional.scala 40:58]
-  wire [20:0] _GEN_614 = _T_63 ? _GEN_211 : _GEN_537; // @[Conditional.scala 40:58]
-  wire [4:0] _GEN_615 = _T_63 ? _GEN_212 : _GEN_538; // @[Conditional.scala 40:58]
-  wire [2:0] _GEN_619 = _T_63 ? _GEN_216 : _GEN_542; // @[Conditional.scala 40:58]
-  wire [4:0] _GEN_621 = _T_63 ? _GEN_218 : _GEN_544; // @[Conditional.scala 40:58]
-  wire  _GEN_622 = _T_63 ? _GEN_219 : _GEN_545; // @[Conditional.scala 40:58]
-  wire [1:0] _GEN_624 = _T_63 ? _GEN_221 : _GEN_547; // @[Conditional.scala 40:58]
-  wire [63:0] _GEN_629 = _T_63 ? _GEN_226 : _GEN_552; // @[Conditional.scala 40:58]
-  wire [63:0] _GEN_630 = _T_63 ? _GEN_227 : _GEN_553; // @[Conditional.scala 40:58]
-  wire  _GEN_631 = _T_63 ? 1'h0 : _GEN_554; // @[Conditional.scala 40:58]
-  wire  _GEN_632 = _T_63 ? _GEN_229 : _GEN_555; // @[Conditional.scala 40:58]
-  wire [31:0] _GEN_633 = issue_valid_1 ? _GEN_556 : _GEN_430; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_634 = issue_valid_1 ? _GEN_557 : _GEN_431; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_635 = issue_valid_1 ? _GEN_558 : _GEN_432; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_636 = issue_valid_1 ? _GEN_559 : _GEN_433; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_637 = issue_valid_1 ? _GEN_560 : _GEN_434; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_638 = issue_valid_1 ? _GEN_561 : _GEN_435; // @[IssueArbiter.scala 108:26]
-  wire [20:0] _GEN_639 = issue_valid_1 ? _GEN_562 : _GEN_436; // @[IssueArbiter.scala 108:26]
-  wire [4:0] _GEN_640 = issue_valid_1 ? _GEN_563 : _GEN_437; // @[IssueArbiter.scala 108:26]
-  wire [4:0] _GEN_642 = issue_valid_1 ? _GEN_565 : _GEN_439; // @[IssueArbiter.scala 108:26]
-  wire [1:0] _GEN_643 = issue_valid_1 ? _GEN_566 : _GEN_440; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_645 = issue_valid_1 ? _GEN_568 : _GEN_442; // @[IssueArbiter.scala 108:26]
-  wire [4:0] _GEN_646 = issue_valid_1 ? _GEN_569 : _GEN_443; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_647 = issue_valid_1 ? _GEN_570 : _GEN_444; // @[IssueArbiter.scala 108:26]
-  wire [1:0] _GEN_648 = issue_valid_1 ? _GEN_571 : _GEN_445; // @[IssueArbiter.scala 108:26]
-  wire [1:0] _GEN_649 = issue_valid_1 ? _GEN_572 : _GEN_446; // @[IssueArbiter.scala 108:26]
-  wire [3:0] _GEN_650 = issue_valid_1 ? _GEN_573 : _GEN_447; // @[IssueArbiter.scala 108:26]
-  wire [1:0] _GEN_651 = issue_valid_1 ? _GEN_574 : _GEN_448; // @[IssueArbiter.scala 108:26]
-  wire [2:0] _GEN_652 = issue_valid_1 ? _GEN_575 : _GEN_449; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_653 = issue_valid_1 ? _GEN_576 : _GEN_450; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_654 = issue_valid_1 ? _GEN_577 : _GEN_451; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_655 = issue_valid_1 ? _GEN_578 : _GEN_452; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_656 = issue_valid_1 ? _GEN_579 : _GEN_453; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_657 = issue_valid_1 ? _GEN_580 : _GEN_454; // @[IssueArbiter.scala 108:26]
-  wire [31:0] _GEN_659 = issue_valid_1 ? _GEN_582 : _GEN_455; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_660 = issue_valid_1 ? _GEN_583 : _GEN_456; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_664 = issue_valid_1 ? _GEN_587 : _GEN_460; // @[IssueArbiter.scala 108:26]
-  wire [20:0] _GEN_665 = issue_valid_1 ? _GEN_588 : _GEN_461; // @[IssueArbiter.scala 108:26]
-  wire [4:0] _GEN_666 = issue_valid_1 ? _GEN_589 : _GEN_462; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_671 = issue_valid_1 ? _GEN_594 : _GEN_467; // @[IssueArbiter.scala 108:26]
-  wire [4:0] _GEN_672 = issue_valid_1 ? _GEN_595 : _GEN_468; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_673 = issue_valid_1 ? _GEN_596 : _GEN_469; // @[IssueArbiter.scala 108:26]
-  wire [1:0] _GEN_674 = issue_valid_1 ? _GEN_597 : _GEN_470; // @[IssueArbiter.scala 108:26]
-  wire [1:0] _GEN_675 = issue_valid_1 ? _GEN_598 : _GEN_471; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_680 = issue_valid_1 ? _GEN_603 : _GEN_476; // @[IssueArbiter.scala 108:26]
-  wire [63:0] _GEN_681 = issue_valid_1 ? _GEN_604 : _GEN_477; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_682 = issue_valid_1 ? _GEN_605 : _GEN_478; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_683 = issue_valid_1 ? _GEN_606 : _GEN_479; // @[IssueArbiter.scala 108:26]
-  wire  _GEN_708 = issue_valid_1 & _GEN_631; // @[IssueArbiter.scala 108:26]
-  wire [31:0] _GEN_710 = ~mdu_occupy ? io_insts_in_0_inst : _GEN_659; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_711 = ~mdu_occupy ? io_insts_in_0_ysyx_print : _GEN_660; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_715 = ~mdu_occupy ? io_insts_in_0_pc : _GEN_664; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [20:0] _GEN_716 = ~mdu_occupy ? io_insts_in_0_imm : _GEN_665; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_717 = ~mdu_occupy ? io_insts_in_0_rd : _GEN_666; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_722 = ~mdu_occupy ? io_insts_in_0_alu_expand : _GEN_671; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_723 = ~mdu_occupy ? io_insts_in_0_alu_op : _GEN_672; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_724 = ~mdu_occupy ? io_insts_in_0_write_dest : _GEN_673; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_725 = ~mdu_occupy ? io_insts_in_0_src_b : _GEN_674; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_726 = ~mdu_occupy ? io_insts_in_0_src_a : _GEN_675; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_731 = ~mdu_occupy ? io_rss_in_0 : _GEN_680; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 146:25]
-  wire [63:0] _GEN_732 = ~mdu_occupy ? io_rts_in_0 : _GEN_681; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 147:25]
-  wire  _GEN_733 = ~mdu_occupy ? 1'h0 : _GEN_682; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 148:29]
-  wire  _GEN_734 = ~mdu_occupy | _GEN_683; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 149:32]
-  wire [31:0] _GEN_735 = ~alu_occupy ? io_insts_in_0_inst : _GEN_633; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_736 = ~alu_occupy ? io_insts_in_0_ysyx_print : _GEN_634; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_737 = ~alu_occupy ? io_insts_in_0_ysyx_debug : _GEN_635; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_738 = ~alu_occupy ? io_insts_in_0_target_pc : _GEN_636; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_739 = ~alu_occupy ? io_insts_in_0_predict_taken : _GEN_637; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_740 = ~alu_occupy ? io_insts_in_0_pc : _GEN_638; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [20:0] _GEN_741 = ~alu_occupy ? io_insts_in_0_imm : _GEN_639; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_742 = ~alu_occupy ? io_insts_in_0_rd : _GEN_640; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_744 = ~alu_occupy ? io_insts_in_0_rs1 : _GEN_642; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_745 = ~alu_occupy ? io_insts_in_0_write_src : _GEN_643; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_747 = ~alu_occupy ? io_insts_in_0_alu_expand : _GEN_645; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_748 = ~alu_occupy ? io_insts_in_0_alu_op : _GEN_646; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_749 = ~alu_occupy ? io_insts_in_0_write_dest : _GEN_647; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_750 = ~alu_occupy ? io_insts_in_0_src_b : _GEN_648; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_751 = ~alu_occupy ? io_insts_in_0_src_a : _GEN_649; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [3:0] _GEN_752 = ~alu_occupy ? io_insts_in_0_branch_type : _GEN_650; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_753 = ~alu_occupy ? io_insts_in_0_alu_mdu_lsu : _GEN_651; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [2:0] _GEN_754 = ~alu_occupy ? io_insts_in_0_next_pc : _GEN_652; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_755 = ~alu_occupy ? io_insts_in_0_illegal : _GEN_653; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_756 = ~alu_occupy ? io_rss_in_0 : _GEN_654; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 140:25]
-  wire [63:0] _GEN_757 = ~alu_occupy ? io_rts_in_0 : _GEN_655; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 141:25]
-  wire  _GEN_758 = ~alu_occupy ? 1'h0 : _GEN_656; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 142:29]
-  wire  _GEN_759 = ~alu_occupy | _GEN_657; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 143:32]
-  wire [31:0] _GEN_760 = ~alu_occupy ? _GEN_659 : _GEN_710; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_761 = ~alu_occupy ? _GEN_660 : _GEN_711; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_765 = ~alu_occupy ? _GEN_664 : _GEN_715; // @[IssueArbiter.scala 138:27]
-  wire [20:0] _GEN_766 = ~alu_occupy ? _GEN_665 : _GEN_716; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_767 = ~alu_occupy ? _GEN_666 : _GEN_717; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_772 = ~alu_occupy ? _GEN_671 : _GEN_722; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_773 = ~alu_occupy ? _GEN_672 : _GEN_723; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_774 = ~alu_occupy ? _GEN_673 : _GEN_724; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_775 = ~alu_occupy ? _GEN_674 : _GEN_725; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_776 = ~alu_occupy ? _GEN_675 : _GEN_726; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_781 = ~alu_occupy ? _GEN_680 : _GEN_731; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_782 = ~alu_occupy ? _GEN_681 : _GEN_732; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_783 = ~alu_occupy ? _GEN_682 : _GEN_733; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_784 = ~alu_occupy ? _GEN_683 : _GEN_734; // @[IssueArbiter.scala 138:27]
-  wire [31:0] _GEN_785 = issue_valid_0 & _T_26 ? _GEN_735 : _GEN_633; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_786 = issue_valid_0 & _T_26 ? _GEN_736 : _GEN_634; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_787 = issue_valid_0 & _T_26 ? _GEN_737 : _GEN_635; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_788 = issue_valid_0 & _T_26 ? _GEN_738 : _GEN_636; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_789 = issue_valid_0 & _T_26 ? _GEN_739 : _GEN_637; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_790 = issue_valid_0 & _T_26 ? _GEN_740 : _GEN_638; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_791 = issue_valid_0 & _T_26 ? _GEN_741 : _GEN_639; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_792 = issue_valid_0 & _T_26 ? _GEN_742 : _GEN_640; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_794 = issue_valid_0 & _T_26 ? _GEN_744 : _GEN_642; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_795 = issue_valid_0 & _T_26 ? _GEN_745 : _GEN_643; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_797 = issue_valid_0 & _T_26 ? _GEN_747 : _GEN_645; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_798 = issue_valid_0 & _T_26 ? _GEN_748 : _GEN_646; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_799 = issue_valid_0 & _T_26 ? _GEN_749 : _GEN_647; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_800 = issue_valid_0 & _T_26 ? _GEN_750 : _GEN_648; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_801 = issue_valid_0 & _T_26 ? _GEN_751 : _GEN_649; // @[IssueArbiter.scala 137:70]
-  wire [3:0] _GEN_802 = issue_valid_0 & _T_26 ? _GEN_752 : _GEN_650; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_803 = issue_valid_0 & _T_26 ? _GEN_753 : _GEN_651; // @[IssueArbiter.scala 137:70]
-  wire [2:0] _GEN_804 = issue_valid_0 & _T_26 ? _GEN_754 : _GEN_652; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_805 = issue_valid_0 & _T_26 ? _GEN_755 : _GEN_653; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_806 = issue_valid_0 & _T_26 ? _GEN_756 : _GEN_654; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_807 = issue_valid_0 & _T_26 ? _GEN_757 : _GEN_655; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_808 = issue_valid_0 & _T_26 ? _GEN_758 : _GEN_656; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_809 = issue_valid_0 & _T_26 ? _GEN_759 : _GEN_657; // @[IssueArbiter.scala 137:70]
-  wire [31:0] _GEN_810 = issue_valid_0 & _T_26 ? _GEN_760 : _GEN_659; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_811 = issue_valid_0 & _T_26 ? _GEN_761 : _GEN_660; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_815 = issue_valid_0 & _T_26 ? _GEN_765 : _GEN_664; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_816 = issue_valid_0 & _T_26 ? _GEN_766 : _GEN_665; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_817 = issue_valid_0 & _T_26 ? _GEN_767 : _GEN_666; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_822 = issue_valid_0 & _T_26 ? _GEN_772 : _GEN_671; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_823 = issue_valid_0 & _T_26 ? _GEN_773 : _GEN_672; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_824 = issue_valid_0 & _T_26 ? _GEN_774 : _GEN_673; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_825 = issue_valid_0 & _T_26 ? _GEN_775 : _GEN_674; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_826 = issue_valid_0 & _T_26 ? _GEN_776 : _GEN_675; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_831 = issue_valid_0 & _T_26 ? _GEN_781 : _GEN_680; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_832 = issue_valid_0 & _T_26 ? _GEN_782 : _GEN_681; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_833 = issue_valid_0 & _T_26 ? _GEN_783 : _GEN_682; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_834 = issue_valid_0 & _T_26 ? _GEN_784 : _GEN_683; // @[IssueArbiter.scala 137:70]
-  wire [31:0] _GEN_835 = ~mdu_occupy ? io_insts_in_1_inst : _GEN_810; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_836 = ~mdu_occupy ? io_insts_in_1_ysyx_print : _GEN_811; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_840 = ~mdu_occupy ? io_insts_in_1_pc : _GEN_815; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [20:0] _GEN_841 = ~mdu_occupy ? io_insts_in_1_imm : _GEN_816; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_842 = ~mdu_occupy ? io_insts_in_1_rd : _GEN_817; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_847 = ~mdu_occupy ? io_insts_in_1_alu_expand : _GEN_822; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [4:0] _GEN_848 = ~mdu_occupy ? io_insts_in_1_alu_op : _GEN_823; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire  _GEN_849 = ~mdu_occupy ? io_insts_in_1_write_dest : _GEN_824; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_850 = ~mdu_occupy ? io_insts_in_1_src_b : _GEN_825; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [1:0] _GEN_851 = ~mdu_occupy ? io_insts_in_1_src_a : _GEN_826; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 145:27]
-  wire [63:0] _GEN_856 = ~mdu_occupy ? io_rss_in_1 : _GEN_831; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 146:25]
-  wire [63:0] _GEN_857 = ~mdu_occupy ? io_rts_in_1 : _GEN_832; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 147:25]
-  wire  _GEN_858 = ~mdu_occupy | _GEN_833; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 148:29]
-  wire  _GEN_859 = ~mdu_occupy | _GEN_834; // @[IssueArbiter.scala 144:34 IssueArbiter.scala 149:32]
-  wire [31:0] _GEN_860 = ~alu_occupy ? io_insts_in_1_inst : _GEN_785; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_861 = ~alu_occupy ? io_insts_in_1_ysyx_print : _GEN_786; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_862 = ~alu_occupy ? io_insts_in_1_ysyx_debug : _GEN_787; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_863 = ~alu_occupy ? io_insts_in_1_target_pc : _GEN_788; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_864 = ~alu_occupy ? io_insts_in_1_predict_taken : _GEN_789; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_865 = ~alu_occupy ? io_insts_in_1_pc : _GEN_790; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [20:0] _GEN_866 = ~alu_occupy ? io_insts_in_1_imm : _GEN_791; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_867 = ~alu_occupy ? io_insts_in_1_rd : _GEN_792; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_869 = ~alu_occupy ? io_insts_in_1_rs1 : _GEN_794; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_870 = ~alu_occupy ? io_insts_in_1_write_src : _GEN_795; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_872 = ~alu_occupy ? io_insts_in_1_alu_expand : _GEN_797; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [4:0] _GEN_873 = ~alu_occupy ? io_insts_in_1_alu_op : _GEN_798; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_874 = ~alu_occupy ? io_insts_in_1_write_dest : _GEN_799; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_875 = ~alu_occupy ? io_insts_in_1_src_b : _GEN_800; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_876 = ~alu_occupy ? io_insts_in_1_src_a : _GEN_801; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [3:0] _GEN_877 = ~alu_occupy ? io_insts_in_1_branch_type : _GEN_802; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [1:0] _GEN_878 = ~alu_occupy ? io_insts_in_1_alu_mdu_lsu : _GEN_803; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [2:0] _GEN_879 = ~alu_occupy ? io_insts_in_1_next_pc : _GEN_804; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire  _GEN_880 = ~alu_occupy ? io_insts_in_1_illegal : _GEN_805; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 139:27]
-  wire [63:0] _GEN_881 = ~alu_occupy ? io_rss_in_1 : _GEN_806; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 140:25]
-  wire [63:0] _GEN_882 = ~alu_occupy ? io_rts_in_1 : _GEN_807; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 141:25]
-  wire  _GEN_883 = ~alu_occupy | _GEN_808; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 142:29]
-  wire  _GEN_884 = ~alu_occupy | _GEN_809; // @[IssueArbiter.scala 138:27 IssueArbiter.scala 143:32]
-  wire [31:0] _GEN_885 = ~alu_occupy ? _GEN_810 : _GEN_835; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_886 = ~alu_occupy ? _GEN_811 : _GEN_836; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_890 = ~alu_occupy ? _GEN_815 : _GEN_840; // @[IssueArbiter.scala 138:27]
-  wire [20:0] _GEN_891 = ~alu_occupy ? _GEN_816 : _GEN_841; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_892 = ~alu_occupy ? _GEN_817 : _GEN_842; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_897 = ~alu_occupy ? _GEN_822 : _GEN_847; // @[IssueArbiter.scala 138:27]
-  wire [4:0] _GEN_898 = ~alu_occupy ? _GEN_823 : _GEN_848; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_899 = ~alu_occupy ? _GEN_824 : _GEN_849; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_900 = ~alu_occupy ? _GEN_825 : _GEN_850; // @[IssueArbiter.scala 138:27]
-  wire [1:0] _GEN_901 = ~alu_occupy ? _GEN_826 : _GEN_851; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_906 = ~alu_occupy ? _GEN_831 : _GEN_856; // @[IssueArbiter.scala 138:27]
-  wire [63:0] _GEN_907 = ~alu_occupy ? _GEN_832 : _GEN_857; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_908 = ~alu_occupy ? _GEN_833 : _GEN_858; // @[IssueArbiter.scala 138:27]
-  wire  _GEN_909 = ~alu_occupy ? _GEN_834 : _GEN_859; // @[IssueArbiter.scala 138:27]
-  wire [31:0] _GEN_910 = issue_valid_1 & _T_27 ? _GEN_860 : _GEN_785; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_911 = issue_valid_1 & _T_27 ? _GEN_861 : _GEN_786; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_912 = issue_valid_1 & _T_27 ? _GEN_862 : _GEN_787; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_913 = issue_valid_1 & _T_27 ? _GEN_863 : _GEN_788; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_914 = issue_valid_1 & _T_27 ? _GEN_864 : _GEN_789; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_915 = issue_valid_1 & _T_27 ? _GEN_865 : _GEN_790; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_916 = issue_valid_1 & _T_27 ? _GEN_866 : _GEN_791; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_917 = issue_valid_1 & _T_27 ? _GEN_867 : _GEN_792; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_919 = issue_valid_1 & _T_27 ? _GEN_869 : _GEN_794; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_920 = issue_valid_1 & _T_27 ? _GEN_870 : _GEN_795; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_922 = issue_valid_1 & _T_27 ? _GEN_872 : _GEN_797; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_923 = issue_valid_1 & _T_27 ? _GEN_873 : _GEN_798; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_924 = issue_valid_1 & _T_27 ? _GEN_874 : _GEN_799; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_925 = issue_valid_1 & _T_27 ? _GEN_875 : _GEN_800; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_926 = issue_valid_1 & _T_27 ? _GEN_876 : _GEN_801; // @[IssueArbiter.scala 137:70]
-  wire [3:0] _GEN_927 = issue_valid_1 & _T_27 ? _GEN_877 : _GEN_802; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_928 = issue_valid_1 & _T_27 ? _GEN_878 : _GEN_803; // @[IssueArbiter.scala 137:70]
-  wire [2:0] _GEN_929 = issue_valid_1 & _T_27 ? _GEN_879 : _GEN_804; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_930 = issue_valid_1 & _T_27 ? _GEN_880 : _GEN_805; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_931 = issue_valid_1 & _T_27 ? _GEN_881 : _GEN_806; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_932 = issue_valid_1 & _T_27 ? _GEN_882 : _GEN_807; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_933 = issue_valid_1 & _T_27 ? _GEN_883 : _GEN_808; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_934 = issue_valid_1 & _T_27 ? _GEN_884 : _GEN_809; // @[IssueArbiter.scala 137:70]
-  wire [31:0] _GEN_935 = issue_valid_1 & _T_27 ? _GEN_885 : _GEN_810; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_936 = issue_valid_1 & _T_27 ? _GEN_886 : _GEN_811; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_940 = issue_valid_1 & _T_27 ? _GEN_890 : _GEN_815; // @[IssueArbiter.scala 137:70]
-  wire [20:0] _GEN_941 = issue_valid_1 & _T_27 ? _GEN_891 : _GEN_816; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_942 = issue_valid_1 & _T_27 ? _GEN_892 : _GEN_817; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_947 = issue_valid_1 & _T_27 ? _GEN_897 : _GEN_822; // @[IssueArbiter.scala 137:70]
-  wire [4:0] _GEN_948 = issue_valid_1 & _T_27 ? _GEN_898 : _GEN_823; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_949 = issue_valid_1 & _T_27 ? _GEN_899 : _GEN_824; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_950 = issue_valid_1 & _T_27 ? _GEN_900 : _GEN_825; // @[IssueArbiter.scala 137:70]
-  wire [1:0] _GEN_951 = issue_valid_1 & _T_27 ? _GEN_901 : _GEN_826; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_956 = issue_valid_1 & _T_27 ? _GEN_906 : _GEN_831; // @[IssueArbiter.scala 137:70]
-  wire [63:0] _GEN_957 = issue_valid_1 & _T_27 ? _GEN_907 : _GEN_832; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_958 = issue_valid_1 & _T_27 ? _GEN_908 : _GEN_833; // @[IssueArbiter.scala 137:70]
-  wire  _GEN_959 = issue_valid_1 & _T_27 ? _GEN_909 : _GEN_834; // @[IssueArbiter.scala 137:70]
+  wire  _T_11 = (io_ld_dest_ex == 5'h0 | io_insts_in_0_rs1 != io_ld_dest_ex & io_insts_in_0_rs2 != io_ld_dest_ex) & (~
+    io_csr_ex | io_insts_in_0_src_b != 2'h2 & io_insts_in_0_alu_mdu_lsu != 2'h2); // @[IssueArbiter.scala 40:66]
+  wire  issue_valid_0 = io_queue_items > 4'h0 & _T_11; // @[IssueArbiter.scala 72:29]
+  wire  _T_14 = io_insts_in_0_rd != 5'h0; // @[IssueArbiter.scala 32:14]
+  wire  _T_18 = io_insts_in_0_rd != 5'h0 & (io_insts_in_0_rd == io_insts_in_1_rs1 | io_insts_in_0_rd ==
+    io_insts_in_1_rs2); // @[IssueArbiter.scala 32:22]
+  wire  _T_21 = _T_14 & io_insts_in_0_rd == io_insts_in_1_rd; // @[IssueArbiter.scala 28:22]
+  wire  _T_22 = _T_18 | _T_21; // @[IssueArbiter.scala 36:25]
+  wire  _T_25 = io_insts_in_0_alu_mdu_lsu == 2'h3; // @[IssueArbiter.scala 46:29]
+  wire  _T_26 = io_insts_in_1_alu_mdu_lsu == 2'h3; // @[IssueArbiter.scala 46:62]
+  wire  _T_27 = io_insts_in_0_alu_mdu_lsu == 2'h3 & io_insts_in_1_alu_mdu_lsu == 2'h3; // @[IssueArbiter.scala 46:41]
+  wire  _T_28 = io_insts_in_0_alu_mdu_lsu != io_insts_in_1_alu_mdu_lsu | _T_27; // @[IssueArbiter.scala 45:48]
+  wire  _T_29 = ~_T_22 & _T_28; // @[IssueArbiter.scala 44:33]
+  wire  _T_30 = io_insts_in_0_alu_mdu_lsu != 2'h0; // @[IssueArbiter.scala 47:25]
+  wire  _T_31 = _T_29 & _T_30; // @[IssueArbiter.scala 46:75]
+  wire  _T_43 = (io_ld_dest_ex == 5'h0 | io_insts_in_1_rs1 != io_ld_dest_ex & io_insts_in_1_rs2 != io_ld_dest_ex) & (~
+    io_csr_ex | io_insts_in_1_src_b != 2'h2 & io_insts_in_1_alu_mdu_lsu != 2'h2); // @[IssueArbiter.scala 40:66]
+  wire  _T_44 = io_queue_items > 4'h1 & _T_31 & _T_43; // @[IssueArbiter.scala 75:79]
+  wire [1:0] _GEN_1 = _T_44 ? 2'h2 : 2'h1; // @[IssueArbiter.scala 76:69 IssueArbiter.scala 79:20 IssueArbiter.scala 74:18]
+  wire  issue_valid_1 = issue_valid_0 & _T_44; // @[IssueArbiter.scala 72:94]
+  wire  _T_45 = 2'h0 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
+  wire  _T_46 = 2'h1 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
+  wire  _T_47 = 2'h2 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
+  wire [31:0] _GEN_5 = _T_47 ? io_insts_in_0_inst : 32'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire  _GEN_6 = _T_47 & io_insts_in_0_ysyx_print; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_10 = _T_47 ? io_insts_in_0_pc : 32'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_11 = _T_47 ? io_insts_in_0_imm : 21'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_12 = _T_47 ? io_insts_in_0_rd : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [2:0] _GEN_16 = _T_47 ? io_insts_in_0_mem_width : 3'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_18 = _T_47 ? io_insts_in_0_alu_op : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire  _GEN_19 = _T_47 & io_insts_in_0_write_dest; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_21 = _T_47 ? io_insts_in_0_src_a : 2'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_26 = _T_47 ? io_rss_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 124:25 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_27 = _T_47 ? io_rts_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 125:25 IssueArbiter.scala 99:19]
+  wire [31:0] _GEN_30 = _T_46 ? io_insts_in_0_inst : 32'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire  _GEN_31 = _T_46 & io_insts_in_0_ysyx_print; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_35 = _T_46 ? io_insts_in_0_pc : 32'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_36 = _T_46 ? io_insts_in_0_imm : 21'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_37 = _T_46 ? io_insts_in_0_rd : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire  _GEN_42 = _T_46 & io_insts_in_0_alu_expand; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_43 = _T_46 ? io_insts_in_0_alu_op : 5'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire  _GEN_44 = _T_46 & io_insts_in_0_write_dest; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_45 = _T_46 ? io_insts_in_0_src_b : 2'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_46 = _T_46 ? io_insts_in_0_src_a : 2'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_51 = _T_46 ? io_rss_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 116:25 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_52 = _T_46 ? io_rts_in_0 : 64'h0; // @[Conditional.scala 39:67 IssueArbiter.scala 117:25 IssueArbiter.scala 99:19]
+  wire [31:0] _GEN_55 = _T_46 ? 32'h0 : _GEN_5; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire  _GEN_56 = _T_46 ? 1'h0 : _GEN_6; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_60 = _T_46 ? 32'h0 : _GEN_10; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_61 = _T_46 ? 21'h0 : _GEN_11; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_62 = _T_46 ? 5'h0 : _GEN_12; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [2:0] _GEN_66 = _T_46 ? 3'h0 : _GEN_16; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_68 = _T_46 ? 5'h0 : _GEN_18; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire  _GEN_69 = _T_46 ? 1'h0 : _GEN_19; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_71 = _T_46 ? 2'h0 : _GEN_21; // @[Conditional.scala 39:67 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_76 = _T_46 ? 64'h0 : _GEN_26; // @[Conditional.scala 39:67 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_77 = _T_46 ? 64'h0 : _GEN_27; // @[Conditional.scala 39:67 IssueArbiter.scala 99:19]
+  wire  _GEN_79 = _T_46 ? 1'h0 : _T_47; // @[Conditional.scala 39:67 IssueArbiter.scala 101:26]
+  wire [31:0] _GEN_80 = _T_45 ? io_insts_in_0_inst : 32'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire  _GEN_81 = _T_45 & io_insts_in_0_ysyx_print; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire  _GEN_82 = _T_45 & io_insts_in_0_ysyx_debug; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_83 = _T_45 ? io_insts_in_0_target_pc : 32'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire  _GEN_84 = _T_45 & io_insts_in_0_predict_taken; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_85 = _T_45 ? io_insts_in_0_pc : 32'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_86 = _T_45 ? io_insts_in_0_imm : 21'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_87 = _T_45 ? io_insts_in_0_rd : 5'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_89 = _T_45 ? io_insts_in_0_rs1 : 5'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_90 = _T_45 ? io_insts_in_0_write_src : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire  _GEN_92 = _T_45 & io_insts_in_0_alu_expand; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_93 = _T_45 ? io_insts_in_0_alu_op : 5'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire  _GEN_94 = _T_45 & io_insts_in_0_write_dest; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_95 = _T_45 ? io_insts_in_0_src_b : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_96 = _T_45 ? io_insts_in_0_src_a : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [3:0] _GEN_97 = _T_45 ? io_insts_in_0_branch_type : 4'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_98 = _T_45 ? io_insts_in_0_alu_mdu_lsu : 2'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [2:0] _GEN_99 = _T_45 ? io_insts_in_0_next_pc : 3'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire  _GEN_100 = _T_45 & io_insts_in_0_illegal; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_101 = _T_45 ? io_rss_in_0 : 64'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 108:25 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_102 = _T_45 ? io_rts_in_0 : 64'h0; // @[Conditional.scala 40:58 IssueArbiter.scala 109:25 IssueArbiter.scala 99:19]
+  wire [31:0] _GEN_105 = _T_45 ? 32'h0 : _GEN_30; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire  _GEN_106 = _T_45 ? 1'h0 : _GEN_31; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_110 = _T_45 ? 32'h0 : _GEN_35; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_111 = _T_45 ? 21'h0 : _GEN_36; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_112 = _T_45 ? 5'h0 : _GEN_37; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire  _GEN_117 = _T_45 ? 1'h0 : _GEN_42; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_118 = _T_45 ? 5'h0 : _GEN_43; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire  _GEN_119 = _T_45 ? 1'h0 : _GEN_44; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_120 = _T_45 ? 2'h0 : _GEN_45; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_121 = _T_45 ? 2'h0 : _GEN_46; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_126 = _T_45 ? 64'h0 : _GEN_51; // @[Conditional.scala 40:58 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_127 = _T_45 ? 64'h0 : _GEN_52; // @[Conditional.scala 40:58 IssueArbiter.scala 99:19]
+  wire  _GEN_129 = _T_45 ? 1'h0 : _T_46; // @[Conditional.scala 40:58 IssueArbiter.scala 101:26]
+  wire [31:0] _GEN_130 = _T_45 ? 32'h0 : _GEN_55; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire  _GEN_131 = _T_45 ? 1'h0 : _GEN_56; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_135 = _T_45 ? 32'h0 : _GEN_60; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_136 = _T_45 ? 21'h0 : _GEN_61; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_137 = _T_45 ? 5'h0 : _GEN_62; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [2:0] _GEN_141 = _T_45 ? 3'h0 : _GEN_66; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_143 = _T_45 ? 5'h0 : _GEN_68; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire  _GEN_144 = _T_45 ? 1'h0 : _GEN_69; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_146 = _T_45 ? 2'h0 : _GEN_71; // @[Conditional.scala 40:58 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_151 = _T_45 ? 64'h0 : _GEN_76; // @[Conditional.scala 40:58 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_152 = _T_45 ? 64'h0 : _GEN_77; // @[Conditional.scala 40:58 IssueArbiter.scala 99:19]
+  wire  _GEN_154 = _T_45 ? 1'h0 : _GEN_79; // @[Conditional.scala 40:58 IssueArbiter.scala 101:26]
+  wire [31:0] _GEN_155 = issue_valid_0 ? _GEN_80 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_156 = issue_valid_0 & _GEN_81; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_157 = issue_valid_0 & _GEN_82; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_158 = issue_valid_0 ? _GEN_83 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_159 = issue_valid_0 & _GEN_84; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_160 = issue_valid_0 ? _GEN_85 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_161 = issue_valid_0 ? _GEN_86 : 21'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_162 = issue_valid_0 ? _GEN_87 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_164 = issue_valid_0 ? _GEN_89 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_165 = issue_valid_0 ? _GEN_90 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_167 = issue_valid_0 & _GEN_92; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_168 = issue_valid_0 ? _GEN_93 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_169 = issue_valid_0 & _GEN_94; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_170 = issue_valid_0 ? _GEN_95 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_171 = issue_valid_0 ? _GEN_96 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [3:0] _GEN_172 = issue_valid_0 ? _GEN_97 : 4'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_173 = issue_valid_0 ? _GEN_98 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [2:0] _GEN_174 = issue_valid_0 ? _GEN_99 : 3'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_175 = issue_valid_0 & _GEN_100; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_176 = issue_valid_0 ? _GEN_101 : 64'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_177 = issue_valid_0 ? _GEN_102 : 64'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 99:19]
+  wire  _GEN_179 = issue_valid_0 & _T_45; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 101:26]
+  wire [31:0] _GEN_180 = issue_valid_0 ? _GEN_105 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_181 = issue_valid_0 & _GEN_106; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_185 = issue_valid_0 ? _GEN_110 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_186 = issue_valid_0 ? _GEN_111 : 21'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_187 = issue_valid_0 ? _GEN_112 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_192 = issue_valid_0 & _GEN_117; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_193 = issue_valid_0 ? _GEN_118 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_194 = issue_valid_0 & _GEN_119; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_195 = issue_valid_0 ? _GEN_120 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_196 = issue_valid_0 ? _GEN_121 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_201 = issue_valid_0 ? _GEN_126 : 64'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_202 = issue_valid_0 ? _GEN_127 : 64'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 99:19]
+  wire  _GEN_204 = issue_valid_0 & _GEN_129; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 101:26]
+  wire [31:0] _GEN_205 = issue_valid_0 ? _GEN_130 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_206 = issue_valid_0 & _GEN_131; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [31:0] _GEN_210 = issue_valid_0 ? _GEN_135 : 32'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [20:0] _GEN_211 = issue_valid_0 ? _GEN_136 : 21'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_212 = issue_valid_0 ? _GEN_137 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [2:0] _GEN_216 = issue_valid_0 ? _GEN_141 : 3'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [4:0] _GEN_218 = issue_valid_0 ? _GEN_143 : 5'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire  _GEN_219 = issue_valid_0 & _GEN_144; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [1:0] _GEN_221 = issue_valid_0 ? _GEN_146 : 2'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 97:21]
+  wire [63:0] _GEN_226 = issue_valid_0 ? _GEN_151 : 64'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 98:19]
+  wire [63:0] _GEN_227 = issue_valid_0 ? _GEN_152 : 64'h0; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 99:19]
+  wire  _GEN_229 = issue_valid_0 & _GEN_154; // @[IssueArbiter.scala 104:26 IssueArbiter.scala 101:26]
+  wire  _T_56 = 2'h0 == io_insts_in_1_alu_mdu_lsu; // @[Conditional.scala 37:30]
+  wire  _GEN_581 = _T_56 | _GEN_179; // @[Conditional.scala 40:58 IssueArbiter.scala 112:22]
+  wire  alu_occupy = issue_valid_1 ? _GEN_581 : _GEN_179; // @[IssueArbiter.scala 104:26]
+  wire  _T_50 = ~alu_occupy; // @[IssueArbiter.scala 134:14]
+  wire  _T_57 = 2'h1 == io_insts_in_1_alu_mdu_lsu; // @[Conditional.scala 37:30]
+  wire  _GEN_530 = _T_57 | _GEN_204; // @[Conditional.scala 39:67 IssueArbiter.scala 120:22]
+  wire  _GEN_607 = _T_56 ? _GEN_204 : _GEN_530; // @[Conditional.scala 40:58]
+  wire  mdu_occupy = issue_valid_1 ? _GEN_607 : _GEN_204; // @[IssueArbiter.scala 104:26]
+  wire  _T_51 = ~mdu_occupy; // @[IssueArbiter.scala 140:21]
+  wire [31:0] _GEN_230 = ~mdu_occupy ? io_insts_in_0_inst : _GEN_180; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_231 = ~mdu_occupy ? io_insts_in_0_ysyx_print : _GEN_181; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [31:0] _GEN_235 = ~mdu_occupy ? io_insts_in_0_pc : _GEN_185; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [20:0] _GEN_236 = ~mdu_occupy ? io_insts_in_0_imm : _GEN_186; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_237 = ~mdu_occupy ? io_insts_in_0_rd : _GEN_187; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_242 = ~mdu_occupy ? io_insts_in_0_alu_expand : _GEN_192; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_243 = ~mdu_occupy ? io_insts_in_0_alu_op : _GEN_193; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_244 = ~mdu_occupy ? io_insts_in_0_write_dest : _GEN_194; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_245 = ~mdu_occupy ? io_insts_in_0_src_b : _GEN_195; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_246 = ~mdu_occupy ? io_insts_in_0_src_a : _GEN_196; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [63:0] _GEN_251 = ~mdu_occupy ? io_rss_in_0 : _GEN_201; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 142:25]
+  wire [63:0] _GEN_252 = ~mdu_occupy ? io_rts_in_0 : _GEN_202; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 143:25]
+  wire  _GEN_254 = ~mdu_occupy | _GEN_204; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 145:32]
+  wire [31:0] _GEN_255 = ~alu_occupy ? io_insts_in_0_inst : _GEN_155; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_256 = ~alu_occupy ? io_insts_in_0_ysyx_print : _GEN_156; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_257 = ~alu_occupy ? io_insts_in_0_ysyx_debug : _GEN_157; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_258 = ~alu_occupy ? io_insts_in_0_target_pc : _GEN_158; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_259 = ~alu_occupy ? io_insts_in_0_predict_taken : _GEN_159; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_260 = ~alu_occupy ? io_insts_in_0_pc : _GEN_160; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [20:0] _GEN_261 = ~alu_occupy ? io_insts_in_0_imm : _GEN_161; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_262 = ~alu_occupy ? io_insts_in_0_rd : _GEN_162; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_264 = ~alu_occupy ? io_insts_in_0_rs1 : _GEN_164; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_265 = ~alu_occupy ? io_insts_in_0_write_src : _GEN_165; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_267 = ~alu_occupy ? io_insts_in_0_alu_expand : _GEN_167; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_268 = ~alu_occupy ? io_insts_in_0_alu_op : _GEN_168; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_269 = ~alu_occupy ? io_insts_in_0_write_dest : _GEN_169; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_270 = ~alu_occupy ? io_insts_in_0_src_b : _GEN_170; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_271 = ~alu_occupy ? io_insts_in_0_src_a : _GEN_171; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [3:0] _GEN_272 = ~alu_occupy ? io_insts_in_0_branch_type : _GEN_172; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_273 = ~alu_occupy ? io_insts_in_0_alu_mdu_lsu : _GEN_173; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [2:0] _GEN_274 = ~alu_occupy ? io_insts_in_0_next_pc : _GEN_174; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_275 = ~alu_occupy ? io_insts_in_0_illegal : _GEN_175; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [63:0] _GEN_276 = ~alu_occupy ? io_rss_in_0 : _GEN_176; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 136:25]
+  wire [63:0] _GEN_277 = ~alu_occupy ? io_rts_in_0 : _GEN_177; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 137:25]
+  wire  _GEN_279 = ~alu_occupy | _GEN_179; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 139:32]
+  wire [31:0] _GEN_280 = ~alu_occupy ? _GEN_180 : _GEN_230; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_281 = ~alu_occupy ? _GEN_181 : _GEN_231; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_285 = ~alu_occupy ? _GEN_185 : _GEN_235; // @[IssueArbiter.scala 134:27]
+  wire [20:0] _GEN_286 = ~alu_occupy ? _GEN_186 : _GEN_236; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_287 = ~alu_occupy ? _GEN_187 : _GEN_237; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_292 = ~alu_occupy ? _GEN_192 : _GEN_242; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_293 = ~alu_occupy ? _GEN_193 : _GEN_243; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_294 = ~alu_occupy ? _GEN_194 : _GEN_244; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_295 = ~alu_occupy ? _GEN_195 : _GEN_245; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_296 = ~alu_occupy ? _GEN_196 : _GEN_246; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_301 = ~alu_occupy ? _GEN_201 : _GEN_251; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_302 = ~alu_occupy ? _GEN_202 : _GEN_252; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_304 = ~alu_occupy ? _GEN_204 : _GEN_254; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_305 = issue_valid_0 & _T_25 ? _GEN_255 : _GEN_155; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_306 = issue_valid_0 & _T_25 ? _GEN_256 : _GEN_156; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_307 = issue_valid_0 & _T_25 ? _GEN_257 : _GEN_157; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_308 = issue_valid_0 & _T_25 ? _GEN_258 : _GEN_158; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_309 = issue_valid_0 & _T_25 ? _GEN_259 : _GEN_159; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_310 = issue_valid_0 & _T_25 ? _GEN_260 : _GEN_160; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_311 = issue_valid_0 & _T_25 ? _GEN_261 : _GEN_161; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_312 = issue_valid_0 & _T_25 ? _GEN_262 : _GEN_162; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_314 = issue_valid_0 & _T_25 ? _GEN_264 : _GEN_164; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_315 = issue_valid_0 & _T_25 ? _GEN_265 : _GEN_165; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_317 = issue_valid_0 & _T_25 ? _GEN_267 : _GEN_167; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_318 = issue_valid_0 & _T_25 ? _GEN_268 : _GEN_168; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_319 = issue_valid_0 & _T_25 ? _GEN_269 : _GEN_169; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_320 = issue_valid_0 & _T_25 ? _GEN_270 : _GEN_170; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_321 = issue_valid_0 & _T_25 ? _GEN_271 : _GEN_171; // @[IssueArbiter.scala 133:70]
+  wire [3:0] _GEN_322 = issue_valid_0 & _T_25 ? _GEN_272 : _GEN_172; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_323 = issue_valid_0 & _T_25 ? _GEN_273 : _GEN_173; // @[IssueArbiter.scala 133:70]
+  wire [2:0] _GEN_324 = issue_valid_0 & _T_25 ? _GEN_274 : _GEN_174; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_325 = issue_valid_0 & _T_25 ? _GEN_275 : _GEN_175; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_326 = issue_valid_0 & _T_25 ? _GEN_276 : _GEN_176; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_327 = issue_valid_0 & _T_25 ? _GEN_277 : _GEN_177; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_329 = issue_valid_0 & _T_25 ? _GEN_279 : _GEN_179; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_330 = issue_valid_0 & _T_25 ? _GEN_280 : _GEN_180; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_331 = issue_valid_0 & _T_25 ? _GEN_281 : _GEN_181; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_335 = issue_valid_0 & _T_25 ? _GEN_285 : _GEN_185; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_336 = issue_valid_0 & _T_25 ? _GEN_286 : _GEN_186; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_337 = issue_valid_0 & _T_25 ? _GEN_287 : _GEN_187; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_342 = issue_valid_0 & _T_25 ? _GEN_292 : _GEN_192; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_343 = issue_valid_0 & _T_25 ? _GEN_293 : _GEN_193; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_344 = issue_valid_0 & _T_25 ? _GEN_294 : _GEN_194; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_345 = issue_valid_0 & _T_25 ? _GEN_295 : _GEN_195; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_346 = issue_valid_0 & _T_25 ? _GEN_296 : _GEN_196; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_351 = issue_valid_0 & _T_25 ? _GEN_301 : _GEN_201; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_352 = issue_valid_0 & _T_25 ? _GEN_302 : _GEN_202; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_354 = issue_valid_0 & _T_25 ? _GEN_304 : _GEN_204; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_355 = ~mdu_occupy ? io_insts_in_1_inst : _GEN_330; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_356 = ~mdu_occupy ? io_insts_in_1_ysyx_print : _GEN_331; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [31:0] _GEN_360 = ~mdu_occupy ? io_insts_in_1_pc : _GEN_335; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [20:0] _GEN_361 = ~mdu_occupy ? io_insts_in_1_imm : _GEN_336; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_362 = ~mdu_occupy ? io_insts_in_1_rd : _GEN_337; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_367 = ~mdu_occupy ? io_insts_in_1_alu_expand : _GEN_342; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_368 = ~mdu_occupy ? io_insts_in_1_alu_op : _GEN_343; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_369 = ~mdu_occupy ? io_insts_in_1_write_dest : _GEN_344; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_370 = ~mdu_occupy ? io_insts_in_1_src_b : _GEN_345; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_371 = ~mdu_occupy ? io_insts_in_1_src_a : _GEN_346; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [63:0] _GEN_376 = ~mdu_occupy ? io_rss_in_1 : _GEN_351; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 142:25]
+  wire [63:0] _GEN_377 = ~mdu_occupy ? io_rts_in_1 : _GEN_352; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 143:25]
+  wire  _GEN_379 = ~mdu_occupy | _GEN_354; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 145:32]
+  wire [31:0] _GEN_380 = ~alu_occupy ? io_insts_in_1_inst : _GEN_305; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_381 = ~alu_occupy ? io_insts_in_1_ysyx_print : _GEN_306; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_382 = ~alu_occupy ? io_insts_in_1_ysyx_debug : _GEN_307; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_383 = ~alu_occupy ? io_insts_in_1_target_pc : _GEN_308; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_384 = ~alu_occupy ? io_insts_in_1_predict_taken : _GEN_309; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_385 = ~alu_occupy ? io_insts_in_1_pc : _GEN_310; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [20:0] _GEN_386 = ~alu_occupy ? io_insts_in_1_imm : _GEN_311; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_387 = ~alu_occupy ? io_insts_in_1_rd : _GEN_312; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_389 = ~alu_occupy ? io_insts_in_1_rs1 : _GEN_314; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_390 = ~alu_occupy ? io_insts_in_1_write_src : _GEN_315; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_392 = ~alu_occupy ? io_insts_in_1_alu_expand : _GEN_317; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_393 = ~alu_occupy ? io_insts_in_1_alu_op : _GEN_318; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_394 = ~alu_occupy ? io_insts_in_1_write_dest : _GEN_319; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_395 = ~alu_occupy ? io_insts_in_1_src_b : _GEN_320; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_396 = ~alu_occupy ? io_insts_in_1_src_a : _GEN_321; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [3:0] _GEN_397 = ~alu_occupy ? io_insts_in_1_branch_type : _GEN_322; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_398 = ~alu_occupy ? io_insts_in_1_alu_mdu_lsu : _GEN_323; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [2:0] _GEN_399 = ~alu_occupy ? io_insts_in_1_next_pc : _GEN_324; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_400 = ~alu_occupy ? io_insts_in_1_illegal : _GEN_325; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [63:0] _GEN_401 = ~alu_occupy ? io_rss_in_1 : _GEN_326; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 136:25]
+  wire [63:0] _GEN_402 = ~alu_occupy ? io_rts_in_1 : _GEN_327; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 137:25]
+  wire  _GEN_404 = ~alu_occupy | _GEN_329; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 139:32]
+  wire [31:0] _GEN_405 = ~alu_occupy ? _GEN_330 : _GEN_355; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_406 = ~alu_occupy ? _GEN_331 : _GEN_356; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_410 = ~alu_occupy ? _GEN_335 : _GEN_360; // @[IssueArbiter.scala 134:27]
+  wire [20:0] _GEN_411 = ~alu_occupy ? _GEN_336 : _GEN_361; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_412 = ~alu_occupy ? _GEN_337 : _GEN_362; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_417 = ~alu_occupy ? _GEN_342 : _GEN_367; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_418 = ~alu_occupy ? _GEN_343 : _GEN_368; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_419 = ~alu_occupy ? _GEN_344 : _GEN_369; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_420 = ~alu_occupy ? _GEN_345 : _GEN_370; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_421 = ~alu_occupy ? _GEN_346 : _GEN_371; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_426 = ~alu_occupy ? _GEN_351 : _GEN_376; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_427 = ~alu_occupy ? _GEN_352 : _GEN_377; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_428 = ~alu_occupy ? 1'h0 : _T_51; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_429 = ~alu_occupy ? _GEN_354 : _GEN_379; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_430 = issue_valid_1 & _T_26 ? _GEN_380 : _GEN_305; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_431 = issue_valid_1 & _T_26 ? _GEN_381 : _GEN_306; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_432 = issue_valid_1 & _T_26 ? _GEN_382 : _GEN_307; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_433 = issue_valid_1 & _T_26 ? _GEN_383 : _GEN_308; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_434 = issue_valid_1 & _T_26 ? _GEN_384 : _GEN_309; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_435 = issue_valid_1 & _T_26 ? _GEN_385 : _GEN_310; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_436 = issue_valid_1 & _T_26 ? _GEN_386 : _GEN_311; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_437 = issue_valid_1 & _T_26 ? _GEN_387 : _GEN_312; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_439 = issue_valid_1 & _T_26 ? _GEN_389 : _GEN_314; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_440 = issue_valid_1 & _T_26 ? _GEN_390 : _GEN_315; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_442 = issue_valid_1 & _T_26 ? _GEN_392 : _GEN_317; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_443 = issue_valid_1 & _T_26 ? _GEN_393 : _GEN_318; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_444 = issue_valid_1 & _T_26 ? _GEN_394 : _GEN_319; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_445 = issue_valid_1 & _T_26 ? _GEN_395 : _GEN_320; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_446 = issue_valid_1 & _T_26 ? _GEN_396 : _GEN_321; // @[IssueArbiter.scala 133:70]
+  wire [3:0] _GEN_447 = issue_valid_1 & _T_26 ? _GEN_397 : _GEN_322; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_448 = issue_valid_1 & _T_26 ? _GEN_398 : _GEN_323; // @[IssueArbiter.scala 133:70]
+  wire [2:0] _GEN_449 = issue_valid_1 & _T_26 ? _GEN_399 : _GEN_324; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_450 = issue_valid_1 & _T_26 ? _GEN_400 : _GEN_325; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_451 = issue_valid_1 & _T_26 ? _GEN_401 : _GEN_326; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_452 = issue_valid_1 & _T_26 ? _GEN_402 : _GEN_327; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_453 = issue_valid_1 & _T_26 & _T_50; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_454 = issue_valid_1 & _T_26 ? _GEN_404 : _GEN_329; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_455 = issue_valid_1 & _T_26 ? _GEN_405 : _GEN_330; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_456 = issue_valid_1 & _T_26 ? _GEN_406 : _GEN_331; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_460 = issue_valid_1 & _T_26 ? _GEN_410 : _GEN_335; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_461 = issue_valid_1 & _T_26 ? _GEN_411 : _GEN_336; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_462 = issue_valid_1 & _T_26 ? _GEN_412 : _GEN_337; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_467 = issue_valid_1 & _T_26 ? _GEN_417 : _GEN_342; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_468 = issue_valid_1 & _T_26 ? _GEN_418 : _GEN_343; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_469 = issue_valid_1 & _T_26 ? _GEN_419 : _GEN_344; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_470 = issue_valid_1 & _T_26 ? _GEN_420 : _GEN_345; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_471 = issue_valid_1 & _T_26 ? _GEN_421 : _GEN_346; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_476 = issue_valid_1 & _T_26 ? _GEN_426 : _GEN_351; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_477 = issue_valid_1 & _T_26 ? _GEN_427 : _GEN_352; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_478 = issue_valid_1 & _T_26 & _GEN_428; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_479 = issue_valid_1 & _T_26 ? _GEN_429 : _GEN_354; // @[IssueArbiter.scala 133:70]
+  wire  _T_58 = 2'h2 == io_insts_in_1_alu_mdu_lsu; // @[Conditional.scala 37:30]
+  wire [31:0] _GEN_480 = _T_58 ? io_insts_in_1_inst : _GEN_205; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire  _GEN_481 = _T_58 ? io_insts_in_1_ysyx_print : _GEN_206; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [31:0] _GEN_485 = _T_58 ? io_insts_in_1_pc : _GEN_210; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [20:0] _GEN_486 = _T_58 ? io_insts_in_1_imm : _GEN_211; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [4:0] _GEN_487 = _T_58 ? io_insts_in_1_rd : _GEN_212; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [2:0] _GEN_491 = _T_58 ? io_insts_in_1_mem_width : _GEN_216; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [4:0] _GEN_493 = _T_58 ? io_insts_in_1_alu_op : _GEN_218; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire  _GEN_494 = _T_58 ? io_insts_in_1_write_dest : _GEN_219; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [1:0] _GEN_496 = _T_58 ? io_insts_in_1_src_a : _GEN_221; // @[Conditional.scala 39:67 IssueArbiter.scala 123:27]
+  wire [63:0] _GEN_501 = _T_58 ? io_rss_in_1 : _GEN_226; // @[Conditional.scala 39:67 IssueArbiter.scala 124:25]
+  wire [63:0] _GEN_502 = _T_58 ? io_rts_in_1 : _GEN_227; // @[Conditional.scala 39:67 IssueArbiter.scala 125:25]
+  wire  _GEN_504 = _T_58 | _GEN_229; // @[Conditional.scala 39:67 IssueArbiter.scala 127:32]
+  wire [31:0] _GEN_505 = _T_57 ? io_insts_in_1_inst : _GEN_455; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire  _GEN_506 = _T_57 ? io_insts_in_1_ysyx_print : _GEN_456; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [31:0] _GEN_510 = _T_57 ? io_insts_in_1_pc : _GEN_460; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [20:0] _GEN_511 = _T_57 ? io_insts_in_1_imm : _GEN_461; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [4:0] _GEN_512 = _T_57 ? io_insts_in_1_rd : _GEN_462; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire  _GEN_517 = _T_57 ? io_insts_in_1_alu_expand : _GEN_467; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [4:0] _GEN_518 = _T_57 ? io_insts_in_1_alu_op : _GEN_468; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire  _GEN_519 = _T_57 ? io_insts_in_1_write_dest : _GEN_469; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [1:0] _GEN_520 = _T_57 ? io_insts_in_1_src_b : _GEN_470; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [1:0] _GEN_521 = _T_57 ? io_insts_in_1_src_a : _GEN_471; // @[Conditional.scala 39:67 IssueArbiter.scala 115:27]
+  wire [63:0] _GEN_526 = _T_57 ? io_rss_in_1 : _GEN_476; // @[Conditional.scala 39:67 IssueArbiter.scala 116:25]
+  wire [63:0] _GEN_527 = _T_57 ? io_rts_in_1 : _GEN_477; // @[Conditional.scala 39:67 IssueArbiter.scala 117:25]
+  wire  _GEN_528 = _T_57 | _GEN_478; // @[Conditional.scala 39:67 IssueArbiter.scala 118:29]
+  wire  _GEN_529 = _T_57 | _GEN_479; // @[Conditional.scala 39:67 IssueArbiter.scala 119:32]
+  wire [31:0] _GEN_531 = _T_57 ? _GEN_205 : _GEN_480; // @[Conditional.scala 39:67]
+  wire  _GEN_532 = _T_57 ? _GEN_206 : _GEN_481; // @[Conditional.scala 39:67]
+  wire [31:0] _GEN_536 = _T_57 ? _GEN_210 : _GEN_485; // @[Conditional.scala 39:67]
+  wire [20:0] _GEN_537 = _T_57 ? _GEN_211 : _GEN_486; // @[Conditional.scala 39:67]
+  wire [4:0] _GEN_538 = _T_57 ? _GEN_212 : _GEN_487; // @[Conditional.scala 39:67]
+  wire [2:0] _GEN_542 = _T_57 ? _GEN_216 : _GEN_491; // @[Conditional.scala 39:67]
+  wire [4:0] _GEN_544 = _T_57 ? _GEN_218 : _GEN_493; // @[Conditional.scala 39:67]
+  wire  _GEN_545 = _T_57 ? _GEN_219 : _GEN_494; // @[Conditional.scala 39:67]
+  wire [1:0] _GEN_547 = _T_57 ? _GEN_221 : _GEN_496; // @[Conditional.scala 39:67]
+  wire [63:0] _GEN_552 = _T_57 ? _GEN_226 : _GEN_501; // @[Conditional.scala 39:67]
+  wire [63:0] _GEN_553 = _T_57 ? _GEN_227 : _GEN_502; // @[Conditional.scala 39:67]
+  wire  _GEN_554 = _T_57 ? 1'h0 : _T_58; // @[Conditional.scala 39:67]
+  wire  _GEN_555 = _T_57 ? _GEN_229 : _GEN_504; // @[Conditional.scala 39:67]
+  wire [31:0] _GEN_556 = _T_56 ? io_insts_in_1_inst : _GEN_430; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire  _GEN_557 = _T_56 ? io_insts_in_1_ysyx_print : _GEN_431; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire  _GEN_558 = _T_56 ? io_insts_in_1_ysyx_debug : _GEN_432; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [31:0] _GEN_559 = _T_56 ? io_insts_in_1_target_pc : _GEN_433; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire  _GEN_560 = _T_56 ? io_insts_in_1_predict_taken : _GEN_434; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [31:0] _GEN_561 = _T_56 ? io_insts_in_1_pc : _GEN_435; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [20:0] _GEN_562 = _T_56 ? io_insts_in_1_imm : _GEN_436; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [4:0] _GEN_563 = _T_56 ? io_insts_in_1_rd : _GEN_437; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [4:0] _GEN_565 = _T_56 ? io_insts_in_1_rs1 : _GEN_439; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [1:0] _GEN_566 = _T_56 ? io_insts_in_1_write_src : _GEN_440; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire  _GEN_568 = _T_56 ? io_insts_in_1_alu_expand : _GEN_442; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [4:0] _GEN_569 = _T_56 ? io_insts_in_1_alu_op : _GEN_443; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire  _GEN_570 = _T_56 ? io_insts_in_1_write_dest : _GEN_444; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [1:0] _GEN_571 = _T_56 ? io_insts_in_1_src_b : _GEN_445; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [1:0] _GEN_572 = _T_56 ? io_insts_in_1_src_a : _GEN_446; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [3:0] _GEN_573 = _T_56 ? io_insts_in_1_branch_type : _GEN_447; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [1:0] _GEN_574 = _T_56 ? io_insts_in_1_alu_mdu_lsu : _GEN_448; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [2:0] _GEN_575 = _T_56 ? io_insts_in_1_next_pc : _GEN_449; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire  _GEN_576 = _T_56 ? io_insts_in_1_illegal : _GEN_450; // @[Conditional.scala 40:58 IssueArbiter.scala 107:27]
+  wire [63:0] _GEN_577 = _T_56 ? io_rss_in_1 : _GEN_451; // @[Conditional.scala 40:58 IssueArbiter.scala 108:25]
+  wire [63:0] _GEN_578 = _T_56 ? io_rts_in_1 : _GEN_452; // @[Conditional.scala 40:58 IssueArbiter.scala 109:25]
+  wire  _GEN_579 = _T_56 | _GEN_453; // @[Conditional.scala 40:58 IssueArbiter.scala 110:29]
+  wire  _GEN_580 = _T_56 | _GEN_454; // @[Conditional.scala 40:58 IssueArbiter.scala 111:32]
+  wire [31:0] _GEN_582 = _T_56 ? _GEN_455 : _GEN_505; // @[Conditional.scala 40:58]
+  wire  _GEN_583 = _T_56 ? _GEN_456 : _GEN_506; // @[Conditional.scala 40:58]
+  wire [31:0] _GEN_587 = _T_56 ? _GEN_460 : _GEN_510; // @[Conditional.scala 40:58]
+  wire [20:0] _GEN_588 = _T_56 ? _GEN_461 : _GEN_511; // @[Conditional.scala 40:58]
+  wire [4:0] _GEN_589 = _T_56 ? _GEN_462 : _GEN_512; // @[Conditional.scala 40:58]
+  wire  _GEN_594 = _T_56 ? _GEN_467 : _GEN_517; // @[Conditional.scala 40:58]
+  wire [4:0] _GEN_595 = _T_56 ? _GEN_468 : _GEN_518; // @[Conditional.scala 40:58]
+  wire  _GEN_596 = _T_56 ? _GEN_469 : _GEN_519; // @[Conditional.scala 40:58]
+  wire [1:0] _GEN_597 = _T_56 ? _GEN_470 : _GEN_520; // @[Conditional.scala 40:58]
+  wire [1:0] _GEN_598 = _T_56 ? _GEN_471 : _GEN_521; // @[Conditional.scala 40:58]
+  wire [63:0] _GEN_603 = _T_56 ? _GEN_476 : _GEN_526; // @[Conditional.scala 40:58]
+  wire [63:0] _GEN_604 = _T_56 ? _GEN_477 : _GEN_527; // @[Conditional.scala 40:58]
+  wire  _GEN_605 = _T_56 ? _GEN_478 : _GEN_528; // @[Conditional.scala 40:58]
+  wire  _GEN_606 = _T_56 ? _GEN_479 : _GEN_529; // @[Conditional.scala 40:58]
+  wire [31:0] _GEN_608 = _T_56 ? _GEN_205 : _GEN_531; // @[Conditional.scala 40:58]
+  wire  _GEN_609 = _T_56 ? _GEN_206 : _GEN_532; // @[Conditional.scala 40:58]
+  wire [31:0] _GEN_613 = _T_56 ? _GEN_210 : _GEN_536; // @[Conditional.scala 40:58]
+  wire [20:0] _GEN_614 = _T_56 ? _GEN_211 : _GEN_537; // @[Conditional.scala 40:58]
+  wire [4:0] _GEN_615 = _T_56 ? _GEN_212 : _GEN_538; // @[Conditional.scala 40:58]
+  wire [2:0] _GEN_619 = _T_56 ? _GEN_216 : _GEN_542; // @[Conditional.scala 40:58]
+  wire [4:0] _GEN_621 = _T_56 ? _GEN_218 : _GEN_544; // @[Conditional.scala 40:58]
+  wire  _GEN_622 = _T_56 ? _GEN_219 : _GEN_545; // @[Conditional.scala 40:58]
+  wire [1:0] _GEN_624 = _T_56 ? _GEN_221 : _GEN_547; // @[Conditional.scala 40:58]
+  wire [63:0] _GEN_629 = _T_56 ? _GEN_226 : _GEN_552; // @[Conditional.scala 40:58]
+  wire [63:0] _GEN_630 = _T_56 ? _GEN_227 : _GEN_553; // @[Conditional.scala 40:58]
+  wire  _GEN_631 = _T_56 ? 1'h0 : _GEN_554; // @[Conditional.scala 40:58]
+  wire  _GEN_632 = _T_56 ? _GEN_229 : _GEN_555; // @[Conditional.scala 40:58]
+  wire [31:0] _GEN_633 = issue_valid_1 ? _GEN_556 : _GEN_430; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_634 = issue_valid_1 ? _GEN_557 : _GEN_431; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_635 = issue_valid_1 ? _GEN_558 : _GEN_432; // @[IssueArbiter.scala 104:26]
+  wire [31:0] _GEN_636 = issue_valid_1 ? _GEN_559 : _GEN_433; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_637 = issue_valid_1 ? _GEN_560 : _GEN_434; // @[IssueArbiter.scala 104:26]
+  wire [31:0] _GEN_638 = issue_valid_1 ? _GEN_561 : _GEN_435; // @[IssueArbiter.scala 104:26]
+  wire [20:0] _GEN_639 = issue_valid_1 ? _GEN_562 : _GEN_436; // @[IssueArbiter.scala 104:26]
+  wire [4:0] _GEN_640 = issue_valid_1 ? _GEN_563 : _GEN_437; // @[IssueArbiter.scala 104:26]
+  wire [4:0] _GEN_642 = issue_valid_1 ? _GEN_565 : _GEN_439; // @[IssueArbiter.scala 104:26]
+  wire [1:0] _GEN_643 = issue_valid_1 ? _GEN_566 : _GEN_440; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_645 = issue_valid_1 ? _GEN_568 : _GEN_442; // @[IssueArbiter.scala 104:26]
+  wire [4:0] _GEN_646 = issue_valid_1 ? _GEN_569 : _GEN_443; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_647 = issue_valid_1 ? _GEN_570 : _GEN_444; // @[IssueArbiter.scala 104:26]
+  wire [1:0] _GEN_648 = issue_valid_1 ? _GEN_571 : _GEN_445; // @[IssueArbiter.scala 104:26]
+  wire [1:0] _GEN_649 = issue_valid_1 ? _GEN_572 : _GEN_446; // @[IssueArbiter.scala 104:26]
+  wire [3:0] _GEN_650 = issue_valid_1 ? _GEN_573 : _GEN_447; // @[IssueArbiter.scala 104:26]
+  wire [1:0] _GEN_651 = issue_valid_1 ? _GEN_574 : _GEN_448; // @[IssueArbiter.scala 104:26]
+  wire [2:0] _GEN_652 = issue_valid_1 ? _GEN_575 : _GEN_449; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_653 = issue_valid_1 ? _GEN_576 : _GEN_450; // @[IssueArbiter.scala 104:26]
+  wire [63:0] _GEN_654 = issue_valid_1 ? _GEN_577 : _GEN_451; // @[IssueArbiter.scala 104:26]
+  wire [63:0] _GEN_655 = issue_valid_1 ? _GEN_578 : _GEN_452; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_656 = issue_valid_1 ? _GEN_579 : _GEN_453; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_657 = issue_valid_1 ? _GEN_580 : _GEN_454; // @[IssueArbiter.scala 104:26]
+  wire [31:0] _GEN_659 = issue_valid_1 ? _GEN_582 : _GEN_455; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_660 = issue_valid_1 ? _GEN_583 : _GEN_456; // @[IssueArbiter.scala 104:26]
+  wire [31:0] _GEN_664 = issue_valid_1 ? _GEN_587 : _GEN_460; // @[IssueArbiter.scala 104:26]
+  wire [20:0] _GEN_665 = issue_valid_1 ? _GEN_588 : _GEN_461; // @[IssueArbiter.scala 104:26]
+  wire [4:0] _GEN_666 = issue_valid_1 ? _GEN_589 : _GEN_462; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_671 = issue_valid_1 ? _GEN_594 : _GEN_467; // @[IssueArbiter.scala 104:26]
+  wire [4:0] _GEN_672 = issue_valid_1 ? _GEN_595 : _GEN_468; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_673 = issue_valid_1 ? _GEN_596 : _GEN_469; // @[IssueArbiter.scala 104:26]
+  wire [1:0] _GEN_674 = issue_valid_1 ? _GEN_597 : _GEN_470; // @[IssueArbiter.scala 104:26]
+  wire [1:0] _GEN_675 = issue_valid_1 ? _GEN_598 : _GEN_471; // @[IssueArbiter.scala 104:26]
+  wire [63:0] _GEN_680 = issue_valid_1 ? _GEN_603 : _GEN_476; // @[IssueArbiter.scala 104:26]
+  wire [63:0] _GEN_681 = issue_valid_1 ? _GEN_604 : _GEN_477; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_682 = issue_valid_1 ? _GEN_605 : _GEN_478; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_683 = issue_valid_1 ? _GEN_606 : _GEN_479; // @[IssueArbiter.scala 104:26]
+  wire  _GEN_708 = issue_valid_1 & _GEN_631; // @[IssueArbiter.scala 104:26]
+  wire [31:0] _GEN_710 = ~mdu_occupy ? io_insts_in_0_inst : _GEN_659; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_711 = ~mdu_occupy ? io_insts_in_0_ysyx_print : _GEN_660; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [31:0] _GEN_715 = ~mdu_occupy ? io_insts_in_0_pc : _GEN_664; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [20:0] _GEN_716 = ~mdu_occupy ? io_insts_in_0_imm : _GEN_665; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_717 = ~mdu_occupy ? io_insts_in_0_rd : _GEN_666; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_722 = ~mdu_occupy ? io_insts_in_0_alu_expand : _GEN_671; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_723 = ~mdu_occupy ? io_insts_in_0_alu_op : _GEN_672; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_724 = ~mdu_occupy ? io_insts_in_0_write_dest : _GEN_673; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_725 = ~mdu_occupy ? io_insts_in_0_src_b : _GEN_674; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_726 = ~mdu_occupy ? io_insts_in_0_src_a : _GEN_675; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [63:0] _GEN_731 = ~mdu_occupy ? io_rss_in_0 : _GEN_680; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 142:25]
+  wire [63:0] _GEN_732 = ~mdu_occupy ? io_rts_in_0 : _GEN_681; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 143:25]
+  wire  _GEN_733 = ~mdu_occupy ? 1'h0 : _GEN_682; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 144:29]
+  wire  _GEN_734 = ~mdu_occupy | _GEN_683; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 145:32]
+  wire [31:0] _GEN_735 = ~alu_occupy ? io_insts_in_0_inst : _GEN_633; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_736 = ~alu_occupy ? io_insts_in_0_ysyx_print : _GEN_634; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_737 = ~alu_occupy ? io_insts_in_0_ysyx_debug : _GEN_635; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_738 = ~alu_occupy ? io_insts_in_0_target_pc : _GEN_636; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_739 = ~alu_occupy ? io_insts_in_0_predict_taken : _GEN_637; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_740 = ~alu_occupy ? io_insts_in_0_pc : _GEN_638; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [20:0] _GEN_741 = ~alu_occupy ? io_insts_in_0_imm : _GEN_639; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_742 = ~alu_occupy ? io_insts_in_0_rd : _GEN_640; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_744 = ~alu_occupy ? io_insts_in_0_rs1 : _GEN_642; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_745 = ~alu_occupy ? io_insts_in_0_write_src : _GEN_643; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_747 = ~alu_occupy ? io_insts_in_0_alu_expand : _GEN_645; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_748 = ~alu_occupy ? io_insts_in_0_alu_op : _GEN_646; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_749 = ~alu_occupy ? io_insts_in_0_write_dest : _GEN_647; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_750 = ~alu_occupy ? io_insts_in_0_src_b : _GEN_648; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_751 = ~alu_occupy ? io_insts_in_0_src_a : _GEN_649; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [3:0] _GEN_752 = ~alu_occupy ? io_insts_in_0_branch_type : _GEN_650; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_753 = ~alu_occupy ? io_insts_in_0_alu_mdu_lsu : _GEN_651; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [2:0] _GEN_754 = ~alu_occupy ? io_insts_in_0_next_pc : _GEN_652; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_755 = ~alu_occupy ? io_insts_in_0_illegal : _GEN_653; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [63:0] _GEN_756 = ~alu_occupy ? io_rss_in_0 : _GEN_654; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 136:25]
+  wire [63:0] _GEN_757 = ~alu_occupy ? io_rts_in_0 : _GEN_655; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 137:25]
+  wire  _GEN_758 = ~alu_occupy ? 1'h0 : _GEN_656; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 138:29]
+  wire  _GEN_759 = ~alu_occupy | _GEN_657; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 139:32]
+  wire [31:0] _GEN_760 = ~alu_occupy ? _GEN_659 : _GEN_710; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_761 = ~alu_occupy ? _GEN_660 : _GEN_711; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_765 = ~alu_occupy ? _GEN_664 : _GEN_715; // @[IssueArbiter.scala 134:27]
+  wire [20:0] _GEN_766 = ~alu_occupy ? _GEN_665 : _GEN_716; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_767 = ~alu_occupy ? _GEN_666 : _GEN_717; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_772 = ~alu_occupy ? _GEN_671 : _GEN_722; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_773 = ~alu_occupy ? _GEN_672 : _GEN_723; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_774 = ~alu_occupy ? _GEN_673 : _GEN_724; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_775 = ~alu_occupy ? _GEN_674 : _GEN_725; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_776 = ~alu_occupy ? _GEN_675 : _GEN_726; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_781 = ~alu_occupy ? _GEN_680 : _GEN_731; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_782 = ~alu_occupy ? _GEN_681 : _GEN_732; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_783 = ~alu_occupy ? _GEN_682 : _GEN_733; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_784 = ~alu_occupy ? _GEN_683 : _GEN_734; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_785 = issue_valid_0 & _T_25 ? _GEN_735 : _GEN_633; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_786 = issue_valid_0 & _T_25 ? _GEN_736 : _GEN_634; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_787 = issue_valid_0 & _T_25 ? _GEN_737 : _GEN_635; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_788 = issue_valid_0 & _T_25 ? _GEN_738 : _GEN_636; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_789 = issue_valid_0 & _T_25 ? _GEN_739 : _GEN_637; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_790 = issue_valid_0 & _T_25 ? _GEN_740 : _GEN_638; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_791 = issue_valid_0 & _T_25 ? _GEN_741 : _GEN_639; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_792 = issue_valid_0 & _T_25 ? _GEN_742 : _GEN_640; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_794 = issue_valid_0 & _T_25 ? _GEN_744 : _GEN_642; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_795 = issue_valid_0 & _T_25 ? _GEN_745 : _GEN_643; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_797 = issue_valid_0 & _T_25 ? _GEN_747 : _GEN_645; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_798 = issue_valid_0 & _T_25 ? _GEN_748 : _GEN_646; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_799 = issue_valid_0 & _T_25 ? _GEN_749 : _GEN_647; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_800 = issue_valid_0 & _T_25 ? _GEN_750 : _GEN_648; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_801 = issue_valid_0 & _T_25 ? _GEN_751 : _GEN_649; // @[IssueArbiter.scala 133:70]
+  wire [3:0] _GEN_802 = issue_valid_0 & _T_25 ? _GEN_752 : _GEN_650; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_803 = issue_valid_0 & _T_25 ? _GEN_753 : _GEN_651; // @[IssueArbiter.scala 133:70]
+  wire [2:0] _GEN_804 = issue_valid_0 & _T_25 ? _GEN_754 : _GEN_652; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_805 = issue_valid_0 & _T_25 ? _GEN_755 : _GEN_653; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_806 = issue_valid_0 & _T_25 ? _GEN_756 : _GEN_654; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_807 = issue_valid_0 & _T_25 ? _GEN_757 : _GEN_655; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_808 = issue_valid_0 & _T_25 ? _GEN_758 : _GEN_656; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_809 = issue_valid_0 & _T_25 ? _GEN_759 : _GEN_657; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_810 = issue_valid_0 & _T_25 ? _GEN_760 : _GEN_659; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_811 = issue_valid_0 & _T_25 ? _GEN_761 : _GEN_660; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_815 = issue_valid_0 & _T_25 ? _GEN_765 : _GEN_664; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_816 = issue_valid_0 & _T_25 ? _GEN_766 : _GEN_665; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_817 = issue_valid_0 & _T_25 ? _GEN_767 : _GEN_666; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_822 = issue_valid_0 & _T_25 ? _GEN_772 : _GEN_671; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_823 = issue_valid_0 & _T_25 ? _GEN_773 : _GEN_672; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_824 = issue_valid_0 & _T_25 ? _GEN_774 : _GEN_673; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_825 = issue_valid_0 & _T_25 ? _GEN_775 : _GEN_674; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_826 = issue_valid_0 & _T_25 ? _GEN_776 : _GEN_675; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_831 = issue_valid_0 & _T_25 ? _GEN_781 : _GEN_680; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_832 = issue_valid_0 & _T_25 ? _GEN_782 : _GEN_681; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_833 = issue_valid_0 & _T_25 ? _GEN_783 : _GEN_682; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_834 = issue_valid_0 & _T_25 ? _GEN_784 : _GEN_683; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_835 = ~mdu_occupy ? io_insts_in_1_inst : _GEN_810; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_836 = ~mdu_occupy ? io_insts_in_1_ysyx_print : _GEN_811; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [31:0] _GEN_840 = ~mdu_occupy ? io_insts_in_1_pc : _GEN_815; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [20:0] _GEN_841 = ~mdu_occupy ? io_insts_in_1_imm : _GEN_816; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_842 = ~mdu_occupy ? io_insts_in_1_rd : _GEN_817; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_847 = ~mdu_occupy ? io_insts_in_1_alu_expand : _GEN_822; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [4:0] _GEN_848 = ~mdu_occupy ? io_insts_in_1_alu_op : _GEN_823; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire  _GEN_849 = ~mdu_occupy ? io_insts_in_1_write_dest : _GEN_824; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_850 = ~mdu_occupy ? io_insts_in_1_src_b : _GEN_825; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [1:0] _GEN_851 = ~mdu_occupy ? io_insts_in_1_src_a : _GEN_826; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 141:27]
+  wire [63:0] _GEN_856 = ~mdu_occupy ? io_rss_in_1 : _GEN_831; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 142:25]
+  wire [63:0] _GEN_857 = ~mdu_occupy ? io_rts_in_1 : _GEN_832; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 143:25]
+  wire  _GEN_858 = ~mdu_occupy | _GEN_833; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 144:29]
+  wire  _GEN_859 = ~mdu_occupy | _GEN_834; // @[IssueArbiter.scala 140:34 IssueArbiter.scala 145:32]
+  wire [31:0] _GEN_860 = ~alu_occupy ? io_insts_in_1_inst : _GEN_785; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_861 = ~alu_occupy ? io_insts_in_1_ysyx_print : _GEN_786; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_862 = ~alu_occupy ? io_insts_in_1_ysyx_debug : _GEN_787; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_863 = ~alu_occupy ? io_insts_in_1_target_pc : _GEN_788; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_864 = ~alu_occupy ? io_insts_in_1_predict_taken : _GEN_789; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [31:0] _GEN_865 = ~alu_occupy ? io_insts_in_1_pc : _GEN_790; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [20:0] _GEN_866 = ~alu_occupy ? io_insts_in_1_imm : _GEN_791; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_867 = ~alu_occupy ? io_insts_in_1_rd : _GEN_792; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_869 = ~alu_occupy ? io_insts_in_1_rs1 : _GEN_794; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_870 = ~alu_occupy ? io_insts_in_1_write_src : _GEN_795; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_872 = ~alu_occupy ? io_insts_in_1_alu_expand : _GEN_797; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [4:0] _GEN_873 = ~alu_occupy ? io_insts_in_1_alu_op : _GEN_798; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_874 = ~alu_occupy ? io_insts_in_1_write_dest : _GEN_799; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_875 = ~alu_occupy ? io_insts_in_1_src_b : _GEN_800; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_876 = ~alu_occupy ? io_insts_in_1_src_a : _GEN_801; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [3:0] _GEN_877 = ~alu_occupy ? io_insts_in_1_branch_type : _GEN_802; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [1:0] _GEN_878 = ~alu_occupy ? io_insts_in_1_alu_mdu_lsu : _GEN_803; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [2:0] _GEN_879 = ~alu_occupy ? io_insts_in_1_next_pc : _GEN_804; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire  _GEN_880 = ~alu_occupy ? io_insts_in_1_illegal : _GEN_805; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 135:27]
+  wire [63:0] _GEN_881 = ~alu_occupy ? io_rss_in_1 : _GEN_806; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 136:25]
+  wire [63:0] _GEN_882 = ~alu_occupy ? io_rts_in_1 : _GEN_807; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 137:25]
+  wire  _GEN_883 = ~alu_occupy | _GEN_808; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 138:29]
+  wire  _GEN_884 = ~alu_occupy | _GEN_809; // @[IssueArbiter.scala 134:27 IssueArbiter.scala 139:32]
+  wire [31:0] _GEN_885 = ~alu_occupy ? _GEN_810 : _GEN_835; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_886 = ~alu_occupy ? _GEN_811 : _GEN_836; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_890 = ~alu_occupy ? _GEN_815 : _GEN_840; // @[IssueArbiter.scala 134:27]
+  wire [20:0] _GEN_891 = ~alu_occupy ? _GEN_816 : _GEN_841; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_892 = ~alu_occupy ? _GEN_817 : _GEN_842; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_897 = ~alu_occupy ? _GEN_822 : _GEN_847; // @[IssueArbiter.scala 134:27]
+  wire [4:0] _GEN_898 = ~alu_occupy ? _GEN_823 : _GEN_848; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_899 = ~alu_occupy ? _GEN_824 : _GEN_849; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_900 = ~alu_occupy ? _GEN_825 : _GEN_850; // @[IssueArbiter.scala 134:27]
+  wire [1:0] _GEN_901 = ~alu_occupy ? _GEN_826 : _GEN_851; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_906 = ~alu_occupy ? _GEN_831 : _GEN_856; // @[IssueArbiter.scala 134:27]
+  wire [63:0] _GEN_907 = ~alu_occupy ? _GEN_832 : _GEN_857; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_908 = ~alu_occupy ? _GEN_833 : _GEN_858; // @[IssueArbiter.scala 134:27]
+  wire  _GEN_909 = ~alu_occupy ? _GEN_834 : _GEN_859; // @[IssueArbiter.scala 134:27]
+  wire [31:0] _GEN_910 = issue_valid_1 & _T_26 ? _GEN_860 : _GEN_785; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_911 = issue_valid_1 & _T_26 ? _GEN_861 : _GEN_786; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_912 = issue_valid_1 & _T_26 ? _GEN_862 : _GEN_787; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_913 = issue_valid_1 & _T_26 ? _GEN_863 : _GEN_788; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_914 = issue_valid_1 & _T_26 ? _GEN_864 : _GEN_789; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_915 = issue_valid_1 & _T_26 ? _GEN_865 : _GEN_790; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_916 = issue_valid_1 & _T_26 ? _GEN_866 : _GEN_791; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_917 = issue_valid_1 & _T_26 ? _GEN_867 : _GEN_792; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_919 = issue_valid_1 & _T_26 ? _GEN_869 : _GEN_794; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_920 = issue_valid_1 & _T_26 ? _GEN_870 : _GEN_795; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_922 = issue_valid_1 & _T_26 ? _GEN_872 : _GEN_797; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_923 = issue_valid_1 & _T_26 ? _GEN_873 : _GEN_798; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_924 = issue_valid_1 & _T_26 ? _GEN_874 : _GEN_799; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_925 = issue_valid_1 & _T_26 ? _GEN_875 : _GEN_800; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_926 = issue_valid_1 & _T_26 ? _GEN_876 : _GEN_801; // @[IssueArbiter.scala 133:70]
+  wire [3:0] _GEN_927 = issue_valid_1 & _T_26 ? _GEN_877 : _GEN_802; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_928 = issue_valid_1 & _T_26 ? _GEN_878 : _GEN_803; // @[IssueArbiter.scala 133:70]
+  wire [2:0] _GEN_929 = issue_valid_1 & _T_26 ? _GEN_879 : _GEN_804; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_930 = issue_valid_1 & _T_26 ? _GEN_880 : _GEN_805; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_931 = issue_valid_1 & _T_26 ? _GEN_881 : _GEN_806; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_932 = issue_valid_1 & _T_26 ? _GEN_882 : _GEN_807; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_933 = issue_valid_1 & _T_26 ? _GEN_883 : _GEN_808; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_934 = issue_valid_1 & _T_26 ? _GEN_884 : _GEN_809; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_935 = issue_valid_1 & _T_26 ? _GEN_885 : _GEN_810; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_936 = issue_valid_1 & _T_26 ? _GEN_886 : _GEN_811; // @[IssueArbiter.scala 133:70]
+  wire [31:0] _GEN_940 = issue_valid_1 & _T_26 ? _GEN_890 : _GEN_815; // @[IssueArbiter.scala 133:70]
+  wire [20:0] _GEN_941 = issue_valid_1 & _T_26 ? _GEN_891 : _GEN_816; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_942 = issue_valid_1 & _T_26 ? _GEN_892 : _GEN_817; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_947 = issue_valid_1 & _T_26 ? _GEN_897 : _GEN_822; // @[IssueArbiter.scala 133:70]
+  wire [4:0] _GEN_948 = issue_valid_1 & _T_26 ? _GEN_898 : _GEN_823; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_949 = issue_valid_1 & _T_26 ? _GEN_899 : _GEN_824; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_950 = issue_valid_1 & _T_26 ? _GEN_900 : _GEN_825; // @[IssueArbiter.scala 133:70]
+  wire [1:0] _GEN_951 = issue_valid_1 & _T_26 ? _GEN_901 : _GEN_826; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_956 = issue_valid_1 & _T_26 ? _GEN_906 : _GEN_831; // @[IssueArbiter.scala 133:70]
+  wire [63:0] _GEN_957 = issue_valid_1 & _T_26 ? _GEN_907 : _GEN_832; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_958 = issue_valid_1 & _T_26 ? _GEN_908 : _GEN_833; // @[IssueArbiter.scala 133:70]
+  wire  _GEN_959 = issue_valid_1 & _T_26 ? _GEN_909 : _GEN_834; // @[IssueArbiter.scala 133:70]
   wire  _GEN_983 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ? 1'h0 :
-    _GEN_933; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 196:25]
-  wire  _GEN_1008 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu | _GEN_958; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 201:25]
+    _GEN_933; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 192:25]
+  wire  _GEN_1008 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu | _GEN_958; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 197:25]
   assign io_rss_out_0 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_rss_in_0 : _GEN_931; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 194:21]
+    io_rss_in_0 : _GEN_931; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 190:21]
   assign io_rss_out_1 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_rss_in_1 : _GEN_956; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 199:21]
-  assign io_rss_out_2 = issue_valid_1 ? _GEN_629 : _GEN_226; // @[IssueArbiter.scala 108:26]
+    io_rss_in_1 : _GEN_956; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 195:21]
+  assign io_rss_out_2 = issue_valid_1 ? _GEN_629 : _GEN_226; // @[IssueArbiter.scala 104:26]
   assign io_rts_out_0 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_rts_in_0 : _GEN_932; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 195:21]
+    io_rts_in_0 : _GEN_932; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 191:21]
   assign io_rts_out_1 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_rts_in_1 : _GEN_957; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 200:21]
-  assign io_rts_out_2 = issue_valid_1 ? _GEN_630 : _GEN_227; // @[IssueArbiter.scala 108:26]
+    io_rts_in_1 : _GEN_957; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 196:21]
+  assign io_rts_out_2 = issue_valid_1 ? _GEN_630 : _GEN_227; // @[IssueArbiter.scala 104:26]
   assign io_insts_out_0_illegal = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_0_illegal : _GEN_930; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+     ? io_insts_in_0_illegal : _GEN_930; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_next_pc = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_0_next_pc : _GEN_929; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+     ? io_insts_in_0_next_pc : _GEN_929; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_alu_mdu_lsu = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_alu_mdu_lsu : _GEN_928; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_alu_mdu_lsu : _GEN_928; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_branch_type = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_branch_type : _GEN_927; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_branch_type : _GEN_927; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_src_a = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_0_src_a : _GEN_926; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+     ? io_insts_in_0_src_a : _GEN_926; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_src_b = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_0_src_b : _GEN_925; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+     ? io_insts_in_0_src_b : _GEN_925; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_write_dest = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_write_dest : _GEN_924; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_write_dest : _GEN_924; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_alu_op = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_0_alu_op : _GEN_923; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+     ? io_insts_in_0_alu_op : _GEN_923; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_alu_expand = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_alu_expand : _GEN_922; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_alu_expand : _GEN_922; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_write_src = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_write_src : _GEN_920; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_write_src : _GEN_920; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_rs1 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_0_rs1 : _GEN_919; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_0_rs1 : _GEN_919; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_rd = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_0_rd : _GEN_917; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_0_rd : _GEN_917; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_imm = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_0_imm : _GEN_916; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_0_imm : _GEN_916; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_pc = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_0_pc : _GEN_915; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_0_pc : _GEN_915; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_predict_taken = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_predict_taken : _GEN_914; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_predict_taken : _GEN_914; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_target_pc = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_target_pc : _GEN_913; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_target_pc : _GEN_913; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_ysyx_debug = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_ysyx_debug : _GEN_912; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_ysyx_debug : _GEN_912; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_ysyx_print = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_ysyx_print : _GEN_911; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_0_ysyx_print : _GEN_911; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_0_inst = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_0_inst : _GEN_910; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 193:23]
+    io_insts_in_0_inst : _GEN_910; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 189:23]
   assign io_insts_out_1_src_a = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_1_src_a : _GEN_951; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+     ? io_insts_in_1_src_a : _GEN_951; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_src_b = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_1_src_b : _GEN_950; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+     ? io_insts_in_1_src_b : _GEN_950; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_write_dest = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_1_write_dest : _GEN_949; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_1_write_dest : _GEN_949; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_alu_op = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu
-     ? io_insts_in_1_alu_op : _GEN_948; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+     ? io_insts_in_1_alu_op : _GEN_948; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_alu_expand = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_1_alu_expand : _GEN_947; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_1_alu_expand : _GEN_947; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_rd = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_1_rd : _GEN_942; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+    io_insts_in_1_rd : _GEN_942; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_imm = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_1_imm : _GEN_941; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+    io_insts_in_1_imm : _GEN_941; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_pc = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_1_pc : _GEN_940; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+    io_insts_in_1_pc : _GEN_940; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_ysyx_print = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu ==
-    io_insts_in_1_alu_mdu_lsu ? io_insts_in_1_ysyx_print : _GEN_936; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
+    io_insts_in_1_alu_mdu_lsu ? io_insts_in_1_ysyx_print : _GEN_936; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
   assign io_insts_out_1_inst = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu ?
-    io_insts_in_1_inst : _GEN_935; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 198:23]
-  assign io_insts_out_2_src_a = issue_valid_1 ? _GEN_624 : _GEN_221; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_write_dest = issue_valid_1 ? _GEN_622 : _GEN_219; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_alu_op = issue_valid_1 ? _GEN_621 : _GEN_218; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_mem_width = issue_valid_1 ? _GEN_619 : _GEN_216; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_rd = issue_valid_1 ? _GEN_615 : _GEN_212; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_imm = issue_valid_1 ? _GEN_614 : _GEN_211; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_pc = issue_valid_1 ? _GEN_613 : _GEN_210; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_ysyx_print = issue_valid_1 ? _GEN_609 : _GEN_206; // @[IssueArbiter.scala 108:26]
-  assign io_insts_out_2_inst = issue_valid_1 ? _GEN_608 : _GEN_205; // @[IssueArbiter.scala 108:26]
-  assign io_issue_num = issue_valid_0 ? _GEN_1 : 2'h0; // @[IssueArbiter.scala 76:108 IssueArbiter.scala 75:16]
+    io_insts_in_1_inst : _GEN_935; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 194:23]
+  assign io_insts_out_2_src_a = issue_valid_1 ? _GEN_624 : _GEN_221; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_write_dest = issue_valid_1 ? _GEN_622 : _GEN_219; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_alu_op = issue_valid_1 ? _GEN_621 : _GEN_218; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_mem_width = issue_valid_1 ? _GEN_619 : _GEN_216; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_rd = issue_valid_1 ? _GEN_615 : _GEN_212; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_imm = issue_valid_1 ? _GEN_614 : _GEN_211; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_pc = issue_valid_1 ? _GEN_613 : _GEN_210; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_ysyx_print = issue_valid_1 ? _GEN_609 : _GEN_206; // @[IssueArbiter.scala 104:26]
+  assign io_insts_out_2_inst = issue_valid_1 ? _GEN_608 : _GEN_205; // @[IssueArbiter.scala 104:26]
+  assign io_issue_num = issue_valid_0 ? _GEN_1 : 2'h0; // @[IssueArbiter.scala 72:94 IssueArbiter.scala 71:16]
   assign io_issue_fu_valid_0 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu |
-    _GEN_934; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 197:28]
+    _GEN_934; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 193:28]
   assign io_issue_fu_valid_1 = issue_valid_0 & issue_valid_1 & io_insts_in_0_alu_mdu_lsu == io_insts_in_1_alu_mdu_lsu |
-    _GEN_959; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 202:28]
-  assign io_issue_fu_valid_2 = issue_valid_1 ? _GEN_632 : _GEN_229; // @[IssueArbiter.scala 108:26]
-  assign io_insts_order_0 = {{1'd0}, _GEN_983}; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 196:25]
-  assign io_insts_order_1 = {{1'd0}, _GEN_1008}; // @[IssueArbiter.scala 192:105 IssueArbiter.scala 201:25]
-  assign io_insts_order_2 = {{1'd0}, _GEN_708}; // @[IssueArbiter.scala 108:26]
+    _GEN_959; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 198:28]
+  assign io_issue_fu_valid_2 = issue_valid_1 ? _GEN_632 : _GEN_229; // @[IssueArbiter.scala 104:26]
+  assign io_insts_order_0 = {{1'd0}, _GEN_983}; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 192:25]
+  assign io_insts_order_1 = {{1'd0}, _GEN_1008}; // @[IssueArbiter.scala 188:105 IssueArbiter.scala 197:25]
+  assign io_insts_order_2 = {{1'd0}, _GEN_708}; // @[IssueArbiter.scala 104:26]
 endmodule
 module RegFile(
   input         clock,
@@ -7584,8 +7580,8 @@ module Backend(
   output [63:0]  io_fb_bmfs_bpu_target,
   output         io_fb_bmfs_bpu_taken,
   input  [1:0]   io_fb_fmbs_instn,
-  input  [224:0] io_fb_fmbs_inst_ops_0,
-  input  [224:0] io_fb_fmbs_inst_ops_1,
+  input  [160:0] io_fb_fmbs_inst_ops_0,
+  input  [160:0] io_fb_fmbs_inst_ops_1,
   output         io_fb_fmbs_please_wait,
   output         io_dcache_req_valid,
   output [31:0]  io_dcache_req_bits_addr,
@@ -7615,9 +7611,9 @@ module Backend(
   output         _WIRE_4_0_0,
   output         _WIRE_4_0_1,
   output         _WIRE_4_0_2,
-  output [63:0]  _WIRE_1_0_0,
-  output [63:0]  _WIRE_1_0_1,
-  output [63:0]  _WIRE_1_0_2,
+  output [31:0]  _WIRE_1_0_0,
+  output [31:0]  _WIRE_1_0_1,
+  output [31:0]  _WIRE_1_0_2,
   input  [4:0]   difftest_saddr,
   output [1:0]   current_mode,
   output [63:0]  _WIRE_0_0,
@@ -7684,9 +7680,9 @@ module Backend(
   reg [31:0] _RAND_11;
   reg [31:0] _RAND_12;
   reg [31:0] _RAND_13;
-  reg [63:0] _RAND_14;
+  reg [31:0] _RAND_14;
   reg [31:0] _RAND_15;
-  reg [63:0] _RAND_16;
+  reg [31:0] _RAND_16;
   reg [31:0] _RAND_17;
   reg [31:0] _RAND_18;
   reg [31:0] _RAND_19;
@@ -7697,7 +7693,7 @@ module Backend(
   reg [31:0] _RAND_24;
   reg [31:0] _RAND_25;
   reg [31:0] _RAND_26;
-  reg [63:0] _RAND_27;
+  reg [31:0] _RAND_27;
   reg [31:0] _RAND_28;
   reg [31:0] _RAND_29;
   reg [31:0] _RAND_30;
@@ -7706,7 +7702,7 @@ module Backend(
   reg [31:0] _RAND_33;
   reg [31:0] _RAND_34;
   reg [31:0] _RAND_35;
-  reg [63:0] _RAND_36;
+  reg [31:0] _RAND_36;
   reg [31:0] _RAND_37;
   reg [31:0] _RAND_38;
   reg [31:0] _RAND_39;
@@ -7737,19 +7733,19 @@ module Backend(
   reg [31:0] _RAND_64;
   reg [31:0] _RAND_65;
   reg [31:0] _RAND_66;
-  reg [63:0] _RAND_67;
+  reg [31:0] _RAND_67;
   reg [31:0] _RAND_68;
   reg [31:0] _RAND_69;
   reg [31:0] _RAND_70;
   reg [31:0] _RAND_71;
   reg [31:0] _RAND_72;
-  reg [63:0] _RAND_73;
+  reg [31:0] _RAND_73;
   reg [31:0] _RAND_74;
   reg [31:0] _RAND_75;
   reg [31:0] _RAND_76;
   reg [31:0] _RAND_77;
   reg [31:0] _RAND_78;
-  reg [63:0] _RAND_79;
+  reg [31:0] _RAND_79;
   reg [31:0] _RAND_80;
   reg [31:0] _RAND_81;
   reg [31:0] _RAND_82;
@@ -7759,7 +7755,7 @@ module Backend(
   reg [31:0] _RAND_86;
   reg [31:0] _RAND_87;
   reg [31:0] _RAND_88;
-  reg [63:0] _RAND_89;
+  reg [31:0] _RAND_89;
   reg [63:0] _RAND_90;
   reg [31:0] _RAND_91;
   reg [63:0] _RAND_92;
@@ -7779,9 +7775,9 @@ module Backend(
   reg [31:0] _RAND_106;
   reg [31:0] _RAND_107;
   reg [31:0] _RAND_108;
-  reg [63:0] _RAND_109;
-  reg [63:0] _RAND_110;
-  reg [63:0] _RAND_111;
+  reg [31:0] _RAND_109;
+  reg [31:0] _RAND_110;
+  reg [31:0] _RAND_111;
   reg [31:0] _RAND_112;
   reg [31:0] _RAND_113;
   reg [31:0] _RAND_114;
@@ -7825,9 +7821,9 @@ module Backend(
   wire [4:0] issueQueue_io_dout_0_rs2; // @[Backend.scala 67:28]
   wire [4:0] issueQueue_io_dout_0_rd; // @[Backend.scala 67:28]
   wire [20:0] issueQueue_io_dout_0_imm; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_dout_0_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_dout_0_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_dout_0_predict_taken; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_dout_0_target_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_dout_0_target_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_dout_0_ysyx_debug; // @[Backend.scala 67:28]
   wire  issueQueue_io_dout_0_ysyx_print; // @[Backend.scala 67:28]
   wire [31:0] issueQueue_io_dout_0_inst; // @[Backend.scala 67:28]
@@ -7846,9 +7842,9 @@ module Backend(
   wire [4:0] issueQueue_io_dout_1_rs2; // @[Backend.scala 67:28]
   wire [4:0] issueQueue_io_dout_1_rd; // @[Backend.scala 67:28]
   wire [20:0] issueQueue_io_dout_1_imm; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_dout_1_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_dout_1_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_dout_1_predict_taken; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_dout_1_target_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_dout_1_target_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_dout_1_ysyx_debug; // @[Backend.scala 67:28]
   wire  issueQueue_io_dout_1_ysyx_print; // @[Backend.scala 67:28]
   wire [31:0] issueQueue_io_dout_1_inst; // @[Backend.scala 67:28]
@@ -7871,9 +7867,9 @@ module Backend(
   wire [4:0] issueQueue_io_din_0_rs2; // @[Backend.scala 67:28]
   wire [4:0] issueQueue_io_din_0_rd; // @[Backend.scala 67:28]
   wire [20:0] issueQueue_io_din_0_imm; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_din_0_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_din_0_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_din_0_predict_taken; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_din_0_target_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_din_0_target_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_din_0_ysyx_debug; // @[Backend.scala 67:28]
   wire  issueQueue_io_din_0_ysyx_print; // @[Backend.scala 67:28]
   wire [31:0] issueQueue_io_din_0_inst; // @[Backend.scala 67:28]
@@ -7892,9 +7888,9 @@ module Backend(
   wire [4:0] issueQueue_io_din_1_rs2; // @[Backend.scala 67:28]
   wire [4:0] issueQueue_io_din_1_rd; // @[Backend.scala 67:28]
   wire [20:0] issueQueue_io_din_1_imm; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_din_1_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_din_1_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_din_1_predict_taken; // @[Backend.scala 67:28]
-  wire [63:0] issueQueue_io_din_1_target_pc; // @[Backend.scala 67:28]
+  wire [31:0] issueQueue_io_din_1_target_pc; // @[Backend.scala 67:28]
   wire  issueQueue_io_din_1_ysyx_debug; // @[Backend.scala 67:28]
   wire  issueQueue_io_din_1_ysyx_print; // @[Backend.scala 67:28]
   wire [31:0] issueQueue_io_din_1_inst; // @[Backend.scala 67:28]
@@ -7916,9 +7912,9 @@ module Backend(
   wire [4:0] issueArbiter_io_insts_in_0_rs2; // @[Backend.scala 68:28]
   wire [4:0] issueArbiter_io_insts_in_0_rd; // @[Backend.scala 68:28]
   wire [20:0] issueArbiter_io_insts_in_0_imm; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_in_0_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_in_0_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_0_predict_taken; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_in_0_target_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_in_0_target_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_0_ysyx_debug; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_0_ysyx_print; // @[Backend.scala 68:28]
   wire [31:0] issueArbiter_io_insts_in_0_inst; // @[Backend.scala 68:28]
@@ -7937,9 +7933,9 @@ module Backend(
   wire [4:0] issueArbiter_io_insts_in_1_rs2; // @[Backend.scala 68:28]
   wire [4:0] issueArbiter_io_insts_in_1_rd; // @[Backend.scala 68:28]
   wire [20:0] issueArbiter_io_insts_in_1_imm; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_in_1_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_in_1_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_1_predict_taken; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_in_1_target_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_in_1_target_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_1_ysyx_debug; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_1_ysyx_print; // @[Backend.scala 68:28]
   wire [31:0] issueArbiter_io_insts_in_1_inst; // @[Backend.scala 68:28]
@@ -7956,7 +7952,6 @@ module Backend(
   wire [63:0] issueArbiter_io_rts_out_1; // @[Backend.scala 68:28]
   wire [63:0] issueArbiter_io_rts_out_2; // @[Backend.scala 68:28]
   wire  issueArbiter_io_csr_ex; // @[Backend.scala 68:28]
-  wire  issueArbiter_io_mmio_ex; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_out_0_illegal; // @[Backend.scala 68:28]
   wire [2:0] issueArbiter_io_insts_out_0_next_pc; // @[Backend.scala 68:28]
   wire [1:0] issueArbiter_io_insts_out_0_alu_mdu_lsu; // @[Backend.scala 68:28]
@@ -7970,9 +7965,9 @@ module Backend(
   wire [4:0] issueArbiter_io_insts_out_0_rs1; // @[Backend.scala 68:28]
   wire [4:0] issueArbiter_io_insts_out_0_rd; // @[Backend.scala 68:28]
   wire [20:0] issueArbiter_io_insts_out_0_imm; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_out_0_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_out_0_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_out_0_predict_taken; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_out_0_target_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_out_0_target_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_out_0_ysyx_debug; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_out_0_ysyx_print; // @[Backend.scala 68:28]
   wire [31:0] issueArbiter_io_insts_out_0_inst; // @[Backend.scala 68:28]
@@ -7983,7 +7978,7 @@ module Backend(
   wire  issueArbiter_io_insts_out_1_alu_expand; // @[Backend.scala 68:28]
   wire [4:0] issueArbiter_io_insts_out_1_rd; // @[Backend.scala 68:28]
   wire [20:0] issueArbiter_io_insts_out_1_imm; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_out_1_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_out_1_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_out_1_ysyx_print; // @[Backend.scala 68:28]
   wire [31:0] issueArbiter_io_insts_out_1_inst; // @[Backend.scala 68:28]
   wire [1:0] issueArbiter_io_insts_out_2_src_a; // @[Backend.scala 68:28]
@@ -7992,7 +7987,7 @@ module Backend(
   wire [2:0] issueArbiter_io_insts_out_2_mem_width; // @[Backend.scala 68:28]
   wire [4:0] issueArbiter_io_insts_out_2_rd; // @[Backend.scala 68:28]
   wire [20:0] issueArbiter_io_insts_out_2_imm; // @[Backend.scala 68:28]
-  wire [63:0] issueArbiter_io_insts_out_2_pc; // @[Backend.scala 68:28]
+  wire [31:0] issueArbiter_io_insts_out_2_pc; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_out_2_ysyx_print; // @[Backend.scala 68:28]
   wire [31:0] issueArbiter_io_insts_out_2_inst; // @[Backend.scala 68:28]
   wire [1:0] issueArbiter_io_issue_num; // @[Backend.scala 68:28]
@@ -8091,8 +8086,8 @@ module Backend(
   wire [63:0] csr_csrs_0_medeleg; // @[Backend.scala 131:32]
   wire [1:0] csr_current_mode_0; // @[Backend.scala 131:32]
   wire  csr_REG_0; // @[Backend.scala 131:32]
-  reg  exLastMemReqValid; // @[Backend.scala 329:34]
-  wire  dcacheStall = exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 330:36]
+  reg  exLastMemReqValid; // @[Backend.scala 327:34]
+  wire  dcacheStall = exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 328:36]
   wire  _kill_x_T = ~dcacheStall; // @[Backend.scala 79:22]
   wire  kill_x = ~dcacheStall & io_fb_bmfs_redirect_kill; // @[Backend.scala 79:35]
   reg  exInsts_0_illegal; // @[Backend.scala 80:29]
@@ -8108,9 +8103,9 @@ module Backend(
   reg [4:0] exInsts_0_rs1; // @[Backend.scala 80:29]
   reg [4:0] exInsts_0_rd; // @[Backend.scala 80:29]
   reg [20:0] exInsts_0_imm; // @[Backend.scala 80:29]
-  reg [63:0] exInsts_0_pc; // @[Backend.scala 80:29]
+  reg [31:0] exInsts_0_pc; // @[Backend.scala 80:29]
   reg  exInsts_0_predict_taken; // @[Backend.scala 80:29]
-  reg [63:0] exInsts_0_target_pc; // @[Backend.scala 80:29]
+  reg [31:0] exInsts_0_target_pc; // @[Backend.scala 80:29]
   reg  exInsts_0_ysyx_debug; // @[Backend.scala 80:29]
   reg  exInsts_0_ysyx_print; // @[Backend.scala 80:29]
   reg [31:0] exInsts_0_inst; // @[Backend.scala 80:29]
@@ -8121,7 +8116,7 @@ module Backend(
   reg  exInsts_1_alu_expand; // @[Backend.scala 80:29]
   reg [4:0] exInsts_1_rd; // @[Backend.scala 80:29]
   reg [20:0] exInsts_1_imm; // @[Backend.scala 80:29]
-  reg [63:0] exInsts_1_pc; // @[Backend.scala 80:29]
+  reg [31:0] exInsts_1_pc; // @[Backend.scala 80:29]
   reg  exInsts_1_ysyx_print; // @[Backend.scala 80:29]
   reg [31:0] exInsts_1_inst; // @[Backend.scala 80:29]
   reg [1:0] exInsts_2_src_a; // @[Backend.scala 80:29]
@@ -8130,7 +8125,7 @@ module Backend(
   reg [2:0] exInsts_2_mem_width; // @[Backend.scala 80:29]
   reg [4:0] exInsts_2_rd; // @[Backend.scala 80:29]
   reg [20:0] exInsts_2_imm; // @[Backend.scala 80:29]
-  reg [63:0] exInsts_2_pc; // @[Backend.scala 80:29]
+  reg [31:0] exInsts_2_pc; // @[Backend.scala 80:29]
   reg  exInsts_2_ysyx_print; // @[Backend.scala 80:29]
   reg [31:0] exInsts_2_inst; // @[Backend.scala 80:29]
   reg [1:0] exInstsOrder_0; // @[Backend.scala 81:95]
@@ -8153,10 +8148,11 @@ module Backend(
   wire [42:0] genImm_0_hi_1 = exInsts_0_imm[20] ? 43'h7ffffffffff : 43'h0; // @[Bitwise.scala 72:12]
   wire [63:0] _genImm_0_T_8 = {genImm_0_hi_1,exInsts_0_imm}; // @[Cat.scala 30:58]
   wire [63:0] genImm_0 = exInsts_0_alu_op == 5'ha | exInsts_0_src_a == 2'h2 ? _genImm_0_T_5 : _genImm_0_T_8; // @[Backend.scala 54:8]
-  wire [63:0] brPC = exInsts_0_pc + genImm_0; // @[Backend.scala 90:36]
-  wire [63:0] _exReBranchPC_T_1 = exInsts_0_pc + 64'h4; // @[Backend.scala 91:77]
-  wire  _aluValid_T = ~kill_x; // @[Backend.scala 296:36]
-  wire  aluValid = exInstsValid_0 & ~kill_x; // @[Backend.scala 296:33]
+  wire [63:0] _GEN_389 = {{32'd0}, exInsts_0_pc}; // @[Backend.scala 90:36]
+  wire [63:0] brPC = _GEN_389 + genImm_0; // @[Backend.scala 90:36]
+  wire [31:0] _exReBranchPC_T_1 = exInsts_0_pc + 32'h4; // @[Backend.scala 91:77]
+  wire  _aluValid_T = ~kill_x; // @[Backend.scala 294:36]
+  wire  aluValid = exInstsValid_0 & ~kill_x; // @[Backend.scala 294:33]
   wire [30:0] genImm_2_hi_hi = exInsts_2_imm[20] ? 31'h7fffffff : 31'h0; // @[Bitwise.scala 72:12]
   wire [63:0] _genImm_2_T_5 = {genImm_2_hi_hi,exInsts_2_imm,12'h0}; // @[Cat.scala 30:58]
   wire [42:0] genImm_2_hi_1 = exInsts_2_imm[20] ? 43'h7ffffffffff : 43'h0; // @[Bitwise.scala 72:12]
@@ -8171,28 +8167,28 @@ module Backend(
   wire  memMisaligned = 3'h5 == exInsts_2_mem_width ? _memMisaligned_T_9 : _memMisaligned_T_17; // @[Mux.scala 80:57]
   wire  _aluExptMask_T = exInstsValid_2 & memMisaligned; // @[Backend.scala 112:42]
   wire  aluExptMask = exInstsValid_2 & memMisaligned & exInstsOrder_2 < exInstsOrder_0; // @[Backend.scala 112:59]
-  wire  exInstsTrueValid_0 = aluValid & ~aluExptMask; // @[Backend.scala 434:35]
-  wire  _reBranchBrTaken_T_9 = ~alu_io_r[0]; // @[Backend.scala 400:44]
-  wire  _reBranchBrTaken_T_5 = $signed(alu_io_r) < 64'sh0; // @[Backend.scala 398:48]
-  wire  _reBranchBrTaken_T_3 = $signed(alu_io_r) >= 64'sh0; // @[Backend.scala 397:48]
-  wire  _reBranchBrTaken_T_1 = ~alu_io_zero; // @[Backend.scala 396:44]
-  wire  _reBranchBrTaken_T = alu_io_zero; // @[Backend.scala 394:72]
+  wire  exInstsTrueValid_0 = aluValid & ~aluExptMask; // @[Backend.scala 432:35]
+  wire  _reBranchBrTaken_T_9 = ~alu_io_r[0]; // @[Backend.scala 398:44]
+  wire  _reBranchBrTaken_T_5 = $signed(alu_io_r) < 64'sh0; // @[Backend.scala 396:48]
+  wire  _reBranchBrTaken_T_3 = $signed(alu_io_r) >= 64'sh0; // @[Backend.scala 395:48]
+  wire  _reBranchBrTaken_T_1 = ~alu_io_zero; // @[Backend.scala 394:44]
+  wire  _reBranchBrTaken_T = alu_io_zero; // @[Backend.scala 392:72]
   wire  _reBranchBrTaken_T_11 = 4'h2 == exInsts_0_branch_type ? _reBranchBrTaken_T_1 : _reBranchBrTaken_T; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_13 = 4'h3 == exInsts_0_branch_type ? _reBranchBrTaken_T_3 : _reBranchBrTaken_T_11; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_15 = 4'h6 == exInsts_0_branch_type ? _reBranchBrTaken_T_5 : _reBranchBrTaken_T_13; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_17 = 4'h4 == exInsts_0_branch_type ? alu_io_r[0] : _reBranchBrTaken_T_15; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_19 = 4'h5 == exInsts_0_branch_type ? _reBranchBrTaken_T_9 : _reBranchBrTaken_T_17; // @[Mux.scala 80:57]
-  wire  _GEN_218 = isExPCBr & _reBranchBrTaken_T_19; // @[Backend.scala 393:21 Backend.scala 394:23 Backend.scala 386:19]
-  wire  reBranchBrTaken = exInstsTrueValid_0 & _GEN_218; // @[Backend.scala 392:29 Backend.scala 386:19]
-  wire [63:0] _jumpPc_T_4 = exFwdRsData_0 + genImm_0; // @[Backend.scala 390:20]
-  wire [63:0] jumpPc = _isExPCJump_T_1 ? brPC : _jumpPc_T_4; // @[Backend.scala 387:16]
+  wire  _GEN_218 = isExPCBr & _reBranchBrTaken_T_19; // @[Backend.scala 391:21 Backend.scala 392:23 Backend.scala 384:19]
+  wire  reBranchBrTaken = exInstsTrueValid_0 & _GEN_218; // @[Backend.scala 390:29 Backend.scala 384:19]
+  wire [63:0] _jumpPc_T_4 = exFwdRsData_0 + genImm_0; // @[Backend.scala 388:20]
+  wire [63:0] jumpPc = _isExPCJump_T_1 ? brPC : _jumpPc_T_4; // @[Backend.scala 385:16]
   reg  exInterruptd; // @[Backend.scala 97:29]
   wire  mduExptMask = _aluExptMask_T & exInstsOrder_2 < exInstsOrder_1; // @[Backend.scala 113:59]
-  wire  ldstValid = exInstsValid_2 & _aluValid_T; // @[Backend.scala 298:33]
+  wire  ldstValid = exInstsValid_2 & _aluValid_T; // @[Backend.scala 296:33]
   wire  exMemRealValid = ldstValid & ~memMisaligned; // @[Backend.scala 114:44]
   wire  bpuV = (isExPCBr | isExPCJump) & exInstsValid_0; // @[Backend.scala 115:44]
-  wire  _bpuErrpr_T_2 = exInsts_0_target_pc[63:2] != brPC[63:2]; // @[Backend.scala 117:67]
-  wire  _bpuErrpr_T_7 = exInsts_0_target_pc[63:2] != jumpPc[63:2]; // @[Backend.scala 117:163]
+  wire  _bpuErrpr_T_2 = exInsts_0_target_pc[31:2] != brPC[31:2]; // @[Backend.scala 117:69]
+  wire  _bpuErrpr_T_7 = exInsts_0_target_pc[31:2] != jumpPc[31:2]; // @[Backend.scala 117:169]
   reg [63:0] reBranchPC; // @[Backend.scala 123:29]
   reg [63:0] wbResult_0; // @[Backend.scala 124:29]
   reg [63:0] wbResult_1; // @[Backend.scala 124:29]
@@ -8208,19 +8204,19 @@ module Backend(
   reg  wbInsts__0_write_dest; // @[Backend.scala 127:33]
   reg [4:0] wbInsts__0_rd; // @[Backend.scala 127:33]
   reg [20:0] wbInsts__0_imm; // @[Backend.scala 127:33]
-  reg [63:0] wbInsts__0_pc; // @[Backend.scala 127:33]
+  reg [31:0] wbInsts__0_pc; // @[Backend.scala 127:33]
   reg  wbInsts__0_ysyx_debug; // @[Backend.scala 127:33]
   reg  wbInsts__0_ysyx_print; // @[Backend.scala 127:33]
   reg [31:0] wbInsts__0_inst; // @[Backend.scala 127:33]
   reg  wbInsts__1_write_dest; // @[Backend.scala 127:33]
   reg [4:0] wbInsts__1_rd; // @[Backend.scala 127:33]
-  reg [63:0] wbInsts__1_pc; // @[Backend.scala 127:33]
+  reg [31:0] wbInsts__1_pc; // @[Backend.scala 127:33]
   reg  wbInsts__1_ysyx_print; // @[Backend.scala 127:33]
   reg [31:0] wbInsts__1_inst; // @[Backend.scala 127:33]
   reg  wbInsts__2_write_dest; // @[Backend.scala 127:33]
   reg [2:0] wbInsts__2_mem_width; // @[Backend.scala 127:33]
   reg [4:0] wbInsts__2_rd; // @[Backend.scala 127:33]
-  reg [63:0] wbInsts__2_pc; // @[Backend.scala 127:33]
+  reg [31:0] wbInsts__2_pc; // @[Backend.scala 127:33]
   reg  wbInsts__2_ysyx_print; // @[Backend.scala 127:33]
   reg [31:0] wbInsts__2_inst; // @[Backend.scala 127:33]
   reg  wbReBranch; // @[Backend.scala 133:33]
@@ -8230,16 +8226,16 @@ module Backend(
   reg  wbStMa; // @[Backend.scala 139:33]
   reg  wbBpuV; // @[Backend.scala 140:33]
   reg  wbBpuErrpr; // @[Backend.scala 141:33]
-  wire [61:0] wbBpuPCBr_hi = exInsts_0_pc[63:2]; // @[Backend.scala 143:45]
-  wire [1:0] wbBpuPCBr_lo = exInsts_0_target_pc[1:0]; // @[Backend.scala 143:82]
-  reg [63:0] wbBpuPCBr; // @[Backend.scala 143:33]
+  wire [29:0] wbBpuPCBr_hi = exInsts_0_pc[31:2]; // @[Backend.scala 143:45]
+  wire [1:0] wbBpuPCBr_lo = exInsts_0_target_pc[1:0]; // @[Backend.scala 143:84]
+  reg [31:0] wbBpuPCBr; // @[Backend.scala 143:33]
   reg [63:0] wbBpuTarget; // @[Backend.scala 144:33]
   reg  wbBpuTaken; // @[Backend.scala 145:33]
   reg [63:0] wbCsrData; // @[Backend.scala 147:29]
-  wire [1:0] issueNum = issueArbiter_io_issue_num; // @[Backend.scala 63:26 Backend.scala 188:31]
+  wire [1:0] issueNum = issueArbiter_io_issue_num; // @[Backend.scala 63:26 Backend.scala 186:31]
   wire [1:0] _issueQueue_io_deqStep_T = csr_io_event_io_call_for_int ? 2'h0 : issueNum; // @[Backend.scala 154:31]
-  wire  _stall_i_T = ~mdu_io_resp_valid; // @[Backend.scala 382:29]
-  wire  bubble_w = dcacheStall | ~mdu_io_resp_valid; // @[Backend.scala 382:26]
+  wire  _stall_i_T = ~mdu_io_resp_valid; // @[Backend.scala 380:29]
+  wire  bubble_w = dcacheStall | ~mdu_io_resp_valid; // @[Backend.scala 380:26]
   wire  _issueQueue_io_deqReq_T = ~bubble_w; // @[Backend.scala 155:28]
   wire  trap_ret_items0 = issueQueue_io_items >= 4'h1; // @[Backend.scala 170:49]
   wire [2:0] issueInsts_0_next_pc = issueQueue_io_dout_0_next_pc; // @[Backend.scala 64:26 Backend.scala 159:19]
@@ -8251,120 +8247,121 @@ module Backend(
   wire  exMMIOValid = exInstsValid_2 & |ex_mmio_num; // @[Backend.scala 179:37]
   wire [4:0] _issueArbiter_io_ld_dest_ex_T_1 = exInstsValid_2 ? 5'h1f : 5'h0; // @[Bitwise.scala 72:12]
   wire [4:0] issueInsts_0_rs1 = issueQueue_io_dout_0_rs1; // @[Backend.scala 64:26 Backend.scala 159:19]
-  wire [63:0] rsData_0 = regFile_io_rs_data_vec_0; // @[Backend.scala 73:26 Backend.scala 244:15]
-  wire [63:0] _GEN_0 = wbInsts__0_rd == issueInsts_0_rs1 ? wbResult_0 : rsData_0; // @[Backend.scala 202:51 Backend.scala 203:24 Backend.scala 195:18]
+  wire [63:0] rsData_0 = regFile_io_rs_data_vec_0; // @[Backend.scala 73:26 Backend.scala 242:15]
+  wire [63:0] _GEN_0 = wbInsts__0_rd == issueInsts_0_rs1 ? wbResult_0 : rsData_0; // @[Backend.scala 200:51 Backend.scala 201:24 Backend.scala 193:18]
   wire [4:0] issueInsts_0_rs2 = issueQueue_io_dout_0_rs2; // @[Backend.scala 64:26 Backend.scala 159:19]
-  wire [63:0] rtData_0 = regFile_io_rs_data_vec_1; // @[Backend.scala 74:26 Backend.scala 245:15]
-  wire [63:0] _GEN_1 = wbInsts__0_rd == issueInsts_0_rs2 ? wbResult_0 : rtData_0; // @[Backend.scala 205:51 Backend.scala 206:24 Backend.scala 196:18]
+  wire [63:0] rtData_0 = regFile_io_rs_data_vec_1; // @[Backend.scala 74:26 Backend.scala 243:15]
+  wire [63:0] _GEN_1 = wbInsts__0_rd == issueInsts_0_rs2 ? wbResult_0 : rtData_0; // @[Backend.scala 203:51 Backend.scala 204:24 Backend.scala 194:18]
   wire [4:0] issueInsts_1_rs1 = issueQueue_io_dout_1_rs1; // @[Backend.scala 64:26 Backend.scala 159:19]
-  wire [63:0] rsData_1 = regFile_io_rs_data_vec_2; // @[Backend.scala 73:26 Backend.scala 244:15]
-  wire [63:0] _GEN_2 = wbInsts__0_rd == issueInsts_1_rs1 ? wbResult_0 : rsData_1; // @[Backend.scala 202:51 Backend.scala 203:24 Backend.scala 195:18]
+  wire [63:0] rsData_1 = regFile_io_rs_data_vec_2; // @[Backend.scala 73:26 Backend.scala 242:15]
+  wire [63:0] _GEN_2 = wbInsts__0_rd == issueInsts_1_rs1 ? wbResult_0 : rsData_1; // @[Backend.scala 200:51 Backend.scala 201:24 Backend.scala 193:18]
   wire [4:0] issueInsts_1_rs2 = issueQueue_io_dout_1_rs2; // @[Backend.scala 64:26 Backend.scala 159:19]
-  wire [63:0] rtData_1 = regFile_io_rs_data_vec_3; // @[Backend.scala 74:26 Backend.scala 245:15]
-  wire [63:0] _GEN_3 = wbInsts__0_rd == issueInsts_1_rs2 ? wbResult_0 : rtData_1; // @[Backend.scala 205:51 Backend.scala 206:24 Backend.scala 196:18]
-  wire [63:0] _GEN_4 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_0 : rsData_0; // @[Backend.scala 200:98 Backend.scala 195:18]
-  wire [63:0] _GEN_5 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_1 : rtData_0; // @[Backend.scala 200:98 Backend.scala 196:18]
-  wire [63:0] _GEN_6 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_2 : rsData_1; // @[Backend.scala 200:98 Backend.scala 195:18]
-  wire [63:0] _GEN_7 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_3 : rtData_1; // @[Backend.scala 200:98 Backend.scala 196:18]
-  wire  _T_9 = wbInstsValid_1 & wbInsts__1_write_dest; // @[Backend.scala 200:26]
-  wire [63:0] _GEN_8 = wbInsts__1_rd == issueInsts_0_rs1 ? wbResult_1 : _GEN_4; // @[Backend.scala 202:51 Backend.scala 203:24]
-  wire [63:0] _GEN_9 = wbInsts__1_rd == issueInsts_0_rs2 ? wbResult_1 : _GEN_5; // @[Backend.scala 205:51 Backend.scala 206:24]
-  wire [63:0] _GEN_10 = wbInsts__1_rd == issueInsts_1_rs1 ? wbResult_1 : _GEN_6; // @[Backend.scala 202:51 Backend.scala 203:24]
-  wire [63:0] _GEN_11 = wbInsts__1_rd == issueInsts_1_rs2 ? wbResult_1 : _GEN_7; // @[Backend.scala 205:51 Backend.scala 206:24]
-  wire [63:0] _GEN_12 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_8 : _GEN_4; // @[Backend.scala 200:98]
-  wire [63:0] _GEN_13 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_9 : _GEN_5; // @[Backend.scala 200:98]
-  wire [63:0] _GEN_14 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_10 : _GEN_6; // @[Backend.scala 200:98]
-  wire [63:0] _GEN_15 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_11 : _GEN_7; // @[Backend.scala 200:98]
-  reg  wbLdDataValid; // @[Backend.scala 468:30]
+  wire [63:0] rtData_1 = regFile_io_rs_data_vec_3; // @[Backend.scala 74:26 Backend.scala 243:15]
+  wire [63:0] _GEN_3 = wbInsts__0_rd == issueInsts_1_rs2 ? wbResult_0 : rtData_1; // @[Backend.scala 203:51 Backend.scala 204:24 Backend.scala 194:18]
+  wire [63:0] _GEN_4 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_0 : rsData_0; // @[Backend.scala 198:98 Backend.scala 193:18]
+  wire [63:0] _GEN_5 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_1 : rtData_0; // @[Backend.scala 198:98 Backend.scala 194:18]
+  wire [63:0] _GEN_6 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_2 : rsData_1; // @[Backend.scala 198:98 Backend.scala 193:18]
+  wire [63:0] _GEN_7 = wbInstsValid_0 & wbInsts__0_write_dest & wbInsts__0_rd != 5'h0 ? _GEN_3 : rtData_1; // @[Backend.scala 198:98 Backend.scala 194:18]
+  wire  _T_9 = wbInstsValid_1 & wbInsts__1_write_dest; // @[Backend.scala 198:26]
+  wire [63:0] _GEN_8 = wbInsts__1_rd == issueInsts_0_rs1 ? wbResult_1 : _GEN_4; // @[Backend.scala 200:51 Backend.scala 201:24]
+  wire [63:0] _GEN_9 = wbInsts__1_rd == issueInsts_0_rs2 ? wbResult_1 : _GEN_5; // @[Backend.scala 203:51 Backend.scala 204:24]
+  wire [63:0] _GEN_10 = wbInsts__1_rd == issueInsts_1_rs1 ? wbResult_1 : _GEN_6; // @[Backend.scala 200:51 Backend.scala 201:24]
+  wire [63:0] _GEN_11 = wbInsts__1_rd == issueInsts_1_rs2 ? wbResult_1 : _GEN_7; // @[Backend.scala 203:51 Backend.scala 204:24]
+  wire [63:0] _GEN_12 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_8 : _GEN_4; // @[Backend.scala 198:98]
+  wire [63:0] _GEN_13 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_9 : _GEN_5; // @[Backend.scala 198:98]
+  wire [63:0] _GEN_14 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_10 : _GEN_6; // @[Backend.scala 198:98]
+  wire [63:0] _GEN_15 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_11 : _GEN_7; // @[Backend.scala 198:98]
+  reg  wbLdDataValid; // @[Backend.scala 466:30]
   wire  _T_43 = 3'h0 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
-  wire [63:0] _dataFromDcache_T = {io_dcache_resp_bits_rdata_1,io_dcache_resp_bits_rdata_0}; // @[Backend.scala 459:56]
+  wire [63:0] _dataFromDcache_T = {io_dcache_resp_bits_rdata_1,io_dcache_resp_bits_rdata_0}; // @[Backend.scala 457:56]
   reg [5:0] delayed_req_bits; // @[Reg.scala 15:16]
-  wire [63:0] dataFromDcache = _dataFromDcache_T >> delayed_req_bits; // @[Backend.scala 459:59]
+  wire [63:0] dataFromDcache = _dataFromDcache_T >> delayed_req_bits; // @[Backend.scala 457:59]
   wire [55:0] wbLdData_hi = dataFromDcache[7] ? 56'hffffffffffffff : 56'h0; // @[Bitwise.scala 72:12]
-  wire [7:0] wbLdData_lo = dataFromDcache[7:0]; // @[Backend.scala 475:99]
+  wire [7:0] wbLdData_lo = dataFromDcache[7:0]; // @[Backend.scala 473:99]
   wire [63:0] _wbLdData_T_5 = {wbLdData_hi,wbLdData_lo}; // @[Cat.scala 30:58]
   wire  _T_44 = 3'h1 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_6 = {56'h0,wbLdData_lo}; // @[Cat.scala 30:58]
   wire  _T_45 = 3'h2 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [47:0] wbLdData_hi_2 = dataFromDcache[15] ? 48'hffffffffffff : 48'h0; // @[Bitwise.scala 72:12]
-  wire [15:0] wbLdData_lo_2 = dataFromDcache[15:0]; // @[Backend.scala 477:101]
+  wire [15:0] wbLdData_lo_2 = dataFromDcache[15:0]; // @[Backend.scala 475:101]
   wire [63:0] _wbLdData_T_9 = {wbLdData_hi_2,wbLdData_lo_2}; // @[Cat.scala 30:58]
   wire  _T_46 = 3'h3 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_10 = {48'h0,wbLdData_lo_2}; // @[Cat.scala 30:58]
   wire  _T_47 = 3'h4 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [31:0] wbLdData_hi_4 = dataFromDcache[31] ? 32'hffffffff : 32'h0; // @[Bitwise.scala 72:12]
-  wire [31:0] wbLdData_lo_4 = dataFromDcache[31:0]; // @[Backend.scala 479:101]
+  wire [31:0] wbLdData_lo_4 = dataFromDcache[31:0]; // @[Backend.scala 477:101]
   wire [63:0] _wbLdData_T_13 = {wbLdData_hi_4,wbLdData_lo_4}; // @[Cat.scala 30:58]
   wire  _T_48 = 3'h6 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_14 = {32'h0,wbLdData_lo_4}; // @[Cat.scala 30:58]
-  reg  wbMMIOValid; // @[Backend.scala 470:28]
-  reg [63:0] wb_mmio_ld_data; // @[Backend.scala 471:32]
-  wire [63:0] _wbLdData_T_2 = wbMMIOValid & wbInsts__2_write_dest ? wb_mmio_ld_data : dataFromDcache; // @[Backend.scala 473:18]
-  wire [63:0] _GEN_223 = _T_48 ? _wbLdData_T_14 : _wbLdData_T_2; // @[Conditional.scala 39:67 Backend.scala 480:41 Backend.scala 473:12]
-  wire [63:0] _GEN_224 = _T_47 ? _wbLdData_T_13 : _GEN_223; // @[Conditional.scala 39:67 Backend.scala 479:41]
-  wire [63:0] _GEN_225 = _T_46 ? _wbLdData_T_10 : _GEN_224; // @[Conditional.scala 39:67 Backend.scala 478:41]
-  wire [63:0] _GEN_226 = _T_45 ? _wbLdData_T_9 : _GEN_225; // @[Conditional.scala 39:67 Backend.scala 477:41]
-  wire [63:0] _GEN_227 = _T_44 ? _wbLdData_T_6 : _GEN_226; // @[Conditional.scala 39:67 Backend.scala 476:41]
-  wire [63:0] wbLdData = _T_43 ? _wbLdData_T_5 : _GEN_227; // @[Conditional.scala 40:58 Backend.scala 475:41]
-  reg [63:0] wbLdDataForStall; // @[Backend.scala 466:29]
-  wire [63:0] wbData_2 = wbLdDataValid ? wbLdData : wbLdDataForStall; // @[Backend.scala 484:19]
-  wire [63:0] _GEN_16 = wbInsts__2_rd == issueInsts_0_rs1 ? wbData_2 : _GEN_12; // @[Backend.scala 202:51 Backend.scala 203:24]
-  wire [63:0] _GEN_17 = wbInsts__2_rd == issueInsts_0_rs2 ? wbData_2 : _GEN_13; // @[Backend.scala 205:51 Backend.scala 206:24]
-  wire [63:0] _GEN_18 = wbInsts__2_rd == issueInsts_1_rs1 ? wbData_2 : _GEN_14; // @[Backend.scala 202:51 Backend.scala 203:24]
-  wire [63:0] _GEN_19 = wbInsts__2_rd == issueInsts_1_rs2 ? wbData_2 : _GEN_15; // @[Backend.scala 205:51 Backend.scala 206:24]
-  wire [63:0] _GEN_20 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_16 : _GEN_12; // @[Backend.scala 200:98]
-  wire [63:0] _GEN_21 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_17 : _GEN_13; // @[Backend.scala 200:98]
-  wire [63:0] _GEN_22 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_18 : _GEN_14; // @[Backend.scala 200:98]
-  wire [63:0] _GEN_23 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_19 : _GEN_15; // @[Backend.scala 200:98]
+  reg  wbMMIOValid; // @[Backend.scala 468:28]
+  reg [63:0] wb_mmio_ld_data; // @[Backend.scala 469:32]
+  wire [63:0] _wbLdData_T_2 = wbMMIOValid & wbInsts__2_write_dest ? wb_mmio_ld_data : dataFromDcache; // @[Backend.scala 471:18]
+  wire [63:0] _GEN_223 = _T_48 ? _wbLdData_T_14 : _wbLdData_T_2; // @[Conditional.scala 39:67 Backend.scala 478:41 Backend.scala 471:12]
+  wire [63:0] _GEN_224 = _T_47 ? _wbLdData_T_13 : _GEN_223; // @[Conditional.scala 39:67 Backend.scala 477:41]
+  wire [63:0] _GEN_225 = _T_46 ? _wbLdData_T_10 : _GEN_224; // @[Conditional.scala 39:67 Backend.scala 476:41]
+  wire [63:0] _GEN_226 = _T_45 ? _wbLdData_T_9 : _GEN_225; // @[Conditional.scala 39:67 Backend.scala 475:41]
+  wire [63:0] _GEN_227 = _T_44 ? _wbLdData_T_6 : _GEN_226; // @[Conditional.scala 39:67 Backend.scala 474:41]
+  wire [63:0] wbLdData = _T_43 ? _wbLdData_T_5 : _GEN_227; // @[Conditional.scala 40:58 Backend.scala 473:41]
+  reg [63:0] wbLdDataForStall; // @[Backend.scala 464:29]
+  wire [63:0] wbData_2 = wbLdDataValid ? wbLdData : wbLdDataForStall; // @[Backend.scala 482:19]
+  wire [63:0] _GEN_16 = wbInsts__2_rd == issueInsts_0_rs1 ? wbData_2 : _GEN_12; // @[Backend.scala 200:51 Backend.scala 201:24]
+  wire [63:0] _GEN_17 = wbInsts__2_rd == issueInsts_0_rs2 ? wbData_2 : _GEN_13; // @[Backend.scala 203:51 Backend.scala 204:24]
+  wire [63:0] _GEN_18 = wbInsts__2_rd == issueInsts_1_rs1 ? wbData_2 : _GEN_14; // @[Backend.scala 200:51 Backend.scala 201:24]
+  wire [63:0] _GEN_19 = wbInsts__2_rd == issueInsts_1_rs2 ? wbData_2 : _GEN_15; // @[Backend.scala 203:51 Backend.scala 204:24]
+  wire [63:0] _GEN_20 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_16 : _GEN_12; // @[Backend.scala 198:98]
+  wire [63:0] _GEN_21 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_17 : _GEN_13; // @[Backend.scala 198:98]
+  wire [63:0] _GEN_22 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_18 : _GEN_14; // @[Backend.scala 198:98]
+  wire [63:0] _GEN_23 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_19 : _GEN_15; // @[Backend.scala 198:98]
   wire [63:0] _aluWbData_T_6 = 2'h2 == exInsts_0_src_b ? csr_io_common_io_out : alu_io_r; // @[Mux.scala 80:57]
-  wire [63:0] aluWbData = exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0 ? _exReBranchPC_T_1 : _aluWbData_T_6; // @[Backend.scala 443:19]
-  wire [63:0] _GEN_24 = exInsts_0_rd == issueInsts_0_rs1 ? aluWbData : _GEN_20; // @[Backend.scala 214:49 Backend.scala 215:22]
-  wire [63:0] _GEN_25 = exInsts_0_rd == issueInsts_0_rs2 ? aluWbData : _GEN_21; // @[Backend.scala 217:49 Backend.scala 218:22]
-  wire [63:0] _GEN_26 = exInsts_0_rd == issueInsts_1_rs1 ? aluWbData : _GEN_22; // @[Backend.scala 214:49 Backend.scala 215:22]
-  wire [63:0] _GEN_27 = exInsts_0_rd == issueInsts_1_rs2 ? aluWbData : _GEN_23; // @[Backend.scala 217:49 Backend.scala 218:22]
-  wire [63:0] _GEN_28 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_24 : _GEN_20; // @[Backend.scala 212:96]
-  wire [63:0] _GEN_29 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_25 : _GEN_21; // @[Backend.scala 212:96]
-  wire [63:0] _GEN_30 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_26 : _GEN_22; // @[Backend.scala 212:96]
-  wire [63:0] _GEN_31 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_27 : _GEN_23; // @[Backend.scala 212:96]
-  wire [63:0] _GEN_32 = exInsts_1_rd == issueInsts_0_rs1 ? mdu_io_resp_r : _GEN_28; // @[Backend.scala 224:49 Backend.scala 225:22]
-  wire [63:0] _GEN_33 = exInsts_1_rd == issueInsts_0_rs2 ? mdu_io_resp_r : _GEN_29; // @[Backend.scala 227:49 Backend.scala 228:22]
-  wire [63:0] _GEN_34 = exInsts_1_rd == issueInsts_1_rs1 ? mdu_io_resp_r : _GEN_30; // @[Backend.scala 224:49 Backend.scala 225:22]
-  wire [63:0] _GEN_35 = exInsts_1_rd == issueInsts_1_rs2 ? mdu_io_resp_r : _GEN_31; // @[Backend.scala 227:49 Backend.scala 228:22]
+  wire [63:0] aluWbData = exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0 ? {{32'd0}, _exReBranchPC_T_1} :
+    _aluWbData_T_6; // @[Backend.scala 441:19]
+  wire [63:0] _GEN_24 = exInsts_0_rd == issueInsts_0_rs1 ? aluWbData : _GEN_20; // @[Backend.scala 212:49 Backend.scala 213:22]
+  wire [63:0] _GEN_25 = exInsts_0_rd == issueInsts_0_rs2 ? aluWbData : _GEN_21; // @[Backend.scala 215:49 Backend.scala 216:22]
+  wire [63:0] _GEN_26 = exInsts_0_rd == issueInsts_1_rs1 ? aluWbData : _GEN_22; // @[Backend.scala 212:49 Backend.scala 213:22]
+  wire [63:0] _GEN_27 = exInsts_0_rd == issueInsts_1_rs2 ? aluWbData : _GEN_23; // @[Backend.scala 215:49 Backend.scala 216:22]
+  wire [63:0] _GEN_28 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_24 : _GEN_20; // @[Backend.scala 210:96]
+  wire [63:0] _GEN_29 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_25 : _GEN_21; // @[Backend.scala 210:96]
+  wire [63:0] _GEN_30 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_26 : _GEN_22; // @[Backend.scala 210:96]
+  wire [63:0] _GEN_31 = exInstsValid_0 & exInsts_0_write_dest & exInsts_0_rd != 5'h0 ? _GEN_27 : _GEN_23; // @[Backend.scala 210:96]
+  wire [63:0] _GEN_32 = exInsts_1_rd == issueInsts_0_rs1 ? mdu_io_resp_r : _GEN_28; // @[Backend.scala 222:49 Backend.scala 223:22]
+  wire [63:0] _GEN_33 = exInsts_1_rd == issueInsts_0_rs2 ? mdu_io_resp_r : _GEN_29; // @[Backend.scala 225:49 Backend.scala 226:22]
+  wire [63:0] _GEN_34 = exInsts_1_rd == issueInsts_1_rs1 ? mdu_io_resp_r : _GEN_30; // @[Backend.scala 222:49 Backend.scala 223:22]
+  wire [63:0] _GEN_35 = exInsts_1_rd == issueInsts_1_rs2 ? mdu_io_resp_r : _GEN_31; // @[Backend.scala 225:49 Backend.scala 226:22]
   wire [30:0] genImm_1_hi_hi = exInsts_1_imm[20] ? 31'h7fffffff : 31'h0; // @[Bitwise.scala 72:12]
   wire [63:0] _genImm_1_T_5 = {genImm_1_hi_hi,exInsts_1_imm,12'h0}; // @[Cat.scala 30:58]
   wire [42:0] genImm_1_hi_1 = exInsts_1_imm[20] ? 43'h7ffffffffff : 43'h0; // @[Bitwise.scala 72:12]
   wire [63:0] _genImm_1_T_8 = {genImm_1_hi_1,exInsts_1_imm}; // @[Cat.scala 30:58]
   wire [63:0] genImm_1 = exInsts_1_alu_op == 5'ha | exInsts_1_src_a == 2'h2 ? _genImm_1_T_5 : _genImm_1_T_8; // @[Backend.scala 54:8]
   wire [2:0] _exInstsValid_0_T = {issueArbiter_io_issue_fu_valid_2,issueArbiter_io_issue_fu_valid_1,
-    issueArbiter_io_issue_fu_valid_0}; // @[Backend.scala 271:57]
+    issueArbiter_io_issue_fu_valid_0}; // @[Backend.scala 269:57]
   wire  nop_ysyx_print = 1'h0; // @[Backend.scala 26:19 Backend.scala 47:22]
-  wire [63:0] issueInsts_0_pc = issueQueue_io_dout_0_pc; // @[Backend.scala 64:26 Backend.scala 159:19]
-  wire [63:0] issueRss_0 = issueArbiter_io_rss_out_0; // @[Backend.scala 65:26 Backend.scala 189:31]
-  wire [63:0] issueRts_0 = issueArbiter_io_rts_out_0; // @[Backend.scala 66:26 Backend.scala 190:31]
-  wire [63:0] issueRss_1 = issueArbiter_io_rss_out_1; // @[Backend.scala 65:26 Backend.scala 189:31]
-  wire [63:0] issueRts_1 = issueArbiter_io_rts_out_1; // @[Backend.scala 66:26 Backend.scala 190:31]
-  wire [63:0] issueRss_2 = issueArbiter_io_rss_out_2; // @[Backend.scala 65:26 Backend.scala 189:31]
-  wire [63:0] issueRts_2 = issueArbiter_io_rts_out_2; // @[Backend.scala 66:26 Backend.scala 190:31]
-  wire  mduValid = exInstsValid_1 & _aluValid_T; // @[Backend.scala 297:33]
-  wire  isCsrc = exInsts_0_alu_op == 5'h5 & exInsts_0_src_b == 2'h2; // @[Backend.scala 300:47]
-  wire [63:0] _alu_io_a_T = ~exFwdRsData_0; // @[Backend.scala 303:55]
-  wire [63:0] _alu_io_a_T_1 = isCsrc ? _alu_io_a_T : exFwdRsData_0; // @[Backend.scala 303:46]
-  wire [4:0] alu_io_a_lo = ~exInsts_0_rs1; // @[Backend.scala 306:70]
+  wire [31:0] issueInsts_0_pc = issueQueue_io_dout_0_pc; // @[Backend.scala 64:26 Backend.scala 159:19]
+  wire [63:0] issueRss_0 = issueArbiter_io_rss_out_0; // @[Backend.scala 65:26 Backend.scala 187:31]
+  wire [63:0] issueRts_0 = issueArbiter_io_rts_out_0; // @[Backend.scala 66:26 Backend.scala 188:31]
+  wire [63:0] issueRss_1 = issueArbiter_io_rss_out_1; // @[Backend.scala 65:26 Backend.scala 187:31]
+  wire [63:0] issueRts_1 = issueArbiter_io_rts_out_1; // @[Backend.scala 66:26 Backend.scala 188:31]
+  wire [63:0] issueRss_2 = issueArbiter_io_rss_out_2; // @[Backend.scala 65:26 Backend.scala 187:31]
+  wire [63:0] issueRts_2 = issueArbiter_io_rts_out_2; // @[Backend.scala 66:26 Backend.scala 188:31]
+  wire  mduValid = exInstsValid_1 & _aluValid_T; // @[Backend.scala 295:33]
+  wire  isCsrc = exInsts_0_alu_op == 5'h5 & exInsts_0_src_b == 2'h2; // @[Backend.scala 298:47]
+  wire [63:0] _alu_io_a_T = ~exFwdRsData_0; // @[Backend.scala 301:55]
+  wire [63:0] _alu_io_a_T_1 = isCsrc ? _alu_io_a_T : exFwdRsData_0; // @[Backend.scala 301:46]
+  wire [4:0] alu_io_a_lo = ~exInsts_0_rs1; // @[Backend.scala 304:70]
   wire [63:0] _alu_io_a_T_2 = {59'h7ffffffffffffff,alu_io_a_lo}; // @[Cat.scala 30:58]
   wire [63:0] _alu_io_a_T_3 = {59'h0,exInsts_0_rs1}; // @[Cat.scala 30:58]
-  wire [63:0] _alu_io_a_T_4 = isCsrc ? _alu_io_a_T_2 : _alu_io_a_T_3; // @[Backend.scala 306:29]
-  wire [63:0] _alu_io_a_T_6 = 2'h2 == exInsts_0_src_a ? exInsts_0_pc : _alu_io_a_T_1; // @[Mux.scala 80:57]
+  wire [63:0] _alu_io_a_T_4 = isCsrc ? _alu_io_a_T_2 : _alu_io_a_T_3; // @[Backend.scala 304:29]
+  wire [63:0] _alu_io_a_T_6 = 2'h2 == exInsts_0_src_a ? {{32'd0}, exInsts_0_pc} : _alu_io_a_T_1; // @[Mux.scala 80:57]
   wire [63:0] _alu_io_b_T_1 = 5'h0 == exInsts_0_alu_op ? 64'h0 : csr_io_common_io_out; // @[Mux.scala 80:57]
   wire [63:0] _alu_io_b_T_3 = 2'h1 == exInsts_0_src_b ? genImm_0 : exFwdRtData_0; // @[Mux.scala 80:57]
-  reg  mdu_io_req_valid_REG; // @[Backend.scala 322:43]
-  wire  ldMisaligned = exInsts_2_write_dest & memMisaligned; // @[Backend.scala 332:62]
-  wire  _stMisaligned_T = ~exInsts_2_write_dest; // @[Backend.scala 333:41]
-  wire  stMisaligned = ~exInsts_2_write_dest & memMisaligned; // @[Backend.scala 333:62]
-  wire  _io_dcache_req_valid_T_1 = exMemRealValid & ~exMMIOValid; // @[Backend.scala 335:41]
-  reg [31:0] exLastMemReq_addr; // @[Backend.scala 338:29]
-  reg [63:0] exLastMemReq_wdata; // @[Backend.scala 338:29]
-  reg  exLastMemReq_wen; // @[Backend.scala 338:29]
-  reg [2:0] exLastMemReq_mtype; // @[Backend.scala 338:29]
+  reg  mdu_io_req_valid_REG; // @[Backend.scala 320:43]
+  wire  ldMisaligned = exInsts_2_write_dest & memMisaligned; // @[Backend.scala 330:62]
+  wire  _stMisaligned_T = ~exInsts_2_write_dest; // @[Backend.scala 331:41]
+  wire  stMisaligned = ~exInsts_2_write_dest & memMisaligned; // @[Backend.scala 331:62]
+  wire  _io_dcache_req_valid_T_1 = exMemRealValid & ~exMMIOValid; // @[Backend.scala 333:41]
+  reg [31:0] exLastMemReq_addr; // @[Backend.scala 336:29]
+  reg [63:0] exLastMemReq_wdata; // @[Backend.scala 336:29]
+  reg  exLastMemReq_wen; // @[Backend.scala 336:29]
+  reg [2:0] exLastMemReq_mtype; // @[Backend.scala 336:29]
   wire [1:0] _exCurMemReq_memReq_mtype_T_1 = 3'h1 == exInsts_2_mem_width ? 2'h0 : 2'h2; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_3 = 3'h0 == exInsts_2_mem_width ? 2'h0 : _exCurMemReq_memReq_mtype_T_1; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_5 = 3'h2 == exInsts_2_mem_width ? 2'h1 : _exCurMemReq_memReq_mtype_T_3; // @[Mux.scala 80:57]
@@ -8372,74 +8369,75 @@ module Backend(
   wire [1:0] _exCurMemReq_memReq_mtype_T_9 = 3'h4 == exInsts_2_mem_width ? 2'h2 : _exCurMemReq_memReq_mtype_T_7; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_11 = 3'h5 == exInsts_2_mem_width ? 2'h3 : _exCurMemReq_memReq_mtype_T_9; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_13 = 3'h6 == exInsts_2_mem_width ? 2'h2 : _exCurMemReq_memReq_mtype_T_11; // @[Mux.scala 80:57]
-  wire [2:0] exCurMemReq_mtype = {{1'd0}, _exCurMemReq_memReq_mtype_T_13}; // @[Backend.scala 362:22 Backend.scala 365:18]
-  wire [31:0] exCurMemReq_addr = ldstAddr[31:0]; // @[Backend.scala 362:22 Backend.scala 367:18]
-  wire  _GEN_217 = isExPCJump & (_bpuErrpr_T_7 | ~exInsts_0_predict_taken | |jumpPc[1:0]); // @[Backend.scala 416:29 Backend.scala 417:16 Backend.scala 385:12]
+  wire [2:0] exCurMemReq_mtype = {{1'd0}, _exCurMemReq_memReq_mtype_T_13}; // @[Backend.scala 360:22 Backend.scala 363:18]
+  wire [31:0] exCurMemReq_addr = ldstAddr[31:0]; // @[Backend.scala 360:22 Backend.scala 365:18]
+  wire  _GEN_217 = isExPCJump & (_bpuErrpr_T_7 | ~exInsts_0_predict_taken | |jumpPc[1:0]); // @[Backend.scala 414:29 Backend.scala 415:16 Backend.scala 383:12]
   wire  _GEN_219 = isExPCBr ? reBranchBrTaken ^ exInsts_0_predict_taken | reBranchBrTaken & (_bpuErrpr_T_2 | |brPC[1:0])
-     : _GEN_217; // @[Backend.scala 393:21 Backend.scala 404:16]
-  wire  reBranch = exInstsTrueValid_0 & _GEN_219; // @[Backend.scala 392:29 Backend.scala 385:12]
-  wire  exInstsTrueValid_1 = mduValid & ~mduExptMask; // @[Backend.scala 435:35]
-  wire [5:0] _delayed_req_bits_T_1 = {io_dcache_req_bits_addr[2:0], 3'h0}; // @[Backend.scala 458:81]
-  reg  wbLdDataForStall_REG; // @[Backend.scala 467:56]
-  wire  _GEN_231 = _issueQueue_io_deqReq_T & bpuV; // @[Backend.scala 492:26 Backend.scala 495:12 Backend.scala 516:12]
-  wire  wbExcepts_0 = |wbInsts__0_pc[1:0]; // @[Backend.scala 553:39]
-  wire  _regFile_io_wen_vec_0_T_2 = wbInsts__0_write_dest & ~wbExcepts_0; // @[Backend.scala 529:65]
-  wire  wbExcepts_1 = |wbInsts__1_pc[1:0]; // @[Backend.scala 554:39]
-  wire  _regFile_io_wen_vec_0_T_6 = _T_9 & ~wbExcepts_1; // @[Backend.scala 530:67]
-  wire  wbLdMaReal = wbInstsValid_2 & wbLdMa; // @[Backend.scala 546:39]
-  wire  _regFile_io_wen_vec_1_T_2 = wbInsts__2_write_dest & ~wbLdMaReal; // @[Backend.scala 536:65]
-  wire  csrWbValid = wbInsts__0_next_pc == 3'h0 & wbInsts__0_alu_mdu_lsu == 2'h0; // @[Backend.scala 544:62]
-  wire  wbALUSysReal = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 548:63]
-  wire  wbALUBpReal = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 549:64]
-  wire  illegal = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 550:42]
-  wire  wbFetchMaReal = wbExcepts_0 & wbInstsValid_0; // @[Backend.scala 551:47]
-  reg [63:0] wb_mmio_sd_data; // @[Backend.scala 573:33]
-  reg [11:0] wb_mmio_num; // @[Backend.scala 574:30]
-  wire [2:0] _wb_deal_with_int_T = {wbInstsValid_2,wbInstsValid_1,wbInstsValid_0}; // @[Backend.scala 575:61]
-  wire  wb_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 575:91]
-  wire [63:0] wb_pc_0 = wbInstsValid_0 ? wbInsts__0_pc : 64'hffffffffffffffff; // @[Backend.scala 578:20]
-  wire [63:0] wb_pc_1 = wbInstsValid_1 ? wbInsts__1_pc : 64'hffffffffffffffff; // @[Backend.scala 578:20]
-  wire [63:0] wb_pc_2 = wbInstsValid_2 ? wbInsts__2_pc : 64'hffffffffffffffff; // @[Backend.scala 578:20]
-  wire [63:0] _wb_pc_min_T_2 = wb_pc_0 < wb_pc_2 ? wb_pc_0 : wb_pc_2; // @[Backend.scala 580:8]
-  wire [63:0] _wb_pc_min_T_4 = wb_pc_1 < wb_pc_2 ? wb_pc_1 : wb_pc_2; // @[Backend.scala 581:8]
-  wire [63:0] wb_pc_min = wb_pc_0 < wb_pc_1 ? _wb_pc_min_T_2 : _wb_pc_min_T_4; // @[Backend.scala 579:22]
-  wire [63:0] _csr_io_event_io_epc_T_2 = wbALUSysReal | wbALUBpReal | illegal ? wbInsts__0_pc : wbInsts__1_pc; // @[Backend.scala 595:8]
-  wire [11:0] _csr_io_common_io_num_T_1 = wbMMIOValid ? wb_mmio_num : wbInsts__0_imm[11:0]; // @[Backend.scala 601:8]
-  wire [11:0] _csr_io_common_io_num_T_3 = exMMIOValid ? ex_mmio_num : exInsts_0_imm[11:0]; // @[Backend.scala 602:8]
-  reg  REG; // @[Backend.scala 621:60]
-  reg  REG_1; // @[Backend.scala 621:60]
-  reg  REG_2; // @[Backend.scala 621:60]
-  reg [63:0] REG_3; // @[Backend.scala 622:60]
-  reg [63:0] REG_4; // @[Backend.scala 622:60]
-  reg [63:0] REG_5; // @[Backend.scala 622:60]
-  reg [1:0] REG_6; // @[Backend.scala 623:60]
-  reg [1:0] REG_7; // @[Backend.scala 623:60]
-  reg [1:0] REG_8; // @[Backend.scala 623:60]
-  reg [31:0] REG_9; // @[Backend.scala 624:60]
-  reg [31:0] REG_10; // @[Backend.scala 624:60]
-  reg [31:0] REG_11; // @[Backend.scala 624:60]
-  reg  REG_12; // @[Backend.scala 625:72]
-  reg  REG_13; // @[Backend.scala 631:60]
-  reg  REG_14; // @[Backend.scala 631:60]
-  reg  REG_15; // @[Backend.scala 631:60]
-  wire  _WIRE__0 = REG; // @[Backend.scala 621:34 Backend.scala 621:34]
-  wire  _WIRE__1 = REG_1; // @[Backend.scala 621:34 Backend.scala 621:34]
-  wire  _WIRE__2 = REG_2; // @[Backend.scala 621:34 Backend.scala 621:34]
-  wire [63:0] _WIRE_1_0 = REG_3; // @[Backend.scala 622:34 Backend.scala 622:34]
-  wire [63:0] _WIRE_1_1 = REG_4; // @[Backend.scala 622:34 Backend.scala 622:34]
-  wire [63:0] _WIRE_1_2 = REG_5; // @[Backend.scala 622:34 Backend.scala 622:34]
-  wire [1:0] _WIRE_2_0 = REG_6; // @[Backend.scala 623:34 Backend.scala 623:34]
-  wire [1:0] _WIRE_2_1 = REG_7; // @[Backend.scala 623:34 Backend.scala 623:34]
-  wire [1:0] _WIRE_2_2 = REG_8; // @[Backend.scala 623:34 Backend.scala 623:34]
-  wire [31:0] _WIRE_3_0 = REG_9; // @[Backend.scala 624:34 Backend.scala 624:34]
-  wire [31:0] _WIRE_3_1 = REG_10; // @[Backend.scala 624:34 Backend.scala 624:34]
-  wire [31:0] _WIRE_3_2 = REG_11; // @[Backend.scala 624:34 Backend.scala 624:34]
-  wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 625:34 Backend.scala 625:34]
-  wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 625:34 Backend.scala 625:34]
-  wire  _WIRE_4_2 = REG_12; // @[Backend.scala 625:34 Backend.scala 625:34]
-  wire  _WIRE_5_0 = REG_13; // @[Backend.scala 631:34 Backend.scala 631:34]
-  wire  _WIRE_5_1 = REG_14; // @[Backend.scala 631:34 Backend.scala 631:34]
-  wire  _WIRE_5_2 = REG_15; // @[Backend.scala 631:34 Backend.scala 631:34]
+     : _GEN_217; // @[Backend.scala 391:21 Backend.scala 402:16]
+  wire  reBranch = exInstsTrueValid_0 & _GEN_219; // @[Backend.scala 390:29 Backend.scala 383:12]
+  wire  exInstsTrueValid_1 = mduValid & ~mduExptMask; // @[Backend.scala 433:35]
+  wire [5:0] _delayed_req_bits_T_1 = {io_dcache_req_bits_addr[2:0], 3'h0}; // @[Backend.scala 456:81]
+  reg  wbLdDataForStall_REG; // @[Backend.scala 465:56]
+  wire  _GEN_231 = _issueQueue_io_deqReq_T & bpuV; // @[Backend.scala 490:26 Backend.scala 493:12 Backend.scala 514:12]
+  wire  wbExcepts_0 = |wbInsts__0_pc[1:0]; // @[Backend.scala 551:39]
+  wire  _regFile_io_wen_vec_0_T_2 = wbInsts__0_write_dest & ~wbExcepts_0; // @[Backend.scala 527:65]
+  wire  wbExcepts_1 = |wbInsts__1_pc[1:0]; // @[Backend.scala 552:39]
+  wire  _regFile_io_wen_vec_0_T_6 = _T_9 & ~wbExcepts_1; // @[Backend.scala 528:67]
+  wire  wbLdMaReal = wbInstsValid_2 & wbLdMa; // @[Backend.scala 544:39]
+  wire  _regFile_io_wen_vec_1_T_2 = wbInsts__2_write_dest & ~wbLdMaReal; // @[Backend.scala 534:65]
+  wire  csrWbValid = wbInsts__0_next_pc == 3'h0 & wbInsts__0_alu_mdu_lsu == 2'h0; // @[Backend.scala 542:62]
+  wire  wbALUSysReal = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 546:63]
+  wire  wbALUBpReal = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 547:64]
+  wire  illegal = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 548:42]
+  wire  wbFetchMaReal = wbExcepts_0 & wbInstsValid_0; // @[Backend.scala 549:47]
+  reg [63:0] wb_mmio_sd_data; // @[Backend.scala 571:33]
+  reg [11:0] wb_mmio_num; // @[Backend.scala 572:30]
+  wire [2:0] _wb_deal_with_int_T = {wbInstsValid_2,wbInstsValid_1,wbInstsValid_0}; // @[Backend.scala 573:61]
+  wire  wb_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 573:91]
+  wire [63:0] wb_pc_0 = wbInstsValid_0 ? {{32'd0}, wbInsts__0_pc} : 64'hffffffffffffffff; // @[Backend.scala 576:20]
+  wire [63:0] wb_pc_1 = wbInstsValid_1 ? {{32'd0}, wbInsts__1_pc} : 64'hffffffffffffffff; // @[Backend.scala 576:20]
+  wire [63:0] wb_pc_2 = wbInstsValid_2 ? {{32'd0}, wbInsts__2_pc} : 64'hffffffffffffffff; // @[Backend.scala 576:20]
+  wire [63:0] _wb_pc_min_T_2 = wb_pc_0 < wb_pc_2 ? wb_pc_0 : wb_pc_2; // @[Backend.scala 578:8]
+  wire [63:0] _wb_pc_min_T_4 = wb_pc_1 < wb_pc_2 ? wb_pc_1 : wb_pc_2; // @[Backend.scala 579:8]
+  wire [63:0] wb_pc_min = wb_pc_0 < wb_pc_1 ? _wb_pc_min_T_2 : _wb_pc_min_T_4; // @[Backend.scala 577:22]
+  wire [31:0] _csr_io_event_io_epc_T_2 = wbALUSysReal | wbALUBpReal | illegal ? wbInsts__0_pc : wbInsts__1_pc; // @[Backend.scala 593:8]
+  wire [31:0] _csr_io_event_io_bad_address_T = wbFetchMaReal ? wbInsts__0_pc : wbMisalignedAddr; // @[Backend.scala 594:37]
+  wire [11:0] _csr_io_common_io_num_T_1 = wbMMIOValid ? wb_mmio_num : wbInsts__0_imm[11:0]; // @[Backend.scala 599:8]
+  wire [11:0] _csr_io_common_io_num_T_3 = exMMIOValid ? ex_mmio_num : exInsts_0_imm[11:0]; // @[Backend.scala 600:8]
+  reg  REG; // @[Backend.scala 619:60]
+  reg  REG_1; // @[Backend.scala 619:60]
+  reg  REG_2; // @[Backend.scala 619:60]
+  reg [31:0] REG_3; // @[Backend.scala 620:60]
+  reg [31:0] REG_4; // @[Backend.scala 620:60]
+  reg [31:0] REG_5; // @[Backend.scala 620:60]
+  reg [1:0] REG_6; // @[Backend.scala 621:60]
+  reg [1:0] REG_7; // @[Backend.scala 621:60]
+  reg [1:0] REG_8; // @[Backend.scala 621:60]
+  reg [31:0] REG_9; // @[Backend.scala 622:60]
+  reg [31:0] REG_10; // @[Backend.scala 622:60]
+  reg [31:0] REG_11; // @[Backend.scala 622:60]
+  reg  REG_12; // @[Backend.scala 623:72]
+  reg  REG_13; // @[Backend.scala 629:60]
+  reg  REG_14; // @[Backend.scala 629:60]
+  reg  REG_15; // @[Backend.scala 629:60]
+  wire  _WIRE__0 = REG; // @[Backend.scala 619:34 Backend.scala 619:34]
+  wire  _WIRE__1 = REG_1; // @[Backend.scala 619:34 Backend.scala 619:34]
+  wire  _WIRE__2 = REG_2; // @[Backend.scala 619:34 Backend.scala 619:34]
+  wire [31:0] _WIRE_1_0 = REG_3; // @[Backend.scala 620:34 Backend.scala 620:34]
+  wire [31:0] _WIRE_1_1 = REG_4; // @[Backend.scala 620:34 Backend.scala 620:34]
+  wire [31:0] _WIRE_1_2 = REG_5; // @[Backend.scala 620:34 Backend.scala 620:34]
+  wire [1:0] _WIRE_2_0 = REG_6; // @[Backend.scala 621:34 Backend.scala 621:34]
+  wire [1:0] _WIRE_2_1 = REG_7; // @[Backend.scala 621:34 Backend.scala 621:34]
+  wire [1:0] _WIRE_2_2 = REG_8; // @[Backend.scala 621:34 Backend.scala 621:34]
+  wire [31:0] _WIRE_3_0 = REG_9; // @[Backend.scala 622:34 Backend.scala 622:34]
+  wire [31:0] _WIRE_3_1 = REG_10; // @[Backend.scala 622:34 Backend.scala 622:34]
+  wire [31:0] _WIRE_3_2 = REG_11; // @[Backend.scala 622:34 Backend.scala 622:34]
+  wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 623:34 Backend.scala 623:34]
+  wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 623:34 Backend.scala 623:34]
+  wire  _WIRE_4_2 = REG_12; // @[Backend.scala 623:34 Backend.scala 623:34]
+  wire  _WIRE_5_0 = REG_13; // @[Backend.scala 629:34 Backend.scala 629:34]
+  wire  _WIRE_5_1 = REG_14; // @[Backend.scala 629:34 Backend.scala 629:34]
+  wire  _WIRE_5_2 = REG_15; // @[Backend.scala 629:34 Backend.scala 629:34]
   ALU alu ( // @[Backend.scala 58:28]
     .io_a(alu_io_a),
     .io_b(alu_io_b),
@@ -8610,7 +8608,6 @@ module Backend(
     .io_rts_out_1(issueArbiter_io_rts_out_1),
     .io_rts_out_2(issueArbiter_io_rts_out_2),
     .io_csr_ex(issueArbiter_io_csr_ex),
-    .io_mmio_ex(issueArbiter_io_mmio_ex),
     .io_insts_out_0_illegal(issueArbiter_io_insts_out_0_illegal),
     .io_insts_out_0_next_pc(issueArbiter_io_insts_out_0_next_pc),
     .io_insts_out_0_alu_mdu_lsu(issueArbiter_io_insts_out_0_alu_mdu_lsu),
@@ -8750,19 +8747,19 @@ module Backend(
     .current_mode_0(csr_current_mode_0),
     .REG_0(csr_REG_0)
   );
-  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 519:42]
-  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 520:34]
-  assign io_fb_bmfs_bpu_v = wbBpuV; // @[Backend.scala 521:30]
-  assign io_fb_bmfs_bpu_errpr = wbBpuErrpr; // @[Backend.scala 522:30]
-  assign io_fb_bmfs_bpu_pc_br = wbBpuPCBr; // @[Backend.scala 523:30]
-  assign io_fb_bmfs_bpu_target = wbBpuTarget; // @[Backend.scala 524:30]
-  assign io_fb_bmfs_bpu_taken = wbBpuTaken; // @[Backend.scala 525:30]
+  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 517:42]
+  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 518:34]
+  assign io_fb_bmfs_bpu_v = wbBpuV; // @[Backend.scala 519:30]
+  assign io_fb_bmfs_bpu_errpr = wbBpuErrpr; // @[Backend.scala 520:30]
+  assign io_fb_bmfs_bpu_pc_br = {{32'd0}, wbBpuPCBr}; // @[Backend.scala 521:30]
+  assign io_fb_bmfs_bpu_target = wbBpuTarget; // @[Backend.scala 522:30]
+  assign io_fb_bmfs_bpu_taken = wbBpuTaken; // @[Backend.scala 523:30]
   assign io_fb_fmbs_please_wait = ~issueQueue_io_sufficient; // @[Backend.scala 152:29]
-  assign io_dcache_req_valid = exMemRealValid & ~exMMIOValid | dcacheStall; // @[Backend.scala 335:57]
-  assign io_dcache_req_bits_addr = dcacheStall ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 378:28]
-  assign io_dcache_req_bits_wdata = dcacheStall ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 378:28]
-  assign io_dcache_req_bits_wen = dcacheStall ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 378:28]
-  assign io_dcache_req_bits_mtype = dcacheStall ? exLastMemReq_mtype : exCurMemReq_mtype; // @[Backend.scala 378:28]
+  assign io_dcache_req_valid = exMemRealValid & ~exMMIOValid | dcacheStall; // @[Backend.scala 333:57]
+  assign io_dcache_req_bits_addr = dcacheStall ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 376:28]
+  assign io_dcache_req_bits_wdata = dcacheStall ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 376:28]
+  assign io_dcache_req_bits_wen = dcacheStall ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 376:28]
+  assign io_dcache_req_bits_mtype = dcacheStall ? exLastMemReq_mtype : exCurMemReq_mtype; // @[Backend.scala 376:28]
   assign csrs_mstatus = csr_csrs_0_mstatus;
   assign csrs_sstatus = csr_csrs_0_sstatus;
   assign csrs_mepc = csr_csrs_0_mepc;
@@ -8835,60 +8832,60 @@ module Backend(
   assign REG_0 = csr_REG_0;
   assign alu_io_a = 2'h1 == exInsts_0_src_a ? _alu_io_a_T_4 : _alu_io_a_T_6; // @[Mux.scala 80:57]
   assign alu_io_b = 2'h2 == exInsts_0_src_b ? _alu_io_b_T_1 : _alu_io_b_T_3; // @[Mux.scala 80:57]
-  assign alu_io_aluOp = exInsts_0_alu_op; // @[Backend.scala 316:16]
-  assign alu_io_aluExpand = exInsts_0_alu_expand; // @[Backend.scala 317:20]
+  assign alu_io_aluOp = exInsts_0_alu_op; // @[Backend.scala 314:16]
+  assign alu_io_aluExpand = exInsts_0_alu_expand; // @[Backend.scala 315:20]
   assign mdu_clock = clock;
   assign mdu_reset = reset;
-  assign mdu_io_req_valid = mduValid & ~mdu_io_req_valid_REG; // @[Backend.scala 322:32]
-  assign mdu_io_req_op = exInsts_1_alu_op; // @[Backend.scala 325:17]
-  assign mdu_io_req_expand = exInsts_1_alu_expand; // @[Backend.scala 326:21]
-  assign mdu_io_req_in1 = exInsts_1_src_a == 2'h0 ? exFwdRsData_1 : exInsts_1_pc; // @[Backend.scala 323:24]
-  assign mdu_io_req_in2 = exInsts_1_src_b == 2'h0 ? exFwdRtData_1 : genImm_1; // @[Backend.scala 324:24]
+  assign mdu_io_req_valid = mduValid & ~mdu_io_req_valid_REG; // @[Backend.scala 320:32]
+  assign mdu_io_req_op = exInsts_1_alu_op; // @[Backend.scala 323:17]
+  assign mdu_io_req_expand = exInsts_1_alu_expand; // @[Backend.scala 324:21]
+  assign mdu_io_req_in1 = exInsts_1_src_a == 2'h0 ? exFwdRsData_1 : {{32'd0}, exInsts_1_pc}; // @[Backend.scala 321:24]
+  assign mdu_io_req_in2 = exInsts_1_src_b == 2'h0 ? exFwdRtData_1 : genImm_1; // @[Backend.scala 322:24]
   assign issueQueue_clock = clock;
   assign issueQueue_reset = reset;
   assign issueQueue_io_enqStep = {{2'd0}, io_fb_fmbs_instn}; // @[Backend.scala 157:25]
   assign issueQueue_io_enqReq = io_fb_fmbs_instn != 2'h0; // @[Backend.scala 156:45]
   assign issueQueue_io_deqStep = {{2'd0}, _issueQueue_io_deqStep_T}; // @[Backend.scala 154:31]
   assign issueQueue_io_deqReq = ~bubble_w & ~(|issueQueue_io_items & issueNum == 2'h0) & ~csr_io_event_io_call_for_int; // @[Backend.scala 155:87]
-  assign issueQueue_io_din_0_illegal = io_fb_fmbs_inst_ops_0[224]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_next_pc = io_fb_fmbs_inst_ops_0[223:221]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_alu_mdu_lsu = io_fb_fmbs_inst_ops_0[220:219]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_branch_type = io_fb_fmbs_inst_ops_0[218:215]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_src_a = io_fb_fmbs_inst_ops_0[214:213]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_src_b = io_fb_fmbs_inst_ops_0[212:211]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_write_dest = io_fb_fmbs_inst_ops_0[210]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_alu_op = io_fb_fmbs_inst_ops_0[209:205]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_alu_expand = io_fb_fmbs_inst_ops_0[204]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_mem_width = io_fb_fmbs_inst_ops_0[203:201]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_write_src = io_fb_fmbs_inst_ops_0[200:199]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_rs1 = io_fb_fmbs_inst_ops_0[198:194]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_rs2 = io_fb_fmbs_inst_ops_0[193:189]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_rd = io_fb_fmbs_inst_ops_0[188:184]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_imm = io_fb_fmbs_inst_ops_0[183:163]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_pc = io_fb_fmbs_inst_ops_0[162:99]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_predict_taken = io_fb_fmbs_inst_ops_0[98]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_0_target_pc = io_fb_fmbs_inst_ops_0[97:34]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_illegal = io_fb_fmbs_inst_ops_0[160]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_next_pc = io_fb_fmbs_inst_ops_0[159:157]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_alu_mdu_lsu = io_fb_fmbs_inst_ops_0[156:155]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_branch_type = io_fb_fmbs_inst_ops_0[154:151]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_src_a = io_fb_fmbs_inst_ops_0[150:149]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_src_b = io_fb_fmbs_inst_ops_0[148:147]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_write_dest = io_fb_fmbs_inst_ops_0[146]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_alu_op = io_fb_fmbs_inst_ops_0[145:141]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_alu_expand = io_fb_fmbs_inst_ops_0[140]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_mem_width = io_fb_fmbs_inst_ops_0[139:137]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_write_src = io_fb_fmbs_inst_ops_0[136:135]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_rs1 = io_fb_fmbs_inst_ops_0[134:130]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_rs2 = io_fb_fmbs_inst_ops_0[129:125]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_rd = io_fb_fmbs_inst_ops_0[124:120]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_imm = io_fb_fmbs_inst_ops_0[119:99]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_pc = io_fb_fmbs_inst_ops_0[98:67]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_predict_taken = io_fb_fmbs_inst_ops_0[66]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_0_target_pc = io_fb_fmbs_inst_ops_0[65:34]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_0_ysyx_debug = io_fb_fmbs_inst_ops_0[33]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_0_ysyx_print = io_fb_fmbs_inst_ops_0[32]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_0_inst = io_fb_fmbs_inst_ops_0[31:0]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_illegal = io_fb_fmbs_inst_ops_1[224]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_next_pc = io_fb_fmbs_inst_ops_1[223:221]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_alu_mdu_lsu = io_fb_fmbs_inst_ops_1[220:219]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_branch_type = io_fb_fmbs_inst_ops_1[218:215]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_src_a = io_fb_fmbs_inst_ops_1[214:213]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_src_b = io_fb_fmbs_inst_ops_1[212:211]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_write_dest = io_fb_fmbs_inst_ops_1[210]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_alu_op = io_fb_fmbs_inst_ops_1[209:205]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_alu_expand = io_fb_fmbs_inst_ops_1[204]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_mem_width = io_fb_fmbs_inst_ops_1[203:201]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_write_src = io_fb_fmbs_inst_ops_1[200:199]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_rs1 = io_fb_fmbs_inst_ops_1[198:194]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_rs2 = io_fb_fmbs_inst_ops_1[193:189]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_rd = io_fb_fmbs_inst_ops_1[188:184]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_imm = io_fb_fmbs_inst_ops_1[183:163]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_pc = io_fb_fmbs_inst_ops_1[162:99]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_predict_taken = io_fb_fmbs_inst_ops_1[98]; // @[Backend.scala 162:60]
-  assign issueQueue_io_din_1_target_pc = io_fb_fmbs_inst_ops_1[97:34]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_illegal = io_fb_fmbs_inst_ops_1[160]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_next_pc = io_fb_fmbs_inst_ops_1[159:157]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_alu_mdu_lsu = io_fb_fmbs_inst_ops_1[156:155]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_branch_type = io_fb_fmbs_inst_ops_1[154:151]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_src_a = io_fb_fmbs_inst_ops_1[150:149]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_src_b = io_fb_fmbs_inst_ops_1[148:147]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_write_dest = io_fb_fmbs_inst_ops_1[146]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_alu_op = io_fb_fmbs_inst_ops_1[145:141]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_alu_expand = io_fb_fmbs_inst_ops_1[140]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_mem_width = io_fb_fmbs_inst_ops_1[139:137]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_write_src = io_fb_fmbs_inst_ops_1[136:135]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_rs1 = io_fb_fmbs_inst_ops_1[134:130]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_rs2 = io_fb_fmbs_inst_ops_1[129:125]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_rd = io_fb_fmbs_inst_ops_1[124:120]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_imm = io_fb_fmbs_inst_ops_1[119:99]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_pc = io_fb_fmbs_inst_ops_1[98:67]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_predict_taken = io_fb_fmbs_inst_ops_1[66]; // @[Backend.scala 162:60]
+  assign issueQueue_io_din_1_target_pc = io_fb_fmbs_inst_ops_1[65:34]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_1_ysyx_debug = io_fb_fmbs_inst_ops_1[33]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_1_ysyx_print = io_fb_fmbs_inst_ops_1[32]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_1_inst = io_fb_fmbs_inst_ops_1[31:0]; // @[Backend.scala 162:60]
@@ -8936,483 +8933,482 @@ module Backend(
   assign issueArbiter_io_insts_in_1_ysyx_print = issueQueue_io_dout_1_ysyx_print; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign issueArbiter_io_insts_in_1_inst = issueQueue_io_dout_1_inst; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign issueArbiter_io_queue_items = blockSecondItem ? {{3'd0}, trap_ret_items0} : issueQueue_io_items; // @[Backend.scala 180:37]
-  assign issueArbiter_io_ld_dest_ex = _issueArbiter_io_ld_dest_ex_T_1 & exInsts_2_rd; // @[Backend.scala 184:73]
-  assign issueArbiter_io_rss_in_0 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_32 : _GEN_28; // @[Backend.scala 222:96]
-  assign issueArbiter_io_rss_in_1 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_34 : _GEN_30; // @[Backend.scala 222:96]
-  assign issueArbiter_io_rts_in_0 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_33 : _GEN_29; // @[Backend.scala 222:96]
-  assign issueArbiter_io_rts_in_1 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_35 : _GEN_31; // @[Backend.scala 222:96]
-  assign issueArbiter_io_csr_ex = exInstsValid_0 & exCsrValid; // @[Backend.scala 183:50]
-  assign issueArbiter_io_mmio_ex = exInstsValid_2 & |ex_mmio_num; // @[Backend.scala 179:37]
+  assign issueArbiter_io_ld_dest_ex = _issueArbiter_io_ld_dest_ex_T_1 & exInsts_2_rd; // @[Backend.scala 182:73]
+  assign issueArbiter_io_rss_in_0 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_32 : _GEN_28; // @[Backend.scala 220:96]
+  assign issueArbiter_io_rss_in_1 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_34 : _GEN_30; // @[Backend.scala 220:96]
+  assign issueArbiter_io_rts_in_0 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_33 : _GEN_29; // @[Backend.scala 220:96]
+  assign issueArbiter_io_rts_in_1 = exInstsValid_1 & exInsts_1_write_dest & exInsts_1_rd != 5'h0 ? _GEN_35 : _GEN_31; // @[Backend.scala 220:96]
+  assign issueArbiter_io_csr_ex = exInstsValid_0 & exCsrValid; // @[Backend.scala 181:50]
   assign regFile_clock = clock;
   assign regFile_reset = reset;
   assign regFile_io_rs_addr_vec_0 = issueQueue_io_dout_0_rs1; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign regFile_io_rs_addr_vec_1 = issueQueue_io_dout_0_rs2; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign regFile_io_rs_addr_vec_2 = issueQueue_io_dout_1_rs1; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign regFile_io_rs_addr_vec_3 = issueQueue_io_dout_1_rs2; // @[Backend.scala 64:26 Backend.scala 159:19]
-  assign regFile_io_wen_vec_0 = wbInstsValid_0 ? _regFile_io_wen_vec_0_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 528:31]
-  assign regFile_io_wen_vec_1 = wbInstsValid_2 ? _regFile_io_wen_vec_1_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 535:31]
-  assign regFile_io_rd_addr_vec_0 = wbInstsValid_0 ? wbInsts__0_rd : wbInsts__1_rd; // @[Backend.scala 532:35]
-  assign regFile_io_rd_addr_vec_1 = wbInstsValid_2 ? wbInsts__2_rd : wbInsts__1_rd; // @[Backend.scala 540:35]
-  assign regFile_io_rd_data_vec_0 = wbInstsValid_0 ? wbResult_0 : wbResult_1; // @[Backend.scala 533:35]
-  assign regFile_io_rd_data_vec_1 = wbInstsValid_2 ? wbData_2 : wbResult_1; // @[Backend.scala 539:35]
+  assign regFile_io_wen_vec_0 = wbInstsValid_0 ? _regFile_io_wen_vec_0_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 526:31]
+  assign regFile_io_wen_vec_1 = wbInstsValid_2 ? _regFile_io_wen_vec_1_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 533:31]
+  assign regFile_io_rd_addr_vec_0 = wbInstsValid_0 ? wbInsts__0_rd : wbInsts__1_rd; // @[Backend.scala 530:35]
+  assign regFile_io_rd_addr_vec_1 = wbInstsValid_2 ? wbInsts__2_rd : wbInsts__1_rd; // @[Backend.scala 538:35]
+  assign regFile_io_rd_data_vec_0 = wbInstsValid_0 ? wbResult_0 : wbResult_1; // @[Backend.scala 531:35]
+  assign regFile_io_rd_data_vec_1 = wbInstsValid_2 ? wbData_2 : wbResult_1; // @[Backend.scala 537:35]
   assign regFile_difftestSaddr = difftest_saddr;
   assign regFile_difftestSval = difftest_sval;
   assign regFile_difftestSync = difftest_sync;
   assign csr_clock = clock;
   assign csr_reset = reset;
-  assign csr_io_common_io_in = wbMMIOValid ? wb_mmio_sd_data : wbCsrData; // @[Backend.scala 603:37]
-  assign csr_io_common_io_wen = csrWbValid & wbInstsValid_0 | wbMMIOValid & ~wbInsts__2_write_dest; // @[Backend.scala 599:66]
-  assign csr_io_common_io_num = csr_io_common_io_wen ? _csr_io_common_io_num_T_1 : _csr_io_common_io_num_T_3; // @[Backend.scala 600:37]
-  assign csr_io_event_io_exception_vec_2 = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 550:42]
-  assign csr_io_event_io_exception_vec_3 = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 549:64]
-  assign csr_io_event_io_exception_vec_4 = wbLdMaReal | wbFetchMaReal; // @[Backend.scala 566:59]
-  assign csr_io_event_io_exception_vec_6 = wbInstsValid_2 & wbStMa; // @[Backend.scala 547:39]
-  assign csr_io_event_io_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 575:91]
-  assign csr_io_event_io_is_mret = wbInsts__0_next_pc == 3'h5 & wbInstsValid_0; // @[Backend.scala 590:74]
-  assign csr_io_event_io_is_sret = wbInsts__0_next_pc == 3'h6 & wbInstsValid_0; // @[Backend.scala 591:74]
-  assign csr_io_event_io_is_ecall = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 548:63]
-  assign csr_io_event_io_bad_address = wbFetchMaReal ? wbInsts__0_pc : {{32'd0}, wbMisalignedAddr}; // @[Backend.scala 596:37]
-  assign csr_io_event_io_epc = wb_deal_with_int ? wb_pc_min : _csr_io_event_io_epc_T_2; // @[Backend.scala 594:37]
+  assign csr_io_common_io_in = wbMMIOValid ? wb_mmio_sd_data : wbCsrData; // @[Backend.scala 601:37]
+  assign csr_io_common_io_wen = csrWbValid & wbInstsValid_0 | wbMMIOValid & ~wbInsts__2_write_dest; // @[Backend.scala 597:66]
+  assign csr_io_common_io_num = csr_io_common_io_wen ? _csr_io_common_io_num_T_1 : _csr_io_common_io_num_T_3; // @[Backend.scala 598:37]
+  assign csr_io_event_io_exception_vec_2 = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 548:42]
+  assign csr_io_event_io_exception_vec_3 = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 547:64]
+  assign csr_io_event_io_exception_vec_4 = wbLdMaReal | wbFetchMaReal; // @[Backend.scala 564:59]
+  assign csr_io_event_io_exception_vec_6 = wbInstsValid_2 & wbStMa; // @[Backend.scala 545:39]
+  assign csr_io_event_io_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 573:91]
+  assign csr_io_event_io_is_mret = wbInsts__0_next_pc == 3'h5 & wbInstsValid_0; // @[Backend.scala 588:74]
+  assign csr_io_event_io_is_sret = wbInsts__0_next_pc == 3'h6 & wbInstsValid_0; // @[Backend.scala 589:74]
+  assign csr_io_event_io_is_ecall = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 546:63]
+  assign csr_io_event_io_bad_address = {{32'd0}, _csr_io_event_io_bad_address_T}; // @[Backend.scala 594:37]
+  assign csr_io_event_io_epc = wb_deal_with_int ? wb_pc_min : {{32'd0}, _csr_io_event_io_epc_T_2}; // @[Backend.scala 592:37]
   always @(posedge clock) begin
-    if (reset) begin // @[Backend.scala 329:34]
-      exLastMemReqValid <= 1'h0; // @[Backend.scala 329:34]
-    end else if (_kill_x_T) begin // @[Backend.scala 372:23]
-      exLastMemReqValid <= _io_dcache_req_valid_T_1; // @[Backend.scala 373:23]
+    if (reset) begin // @[Backend.scala 327:34]
+      exLastMemReqValid <= 1'h0; // @[Backend.scala 327:34]
+    end else if (_kill_x_T) begin // @[Backend.scala 370:23]
+      exLastMemReqValid <= _io_dcache_req_valid_T_1; // @[Backend.scala 371:23]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_illegal <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_illegal <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_illegal <= 1'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_illegal <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_illegal <= 1'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_illegal <= issueArbiter_io_insts_out_0_illegal; // @[Backend.scala 280:20]
+        exInsts_0_illegal <= issueArbiter_io_insts_out_0_illegal; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_next_pc <= 3'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_next_pc <= 3'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_next_pc <= 3'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_next_pc <= 3'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_next_pc <= 3'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_next_pc <= issueArbiter_io_insts_out_0_next_pc; // @[Backend.scala 280:20]
+        exInsts_0_next_pc <= issueArbiter_io_insts_out_0_next_pc; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_alu_mdu_lsu <= issueArbiter_io_insts_out_0_alu_mdu_lsu; // @[Backend.scala 280:20]
+        exInsts_0_alu_mdu_lsu <= issueArbiter_io_insts_out_0_alu_mdu_lsu; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_branch_type <= 4'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_branch_type <= 4'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_branch_type <= 4'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_branch_type <= 4'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_branch_type <= 4'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_branch_type <= issueArbiter_io_insts_out_0_branch_type; // @[Backend.scala 280:20]
+        exInsts_0_branch_type <= issueArbiter_io_insts_out_0_branch_type; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_src_a <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_src_a <= 2'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_src_a <= 2'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_src_a <= 2'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_src_a <= 2'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_src_a <= issueArbiter_io_insts_out_0_src_a; // @[Backend.scala 280:20]
+        exInsts_0_src_a <= issueArbiter_io_insts_out_0_src_a; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_src_b <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_src_b <= 2'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_src_b <= 2'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_src_b <= 2'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_src_b <= 2'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_src_b <= issueArbiter_io_insts_out_0_src_b; // @[Backend.scala 280:20]
+        exInsts_0_src_b <= issueArbiter_io_insts_out_0_src_b; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_write_dest <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_write_dest <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_write_dest <= 1'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_write_dest <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_write_dest <= 1'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_write_dest <= issueArbiter_io_insts_out_0_write_dest; // @[Backend.scala 280:20]
+        exInsts_0_write_dest <= issueArbiter_io_insts_out_0_write_dest; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_alu_op <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_alu_op <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_alu_op <= 5'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_alu_op <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_alu_op <= 5'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_alu_op <= issueArbiter_io_insts_out_0_alu_op; // @[Backend.scala 280:20]
+        exInsts_0_alu_op <= issueArbiter_io_insts_out_0_alu_op; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_alu_expand <= issueArbiter_io_insts_out_0_alu_expand; // @[Backend.scala 280:20]
+        exInsts_0_alu_expand <= issueArbiter_io_insts_out_0_alu_expand; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_write_src <= 2'h1; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_write_src <= 2'h1; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_write_src <= 2'h1; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_write_src <= 2'h1; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_write_src <= 2'h1; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_write_src <= issueArbiter_io_insts_out_0_write_src; // @[Backend.scala 280:20]
+        exInsts_0_write_src <= issueArbiter_io_insts_out_0_write_src; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_rs1 <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_rs1 <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_rs1 <= 5'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_rs1 <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_rs1 <= 5'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_rs1 <= issueArbiter_io_insts_out_0_rs1; // @[Backend.scala 280:20]
+        exInsts_0_rs1 <= issueArbiter_io_insts_out_0_rs1; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_rd <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_rd <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_rd <= 5'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_rd <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_rd <= 5'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_rd <= issueArbiter_io_insts_out_0_rd; // @[Backend.scala 280:20]
+        exInsts_0_rd <= issueArbiter_io_insts_out_0_rd; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_imm <= 21'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_imm <= 21'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_imm <= 21'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_imm <= 21'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_imm <= 21'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_imm <= issueArbiter_io_insts_out_0_imm; // @[Backend.scala 280:20]
+        exInsts_0_imm <= issueArbiter_io_insts_out_0_imm; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
-      exInsts_0_pc <= 64'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_pc <= 64'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_pc <= issueInsts_0_pc; // @[Backend.scala 274:18]
+      exInsts_0_pc <= 32'h0; // @[Backend.scala 80:29]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_pc <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_pc <= issueInsts_0_pc; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_pc <= issueArbiter_io_insts_out_0_pc; // @[Backend.scala 280:20]
+        exInsts_0_pc <= issueArbiter_io_insts_out_0_pc; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_predict_taken <= issueArbiter_io_insts_out_0_predict_taken; // @[Backend.scala 280:20]
+        exInsts_0_predict_taken <= issueArbiter_io_insts_out_0_predict_taken; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
-      exInsts_0_target_pc <= 64'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_target_pc <= 64'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_target_pc <= 64'h0; // @[Backend.scala 274:18]
+      exInsts_0_target_pc <= 32'h0; // @[Backend.scala 80:29]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_target_pc <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_target_pc <= 32'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_target_pc <= issueArbiter_io_insts_out_0_target_pc; // @[Backend.scala 280:20]
+        exInsts_0_target_pc <= issueArbiter_io_insts_out_0_target_pc; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_ysyx_debug <= issueArbiter_io_insts_out_0_ysyx_debug; // @[Backend.scala 280:20]
+        exInsts_0_ysyx_debug <= issueArbiter_io_insts_out_0_ysyx_debug; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_ysyx_print <= issueArbiter_io_insts_out_0_ysyx_print; // @[Backend.scala 280:20]
+        exInsts_0_ysyx_print <= issueArbiter_io_insts_out_0_ysyx_print; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_inst <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_0_inst <= 32'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInsts_0_inst <= 32'h0; // @[Backend.scala 274:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_0_inst <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInsts_0_inst <= 32'h0; // @[Backend.scala 272:18]
       end else begin
-        exInsts_0_inst <= issueArbiter_io_insts_out_0_inst; // @[Backend.scala 280:20]
+        exInsts_0_inst <= issueArbiter_io_insts_out_0_inst; // @[Backend.scala 278:20]
       end
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_src_a <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_src_a <= 2'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_src_a <= issueArbiter_io_insts_out_1_src_a; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_src_a <= 2'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_src_a <= issueArbiter_io_insts_out_1_src_a; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_src_b <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_src_b <= 2'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_src_b <= issueArbiter_io_insts_out_1_src_b; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_src_b <= 2'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_src_b <= issueArbiter_io_insts_out_1_src_b; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_write_dest <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_write_dest <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_write_dest <= issueArbiter_io_insts_out_1_write_dest; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_write_dest <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_write_dest <= issueArbiter_io_insts_out_1_write_dest; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_alu_op <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_alu_op <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_alu_op <= issueArbiter_io_insts_out_1_alu_op; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_alu_op <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_alu_op <= issueArbiter_io_insts_out_1_alu_op; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_alu_expand <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_alu_expand <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_alu_expand <= issueArbiter_io_insts_out_1_alu_expand; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_alu_expand <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_alu_expand <= issueArbiter_io_insts_out_1_alu_expand; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_rd <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_rd <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_rd <= issueArbiter_io_insts_out_1_rd; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_rd <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_rd <= issueArbiter_io_insts_out_1_rd; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_imm <= 21'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_imm <= 21'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_imm <= issueArbiter_io_insts_out_1_imm; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_imm <= 21'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_imm <= issueArbiter_io_insts_out_1_imm; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
-      exInsts_1_pc <= 64'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_pc <= 64'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_pc <= issueArbiter_io_insts_out_1_pc; // @[Backend.scala 283:18]
+      exInsts_1_pc <= 32'h0; // @[Backend.scala 80:29]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_pc <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_pc <= issueArbiter_io_insts_out_1_pc; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_ysyx_print <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_ysyx_print <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_ysyx_print <= issueArbiter_io_insts_out_1_ysyx_print; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_ysyx_print <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_ysyx_print <= issueArbiter_io_insts_out_1_ysyx_print; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_inst <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_1_inst <= 32'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_1_inst <= issueArbiter_io_insts_out_1_inst; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_1_inst <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_1_inst <= issueArbiter_io_insts_out_1_inst; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_src_a <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_src_a <= 2'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_src_a <= issueArbiter_io_insts_out_2_src_a; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_src_a <= 2'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_src_a <= issueArbiter_io_insts_out_2_src_a; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_write_dest <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_write_dest <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_write_dest <= issueArbiter_io_insts_out_2_write_dest; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_write_dest <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_write_dest <= issueArbiter_io_insts_out_2_write_dest; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_alu_op <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_alu_op <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_alu_op <= issueArbiter_io_insts_out_2_alu_op; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_alu_op <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_alu_op <= issueArbiter_io_insts_out_2_alu_op; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_mem_width <= 3'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_mem_width <= 3'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_mem_width <= issueArbiter_io_insts_out_2_mem_width; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_mem_width <= 3'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_mem_width <= issueArbiter_io_insts_out_2_mem_width; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_rd <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_rd <= 5'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_rd <= issueArbiter_io_insts_out_2_rd; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_rd <= 5'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_rd <= issueArbiter_io_insts_out_2_rd; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_imm <= 21'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_imm <= 21'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_imm <= issueArbiter_io_insts_out_2_imm; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_imm <= 21'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_imm <= issueArbiter_io_insts_out_2_imm; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
-      exInsts_2_pc <= 64'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_pc <= 64'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_pc <= issueArbiter_io_insts_out_2_pc; // @[Backend.scala 283:18]
+      exInsts_2_pc <= 32'h0; // @[Backend.scala 80:29]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_pc <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_pc <= issueArbiter_io_insts_out_2_pc; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_ysyx_print <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_ysyx_print <= 1'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_ysyx_print <= issueArbiter_io_insts_out_2_ysyx_print; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_ysyx_print <= 1'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_ysyx_print <= issueArbiter_io_insts_out_2_ysyx_print; // @[Backend.scala 281:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_inst <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInsts_2_inst <= 32'h0; // @[Backend.scala 265:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInsts_2_inst <= issueArbiter_io_insts_out_2_inst; // @[Backend.scala 283:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInsts_2_inst <= 32'h0; // @[Backend.scala 263:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInsts_2_inst <= issueArbiter_io_insts_out_2_inst; // @[Backend.scala 281:18]
     end
-    if (!(kill_x)) begin // @[Backend.scala 262:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-        exInstsOrder_0 <= issueArbiter_io_insts_order_0; // @[Backend.scala 269:18]
+    if (!(kill_x)) begin // @[Backend.scala 260:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+        exInstsOrder_0 <= issueArbiter_io_insts_order_0; // @[Backend.scala 267:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 262:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-        exInstsOrder_1 <= issueArbiter_io_insts_order_1; // @[Backend.scala 269:18]
+    if (!(kill_x)) begin // @[Backend.scala 260:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+        exInstsOrder_1 <= issueArbiter_io_insts_order_1; // @[Backend.scala 267:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 262:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-        exInstsOrder_2 <= issueArbiter_io_insts_order_2; // @[Backend.scala 269:18]
+    if (!(kill_x)) begin // @[Backend.scala 260:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+        exInstsOrder_2 <= issueArbiter_io_insts_order_2; // @[Backend.scala 267:18]
       end
     end
     if (reset) begin // @[Backend.scala 82:29]
       exInstsValid_0 <= 1'h0; // @[Backend.scala 82:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInstsValid_0 <= 1'h0; // @[Backend.scala 266:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInstsValid_0 <= |_exInstsValid_0_T; // @[Backend.scala 271:23]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInstsValid_0 <= 1'h0; // @[Backend.scala 264:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInstsValid_0 <= |_exInstsValid_0_T; // @[Backend.scala 269:23]
       end else begin
-        exInstsValid_0 <= issueArbiter_io_issue_fu_valid_0; // @[Backend.scala 279:20]
+        exInstsValid_0 <= issueArbiter_io_issue_fu_valid_0; // @[Backend.scala 277:20]
       end
     end
     if (reset) begin // @[Backend.scala 82:29]
       exInstsValid_1 <= 1'h0; // @[Backend.scala 82:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInstsValid_1 <= 1'h0; // @[Backend.scala 266:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInstsValid_1 <= 1'h0; // @[Backend.scala 276:25]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInstsValid_1 <= 1'h0; // @[Backend.scala 264:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInstsValid_1 <= 1'h0; // @[Backend.scala 274:25]
       end else begin
-        exInstsValid_1 <= issueArbiter_io_issue_fu_valid_1; // @[Backend.scala 279:20]
+        exInstsValid_1 <= issueArbiter_io_issue_fu_valid_1; // @[Backend.scala 277:20]
       end
     end
     if (reset) begin // @[Backend.scala 82:29]
       exInstsValid_2 <= 1'h0; // @[Backend.scala 82:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInstsValid_2 <= 1'h0; // @[Backend.scala 266:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 270:41]
-        exInstsValid_2 <= 1'h0; // @[Backend.scala 276:25]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInstsValid_2 <= 1'h0; // @[Backend.scala 264:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      if (csr_io_event_io_call_for_int) begin // @[Backend.scala 268:41]
+        exInstsValid_2 <= 1'h0; // @[Backend.scala 274:25]
       end else begin
-        exInstsValid_2 <= issueArbiter_io_issue_fu_valid_2; // @[Backend.scala 279:20]
+        exInstsValid_2 <= issueArbiter_io_issue_fu_valid_2; // @[Backend.scala 277:20]
       end
     end
-    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 288:19]
-      exFwdRsData_0 <= issueRss_0; // @[Backend.scala 290:22]
+    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 286:19]
+      exFwdRsData_0 <= issueRss_0; // @[Backend.scala 288:22]
     end
-    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 288:19]
-      exFwdRsData_1 <= issueRss_1; // @[Backend.scala 290:22]
+    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 286:19]
+      exFwdRsData_1 <= issueRss_1; // @[Backend.scala 288:22]
     end
-    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 288:19]
-      exFwdRsData_2 <= issueRss_2; // @[Backend.scala 290:22]
+    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 286:19]
+      exFwdRsData_2 <= issueRss_2; // @[Backend.scala 288:22]
     end
-    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 288:19]
-      exFwdRtData_0 <= issueRts_0; // @[Backend.scala 291:22]
+    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 286:19]
+      exFwdRtData_0 <= issueRts_0; // @[Backend.scala 289:22]
     end
-    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 288:19]
-      exFwdRtData_1 <= issueRts_1; // @[Backend.scala 291:22]
+    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 286:19]
+      exFwdRtData_1 <= issueRts_1; // @[Backend.scala 289:22]
     end
-    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 288:19]
-      exFwdRtData_2 <= issueRts_2; // @[Backend.scala 291:22]
+    if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 286:19]
+      exFwdRtData_2 <= issueRts_2; // @[Backend.scala 289:22]
     end
     if (reset) begin // @[Backend.scala 97:29]
       exInterruptd <= 1'h0; // @[Backend.scala 97:29]
-    end else if (kill_x) begin // @[Backend.scala 262:17]
-      exInterruptd <= 1'h0; // @[Backend.scala 263:18]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 268:24]
-      exInterruptd <= csr_io_event_io_call_for_int; // @[Backend.scala 285:18]
+    end else if (kill_x) begin // @[Backend.scala 260:17]
+      exInterruptd <= 1'h0; // @[Backend.scala 261:18]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 266:24]
+      exInterruptd <= csr_io_event_io_call_for_int; // @[Backend.scala 283:18]
     end
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
         if (isExPCBr) begin // @[Backend.scala 91:25]
           if (reBranchBrTaken) begin // @[Backend.scala 91:39]
             reBranchPC <= brPC;
           end else begin
-            reBranchPC <= _exReBranchPC_T_1;
+            reBranchPC <= {{32'd0}, _exReBranchPC_T_1};
           end
-        end else if (_isExPCJump_T_1) begin // @[Backend.scala 387:16]
+        end else if (_isExPCJump_T_1) begin // @[Backend.scala 385:16]
           reBranchPC <= brPC;
         end else begin
           reBranchPC <= _jumpPc_T_4;
         end
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        if (exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0) begin // @[Backend.scala 443:19]
-          wbResult_0 <= _exReBranchPC_T_1;
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        if (exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0) begin // @[Backend.scala 441:19]
+          wbResult_0 <= {{32'd0}, _exReBranchPC_T_1};
         end else if (2'h2 == exInsts_0_src_b) begin // @[Mux.scala 80:57]
           wbResult_0 <= csr_io_common_io_out;
         end else begin
@@ -9420,292 +9416,292 @@ module Backend(
         end
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbResult_1 <= mdu_io_resp_r; // @[Backend.scala 505:17]
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbResult_1 <= mdu_io_resp_r; // @[Backend.scala 503:17]
       end
     end
     if (reset) begin // @[Backend.scala 125:33]
       wbInstsValid_0 <= 1'h0; // @[Backend.scala 125:33]
-    end else if (kill_x) begin // @[Backend.scala 486:17]
-      wbInstsValid_0 <= 1'h0; // @[Backend.scala 488:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-      wbInstsValid_0 <= exInstsTrueValid_0; // @[Backend.scala 500:23]
+    end else if (kill_x) begin // @[Backend.scala 484:17]
+      wbInstsValid_0 <= 1'h0; // @[Backend.scala 486:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+      wbInstsValid_0 <= exInstsTrueValid_0; // @[Backend.scala 498:23]
     end
     if (reset) begin // @[Backend.scala 125:33]
       wbInstsValid_1 <= 1'h0; // @[Backend.scala 125:33]
-    end else if (kill_x) begin // @[Backend.scala 486:17]
-      wbInstsValid_1 <= 1'h0; // @[Backend.scala 488:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-      wbInstsValid_1 <= exInstsTrueValid_1; // @[Backend.scala 500:23]
+    end else if (kill_x) begin // @[Backend.scala 484:17]
+      wbInstsValid_1 <= 1'h0; // @[Backend.scala 486:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+      wbInstsValid_1 <= exInstsTrueValid_1; // @[Backend.scala 498:23]
     end
     if (reset) begin // @[Backend.scala 125:33]
       wbInstsValid_2 <= 1'h0; // @[Backend.scala 125:33]
-    end else if (kill_x) begin // @[Backend.scala 486:17]
-      wbInstsValid_2 <= 1'h0; // @[Backend.scala 488:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-      wbInstsValid_2 <= ldstValid; // @[Backend.scala 500:23]
+    end else if (kill_x) begin // @[Backend.scala 484:17]
+      wbInstsValid_2 <= 1'h0; // @[Backend.scala 486:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+      wbInstsValid_2 <= ldstValid; // @[Backend.scala 498:23]
     end
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInstsOrder_0 <= exInstsOrder_0; // @[Backend.scala 503:18]
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInstsOrder_0 <= exInstsOrder_0; // @[Backend.scala 501:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInstsOrder_1 <= exInstsOrder_1; // @[Backend.scala 503:18]
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInstsOrder_1 <= exInstsOrder_1; // @[Backend.scala 501:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInstsOrder_2 <= exInstsOrder_2; // @[Backend.scala 503:18]
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInstsOrder_2 <= exInstsOrder_2; // @[Backend.scala 501:18]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_illegal <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_illegal <= exInsts_0_illegal; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_illegal <= exInsts_0_illegal; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_next_pc <= 3'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_next_pc <= exInsts_0_next_pc; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_next_pc <= exInsts_0_next_pc; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_alu_mdu_lsu <= exInsts_0_alu_mdu_lsu; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_alu_mdu_lsu <= exInsts_0_alu_mdu_lsu; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_write_dest <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_write_dest <= exInsts_0_write_dest; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_write_dest <= exInsts_0_write_dest; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_rd <= 5'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_rd <= exInsts_0_rd; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_rd <= exInsts_0_rd; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_imm <= 21'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_imm <= exInsts_0_imm; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_imm <= exInsts_0_imm; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
-      wbInsts__0_pc <= 64'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_pc <= exInsts_0_pc; // @[Backend.scala 502:13]
+      wbInsts__0_pc <= 32'h0; // @[Backend.scala 127:33]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_pc <= exInsts_0_pc; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_ysyx_debug <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_ysyx_debug <= exInsts_0_ysyx_debug; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_ysyx_debug <= exInsts_0_ysyx_debug; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_ysyx_print <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_ysyx_print <= exInsts_0_ysyx_print; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_ysyx_print <= exInsts_0_ysyx_print; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_inst <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__0_inst <= exInsts_0_inst; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__0_inst <= exInsts_0_inst; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_write_dest <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__1_write_dest <= exInsts_1_write_dest; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__1_write_dest <= exInsts_1_write_dest; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_rd <= 5'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__1_rd <= exInsts_1_rd; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__1_rd <= exInsts_1_rd; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
-      wbInsts__1_pc <= 64'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__1_pc <= exInsts_1_pc; // @[Backend.scala 502:13]
+      wbInsts__1_pc <= 32'h0; // @[Backend.scala 127:33]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__1_pc <= exInsts_1_pc; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_ysyx_print <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__1_ysyx_print <= exInsts_1_ysyx_print; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__1_ysyx_print <= exInsts_1_ysyx_print; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_inst <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__1_inst <= exInsts_1_inst; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__1_inst <= exInsts_1_inst; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_write_dest <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__2_write_dest <= exInsts_2_write_dest; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__2_write_dest <= exInsts_2_write_dest; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_mem_width <= 3'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__2_mem_width <= exInsts_2_mem_width; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__2_mem_width <= exInsts_2_mem_width; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_rd <= 5'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__2_rd <= exInsts_2_rd; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__2_rd <= exInsts_2_rd; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
-      wbInsts__2_pc <= 64'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__2_pc <= exInsts_2_pc; // @[Backend.scala 502:13]
+      wbInsts__2_pc <= 32'h0; // @[Backend.scala 127:33]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__2_pc <= exInsts_2_pc; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_ysyx_print <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__2_ysyx_print <= exInsts_2_ysyx_print; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__2_ysyx_print <= exInsts_2_ysyx_print; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_inst <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInsts__2_inst <= exInsts_2_inst; // @[Backend.scala 502:13]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInsts__2_inst <= exInsts_2_inst; // @[Backend.scala 500:13]
       end
     end
     if (reset) begin // @[Backend.scala 133:33]
       wbReBranch <= 1'h0; // @[Backend.scala 133:33]
-    end else if (kill_x) begin // @[Backend.scala 486:17]
-      wbReBranch <= 1'h0; // @[Backend.scala 490:16]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-      wbReBranch <= reBranch; // @[Backend.scala 512:16]
+    end else if (kill_x) begin // @[Backend.scala 484:17]
+      wbReBranch <= 1'h0; // @[Backend.scala 488:16]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+      wbReBranch <= reBranch; // @[Backend.scala 510:16]
     end
     wbMisalignedAddr <= io_dcache_req_bits_addr; // @[Backend.scala 136:33]
     if (reset) begin // @[Backend.scala 137:33]
       wbInterruptd <= 1'h0; // @[Backend.scala 137:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbInterruptd <= exInterruptd & ~io_fb_bmfs_redirect_kill; // @[Backend.scala 494:18]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbInterruptd <= exInterruptd & ~io_fb_bmfs_redirect_kill; // @[Backend.scala 492:18]
       end
     end
     if (reset) begin // @[Backend.scala 138:33]
       wbLdMa <= 1'h0; // @[Backend.scala 138:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbLdMa <= ldMisaligned; // @[Backend.scala 506:12]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbLdMa <= ldMisaligned; // @[Backend.scala 504:12]
       end
     end
     if (reset) begin // @[Backend.scala 139:33]
       wbStMa <= 1'h0; // @[Backend.scala 139:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbStMa <= stMisaligned; // @[Backend.scala 507:12]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbStMa <= stMisaligned; // @[Backend.scala 505:12]
       end
     end
     if (reset) begin // @[Backend.scala 140:33]
       wbBpuV <= 1'h0; // @[Backend.scala 140:33]
-    end else if (kill_x) begin // @[Backend.scala 486:17]
-      wbBpuV <= 1'h0; // @[Backend.scala 491:12]
+    end else if (kill_x) begin // @[Backend.scala 484:17]
+      wbBpuV <= 1'h0; // @[Backend.scala 489:12]
     end else begin
       wbBpuV <= _GEN_231;
     end
-    wbBpuErrpr <= isExPCBr & exInsts_0_target_pc[63:2] != brPC[63:2] & reBranchBrTaken | isExPCJump &
-      exInsts_0_target_pc[63:2] != jumpPc[63:2]; // @[Backend.scala 117:110]
+    wbBpuErrpr <= isExPCBr & exInsts_0_target_pc[31:2] != brPC[31:2] & reBranchBrTaken | isExPCJump &
+      exInsts_0_target_pc[31:2] != jumpPc[31:2]; // @[Backend.scala 117:114]
     wbBpuPCBr <= {wbBpuPCBr_hi,wbBpuPCBr_lo}; // @[Cat.scala 30:58]
     if (isExPCBr) begin // @[Backend.scala 119:22]
       wbBpuTarget <= brPC;
-    end else if (_isExPCJump_T_1) begin // @[Backend.scala 387:16]
+    end else if (_isExPCJump_T_1) begin // @[Backend.scala 385:16]
       wbBpuTarget <= brPC;
     end else begin
       wbBpuTarget <= _jumpPc_T_4;
     end
     wbBpuTaken <= reBranchBrTaken | isExPCJump; // @[Backend.scala 120:35]
-    if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbCsrData <= alu_io_r; // @[Backend.scala 509:15]
+    if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbCsrData <= alu_io_r; // @[Backend.scala 507:15]
       end
     end
-    wbLdDataValid <= mdu_io_resp_valid; // @[Backend.scala 468:30]
+    wbLdDataValid <= mdu_io_resp_valid; // @[Backend.scala 466:30]
     if (_kill_x_T) begin // @[Reg.scala 16:19]
       delayed_req_bits <= _delayed_req_bits_T_1; // @[Reg.scala 16:23]
     end
-    if (reset) begin // @[Backend.scala 470:28]
-      wbMMIOValid <= 1'h0; // @[Backend.scala 470:28]
-    end else if (!(kill_x)) begin // @[Backend.scala 486:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 492:26]
-        wbMMIOValid <= exMMIOValid; // @[Backend.scala 493:17]
+    if (reset) begin // @[Backend.scala 468:28]
+      wbMMIOValid <= 1'h0; // @[Backend.scala 468:28]
+    end else if (!(kill_x)) begin // @[Backend.scala 484:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 490:26]
+        wbMMIOValid <= exMMIOValid; // @[Backend.scala 491:17]
       end
     end
-    wb_mmio_ld_data <= csr_io_common_io_out; // @[Backend.scala 471:32]
-    if (_stall_i_T & wbLdDataForStall_REG) begin // @[Backend.scala 467:26]
+    wb_mmio_ld_data <= csr_io_common_io_out; // @[Backend.scala 469:32]
+    if (_stall_i_T & wbLdDataForStall_REG) begin // @[Backend.scala 465:26]
       if (_T_43) begin // @[Conditional.scala 40:58]
-        wbLdDataForStall <= _wbLdData_T_5; // @[Backend.scala 475:41]
+        wbLdDataForStall <= _wbLdData_T_5; // @[Backend.scala 473:41]
       end else if (_T_44) begin // @[Conditional.scala 39:67]
-        wbLdDataForStall <= _wbLdData_T_6; // @[Backend.scala 476:41]
+        wbLdDataForStall <= _wbLdData_T_6; // @[Backend.scala 474:41]
       end else if (_T_45) begin // @[Conditional.scala 39:67]
-        wbLdDataForStall <= _wbLdData_T_9; // @[Backend.scala 477:41]
+        wbLdDataForStall <= _wbLdData_T_9; // @[Backend.scala 475:41]
       end else begin
         wbLdDataForStall <= _GEN_225;
       end
     end
-    mdu_io_req_valid_REG <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 330:36]
-    if (reset) begin // @[Backend.scala 338:29]
-      exLastMemReq_addr <= 32'h0; // @[Backend.scala 338:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 372:23]
-      exLastMemReq_addr <= exCurMemReq_addr; // @[Backend.scala 374:18]
+    mdu_io_req_valid_REG <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 328:36]
+    if (reset) begin // @[Backend.scala 336:29]
+      exLastMemReq_addr <= 32'h0; // @[Backend.scala 336:29]
+    end else if (_kill_x_T) begin // @[Backend.scala 370:23]
+      exLastMemReq_addr <= exCurMemReq_addr; // @[Backend.scala 372:18]
     end
-    if (reset) begin // @[Backend.scala 338:29]
-      exLastMemReq_wdata <= 64'h0; // @[Backend.scala 338:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 372:23]
-      exLastMemReq_wdata <= exFwdRtData_2; // @[Backend.scala 374:18]
+    if (reset) begin // @[Backend.scala 336:29]
+      exLastMemReq_wdata <= 64'h0; // @[Backend.scala 336:29]
+    end else if (_kill_x_T) begin // @[Backend.scala 370:23]
+      exLastMemReq_wdata <= exFwdRtData_2; // @[Backend.scala 372:18]
     end
-    if (reset) begin // @[Backend.scala 338:29]
-      exLastMemReq_wen <= 1'h0; // @[Backend.scala 338:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 372:23]
-      exLastMemReq_wen <= _stMisaligned_T; // @[Backend.scala 374:18]
+    if (reset) begin // @[Backend.scala 336:29]
+      exLastMemReq_wen <= 1'h0; // @[Backend.scala 336:29]
+    end else if (_kill_x_T) begin // @[Backend.scala 370:23]
+      exLastMemReq_wen <= _stMisaligned_T; // @[Backend.scala 372:18]
     end
-    if (reset) begin // @[Backend.scala 338:29]
-      exLastMemReq_mtype <= 3'h2; // @[Backend.scala 338:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 372:23]
-      exLastMemReq_mtype <= exCurMemReq_mtype; // @[Backend.scala 374:18]
+    if (reset) begin // @[Backend.scala 336:29]
+      exLastMemReq_mtype <= 3'h2; // @[Backend.scala 336:29]
+    end else if (_kill_x_T) begin // @[Backend.scala 370:23]
+      exLastMemReq_mtype <= exCurMemReq_mtype; // @[Backend.scala 372:18]
     end
-    wbLdDataForStall_REG <= mdu_io_resp_valid; // @[Backend.scala 467:56]
-    wb_mmio_sd_data <= exFwdRtData_2; // @[Backend.scala 573:33]
+    wbLdDataForStall_REG <= mdu_io_resp_valid; // @[Backend.scala 465:56]
+    wb_mmio_sd_data <= exFwdRtData_2; // @[Backend.scala 571:33]
     if (64'h2004000 == ldstAddr) begin // @[Mux.scala 80:57]
       wb_mmio_num <= 12'hffe;
     end else if (64'h200bff8 == ldstAddr) begin // @[Mux.scala 80:57]
@@ -9713,34 +9709,34 @@ module Backend(
     end else begin
       wb_mmio_num <= 12'h0;
     end
-    REG <= wbInstsValid_0 & _issueQueue_io_deqReq_T & |wbInsts__0_inst; // @[Backend.scala 621:90]
-    REG_1 <= wbInstsValid_1 & _issueQueue_io_deqReq_T & |wbInsts__1_inst; // @[Backend.scala 621:90]
-    REG_2 <= wbInstsValid_2 & _issueQueue_io_deqReq_T & |wbInsts__2_inst; // @[Backend.scala 621:90]
-    if (wbInstsValid_0) begin // @[Backend.scala 622:64]
+    REG <= wbInstsValid_0 & _issueQueue_io_deqReq_T & |wbInsts__0_inst; // @[Backend.scala 619:90]
+    REG_1 <= wbInstsValid_1 & _issueQueue_io_deqReq_T & |wbInsts__1_inst; // @[Backend.scala 619:90]
+    REG_2 <= wbInstsValid_2 & _issueQueue_io_deqReq_T & |wbInsts__2_inst; // @[Backend.scala 619:90]
+    if (wbInstsValid_0) begin // @[Backend.scala 620:64]
       REG_3 <= wbInsts__0_pc;
     end else begin
-      REG_3 <= 64'h0;
+      REG_3 <= 32'h0;
     end
-    if (wbInstsValid_1) begin // @[Backend.scala 622:64]
+    if (wbInstsValid_1) begin // @[Backend.scala 620:64]
       REG_4 <= wbInsts__1_pc;
     end else begin
-      REG_4 <= 64'h0;
+      REG_4 <= 32'h0;
     end
-    if (wbInstsValid_2) begin // @[Backend.scala 622:64]
+    if (wbInstsValid_2) begin // @[Backend.scala 620:64]
       REG_5 <= wbInsts__2_pc;
     end else begin
-      REG_5 <= 64'h0;
+      REG_5 <= 32'h0;
     end
-    REG_6 <= wbInstsOrder_0; // @[Backend.scala 623:60]
-    REG_7 <= wbInstsOrder_1; // @[Backend.scala 623:60]
-    REG_8 <= wbInstsOrder_2; // @[Backend.scala 623:60]
-    REG_9 <= wbInsts__0_inst; // @[Backend.scala 624:60]
-    REG_10 <= wbInsts__1_inst; // @[Backend.scala 624:60]
-    REG_11 <= wbInsts__2_inst; // @[Backend.scala 624:60]
-    REG_12 <= wbMMIOValid; // @[Backend.scala 625:72]
-    REG_13 <= wbInsts__0_ysyx_print; // @[Backend.scala 631:60]
-    REG_14 <= wbInsts__1_ysyx_print; // @[Backend.scala 631:60]
-    REG_15 <= wbInsts__2_ysyx_print; // @[Backend.scala 631:60]
+    REG_6 <= wbInstsOrder_0; // @[Backend.scala 621:60]
+    REG_7 <= wbInstsOrder_1; // @[Backend.scala 621:60]
+    REG_8 <= wbInstsOrder_2; // @[Backend.scala 621:60]
+    REG_9 <= wbInsts__0_inst; // @[Backend.scala 622:60]
+    REG_10 <= wbInsts__1_inst; // @[Backend.scala 622:60]
+    REG_11 <= wbInsts__2_inst; // @[Backend.scala 622:60]
+    REG_12 <= wbMMIOValid; // @[Backend.scala 623:72]
+    REG_13 <= wbInsts__0_ysyx_print; // @[Backend.scala 629:60]
+    REG_14 <= wbInsts__1_ysyx_print; // @[Backend.scala 629:60]
+    REG_15 <= wbInsts__2_ysyx_print; // @[Backend.scala 629:60]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -9806,12 +9802,12 @@ initial begin
   exInsts_0_rd = _RAND_12[4:0];
   _RAND_13 = {1{`RANDOM}};
   exInsts_0_imm = _RAND_13[20:0];
-  _RAND_14 = {2{`RANDOM}};
-  exInsts_0_pc = _RAND_14[63:0];
+  _RAND_14 = {1{`RANDOM}};
+  exInsts_0_pc = _RAND_14[31:0];
   _RAND_15 = {1{`RANDOM}};
   exInsts_0_predict_taken = _RAND_15[0:0];
-  _RAND_16 = {2{`RANDOM}};
-  exInsts_0_target_pc = _RAND_16[63:0];
+  _RAND_16 = {1{`RANDOM}};
+  exInsts_0_target_pc = _RAND_16[31:0];
   _RAND_17 = {1{`RANDOM}};
   exInsts_0_ysyx_debug = _RAND_17[0:0];
   _RAND_18 = {1{`RANDOM}};
@@ -9832,8 +9828,8 @@ initial begin
   exInsts_1_rd = _RAND_25[4:0];
   _RAND_26 = {1{`RANDOM}};
   exInsts_1_imm = _RAND_26[20:0];
-  _RAND_27 = {2{`RANDOM}};
-  exInsts_1_pc = _RAND_27[63:0];
+  _RAND_27 = {1{`RANDOM}};
+  exInsts_1_pc = _RAND_27[31:0];
   _RAND_28 = {1{`RANDOM}};
   exInsts_1_ysyx_print = _RAND_28[0:0];
   _RAND_29 = {1{`RANDOM}};
@@ -9850,8 +9846,8 @@ initial begin
   exInsts_2_rd = _RAND_34[4:0];
   _RAND_35 = {1{`RANDOM}};
   exInsts_2_imm = _RAND_35[20:0];
-  _RAND_36 = {2{`RANDOM}};
-  exInsts_2_pc = _RAND_36[63:0];
+  _RAND_36 = {1{`RANDOM}};
+  exInsts_2_pc = _RAND_36[31:0];
   _RAND_37 = {1{`RANDOM}};
   exInsts_2_ysyx_print = _RAND_37[0:0];
   _RAND_38 = {1{`RANDOM}};
@@ -9912,8 +9908,8 @@ initial begin
   wbInsts__0_rd = _RAND_65[4:0];
   _RAND_66 = {1{`RANDOM}};
   wbInsts__0_imm = _RAND_66[20:0];
-  _RAND_67 = {2{`RANDOM}};
-  wbInsts__0_pc = _RAND_67[63:0];
+  _RAND_67 = {1{`RANDOM}};
+  wbInsts__0_pc = _RAND_67[31:0];
   _RAND_68 = {1{`RANDOM}};
   wbInsts__0_ysyx_debug = _RAND_68[0:0];
   _RAND_69 = {1{`RANDOM}};
@@ -9924,8 +9920,8 @@ initial begin
   wbInsts__1_write_dest = _RAND_71[0:0];
   _RAND_72 = {1{`RANDOM}};
   wbInsts__1_rd = _RAND_72[4:0];
-  _RAND_73 = {2{`RANDOM}};
-  wbInsts__1_pc = _RAND_73[63:0];
+  _RAND_73 = {1{`RANDOM}};
+  wbInsts__1_pc = _RAND_73[31:0];
   _RAND_74 = {1{`RANDOM}};
   wbInsts__1_ysyx_print = _RAND_74[0:0];
   _RAND_75 = {1{`RANDOM}};
@@ -9936,8 +9932,8 @@ initial begin
   wbInsts__2_mem_width = _RAND_77[2:0];
   _RAND_78 = {1{`RANDOM}};
   wbInsts__2_rd = _RAND_78[4:0];
-  _RAND_79 = {2{`RANDOM}};
-  wbInsts__2_pc = _RAND_79[63:0];
+  _RAND_79 = {1{`RANDOM}};
+  wbInsts__2_pc = _RAND_79[31:0];
   _RAND_80 = {1{`RANDOM}};
   wbInsts__2_ysyx_print = _RAND_80[0:0];
   _RAND_81 = {1{`RANDOM}};
@@ -9956,8 +9952,8 @@ initial begin
   wbBpuV = _RAND_87[0:0];
   _RAND_88 = {1{`RANDOM}};
   wbBpuErrpr = _RAND_88[0:0];
-  _RAND_89 = {2{`RANDOM}};
-  wbBpuPCBr = _RAND_89[63:0];
+  _RAND_89 = {1{`RANDOM}};
+  wbBpuPCBr = _RAND_89[31:0];
   _RAND_90 = {2{`RANDOM}};
   wbBpuTarget = _RAND_90[63:0];
   _RAND_91 = {1{`RANDOM}};
@@ -9996,12 +9992,12 @@ initial begin
   REG_1 = _RAND_107[0:0];
   _RAND_108 = {1{`RANDOM}};
   REG_2 = _RAND_108[0:0];
-  _RAND_109 = {2{`RANDOM}};
-  REG_3 = _RAND_109[63:0];
-  _RAND_110 = {2{`RANDOM}};
-  REG_4 = _RAND_110[63:0];
-  _RAND_111 = {2{`RANDOM}};
-  REG_5 = _RAND_111[63:0];
+  _RAND_109 = {1{`RANDOM}};
+  REG_3 = _RAND_109[31:0];
+  _RAND_110 = {1{`RANDOM}};
+  REG_4 = _RAND_110[31:0];
+  _RAND_111 = {1{`RANDOM}};
+  REG_5 = _RAND_111[31:0];
   _RAND_112 = {1{`RANDOM}};
   REG_6 = _RAND_112[1:0];
   _RAND_113 = {1{`RANDOM}};
@@ -10067,9 +10063,9 @@ module Core(
   output        _WIRE_4_0,
   output        _WIRE_4_1,
   output        _WIRE_4_2,
-  output [63:0] _WIRE_1_0,
-  output [63:0] _WIRE_1_1,
-  output [63:0] _WIRE_1_2,
+  output [31:0] _WIRE_1_0,
+  output [31:0] _WIRE_1_1,
+  output [31:0] _WIRE_1_2,
   input  [4:0]  difftest_saddr,
   output [1:0]  current_mode,
   output [63:0] _WIRE__0,
@@ -10131,8 +10127,8 @@ module Core(
   wire [63:0] fe_io_fb_bmfs_bpu_target; // @[Core.scala 97:18]
   wire  fe_io_fb_bmfs_bpu_taken; // @[Core.scala 97:18]
   wire [1:0] fe_io_fb_fmbs_instn; // @[Core.scala 97:18]
-  wire [224:0] fe_io_fb_fmbs_inst_ops_0; // @[Core.scala 97:18]
-  wire [224:0] fe_io_fb_fmbs_inst_ops_1; // @[Core.scala 97:18]
+  wire [160:0] fe_io_fb_fmbs_inst_ops_0; // @[Core.scala 97:18]
+  wire [160:0] fe_io_fb_fmbs_inst_ops_1; // @[Core.scala 97:18]
   wire  fe_io_fb_fmbs_please_wait; // @[Core.scala 97:18]
   wire  fe_io_icache_req_valid; // @[Core.scala 97:18]
   wire [31:0] fe_io_icache_req_bits_addr; // @[Core.scala 97:18]
@@ -10151,8 +10147,8 @@ module Core(
   wire [63:0] be_io_fb_bmfs_bpu_target; // @[Core.scala 98:18]
   wire  be_io_fb_bmfs_bpu_taken; // @[Core.scala 98:18]
   wire [1:0] be_io_fb_fmbs_instn; // @[Core.scala 98:18]
-  wire [224:0] be_io_fb_fmbs_inst_ops_0; // @[Core.scala 98:18]
-  wire [224:0] be_io_fb_fmbs_inst_ops_1; // @[Core.scala 98:18]
+  wire [160:0] be_io_fb_fmbs_inst_ops_0; // @[Core.scala 98:18]
+  wire [160:0] be_io_fb_fmbs_inst_ops_1; // @[Core.scala 98:18]
   wire  be_io_fb_fmbs_please_wait; // @[Core.scala 98:18]
   wire  be_io_dcache_req_valid; // @[Core.scala 98:18]
   wire [31:0] be_io_dcache_req_bits_addr; // @[Core.scala 98:18]
@@ -10182,9 +10178,9 @@ module Core(
   wire  be__WIRE_4_0_0; // @[Core.scala 98:18]
   wire  be__WIRE_4_0_1; // @[Core.scala 98:18]
   wire  be__WIRE_4_0_2; // @[Core.scala 98:18]
-  wire [63:0] be__WIRE_1_0_0; // @[Core.scala 98:18]
-  wire [63:0] be__WIRE_1_0_1; // @[Core.scala 98:18]
-  wire [63:0] be__WIRE_1_0_2; // @[Core.scala 98:18]
+  wire [31:0] be__WIRE_1_0_0; // @[Core.scala 98:18]
+  wire [31:0] be__WIRE_1_0_1; // @[Core.scala 98:18]
+  wire [31:0] be__WIRE_1_0_2; // @[Core.scala 98:18]
   wire [4:0] be_difftest_saddr; // @[Core.scala 98:18]
   wire [1:0] be_current_mode; // @[Core.scala 98:18]
   wire [63:0] be__WIRE_0_0; // @[Core.scala 98:18]
@@ -37592,9 +37588,9 @@ module TileForVerilator(
   wire  core__WIRE_4_0; // @[Tile.scala 91:20]
   wire  core__WIRE_4_1; // @[Tile.scala 91:20]
   wire  core__WIRE_4_2; // @[Tile.scala 91:20]
-  wire [63:0] core__WIRE_1_0; // @[Tile.scala 91:20]
-  wire [63:0] core__WIRE_1_1; // @[Tile.scala 91:20]
-  wire [63:0] core__WIRE_1_2; // @[Tile.scala 91:20]
+  wire [31:0] core__WIRE_1_0; // @[Tile.scala 91:20]
+  wire [31:0] core__WIRE_1_1; // @[Tile.scala 91:20]
+  wire [31:0] core__WIRE_1_2; // @[Tile.scala 91:20]
   wire [4:0] core_difftest_saddr; // @[Tile.scala 91:20]
   wire [1:0] core_current_mode; // @[Tile.scala 91:20]
   wire [63:0] core__WIRE__0; // @[Tile.scala 91:20]
@@ -37690,6 +37686,9 @@ module TileForVerilator(
   wire  difftest__sync = io_difftest_sync;
   wire [31:0] difftest__sval = io_difftest_sval;
   wire [4:0] difftest__saddr = io_difftest_saddr;
+  wire [31:0] difftestPCs_0 = core__WIRE_1_0;
+  wire [31:0] difftestPCs_1 = core__WIRE_1_1;
+  wire [31:0] difftestPCs_2 = core__WIRE_1_2;
   Core core ( // @[Tile.scala 91:20]
     .clock(core_clock),
     .reset(core_reset),
@@ -37864,9 +37863,9 @@ module TileForVerilator(
   assign io_difftest_valids_0 = core__WIRE_0_0; // @[Tile.scala 121:15]
   assign io_difftest_valids_1 = core__WIRE_0_1; // @[Tile.scala 121:15]
   assign io_difftest_valids_2 = core__WIRE_0_2; // @[Tile.scala 121:15]
-  assign io_difftest_pcs_0 = core__WIRE_1_0; // @[Tile.scala 121:15]
-  assign io_difftest_pcs_1 = core__WIRE_1_1; // @[Tile.scala 121:15]
-  assign io_difftest_pcs_2 = core__WIRE_1_2; // @[Tile.scala 121:15]
+  assign io_difftest_pcs_0 = {{32'd0}, difftestPCs_0}; // @[Tile.scala 121:15]
+  assign io_difftest_pcs_1 = {{32'd0}, difftestPCs_1}; // @[Tile.scala 121:15]
+  assign io_difftest_pcs_2 = {{32'd0}, difftestPCs_2}; // @[Tile.scala 121:15]
   assign io_difftest_orders_0 = core__WIRE_2_0; // @[Tile.scala 121:15]
   assign io_difftest_orders_1 = core__WIRE_2_1; // @[Tile.scala 121:15]
   assign io_difftest_orders_2 = core__WIRE_2_2; // @[Tile.scala 121:15]
