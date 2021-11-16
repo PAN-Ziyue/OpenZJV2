@@ -2410,77 +2410,77 @@ module Divider(
   reg [63:0] _RAND_5;
   reg [63:0] _RAND_6;
 `endif // RANDOMIZE_REG_INIT
-  reg [63:0] in1d; // @[MDU.scala 135:21]
-  reg [63:0] in2d; // @[MDU.scala 136:21]
-  reg [1:0] state; // @[MDU.scala 139:23]
-  reg [5:0] step; // @[MDU.scala 146:26]
-  reg [128:0] remr; // @[MDU.scala 148:22]
-  wire  isz_2 = ~(|in1d[31:24]); // @[MDU.scala 153:19]
-  wire  isz_1 = ~(|in1d[23:16]); // @[MDU.scala 153:19]
-  wire  isz_0 = ~(|in1d[15:8]); // @[MDU.scala 153:19]
-  wire [1:0] _num_nonz_T = isz_0 ? 2'h1 : 2'h2; // @[MDU.scala 155:42]
-  wire [1:0] _num_nonz_T_1 = isz_1 ? _num_nonz_T : 2'h3; // @[MDU.scala 155:30]
-  wire [2:0] _num_nonz_T_2 = isz_2 ? {{1'd0}, _num_nonz_T_1} : 3'h4; // @[MDU.scala 155:18]
-  wire [3:0] num_nonz = {{1'd0}, _num_nonz_T_2}; // @[MDU.scala 145:23 MDU.scala 155:12]
-  wire [3:0] _true_rem_T_2 = 4'h8 - num_nonz; // @[MDU.scala 159:72]
-  wire [7:0] _true_rem_T_3 = 4'h8 * _true_rem_T_2; // @[MDU.scala 159:52]
-  wire [7:0] _true_rem_T_5 = 8'h1 + _true_rem_T_3; // @[MDU.scala 159:46]
-  wire [318:0] _GEN_6 = {{255'd0}, in1d}; // @[MDU.scala 159:38]
-  wire [318:0] _true_rem_T_6 = _GEN_6 << _true_rem_T_5; // @[MDU.scala 159:38]
-  wire [318:0] _true_rem_T_7 = step == 6'h0 ? _true_rem_T_6 : {{190'd0}, remr}; // @[MDU.scala 159:18]
-  wire [128:0] true_rem = _true_rem_T_7[128:0]; // @[MDU.scala 158:22 MDU.scala 159:12]
-  wire [129:0] _rems_T_2 = {true_rem, 1'h0}; // @[MDU.scala 161:14]
-  wire [63:0] _rems_T_5 = true_rem[127:64] - in2d; // @[MDU.scala 162:41]
-  wire [62:0] rems_hi_hi = _rems_T_5[62:0]; // @[MDU.scala 162:48]
-  wire [63:0] rems_hi_lo = true_rem[63:0]; // @[MDU.scala 162:72]
+  reg [63:0] in1d; // @[MDU.scala 140:21]
+  reg [63:0] in2d; // @[MDU.scala 141:21]
+  reg [1:0] state; // @[MDU.scala 144:23]
+  reg [5:0] step; // @[MDU.scala 151:26]
+  reg [128:0] remr; // @[MDU.scala 153:22]
+  wire  isz_2 = ~(|in1d[31:24]); // @[MDU.scala 158:19]
+  wire  isz_1 = ~(|in1d[23:16]); // @[MDU.scala 158:19]
+  wire  isz_0 = ~(|in1d[15:8]); // @[MDU.scala 158:19]
+  wire [1:0] _num_nonz_T = isz_0 ? 2'h1 : 2'h2; // @[MDU.scala 160:42]
+  wire [1:0] _num_nonz_T_1 = isz_1 ? _num_nonz_T : 2'h3; // @[MDU.scala 160:30]
+  wire [2:0] _num_nonz_T_2 = isz_2 ? {{1'd0}, _num_nonz_T_1} : 3'h4; // @[MDU.scala 160:18]
+  wire [3:0] num_nonz = {{1'd0}, _num_nonz_T_2}; // @[MDU.scala 150:23 MDU.scala 160:12]
+  wire [3:0] _true_rem_T_2 = 4'h8 - num_nonz; // @[MDU.scala 164:72]
+  wire [7:0] _true_rem_T_3 = 4'h8 * _true_rem_T_2; // @[MDU.scala 164:52]
+  wire [7:0] _true_rem_T_5 = 8'h1 + _true_rem_T_3; // @[MDU.scala 164:46]
+  wire [318:0] _GEN_6 = {{255'd0}, in1d}; // @[MDU.scala 164:38]
+  wire [318:0] _true_rem_T_6 = _GEN_6 << _true_rem_T_5; // @[MDU.scala 164:38]
+  wire [318:0] _true_rem_T_7 = step == 6'h0 ? _true_rem_T_6 : {{190'd0}, remr}; // @[MDU.scala 164:18]
+  wire [128:0] true_rem = _true_rem_T_7[128:0]; // @[MDU.scala 163:22 MDU.scala 164:12]
+  wire [129:0] _rems_T_2 = {true_rem, 1'h0}; // @[MDU.scala 166:14]
+  wire [63:0] _rems_T_5 = true_rem[127:64] - in2d; // @[MDU.scala 167:41]
+  wire [62:0] rems_hi_hi = _rems_T_5[62:0]; // @[MDU.scala 167:48]
+  wire [63:0] rems_hi_lo = true_rem[63:0]; // @[MDU.scala 167:72]
   wire [127:0] _rems_T_6 = {rems_hi_hi,rems_hi_lo,1'h1}; // @[Cat.scala 30:58]
-  wire [129:0] _rems_T_7 = true_rem[127:64] < in2d ? _rems_T_2 : {{2'd0}, _rems_T_6}; // @[MDU.scala 160:18]
-  wire [7:0] _nstate_T_1 = 4'h8 * num_nonz; // @[MDU.scala 168:35]
-  wire [7:0] _nstate_T_3 = _nstate_T_1 - 8'h1; // @[MDU.scala 168:46]
-  wire [7:0] _GEN_7 = {{2'd0}, step}; // @[MDU.scala 168:24]
-  wire [5:0] _step_T_1 = step + 6'h1; // @[MDU.scala 169:18]
-  wire [128:0] rems = _rems_T_7[128:0]; // @[MDU.scala 149:23 MDU.scala 160:12]
-  reg [63:0] io_div_res_REG; // @[MDU.scala 178:24]
-  reg [63:0] io_rem_res_REG; // @[MDU.scala 179:24]
-  assign io_vo = state == 2'h2; // @[MDU.scala 176:23]
-  assign io_div_res = io_div_res_REG; // @[MDU.scala 178:14]
-  assign io_rem_res = io_rem_res_REG; // @[MDU.scala 179:14]
+  wire [129:0] _rems_T_7 = true_rem[127:64] < in2d ? _rems_T_2 : {{2'd0}, _rems_T_6}; // @[MDU.scala 165:18]
+  wire [7:0] _nstate_T_1 = 4'h8 * num_nonz; // @[MDU.scala 173:35]
+  wire [7:0] _nstate_T_3 = _nstate_T_1 - 8'h1; // @[MDU.scala 173:46]
+  wire [7:0] _GEN_7 = {{2'd0}, step}; // @[MDU.scala 173:24]
+  wire [5:0] _step_T_1 = step + 6'h1; // @[MDU.scala 174:18]
+  wire [128:0] rems = _rems_T_7[128:0]; // @[MDU.scala 154:23 MDU.scala 165:12]
+  reg [63:0] io_div_res_REG; // @[MDU.scala 183:24]
+  reg [63:0] io_rem_res_REG; // @[MDU.scala 184:24]
+  assign io_vo = state == 2'h2; // @[MDU.scala 181:23]
+  assign io_div_res = io_div_res_REG; // @[MDU.scala 183:14]
+  assign io_rem_res = io_rem_res_REG; // @[MDU.scala 184:14]
   always @(posedge clock) begin
-    in1d <= io_in1; // @[MDU.scala 135:21]
-    in2d <= io_in2; // @[MDU.scala 136:21]
-    if (reset) begin // @[MDU.scala 139:23]
-      state <= 2'h0; // @[MDU.scala 139:23]
-    end else if (state == 2'h0) begin // @[MDU.scala 165:27]
-      if (io_vi) begin // @[MDU.scala 166:18]
+    in1d <= io_in1; // @[MDU.scala 140:21]
+    in2d <= io_in2; // @[MDU.scala 141:21]
+    if (reset) begin // @[MDU.scala 144:23]
+      state <= 2'h0; // @[MDU.scala 144:23]
+    end else if (state == 2'h0) begin // @[MDU.scala 170:27]
+      if (io_vi) begin // @[MDU.scala 171:18]
         state <= 2'h1;
       end else begin
         state <= 2'h0;
       end
-    end else if (state == 2'h1) begin // @[MDU.scala 167:32]
-      if (_GEN_7 == _nstate_T_3) begin // @[MDU.scala 168:18]
+    end else if (state == 2'h1) begin // @[MDU.scala 172:32]
+      if (_GEN_7 == _nstate_T_3) begin // @[MDU.scala 173:18]
         state <= 2'h2;
       end else begin
         state <= 2'h1;
       end
     end else begin
-      state <= 2'h0; // @[MDU.scala 173:12]
+      state <= 2'h0; // @[MDU.scala 178:12]
     end
-    if (reset) begin // @[MDU.scala 146:26]
-      step <= 6'h0; // @[MDU.scala 146:26]
-    end else if (!(state == 2'h0)) begin // @[MDU.scala 165:27]
-      if (state == 2'h1) begin // @[MDU.scala 167:32]
-        step <= _step_T_1; // @[MDU.scala 169:10]
+    if (reset) begin // @[MDU.scala 151:26]
+      step <= 6'h0; // @[MDU.scala 151:26]
+    end else if (!(state == 2'h0)) begin // @[MDU.scala 170:27]
+      if (state == 2'h1) begin // @[MDU.scala 172:32]
+        step <= _step_T_1; // @[MDU.scala 174:10]
       end else begin
-        step <= 6'h0; // @[MDU.scala 172:10]
+        step <= 6'h0; // @[MDU.scala 177:10]
       end
     end
-    if (!(state == 2'h0)) begin // @[MDU.scala 165:27]
-      if (state == 2'h1) begin // @[MDU.scala 167:32]
-        remr <= rems; // @[MDU.scala 170:10]
+    if (!(state == 2'h0)) begin // @[MDU.scala 170:27]
+      if (state == 2'h1) begin // @[MDU.scala 172:32]
+        remr <= rems; // @[MDU.scala 175:10]
       end
     end
-    io_div_res_REG <= rems[63:0]; // @[MDU.scala 178:29]
-    io_rem_res_REG <= rems[128:65]; // @[MDU.scala 179:29]
+    io_div_res_REG <= rems[63:0]; // @[MDU.scala 183:29]
+    io_rem_res_REG <= rems[128:65]; // @[MDU.scala 184:29]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -2593,6 +2593,7 @@ endmodule
 module MDU(
   input         clock,
   input         reset,
+  input         io_kill,
   input         io_req_valid,
   input  [4:0]  io_req_op,
   input         io_req_expand,
@@ -2610,62 +2611,62 @@ module MDU(
   reg [31:0] _RAND_5;
   reg [31:0] _RAND_6;
 `endif // RANDOMIZE_REG_INIT
-  wire  divider_clock; // @[MDU.scala 59:23]
-  wire  divider_reset; // @[MDU.scala 59:23]
-  wire  divider_io_vi; // @[MDU.scala 59:23]
-  wire [63:0] divider_io_in1; // @[MDU.scala 59:23]
-  wire [63:0] divider_io_in2; // @[MDU.scala 59:23]
-  wire  divider_io_vo; // @[MDU.scala 59:23]
-  wire [63:0] divider_io_div_res; // @[MDU.scala 59:23]
-  wire [63:0] divider_io_rem_res; // @[MDU.scala 59:23]
-  wire [63:0] alu_io_a; // @[MDU.scala 85:23]
-  wire [63:0] alu_io_b; // @[MDU.scala 85:23]
-  wire [4:0] alu_io_aluOp; // @[MDU.scala 85:23]
-  wire  alu_io_aluExpand; // @[MDU.scala 85:23]
-  wire [63:0] alu_io_r; // @[MDU.scala 85:23]
-  reg [127:0] mul_res; // @[MDU.scala 50:24]
-  reg [127:0] mulu_res; // @[MDU.scala 51:25]
-  wire [64:0] _mulsu_res_T_1 = {1'b0,$signed(io_req_in2)}; // @[MDU.scala 52:47]
-  wire [128:0] _mulsu_res_T_2 = $signed(io_req_in1) * $signed(_mulsu_res_T_1); // @[MDU.scala 52:47]
-  reg [127:0] mulsu_res; // @[MDU.scala 52:26]
-  wire  mdu_op = io_req_op[4]; // @[MDU.scala 54:25]
-  wire  mul_op = ~io_req_op[2]; // @[MDU.scala 55:16]
-  wire  div_valid = mdu_op & ~mul_op & io_req_valid; // @[MDU.scala 57:38]
-  wire  mult_valid = mdu_op & mul_op & io_req_valid; // @[MDU.scala 58:37]
-  reg  diving; // @[MDU.scala 62:24]
+  wire  divider_clock; // @[MDU.scala 60:23]
+  wire  divider_reset; // @[MDU.scala 60:23]
+  wire  divider_io_vi; // @[MDU.scala 60:23]
+  wire [63:0] divider_io_in1; // @[MDU.scala 60:23]
+  wire [63:0] divider_io_in2; // @[MDU.scala 60:23]
+  wire  divider_io_vo; // @[MDU.scala 60:23]
+  wire [63:0] divider_io_div_res; // @[MDU.scala 60:23]
+  wire [63:0] divider_io_rem_res; // @[MDU.scala 60:23]
+  wire [63:0] alu_io_a; // @[MDU.scala 90:23]
+  wire [63:0] alu_io_b; // @[MDU.scala 90:23]
+  wire [4:0] alu_io_aluOp; // @[MDU.scala 90:23]
+  wire  alu_io_aluExpand; // @[MDU.scala 90:23]
+  wire [63:0] alu_io_r; // @[MDU.scala 90:23]
+  reg [127:0] mul_res; // @[MDU.scala 51:24]
+  reg [127:0] mulu_res; // @[MDU.scala 52:25]
+  wire [64:0] _mulsu_res_T_1 = {1'b0,$signed(io_req_in2)}; // @[MDU.scala 53:47]
+  wire [128:0] _mulsu_res_T_2 = $signed(io_req_in1) * $signed(_mulsu_res_T_1); // @[MDU.scala 53:47]
+  reg [127:0] mulsu_res; // @[MDU.scala 53:26]
+  wire  mdu_op = io_req_op[4]; // @[MDU.scala 55:25]
+  wire  mul_op = ~io_req_op[2]; // @[MDU.scala 56:16]
+  wire  div_valid = mdu_op & ~mul_op & io_req_valid; // @[MDU.scala 58:38]
+  wire  mult_valid = mdu_op & mul_op & io_req_valid; // @[MDU.scala 59:37]
+  reg  diving; // @[MDU.scala 63:24]
   wire  _diving_T = ~diving; // @[Conditional.scala 37:30]
-  reg  multing; // @[MDU.scala 62:24]
+  reg  multing; // @[MDU.scala 63:24]
   wire  _multing_T = ~multing; // @[Conditional.scala 37:30]
-  reg  last_valid; // @[MDU.scala 77:27]
-  reg  mult_resp_valid_REG; // @[MDU.scala 118:44]
-  wire  mult_resp_valid = ~last_valid & mult_resp_valid_REG; // @[MDU.scala 118:34]
-  wire  sign1 = io_req_in1[63]; // @[MDU.scala 79:27]
-  wire  sign2 = io_req_in2[63]; // @[MDU.scala 80:27]
-  wire  _divider_io_in1_T = io_req_op == 5'h14; // @[MDU.scala 82:36]
-  wire [63:0] _divider_io_in1_T_3 = ~io_req_in1; // @[MDU.scala 82:69]
-  wire [63:0] _divider_io_in1_T_5 = _divider_io_in1_T_3 + 64'h1; // @[MDU.scala 82:89]
-  wire [63:0] _divider_io_in2_T_3 = ~io_req_in2; // @[MDU.scala 83:69]
-  wire [63:0] _divider_io_in2_T_5 = _divider_io_in2_T_3 + 64'h1; // @[MDU.scala 83:89]
+  reg  last_valid; // @[MDU.scala 82:27]
+  reg  mult_resp_valid_REG; // @[MDU.scala 123:44]
+  wire  mult_resp_valid = ~last_valid & mult_resp_valid_REG; // @[MDU.scala 123:34]
+  wire  sign1 = io_req_in1[63]; // @[MDU.scala 84:27]
+  wire  sign2 = io_req_in2[63]; // @[MDU.scala 85:27]
+  wire  _divider_io_in1_T = io_req_op == 5'h14; // @[MDU.scala 87:36]
+  wire [63:0] _divider_io_in1_T_3 = ~io_req_in1; // @[MDU.scala 87:69]
+  wire [63:0] _divider_io_in1_T_5 = _divider_io_in1_T_3 + 64'h1; // @[MDU.scala 87:89]
+  wire [63:0] _divider_io_in2_T_3 = ~io_req_in2; // @[MDU.scala 88:69]
+  wire [63:0] _divider_io_in2_T_5 = _divider_io_in2_T_3 + 64'h1; // @[MDU.scala 88:89]
   wire [63:0] _result_T_6 = 2'h1 == io_req_op[1:0] ? mul_res[127:64] : mul_res[63:0]; // @[Mux.scala 80:57]
   wire [63:0] _result_T_8 = 2'h2 == io_req_op[1:0] ? mulu_res[127:64] : _result_T_6; // @[Mux.scala 80:57]
   wire [63:0] _result_T_10 = 2'h3 == io_req_op[1:0] ? mulsu_res[127:64] : _result_T_8; // @[Mux.scala 80:57]
-  wire  _result_T_12 = sign1 == sign2; // @[MDU.scala 105:19]
-  wire [63:0] _result_T_13 = ~divider_io_div_res; // @[MDU.scala 105:52]
-  wire [63:0] _result_T_15 = _result_T_13 + 64'h1; // @[MDU.scala 105:80]
-  wire [63:0] _result_T_16 = sign1 == sign2 ? divider_io_div_res : _result_T_15; // @[MDU.scala 105:12]
-  wire [63:0] _result_T_18 = ~divider_io_rem_res; // @[MDU.scala 109:77]
-  wire [63:0] _result_T_20 = _result_T_18 + 64'h1; // @[MDU.scala 109:105]
-  wire [63:0] _result_T_21 = _result_T_12 ? divider_io_rem_res : _result_T_20; // @[MDU.scala 109:37]
+  wire  _result_T_12 = sign1 == sign2; // @[MDU.scala 110:19]
+  wire [63:0] _result_T_13 = ~divider_io_div_res; // @[MDU.scala 110:52]
+  wire [63:0] _result_T_15 = _result_T_13 + 64'h1; // @[MDU.scala 110:80]
+  wire [63:0] _result_T_16 = sign1 == sign2 ? divider_io_div_res : _result_T_15; // @[MDU.scala 110:12]
+  wire [63:0] _result_T_18 = ~divider_io_rem_res; // @[MDU.scala 114:77]
+  wire [63:0] _result_T_20 = _result_T_18 + 64'h1; // @[MDU.scala 114:105]
+  wire [63:0] _result_T_21 = _result_T_12 ? divider_io_rem_res : _result_T_20; // @[MDU.scala 114:37]
   wire [63:0] _result_T_23 = 2'h1 == io_req_op[1:0] ? divider_io_div_res : _result_T_16; // @[Mux.scala 80:57]
   wire [63:0] _result_T_25 = 2'h2 == io_req_op[1:0] ? divider_io_rem_res : _result_T_23; // @[Mux.scala 80:57]
   wire [63:0] _result_T_27 = 2'h3 == io_req_op[1:0] ? _result_T_21 : _result_T_25; // @[Mux.scala 80:57]
-  wire [63:0] _result_T_28 = mul_op ? _result_T_10 : _result_T_27; // @[MDU.scala 95:8]
-  wire [63:0] result = mdu_op ? _result_T_28 : alu_io_r; // @[MDU.scala 93:16]
+  wire [63:0] _result_T_28 = mul_op ? _result_T_10 : _result_T_27; // @[MDU.scala 100:8]
+  wire [63:0] result = mdu_op ? _result_T_28 : alu_io_r; // @[MDU.scala 98:16]
   wire [31:0] io_resp_r_hi = result[31] ? 32'hffffffff : 32'h0; // @[Bitwise.scala 72:12]
-  wire [31:0] io_resp_r_lo = result[31:0]; // @[MDU.scala 115:76]
+  wire [31:0] io_resp_r_lo = result[31:0]; // @[MDU.scala 120:76]
   wire [63:0] _io_resp_r_T_3 = {io_resp_r_hi,io_resp_r_lo}; // @[Cat.scala 30:58]
-  wire  _io_resp_valid_T_2 = mult_valid | multing ? mult_resp_valid : 1'h1; // @[MDU.scala 119:64]
-  Divider divider ( // @[MDU.scala 59:23]
+  wire  _io_resp_valid_T_2 = mult_valid | multing ? mult_resp_valid : 1'h1; // @[MDU.scala 124:64]
+  Divider divider ( // @[MDU.scala 60:23]
     .clock(divider_clock),
     .reset(divider_reset),
     .io_vi(divider_io_vi),
@@ -2675,48 +2676,52 @@ module MDU(
     .io_div_res(divider_io_div_res),
     .io_rem_res(divider_io_rem_res)
   );
-  ALU_1 alu ( // @[MDU.scala 85:23]
+  ALU_1 alu ( // @[MDU.scala 90:23]
     .io_a(alu_io_a),
     .io_b(alu_io_b),
     .io_aluOp(alu_io_aluOp),
     .io_aluExpand(alu_io_aluExpand),
     .io_r(alu_io_r)
   );
-  assign io_resp_r = io_req_expand ? _io_resp_r_T_3 : result; // @[MDU.scala 115:19]
-  assign io_resp_valid = div_valid | diving ? divider_io_vo : _io_resp_valid_T_2; // @[MDU.scala 119:24]
+  assign io_resp_r = io_req_expand ? _io_resp_r_T_3 : result; // @[MDU.scala 120:19]
+  assign io_resp_valid = div_valid | diving ? divider_io_vo : _io_resp_valid_T_2; // @[MDU.scala 124:24]
   assign divider_clock = clock;
   assign divider_reset = reset;
-  assign divider_io_vi = mdu_op & ~mul_op & io_req_valid; // @[MDU.scala 57:38]
-  assign divider_io_in1 = io_req_op == 5'h14 & sign1 ? _divider_io_in1_T_5 : io_req_in1; // @[MDU.scala 82:25]
-  assign divider_io_in2 = _divider_io_in1_T & sign2 ? _divider_io_in2_T_5 : io_req_in2; // @[MDU.scala 83:25]
-  assign alu_io_a = io_req_in1; // @[MDU.scala 87:19]
-  assign alu_io_b = io_req_in2; // @[MDU.scala 88:19]
-  assign alu_io_aluOp = io_req_op; // @[MDU.scala 89:19]
-  assign alu_io_aluExpand = io_req_expand; // @[MDU.scala 90:19]
+  assign divider_io_vi = mdu_op & ~mul_op & io_req_valid; // @[MDU.scala 58:38]
+  assign divider_io_in1 = io_req_op == 5'h14 & sign1 ? _divider_io_in1_T_5 : io_req_in1; // @[MDU.scala 87:25]
+  assign divider_io_in2 = _divider_io_in1_T & sign2 ? _divider_io_in2_T_5 : io_req_in2; // @[MDU.scala 88:25]
+  assign alu_io_a = io_req_in1; // @[MDU.scala 92:19]
+  assign alu_io_b = io_req_in2; // @[MDU.scala 93:19]
+  assign alu_io_aluOp = io_req_op; // @[MDU.scala 94:19]
+  assign alu_io_aluExpand = io_req_expand; // @[MDU.scala 95:19]
   always @(posedge clock) begin
-    mul_res <= $signed(io_req_in1) * $signed(io_req_in2); // @[MDU.scala 50:43]
-    mulu_res <= io_req_in1 * io_req_in2; // @[MDU.scala 51:44]
-    mulsu_res <= _mulsu_res_T_2[127:0]; // @[MDU.scala 52:47]
-    if (reset) begin // @[MDU.scala 62:24]
-      diving <= 1'h0; // @[MDU.scala 62:24]
+    mul_res <= $signed(io_req_in1) * $signed(io_req_in2); // @[MDU.scala 51:43]
+    mulu_res <= io_req_in1 * io_req_in2; // @[MDU.scala 52:44]
+    mulsu_res <= _mulsu_res_T_2[127:0]; // @[MDU.scala 53:47]
+    if (reset) begin // @[MDU.scala 63:24]
+      diving <= 1'h0; // @[MDU.scala 63:24]
+    end else if (io_kill) begin // @[MDU.scala 64:16]
+      diving <= 1'h0; // @[MDU.scala 65:13]
     end else if (_diving_T) begin // @[Conditional.scala 40:58]
-      diving <= div_valid; // @[MDU.scala 65:15]
+      diving <= div_valid; // @[MDU.scala 69:17]
     end else if (diving) begin // @[Conditional.scala 39:67]
-      diving <= ~divider_io_vo; // @[MDU.scala 68:15]
+      diving <= ~divider_io_vo; // @[MDU.scala 72:17]
     end
-    if (reset) begin // @[MDU.scala 62:24]
-      multing <= 1'h0; // @[MDU.scala 62:24]
+    if (reset) begin // @[MDU.scala 63:24]
+      multing <= 1'h0; // @[MDU.scala 63:24]
+    end else if (io_kill) begin // @[MDU.scala 64:16]
+      multing <= 1'h0; // @[MDU.scala 65:13]
     end else if (_multing_T) begin // @[Conditional.scala 40:58]
-      multing <= mult_valid; // @[MDU.scala 65:15]
+      multing <= mult_valid; // @[MDU.scala 69:17]
     end else if (multing) begin // @[Conditional.scala 39:67]
-      multing <= ~mult_resp_valid; // @[MDU.scala 68:15]
+      multing <= ~mult_resp_valid; // @[MDU.scala 72:17]
     end
-    if (reset) begin // @[MDU.scala 77:27]
-      last_valid <= 1'h0; // @[MDU.scala 77:27]
+    if (reset) begin // @[MDU.scala 82:27]
+      last_valid <= 1'h0; // @[MDU.scala 82:27]
     end else begin
-      last_valid <= io_resp_valid; // @[MDU.scala 117:14]
+      last_valid <= io_resp_valid; // @[MDU.scala 122:14]
     end
-    mult_resp_valid_REG <= mdu_op & mul_op & io_req_valid; // @[MDU.scala 58:37]
+    mult_resp_valid_REG <= mdu_op & mul_op & io_req_valid; // @[MDU.scala 59:37]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -7775,17 +7780,17 @@ module Backend(
   reg [31:0] _RAND_41;
   reg [31:0] _RAND_42;
   reg [31:0] _RAND_43;
-  reg [31:0] _RAND_44;
+  reg [63:0] _RAND_44;
   reg [63:0] _RAND_45;
   reg [63:0] _RAND_46;
   reg [63:0] _RAND_47;
   reg [63:0] _RAND_48;
   reg [63:0] _RAND_49;
-  reg [63:0] _RAND_50;
-  reg [31:0] _RAND_51;
+  reg [31:0] _RAND_50;
+  reg [63:0] _RAND_51;
   reg [63:0] _RAND_52;
   reg [63:0] _RAND_53;
-  reg [63:0] _RAND_54;
+  reg [31:0] _RAND_54;
   reg [31:0] _RAND_55;
   reg [31:0] _RAND_56;
   reg [31:0] _RAND_57;
@@ -7820,10 +7825,10 @@ module Backend(
   reg [31:0] _RAND_86;
   reg [31:0] _RAND_87;
   reg [31:0] _RAND_88;
-  reg [31:0] _RAND_89;
-  reg [63:0] _RAND_90;
-  reg [31:0] _RAND_91;
-  reg [63:0] _RAND_92;
+  reg [63:0] _RAND_89;
+  reg [31:0] _RAND_90;
+  reg [63:0] _RAND_91;
+  reg [31:0] _RAND_92;
   reg [31:0] _RAND_93;
   reg [31:0] _RAND_94;
   reg [31:0] _RAND_95;
@@ -7852,6 +7857,15 @@ module Backend(
   reg [31:0] _RAND_118;
   reg [31:0] _RAND_119;
   reg [31:0] _RAND_120;
+  reg [31:0] _RAND_121;
+  reg [31:0] _RAND_122;
+  reg [31:0] _RAND_123;
+  reg [31:0] _RAND_124;
+  reg [31:0] _RAND_125;
+  reg [31:0] _RAND_126;
+  reg [31:0] _RAND_127;
+  reg [31:0] _RAND_128;
+  reg [31:0] _RAND_129;
 `endif // RANDOMIZE_REG_INIT
   wire [63:0] alu_io_a; // @[Backend.scala 58:28]
   wire [63:0] alu_io_b; // @[Backend.scala 58:28]
@@ -7861,6 +7875,7 @@ module Backend(
   wire  alu_io_zero; // @[Backend.scala 58:28]
   wire  mdu_clock; // @[Backend.scala 59:28]
   wire  mdu_reset; // @[Backend.scala 59:28]
+  wire  mdu_io_kill; // @[Backend.scala 59:28]
   wire  mdu_io_req_valid; // @[Backend.scala 59:28]
   wire [4:0] mdu_io_req_op; // @[Backend.scala 59:28]
   wire  mdu_io_req_expand; // @[Backend.scala 59:28]
@@ -8149,10 +8164,6 @@ module Backend(
   wire [63:0] csr_csrs_0_medeleg; // @[Backend.scala 131:32]
   wire [1:0] csr_current_mode_0; // @[Backend.scala 131:32]
   wire  csr_REG_0; // @[Backend.scala 131:32]
-  reg  exLastMemReqValid; // @[Backend.scala 312:34]
-  wire  dcacheStall = exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 313:36]
-  wire  _kill_x_T = ~dcacheStall; // @[Backend.scala 79:22]
-  wire  kill_x = ~dcacheStall & io_fb_bmfs_redirect_kill; // @[Backend.scala 79:35]
   reg  exInsts_0_illegal; // @[Backend.scala 80:29]
   reg [2:0] exInsts_0_next_pc; // @[Backend.scala 80:29]
   reg [1:0] exInsts_0_alu_mdu_lsu; // @[Backend.scala 80:29]
@@ -8211,11 +8222,11 @@ module Backend(
   wire [42:0] genImm_0_hi_1 = exInsts_0_imm[20] ? 43'h7ffffffffff : 43'h0; // @[Bitwise.scala 72:12]
   wire [63:0] _genImm_0_T_8 = {genImm_0_hi_1,exInsts_0_imm}; // @[Cat.scala 30:58]
   wire [63:0] genImm_0 = exInsts_0_alu_op == 5'ha | exInsts_0_src_a == 2'h2 ? _genImm_0_T_5 : _genImm_0_T_8; // @[Backend.scala 54:8]
-  wire [63:0] _GEN_390 = {{32'd0}, exInsts_0_pc}; // @[Backend.scala 90:36]
-  wire [63:0] brPC = _GEN_390 + genImm_0; // @[Backend.scala 90:36]
+  wire [63:0] _GEN_413 = {{32'd0}, exInsts_0_pc}; // @[Backend.scala 90:36]
+  wire [63:0] brPC = _GEN_413 + genImm_0; // @[Backend.scala 90:36]
   wire  exCsrValid = exInsts_0_src_b == 2'h2; // @[Backend.scala 91:37]
-  wire  _aluValid_T = ~kill_x; // @[Backend.scala 284:36]
-  wire  aluValid = exInstsValid_0 & ~kill_x; // @[Backend.scala 284:33]
+  wire  _aluValid_T = ~io_fb_bmfs_redirect_kill; // @[Backend.scala 284:36]
+  wire  aluValid = exInstsValid_0 & ~io_fb_bmfs_redirect_kill; // @[Backend.scala 284:33]
   wire [30:0] genImm_2_hi_hi = exInsts_2_imm[20] ? 31'h7fffffff : 31'h0; // @[Bitwise.scala 72:12]
   wire [63:0] _genImm_2_T_5 = {genImm_2_hi_hi,exInsts_2_imm,12'h0}; // @[Cat.scala 30:58]
   wire [42:0] genImm_2_hi_1 = exInsts_2_imm[20] ? 43'h7ffffffffff : 43'h0; // @[Bitwise.scala 72:12]
@@ -8230,22 +8241,22 @@ module Backend(
   wire  memMisaligned = 3'h5 == exInsts_2_mem_width ? _memMisaligned_T_9 : _memMisaligned_T_17; // @[Mux.scala 80:57]
   wire  _aluExptMask_T = exInstsValid_2 & memMisaligned; // @[Backend.scala 112:42]
   wire  aluExptMask = exInstsValid_2 & memMisaligned & exInstsOrder_2 < exInstsOrder_0; // @[Backend.scala 112:59]
-  wire  exInstsTrueValid_0 = aluValid & ~aluExptMask; // @[Backend.scala 419:35]
-  wire  _reBranchBrTaken_T_9 = ~alu_io_r[0]; // @[Backend.scala 383:44]
-  wire  _reBranchBrTaken_T_5 = $signed(alu_io_r) < 64'sh0; // @[Backend.scala 381:48]
-  wire  _reBranchBrTaken_T_3 = $signed(alu_io_r) >= 64'sh0; // @[Backend.scala 380:48]
-  wire  _reBranchBrTaken_T_1 = ~alu_io_zero; // @[Backend.scala 379:44]
-  wire  _reBranchBrTaken_T = alu_io_zero; // @[Backend.scala 377:72]
+  wire  exInstsTrueValid_0 = aluValid & ~aluExptMask; // @[Backend.scala 420:35]
+  wire  _reBranchBrTaken_T_9 = ~alu_io_r[0]; // @[Backend.scala 384:44]
+  wire  _reBranchBrTaken_T_5 = $signed(alu_io_r) < 64'sh0; // @[Backend.scala 382:48]
+  wire  _reBranchBrTaken_T_3 = $signed(alu_io_r) >= 64'sh0; // @[Backend.scala 381:48]
+  wire  _reBranchBrTaken_T_1 = ~alu_io_zero; // @[Backend.scala 380:44]
+  wire  _reBranchBrTaken_T = alu_io_zero; // @[Backend.scala 378:72]
   wire  _reBranchBrTaken_T_11 = 4'h2 == exInsts_0_branch_type ? _reBranchBrTaken_T_1 : _reBranchBrTaken_T; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_13 = 4'h3 == exInsts_0_branch_type ? _reBranchBrTaken_T_3 : _reBranchBrTaken_T_11; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_15 = 4'h6 == exInsts_0_branch_type ? _reBranchBrTaken_T_5 : _reBranchBrTaken_T_13; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_17 = 4'h4 == exInsts_0_branch_type ? alu_io_r[0] : _reBranchBrTaken_T_15; // @[Mux.scala 80:57]
   wire  _reBranchBrTaken_T_19 = 4'h5 == exInsts_0_branch_type ? _reBranchBrTaken_T_9 : _reBranchBrTaken_T_17; // @[Mux.scala 80:57]
-  wire  _GEN_219 = isExPCBr & _reBranchBrTaken_T_19; // @[Backend.scala 376:21 Backend.scala 377:23 Backend.scala 369:19]
-  wire  reBranchBrTaken = exInstsTrueValid_0 & _GEN_219; // @[Backend.scala 375:29 Backend.scala 369:19]
+  wire  _GEN_219 = isExPCBr & _reBranchBrTaken_T_19; // @[Backend.scala 377:21 Backend.scala 378:23 Backend.scala 370:19]
+  wire  reBranchBrTaken = exInstsTrueValid_0 & _GEN_219; // @[Backend.scala 376:29 Backend.scala 370:19]
   wire [31:0] _exReBranchPC_T_3 = exInsts_0_pc + 32'h4; // @[Backend.scala 92:96]
-  wire [63:0] _jumpPc_T_4 = exFwdRsData_0 + genImm_0; // @[Backend.scala 373:20]
-  wire [63:0] jumpPc = _isExPCJump_T_1 ? brPC : _jumpPc_T_4; // @[Backend.scala 370:16]
+  wire [63:0] _jumpPc_T_4 = exFwdRsData_0 + genImm_0; // @[Backend.scala 374:20]
+  wire [63:0] jumpPc = _isExPCJump_T_1 ? brPC : _jumpPc_T_4; // @[Backend.scala 371:16]
   reg  exInterruptd; // @[Backend.scala 98:29]
   wire  mduExptMask = _aluExptMask_T & exInstsOrder_2 < exInstsOrder_1; // @[Backend.scala 113:59]
   wire  ldstValid = exInstsValid_2 & _aluValid_T; // @[Backend.scala 286:33]
@@ -8296,8 +8307,10 @@ module Backend(
   reg [63:0] wbBpuTarget; // @[Backend.scala 144:33]
   reg  wbBpuTaken; // @[Backend.scala 145:33]
   reg [63:0] wbCsrData; // @[Backend.scala 147:29]
-  wire  _stall_i_T = ~mdu_io_resp_valid; // @[Backend.scala 365:29]
-  wire  bubble_w = dcacheStall | ~mdu_io_resp_valid; // @[Backend.scala 365:26]
+  reg  exLastMemReqValid; // @[Backend.scala 313:34]
+  wire  dcacheStall = exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 314:36]
+  wire  _stall_i_T = ~mdu_io_resp_valid; // @[Backend.scala 366:29]
+  wire  bubble_w = dcacheStall | ~mdu_io_resp_valid; // @[Backend.scala 366:26]
   wire  _issueQueue_io_deqReq_T = ~bubble_w; // @[Backend.scala 155:28]
   wire [1:0] issueNum = issueArbiter_io_issue_num; // @[Backend.scala 63:26 Backend.scala 176:31]
   wire [11:0] _ex_mmio_num_T_1 = 64'h200bff8 == ldstAddr ? 12'hfff : 12'h0; // @[Mux.scala 80:57]
@@ -8329,39 +8342,39 @@ module Backend(
   wire [63:0] _GEN_13 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_9 : _GEN_5; // @[Backend.scala 188:98]
   wire [63:0] _GEN_14 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_10 : _GEN_6; // @[Backend.scala 188:98]
   wire [63:0] _GEN_15 = wbInstsValid_1 & wbInsts__1_write_dest & wbInsts__1_rd != 5'h0 ? _GEN_11 : _GEN_7; // @[Backend.scala 188:98]
-  reg  wbLdDataValid; // @[Backend.scala 453:30]
+  reg  wbLdDataValid; // @[Backend.scala 454:30]
   wire  _T_43 = 3'h0 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
-  wire [63:0] _dataFromDcache_T = {io_dcache_resp_bits_rdata_1,io_dcache_resp_bits_rdata_0}; // @[Backend.scala 444:56]
+  wire [63:0] _dataFromDcache_T = {io_dcache_resp_bits_rdata_1,io_dcache_resp_bits_rdata_0}; // @[Backend.scala 445:56]
   reg [5:0] delayed_req_bits; // @[Reg.scala 15:16]
-  wire [63:0] dataFromDcache = _dataFromDcache_T >> delayed_req_bits; // @[Backend.scala 444:59]
+  wire [63:0] dataFromDcache = _dataFromDcache_T >> delayed_req_bits; // @[Backend.scala 445:59]
   wire [55:0] wbLdData_hi = dataFromDcache[7] ? 56'hffffffffffffff : 56'h0; // @[Bitwise.scala 72:12]
-  wire [7:0] wbLdData_lo = dataFromDcache[7:0]; // @[Backend.scala 460:99]
+  wire [7:0] wbLdData_lo = dataFromDcache[7:0]; // @[Backend.scala 461:99]
   wire [63:0] _wbLdData_T_5 = {wbLdData_hi,wbLdData_lo}; // @[Cat.scala 30:58]
   wire  _T_44 = 3'h1 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_6 = {56'h0,wbLdData_lo}; // @[Cat.scala 30:58]
   wire  _T_45 = 3'h2 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [47:0] wbLdData_hi_2 = dataFromDcache[15] ? 48'hffffffffffff : 48'h0; // @[Bitwise.scala 72:12]
-  wire [15:0] wbLdData_lo_2 = dataFromDcache[15:0]; // @[Backend.scala 462:101]
+  wire [15:0] wbLdData_lo_2 = dataFromDcache[15:0]; // @[Backend.scala 463:101]
   wire [63:0] _wbLdData_T_9 = {wbLdData_hi_2,wbLdData_lo_2}; // @[Cat.scala 30:58]
   wire  _T_46 = 3'h3 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_10 = {48'h0,wbLdData_lo_2}; // @[Cat.scala 30:58]
   wire  _T_47 = 3'h4 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [31:0] wbLdData_hi_4 = dataFromDcache[31] ? 32'hffffffff : 32'h0; // @[Bitwise.scala 72:12]
-  wire [31:0] wbLdData_lo_4 = dataFromDcache[31:0]; // @[Backend.scala 464:101]
+  wire [31:0] wbLdData_lo_4 = dataFromDcache[31:0]; // @[Backend.scala 465:101]
   wire [63:0] _wbLdData_T_13 = {wbLdData_hi_4,wbLdData_lo_4}; // @[Cat.scala 30:58]
   wire  _T_48 = 3'h6 == wbInsts__2_mem_width; // @[Conditional.scala 37:30]
   wire [63:0] _wbLdData_T_14 = {32'h0,wbLdData_lo_4}; // @[Cat.scala 30:58]
-  reg  wbMMIOValid; // @[Backend.scala 455:28]
-  reg [63:0] wb_mmio_ld_data; // @[Backend.scala 456:32]
-  wire [63:0] _wbLdData_T_2 = wbMMIOValid & wbInsts__2_write_dest ? wb_mmio_ld_data : dataFromDcache; // @[Backend.scala 458:18]
-  wire [63:0] _GEN_224 = _T_48 ? _wbLdData_T_14 : _wbLdData_T_2; // @[Conditional.scala 39:67 Backend.scala 465:41 Backend.scala 458:12]
-  wire [63:0] _GEN_225 = _T_47 ? _wbLdData_T_13 : _GEN_224; // @[Conditional.scala 39:67 Backend.scala 464:41]
-  wire [63:0] _GEN_226 = _T_46 ? _wbLdData_T_10 : _GEN_225; // @[Conditional.scala 39:67 Backend.scala 463:41]
-  wire [63:0] _GEN_227 = _T_45 ? _wbLdData_T_9 : _GEN_226; // @[Conditional.scala 39:67 Backend.scala 462:41]
-  wire [63:0] _GEN_228 = _T_44 ? _wbLdData_T_6 : _GEN_227; // @[Conditional.scala 39:67 Backend.scala 461:41]
-  wire [63:0] wbLdData = _T_43 ? _wbLdData_T_5 : _GEN_228; // @[Conditional.scala 40:58 Backend.scala 460:41]
-  reg [63:0] wbLdDataForStall; // @[Backend.scala 451:29]
-  wire [63:0] wbData_2 = wbLdDataValid ? wbLdData : wbLdDataForStall; // @[Backend.scala 469:19]
+  reg  wbMMIOValid; // @[Backend.scala 456:28]
+  reg [63:0] wb_mmio_ld_data; // @[Backend.scala 457:32]
+  wire [63:0] _wbLdData_T_2 = wbMMIOValid & wbInsts__2_write_dest ? wb_mmio_ld_data : dataFromDcache; // @[Backend.scala 459:18]
+  wire [63:0] _GEN_224 = _T_48 ? _wbLdData_T_14 : _wbLdData_T_2; // @[Conditional.scala 39:67 Backend.scala 466:41 Backend.scala 459:12]
+  wire [63:0] _GEN_225 = _T_47 ? _wbLdData_T_13 : _GEN_224; // @[Conditional.scala 39:67 Backend.scala 465:41]
+  wire [63:0] _GEN_226 = _T_46 ? _wbLdData_T_10 : _GEN_225; // @[Conditional.scala 39:67 Backend.scala 464:41]
+  wire [63:0] _GEN_227 = _T_45 ? _wbLdData_T_9 : _GEN_226; // @[Conditional.scala 39:67 Backend.scala 463:41]
+  wire [63:0] _GEN_228 = _T_44 ? _wbLdData_T_6 : _GEN_227; // @[Conditional.scala 39:67 Backend.scala 462:41]
+  wire [63:0] wbLdData = _T_43 ? _wbLdData_T_5 : _GEN_228; // @[Conditional.scala 40:58 Backend.scala 461:41]
+  reg [63:0] wbLdDataForStall; // @[Backend.scala 452:29]
+  wire [63:0] wbData_2 = wbLdDataValid ? wbLdData : wbLdDataForStall; // @[Backend.scala 470:19]
   wire [63:0] _GEN_16 = wbInsts__2_rd == issueInsts_0_rs1 ? wbData_2 : _GEN_12; // @[Backend.scala 190:51 Backend.scala 191:24]
   wire [63:0] _GEN_17 = wbInsts__2_rd == issueInsts_0_rs2 ? wbData_2 : _GEN_13; // @[Backend.scala 193:51 Backend.scala 194:24]
   wire [63:0] _GEN_18 = wbInsts__2_rd == issueInsts_1_rs1 ? wbData_2 : _GEN_14; // @[Backend.scala 190:51 Backend.scala 191:24]
@@ -8372,7 +8385,7 @@ module Backend(
   wire [63:0] _GEN_23 = wbInstsValid_2 & wbInsts__2_write_dest & wbInsts__2_rd != 5'h0 ? _GEN_19 : _GEN_15; // @[Backend.scala 188:98]
   wire [63:0] _aluWbData_T_6 = 2'h2 == exInsts_0_src_b ? csr_io_common_io_out : alu_io_r; // @[Mux.scala 80:57]
   wire [63:0] aluWbData = exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0 ? {{32'd0}, _exReBranchPC_T_3} :
-    _aluWbData_T_6; // @[Backend.scala 428:19]
+    _aluWbData_T_6; // @[Backend.scala 429:19]
   wire [63:0] _GEN_24 = exInsts_0_rd == issueInsts_0_rs1 ? aluWbData : _GEN_20; // @[Backend.scala 202:49 Backend.scala 203:22]
   wire [63:0] _GEN_25 = exInsts_0_rd == issueInsts_0_rs2 ? aluWbData : _GEN_21; // @[Backend.scala 205:49 Backend.scala 206:22]
   wire [63:0] _GEN_26 = exInsts_0_rd == issueInsts_1_rs1 ? aluWbData : _GEN_22; // @[Backend.scala 202:49 Backend.scala 203:22]
@@ -8404,14 +8417,14 @@ module Backend(
   wire [63:0] _alu_io_a_T = {59'h0,exInsts_0_rs1}; // @[Cat.scala 30:58]
   wire [63:0] _alu_io_a_T_2 = 2'h2 == exInsts_0_src_a ? {{32'd0}, exInsts_0_pc} : exFwdRsData_0; // @[Mux.scala 80:57]
   wire [63:0] _alu_io_b_T_1 = 2'h1 == exInsts_0_src_b ? genImm_0 : exFwdRtData_0; // @[Mux.scala 80:57]
-  wire  ldMisaligned = exInsts_2_write_dest & memMisaligned; // @[Backend.scala 315:62]
-  wire  _stMisaligned_T = ~exInsts_2_write_dest; // @[Backend.scala 316:41]
-  wire  stMisaligned = ~exInsts_2_write_dest & memMisaligned; // @[Backend.scala 316:62]
-  wire  _io_dcache_req_valid_T_1 = exMemRealValid & ~exMMIOValid; // @[Backend.scala 318:41]
-  reg [31:0] exLastMemReq_addr; // @[Backend.scala 321:29]
-  reg [63:0] exLastMemReq_wdata; // @[Backend.scala 321:29]
-  reg  exLastMemReq_wen; // @[Backend.scala 321:29]
-  reg [2:0] exLastMemReq_mtype; // @[Backend.scala 321:29]
+  wire  ldMisaligned = exInsts_2_write_dest & memMisaligned; // @[Backend.scala 316:62]
+  wire  _stMisaligned_T = ~exInsts_2_write_dest; // @[Backend.scala 317:41]
+  wire  stMisaligned = ~exInsts_2_write_dest & memMisaligned; // @[Backend.scala 317:62]
+  wire  _io_dcache_req_valid_T_1 = exMemRealValid & ~exMMIOValid; // @[Backend.scala 319:41]
+  reg [31:0] exLastMemReq_addr; // @[Backend.scala 322:29]
+  reg [63:0] exLastMemReq_wdata; // @[Backend.scala 322:29]
+  reg  exLastMemReq_wen; // @[Backend.scala 322:29]
+  reg [2:0] exLastMemReq_mtype; // @[Backend.scala 322:29]
   wire [1:0] _exCurMemReq_memReq_mtype_T_1 = 3'h1 == exInsts_2_mem_width ? 2'h0 : 2'h2; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_3 = 3'h0 == exInsts_2_mem_width ? 2'h0 : _exCurMemReq_memReq_mtype_T_1; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_5 = 3'h2 == exInsts_2_mem_width ? 2'h1 : _exCurMemReq_memReq_mtype_T_3; // @[Mux.scala 80:57]
@@ -8419,75 +8432,89 @@ module Backend(
   wire [1:0] _exCurMemReq_memReq_mtype_T_9 = 3'h4 == exInsts_2_mem_width ? 2'h2 : _exCurMemReq_memReq_mtype_T_7; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_11 = 3'h5 == exInsts_2_mem_width ? 2'h3 : _exCurMemReq_memReq_mtype_T_9; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_13 = 3'h6 == exInsts_2_mem_width ? 2'h2 : _exCurMemReq_memReq_mtype_T_11; // @[Mux.scala 80:57]
-  wire [2:0] exCurMemReq_mtype = {{1'd0}, _exCurMemReq_memReq_mtype_T_13}; // @[Backend.scala 345:22 Backend.scala 348:18]
-  wire [31:0] exCurMemReq_addr = ldstAddr[31:0]; // @[Backend.scala 345:22 Backend.scala 350:18]
-  wire  _GEN_218 = isExPCJump ? _bpuErrpr_T_7 | ~exInsts_0_predict_taken | |jumpPc[1:0] : exCsrValid; // @[Backend.scala 399:29 Backend.scala 400:16]
+  wire  _T_42 = ~dcacheStall; // @[Backend.scala 356:9]
+  wire [2:0] exCurMemReq_mtype = {{1'd0}, _exCurMemReq_memReq_mtype_T_13}; // @[Backend.scala 346:22 Backend.scala 349:18]
+  wire [31:0] exCurMemReq_addr = ldstAddr[31:0]; // @[Backend.scala 346:22 Backend.scala 351:18]
+  wire  _GEN_218 = isExPCJump ? _bpuErrpr_T_7 | ~exInsts_0_predict_taken | |jumpPc[1:0] : exCsrValid; // @[Backend.scala 400:29 Backend.scala 401:16]
   wire  _GEN_220 = isExPCBr ? reBranchBrTaken ^ exInsts_0_predict_taken | reBranchBrTaken & (_bpuErrpr_T_2 | |brPC[1:0])
-     : _GEN_218; // @[Backend.scala 376:21 Backend.scala 387:16]
-  wire  reBranch = exInstsTrueValid_0 & _GEN_220; // @[Backend.scala 375:29 Backend.scala 368:12]
-  wire  exInstsTrueValid_1 = mduValid & ~mduExptMask; // @[Backend.scala 420:35]
-  wire [5:0] _delayed_req_bits_T_1 = {io_dcache_req_bits_addr[2:0], 3'h0}; // @[Backend.scala 443:81]
-  reg  wbLdDataForStall_REG; // @[Backend.scala 452:56]
-  wire  _GEN_232 = _issueQueue_io_deqReq_T & bpuV; // @[Backend.scala 477:26 Backend.scala 480:12 Backend.scala 501:12]
-  wire  wbExcepts_0 = |wbInsts__0_pc[1:0]; // @[Backend.scala 538:39]
-  wire  _regFile_io_wen_vec_0_T_2 = wbInsts__0_write_dest & ~wbExcepts_0; // @[Backend.scala 514:65]
-  wire  wbExcepts_1 = |wbInsts__1_pc[1:0]; // @[Backend.scala 539:39]
-  wire  _regFile_io_wen_vec_0_T_6 = _T_9 & ~wbExcepts_1; // @[Backend.scala 515:67]
-  wire  wbLdMaReal = wbInstsValid_2 & wbLdMa; // @[Backend.scala 531:39]
-  wire  _regFile_io_wen_vec_1_T_2 = wbInsts__2_write_dest & ~wbLdMaReal; // @[Backend.scala 521:65]
-  wire  csrWbValid = wbInsts__0_next_pc == 3'h0 & wbInsts__0_alu_mdu_lsu == 2'h0; // @[Backend.scala 529:62]
-  wire  wbALUSysReal = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 533:63]
-  wire  wbALUBpReal = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 534:64]
-  wire  illegal = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 535:42]
-  wire  wbFetchMaReal = wbExcepts_0 & wbInstsValid_0; // @[Backend.scala 536:47]
-  reg [63:0] wb_mmio_sd_data; // @[Backend.scala 558:33]
-  reg [11:0] wb_mmio_num; // @[Backend.scala 559:30]
-  wire [2:0] _wb_deal_with_int_T = {wbInstsValid_2,wbInstsValid_1,wbInstsValid_0}; // @[Backend.scala 560:61]
-  wire  wb_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 560:91]
-  wire [63:0] wb_pc_0 = wbInstsValid_0 ? {{32'd0}, wbInsts__0_pc} : 64'hffffffffffffffff; // @[Backend.scala 563:20]
-  wire [63:0] wb_pc_1 = wbInstsValid_1 ? {{32'd0}, wbInsts__1_pc} : 64'hffffffffffffffff; // @[Backend.scala 563:20]
-  wire [63:0] wb_pc_2 = wbInstsValid_2 ? {{32'd0}, wbInsts__2_pc} : 64'hffffffffffffffff; // @[Backend.scala 563:20]
-  wire [63:0] _wb_pc_min_T_2 = wb_pc_0 < wb_pc_2 ? wb_pc_0 : wb_pc_2; // @[Backend.scala 565:8]
-  wire [63:0] _wb_pc_min_T_4 = wb_pc_1 < wb_pc_2 ? wb_pc_1 : wb_pc_2; // @[Backend.scala 566:8]
-  wire [63:0] wb_pc_min = wb_pc_0 < wb_pc_1 ? _wb_pc_min_T_2 : _wb_pc_min_T_4; // @[Backend.scala 564:22]
-  wire [31:0] _csr_io_event_io_epc_T_2 = wbALUSysReal | wbALUBpReal | illegal ? wbInsts__0_pc : wbInsts__1_pc; // @[Backend.scala 580:8]
-  wire [31:0] _csr_io_event_io_bad_address_T = wbFetchMaReal ? wbInsts__0_pc : wbMisalignedAddr; // @[Backend.scala 581:37]
-  wire [11:0] _csr_io_common_io_num_T_1 = wbMMIOValid ? wb_mmio_num : wbInsts__0_imm[11:0]; // @[Backend.scala 586:8]
-  wire [11:0] _csr_io_common_io_num_T_3 = exMMIOValid ? ex_mmio_num : exInsts_0_imm[11:0]; // @[Backend.scala 587:8]
-  reg  REG; // @[Backend.scala 606:60]
-  reg  REG_1; // @[Backend.scala 606:60]
-  reg  REG_2; // @[Backend.scala 606:60]
-  reg [31:0] REG_3; // @[Backend.scala 607:60]
-  reg [31:0] REG_4; // @[Backend.scala 607:60]
-  reg [31:0] REG_5; // @[Backend.scala 607:60]
-  reg [1:0] REG_6; // @[Backend.scala 608:60]
-  reg [1:0] REG_7; // @[Backend.scala 608:60]
-  reg [1:0] REG_8; // @[Backend.scala 608:60]
-  reg [31:0] REG_9; // @[Backend.scala 609:60]
-  reg [31:0] REG_10; // @[Backend.scala 609:60]
-  reg [31:0] REG_11; // @[Backend.scala 609:60]
-  reg  REG_12; // @[Backend.scala 610:72]
-  reg  REG_13; // @[Backend.scala 616:60]
-  reg  REG_14; // @[Backend.scala 616:60]
-  reg  REG_15; // @[Backend.scala 616:60]
-  wire  _WIRE__0 = REG; // @[Backend.scala 606:34 Backend.scala 606:34]
-  wire  _WIRE__1 = REG_1; // @[Backend.scala 606:34 Backend.scala 606:34]
-  wire  _WIRE__2 = REG_2; // @[Backend.scala 606:34 Backend.scala 606:34]
-  wire [31:0] _WIRE_1_0 = REG_3; // @[Backend.scala 607:34 Backend.scala 607:34]
-  wire [31:0] _WIRE_1_1 = REG_4; // @[Backend.scala 607:34 Backend.scala 607:34]
-  wire [31:0] _WIRE_1_2 = REG_5; // @[Backend.scala 607:34 Backend.scala 607:34]
-  wire [1:0] _WIRE_2_0 = REG_6; // @[Backend.scala 608:34 Backend.scala 608:34]
-  wire [1:0] _WIRE_2_1 = REG_7; // @[Backend.scala 608:34 Backend.scala 608:34]
-  wire [1:0] _WIRE_2_2 = REG_8; // @[Backend.scala 608:34 Backend.scala 608:34]
-  wire [31:0] _WIRE_3_0 = REG_9; // @[Backend.scala 609:34 Backend.scala 609:34]
-  wire [31:0] _WIRE_3_1 = REG_10; // @[Backend.scala 609:34 Backend.scala 609:34]
-  wire [31:0] _WIRE_3_2 = REG_11; // @[Backend.scala 609:34 Backend.scala 609:34]
-  wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 610:34 Backend.scala 610:34]
-  wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 610:34 Backend.scala 610:34]
-  wire  _WIRE_4_2 = REG_12; // @[Backend.scala 610:34 Backend.scala 610:34]
-  wire  _WIRE_5_0 = REG_13; // @[Backend.scala 616:34 Backend.scala 616:34]
-  wire  _WIRE_5_1 = REG_14; // @[Backend.scala 616:34 Backend.scala 616:34]
-  wire  _WIRE_5_2 = REG_15; // @[Backend.scala 616:34 Backend.scala 616:34]
+     : _GEN_218; // @[Backend.scala 377:21 Backend.scala 388:16]
+  wire  reBranch = exInstsTrueValid_0 & _GEN_220; // @[Backend.scala 376:29 Backend.scala 369:12]
+  wire  exInstsTrueValid_1 = mduValid & ~mduExptMask; // @[Backend.scala 421:35]
+  wire [5:0] _delayed_req_bits_T_1 = {io_dcache_req_bits_addr[2:0], 3'h0}; // @[Backend.scala 444:81]
+  reg  wbLdDataForStall_REG; // @[Backend.scala 453:56]
+  wire  _GEN_232 = _issueQueue_io_deqReq_T & bpuV; // @[Backend.scala 479:26 Backend.scala 482:12 Backend.scala 503:12]
+  wire  wbExcepts_0 = |wbInsts__0_pc[1:0]; // @[Backend.scala 540:39]
+  wire  _regFile_io_wen_vec_0_T_2 = wbInsts__0_write_dest & ~wbExcepts_0; // @[Backend.scala 516:65]
+  wire  wbExcepts_1 = |wbInsts__1_pc[1:0]; // @[Backend.scala 541:39]
+  wire  _regFile_io_wen_vec_0_T_6 = _T_9 & ~wbExcepts_1; // @[Backend.scala 517:67]
+  wire  wbLdMaReal = wbInstsValid_2 & wbLdMa; // @[Backend.scala 533:39]
+  wire  _regFile_io_wen_vec_1_T_2 = wbInsts__2_write_dest & ~wbLdMaReal; // @[Backend.scala 523:65]
+  wire  csrWbValid = wbInsts__0_next_pc == 3'h0 & wbInsts__0_alu_mdu_lsu == 2'h0; // @[Backend.scala 531:62]
+  wire  wbALUSysReal = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 535:63]
+  wire  wbALUBpReal = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 536:64]
+  wire  illegal = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 537:42]
+  wire  wbFetchMaReal = wbExcepts_0 & wbInstsValid_0; // @[Backend.scala 538:47]
+  reg [63:0] wb_mmio_sd_data; // @[Backend.scala 560:33]
+  reg [11:0] wb_mmio_num; // @[Backend.scala 561:30]
+  wire [2:0] _wb_deal_with_int_T = {wbInstsValid_2,wbInstsValid_1,wbInstsValid_0}; // @[Backend.scala 562:61]
+  wire  wb_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 562:91]
+  wire [63:0] wb_pc_0 = wbInstsValid_0 ? {{32'd0}, wbInsts__0_pc} : 64'hffffffffffffffff; // @[Backend.scala 565:20]
+  wire [63:0] wb_pc_1 = wbInstsValid_1 ? {{32'd0}, wbInsts__1_pc} : 64'hffffffffffffffff; // @[Backend.scala 565:20]
+  wire [63:0] wb_pc_2 = wbInstsValid_2 ? {{32'd0}, wbInsts__2_pc} : 64'hffffffffffffffff; // @[Backend.scala 565:20]
+  wire [63:0] _wb_pc_min_T_2 = wb_pc_0 < wb_pc_2 ? wb_pc_0 : wb_pc_2; // @[Backend.scala 567:8]
+  wire [63:0] _wb_pc_min_T_4 = wb_pc_1 < wb_pc_2 ? wb_pc_1 : wb_pc_2; // @[Backend.scala 568:8]
+  wire [63:0] wb_pc_min = wb_pc_0 < wb_pc_1 ? _wb_pc_min_T_2 : _wb_pc_min_T_4; // @[Backend.scala 566:22]
+  wire [31:0] _csr_io_event_io_epc_T_2 = wbALUSysReal | wbALUBpReal | illegal ? wbInsts__0_pc : wbInsts__1_pc; // @[Backend.scala 582:8]
+  wire [31:0] _csr_io_event_io_bad_address_T = wbFetchMaReal ? wbInsts__0_pc : wbMisalignedAddr; // @[Backend.scala 583:37]
+  wire [11:0] _csr_io_common_io_num_T_1 = wbMMIOValid ? wb_mmio_num : wbInsts__0_imm[11:0]; // @[Backend.scala 588:8]
+  wire [11:0] _csr_io_common_io_num_T_3 = exMMIOValid ? ex_mmio_num : exInsts_0_imm[11:0]; // @[Backend.scala 589:8]
+  reg [31:0] bufInsts0_pc; // @[Backend.scala 608:59]
+  reg [31:0] bufInsts0_inst; // @[Backend.scala 608:59]
+  reg  bufInstsValid0; // @[Backend.scala 608:74]
+  reg [1:0] bufInstsOrder0; // @[Backend.scala 608:87]
+  reg  REG; // @[Backend.scala 609:33]
+  reg  tmp_REG; // @[Backend.scala 616:28]
+  reg  REG_1; // @[Backend.scala 617:26]
+  wire  _tmp_T_13 = wbInstsValid_1 & _issueQueue_io_deqReq_T; // @[Backend.scala 616:112]
+  wire  _tmp_T_14 = |wbInsts__1_inst; // @[Backend.scala 616:147]
+  reg  REG_2; // @[Backend.scala 618:19]
+  wire  _tmp_T_21 = wbInstsValid_2 & _issueQueue_io_deqReq_T; // @[Backend.scala 616:112]
+  wire  _tmp_T_22 = |wbInsts__2_inst; // @[Backend.scala 616:147]
+  reg  REG_3; // @[Backend.scala 618:19]
+  reg  tmp_REG_3; // @[Backend.scala 621:28]
+  reg [31:0] REG_4; // @[Backend.scala 622:26]
+  reg [31:0] REG_5; // @[Backend.scala 623:19]
+  reg [31:0] REG_6; // @[Backend.scala 623:19]
+  reg  tmp_REG_6; // @[Backend.scala 626:28]
+  reg [1:0] REG_7; // @[Backend.scala 627:26]
+  reg [1:0] REG_8; // @[Backend.scala 628:19]
+  reg [1:0] REG_9; // @[Backend.scala 628:19]
+  reg  tmp_REG_9; // @[Backend.scala 631:28]
+  reg [31:0] REG_10; // @[Backend.scala 632:26]
+  reg [31:0] REG_11; // @[Backend.scala 633:19]
+  reg [31:0] REG_12; // @[Backend.scala 633:19]
+  reg  REG_13; // @[Backend.scala 635:72]
+  reg  REG_14; // @[Backend.scala 641:60]
+  reg  REG_15; // @[Backend.scala 641:60]
+  reg  REG_16; // @[Backend.scala 641:60]
+  wire  _WIRE__0 = REG_1; // @[Backend.scala 615:34 Backend.scala 615:34]
+  wire  _WIRE__1 = REG_2; // @[Backend.scala 615:34 Backend.scala 615:34]
+  wire  _WIRE__2 = REG_3; // @[Backend.scala 615:34 Backend.scala 615:34]
+  wire [31:0] _WIRE_1_0 = REG_4; // @[Backend.scala 620:34 Backend.scala 620:34]
+  wire [31:0] _WIRE_1_1 = REG_5; // @[Backend.scala 620:34 Backend.scala 620:34]
+  wire [31:0] _WIRE_1_2 = REG_6; // @[Backend.scala 620:34 Backend.scala 620:34]
+  wire [1:0] _WIRE_2_0 = REG_7; // @[Backend.scala 625:34 Backend.scala 625:34]
+  wire [1:0] _WIRE_2_1 = REG_8; // @[Backend.scala 625:34 Backend.scala 625:34]
+  wire [1:0] _WIRE_2_2 = REG_9; // @[Backend.scala 625:34 Backend.scala 625:34]
+  wire [31:0] _WIRE_3_0 = REG_10; // @[Backend.scala 630:34 Backend.scala 630:34]
+  wire [31:0] _WIRE_3_1 = REG_11; // @[Backend.scala 630:34 Backend.scala 630:34]
+  wire [31:0] _WIRE_3_2 = REG_12; // @[Backend.scala 630:34 Backend.scala 630:34]
+  wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 635:34 Backend.scala 635:34]
+  wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 635:34 Backend.scala 635:34]
+  wire  _WIRE_4_2 = REG_13; // @[Backend.scala 635:34 Backend.scala 635:34]
+  wire  _WIRE_5_0 = REG_14; // @[Backend.scala 641:34 Backend.scala 641:34]
+  wire  _WIRE_5_1 = REG_15; // @[Backend.scala 641:34 Backend.scala 641:34]
+  wire  _WIRE_5_2 = REG_16; // @[Backend.scala 641:34 Backend.scala 641:34]
   ALU alu ( // @[Backend.scala 58:28]
     .io_a(alu_io_a),
     .io_b(alu_io_b),
@@ -8499,6 +8526,7 @@ module Backend(
   MDU mdu ( // @[Backend.scala 59:28]
     .clock(mdu_clock),
     .reset(mdu_reset),
+    .io_kill(mdu_io_kill),
     .io_req_valid(mdu_io_req_valid),
     .io_req_op(mdu_io_req_op),
     .io_req_expand(mdu_io_req_expand),
@@ -8796,19 +8824,19 @@ module Backend(
     .current_mode_0(csr_current_mode_0),
     .REG_0(csr_REG_0)
   );
-  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 504:42]
-  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 505:34]
-  assign io_fb_bmfs_bpu_v = wbBpuV; // @[Backend.scala 506:30]
-  assign io_fb_bmfs_bpu_errpr = wbBpuErrpr; // @[Backend.scala 507:30]
-  assign io_fb_bmfs_bpu_pc_br = {{32'd0}, wbBpuPCBr}; // @[Backend.scala 508:30]
-  assign io_fb_bmfs_bpu_target = wbBpuTarget; // @[Backend.scala 509:30]
-  assign io_fb_bmfs_bpu_taken = wbBpuTaken; // @[Backend.scala 510:30]
+  assign io_fb_bmfs_redirect_kill = wbReBranch | csr_io_event_io_except_kill; // @[Backend.scala 506:42]
+  assign io_fb_bmfs_redirect_pc = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : reBranchPC; // @[Backend.scala 507:34]
+  assign io_fb_bmfs_bpu_v = wbBpuV; // @[Backend.scala 508:30]
+  assign io_fb_bmfs_bpu_errpr = wbBpuErrpr; // @[Backend.scala 509:30]
+  assign io_fb_bmfs_bpu_pc_br = {{32'd0}, wbBpuPCBr}; // @[Backend.scala 510:30]
+  assign io_fb_bmfs_bpu_target = wbBpuTarget; // @[Backend.scala 511:30]
+  assign io_fb_bmfs_bpu_taken = wbBpuTaken; // @[Backend.scala 512:30]
   assign io_fb_fmbs_please_wait = ~issueQueue_io_sufficient; // @[Backend.scala 152:29]
-  assign io_dcache_req_valid = exMemRealValid & ~exMMIOValid | dcacheStall; // @[Backend.scala 318:57]
-  assign io_dcache_req_bits_addr = dcacheStall ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 361:28]
-  assign io_dcache_req_bits_wdata = dcacheStall ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 361:28]
-  assign io_dcache_req_bits_wen = dcacheStall ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 361:28]
-  assign io_dcache_req_bits_mtype = dcacheStall ? exLastMemReq_mtype : exCurMemReq_mtype; // @[Backend.scala 361:28]
+  assign io_dcache_req_valid = exMemRealValid & ~exMMIOValid | dcacheStall; // @[Backend.scala 319:57]
+  assign io_dcache_req_bits_addr = dcacheStall ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 362:28]
+  assign io_dcache_req_bits_wdata = dcacheStall ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 362:28]
+  assign io_dcache_req_bits_wen = dcacheStall ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 362:28]
+  assign io_dcache_req_bits_mtype = dcacheStall ? exLastMemReq_mtype : exCurMemReq_mtype; // @[Backend.scala 362:28]
   assign csrs_mstatus = csr_csrs_0_mstatus;
   assign csrs_sstatus = csr_csrs_0_sstatus;
   assign csrs_mepc = csr_csrs_0_mepc;
@@ -8885,6 +8913,7 @@ module Backend(
   assign alu_io_aluExpand = exInsts_0_alu_expand; // @[Backend.scala 300:20]
   assign mdu_clock = clock;
   assign mdu_reset = reset;
+  assign mdu_io_kill = io_fb_bmfs_redirect_kill; // @[Backend.scala 310:15]
   assign mdu_io_req_valid = exInstsValid_1 & _aluValid_T; // @[Backend.scala 285:33]
   assign mdu_io_req_op = exInsts_1_alu_op; // @[Backend.scala 308:17]
   assign mdu_io_req_expand = exInsts_1_alu_expand; // @[Backend.scala 309:21]
@@ -8993,39 +9022,34 @@ module Backend(
   assign regFile_io_rs_addr_vec_1 = issueQueue_io_dout_0_rs2; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign regFile_io_rs_addr_vec_2 = issueQueue_io_dout_1_rs1; // @[Backend.scala 64:26 Backend.scala 159:19]
   assign regFile_io_rs_addr_vec_3 = issueQueue_io_dout_1_rs2; // @[Backend.scala 64:26 Backend.scala 159:19]
-  assign regFile_io_wen_vec_0 = wbInstsValid_0 ? _regFile_io_wen_vec_0_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 513:31]
-  assign regFile_io_wen_vec_1 = wbInstsValid_2 ? _regFile_io_wen_vec_1_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 520:31]
-  assign regFile_io_rd_addr_vec_0 = wbInstsValid_0 ? wbInsts__0_rd : wbInsts__1_rd; // @[Backend.scala 517:35]
-  assign regFile_io_rd_addr_vec_1 = wbInstsValid_2 ? wbInsts__2_rd : wbInsts__1_rd; // @[Backend.scala 525:35]
-  assign regFile_io_rd_data_vec_0 = wbInstsValid_0 ? wbResult_0 : wbResult_1; // @[Backend.scala 518:35]
-  assign regFile_io_rd_data_vec_1 = wbInstsValid_2 ? wbData_2 : wbResult_1; // @[Backend.scala 524:35]
+  assign regFile_io_wen_vec_0 = wbInstsValid_0 ? _regFile_io_wen_vec_0_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 515:31]
+  assign regFile_io_wen_vec_1 = wbInstsValid_2 ? _regFile_io_wen_vec_1_T_2 : _regFile_io_wen_vec_0_T_6; // @[Backend.scala 522:31]
+  assign regFile_io_rd_addr_vec_0 = wbInstsValid_0 ? wbInsts__0_rd : wbInsts__1_rd; // @[Backend.scala 519:35]
+  assign regFile_io_rd_addr_vec_1 = wbInstsValid_2 ? wbInsts__2_rd : wbInsts__1_rd; // @[Backend.scala 527:35]
+  assign regFile_io_rd_data_vec_0 = wbInstsValid_0 ? wbResult_0 : wbResult_1; // @[Backend.scala 520:35]
+  assign regFile_io_rd_data_vec_1 = wbInstsValid_2 ? wbData_2 : wbResult_1; // @[Backend.scala 526:35]
   assign regFile_difftestSaddr = difftest_saddr;
   assign regFile_difftestSval = difftest_sval;
   assign regFile_difftestSync = difftest_sync;
   assign csr_clock = clock;
   assign csr_reset = reset;
-  assign csr_io_common_io_in = wbMMIOValid ? wb_mmio_sd_data : wbCsrData; // @[Backend.scala 588:37]
-  assign csr_io_common_io_wen = csrWbValid & wbInstsValid_0 | wbMMIOValid & ~wbInsts__2_write_dest; // @[Backend.scala 584:66]
-  assign csr_io_common_io_num = csr_io_common_io_wen ? _csr_io_common_io_num_T_1 : _csr_io_common_io_num_T_3; // @[Backend.scala 585:37]
-  assign csr_io_event_io_exception_vec_2 = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 535:42]
-  assign csr_io_event_io_exception_vec_3 = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 534:64]
-  assign csr_io_event_io_exception_vec_4 = wbLdMaReal | wbFetchMaReal; // @[Backend.scala 551:59]
-  assign csr_io_event_io_exception_vec_6 = wbInstsValid_2 & wbStMa; // @[Backend.scala 532:39]
-  assign csr_io_event_io_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 560:91]
-  assign csr_io_event_io_is_mret = wbInsts__0_next_pc == 3'h5 & wbInstsValid_0; // @[Backend.scala 575:74]
-  assign csr_io_event_io_is_sret = wbInsts__0_next_pc == 3'h6 & wbInstsValid_0; // @[Backend.scala 576:74]
-  assign csr_io_event_io_is_ecall = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 533:63]
-  assign csr_io_event_io_bad_address = {{32'd0}, _csr_io_event_io_bad_address_T}; // @[Backend.scala 581:37]
-  assign csr_io_event_io_epc = wb_deal_with_int ? wb_pc_min : {{32'd0}, _csr_io_event_io_epc_T_2}; // @[Backend.scala 579:37]
+  assign csr_io_common_io_in = wbMMIOValid ? wb_mmio_sd_data : wbCsrData; // @[Backend.scala 590:37]
+  assign csr_io_common_io_wen = csrWbValid & wbInstsValid_0 | wbMMIOValid & ~wbInsts__2_write_dest; // @[Backend.scala 586:66]
+  assign csr_io_common_io_num = csr_io_common_io_wen ? _csr_io_common_io_num_T_1 : _csr_io_common_io_num_T_3; // @[Backend.scala 587:37]
+  assign csr_io_event_io_exception_vec_2 = wbInsts__0_illegal & wbInstsValid_0; // @[Backend.scala 537:42]
+  assign csr_io_event_io_exception_vec_3 = wbInsts__0_next_pc == 3'h7 & wbInstsValid_0; // @[Backend.scala 536:64]
+  assign csr_io_event_io_exception_vec_4 = wbLdMaReal | wbFetchMaReal; // @[Backend.scala 553:59]
+  assign csr_io_event_io_exception_vec_6 = wbInstsValid_2 & wbStMa; // @[Backend.scala 534:39]
+  assign csr_io_event_io_deal_with_int = wbInterruptd & |_wb_deal_with_int_T & exInterruptd; // @[Backend.scala 562:91]
+  assign csr_io_event_io_is_mret = wbInsts__0_next_pc == 3'h5 & wbInstsValid_0; // @[Backend.scala 577:74]
+  assign csr_io_event_io_is_sret = wbInsts__0_next_pc == 3'h6 & wbInstsValid_0; // @[Backend.scala 578:74]
+  assign csr_io_event_io_is_ecall = wbInsts__0_next_pc == 3'h4 & wbInstsValid_0; // @[Backend.scala 535:63]
+  assign csr_io_event_io_bad_address = {{32'd0}, _csr_io_event_io_bad_address_T}; // @[Backend.scala 583:37]
+  assign csr_io_event_io_epc = wb_deal_with_int ? wb_pc_min : {{32'd0}, _csr_io_event_io_epc_T_2}; // @[Backend.scala 581:37]
   always @(posedge clock) begin
-    if (reset) begin // @[Backend.scala 312:34]
-      exLastMemReqValid <= 1'h0; // @[Backend.scala 312:34]
-    end else if (_kill_x_T) begin // @[Backend.scala 355:23]
-      exLastMemReqValid <= _io_dcache_req_valid_T_1; // @[Backend.scala 356:23]
-    end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_illegal <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_illegal <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9036,7 +9060,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_next_pc <= 3'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_next_pc <= 3'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9047,7 +9071,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9058,7 +9082,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_branch_type <= 4'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_branch_type <= 4'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9069,7 +9093,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_src_a <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_src_a <= 2'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9080,7 +9104,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_src_b <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_src_b <= 2'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9091,7 +9115,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_write_dest <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_write_dest <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9102,7 +9126,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_alu_op <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_alu_op <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9113,7 +9137,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_alu_expand <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9124,7 +9148,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_write_src <= 2'h1; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_write_src <= 2'h1; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9135,7 +9159,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_rs1 <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_rs1 <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9146,7 +9170,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_rd <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_rd <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9157,7 +9181,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_imm <= 21'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_imm <= 21'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9168,7 +9192,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_pc <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_pc <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9179,7 +9203,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_predict_taken <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9190,7 +9214,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_target_pc <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_target_pc <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9201,7 +9225,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_ysyx_debug <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9212,7 +9236,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_ysyx_print <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9223,7 +9247,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_0_inst <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_0_inst <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9234,155 +9258,155 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_src_a <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_src_a <= 2'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_src_a <= issueArbiter_io_insts_out_1_src_a; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_src_b <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_src_b <= 2'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_src_b <= issueArbiter_io_insts_out_1_src_b; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_write_dest <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_write_dest <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_write_dest <= issueArbiter_io_insts_out_1_write_dest; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_alu_op <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_alu_op <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_alu_op <= issueArbiter_io_insts_out_1_alu_op; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_alu_expand <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_alu_expand <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_alu_expand <= issueArbiter_io_insts_out_1_alu_expand; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_rd <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_rd <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_rd <= issueArbiter_io_insts_out_1_rd; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_imm <= 21'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_imm <= 21'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_imm <= issueArbiter_io_insts_out_1_imm; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_pc <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_pc <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_pc <= issueArbiter_io_insts_out_1_pc; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_ysyx_print <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_ysyx_print <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_ysyx_print <= issueArbiter_io_insts_out_1_ysyx_print; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_1_inst <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_1_inst <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_1_inst <= issueArbiter_io_insts_out_1_inst; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_src_a <= 2'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_src_a <= 2'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_src_a <= issueArbiter_io_insts_out_2_src_a; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_write_dest <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_write_dest <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_write_dest <= issueArbiter_io_insts_out_2_write_dest; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_alu_op <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_alu_op <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_alu_op <= issueArbiter_io_insts_out_2_alu_op; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_mem_width <= 3'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_mem_width <= 3'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_mem_width <= issueArbiter_io_insts_out_2_mem_width; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_rd <= 5'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_rd <= 5'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_rd <= issueArbiter_io_insts_out_2_rd; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_imm <= 21'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_imm <= 21'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_imm <= issueArbiter_io_insts_out_2_imm; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_pc <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_pc <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_pc <= issueArbiter_io_insts_out_2_pc; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_ysyx_print <= 1'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_ysyx_print <= 1'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_ysyx_print <= issueArbiter_io_insts_out_2_ysyx_print; // @[Backend.scala 271:18]
     end
     if (reset) begin // @[Backend.scala 80:29]
       exInsts_2_inst <= 32'h0; // @[Backend.scala 80:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInsts_2_inst <= 32'h0; // @[Backend.scala 253:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInsts_2_inst <= issueArbiter_io_insts_out_2_inst; // @[Backend.scala 271:18]
     end
-    if (!(kill_x)) begin // @[Backend.scala 250:17]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 250:17]
       if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
         exInstsOrder_0 <= issueArbiter_io_insts_order_0; // @[Backend.scala 257:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 250:17]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 250:17]
       if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
         exInstsOrder_1 <= issueArbiter_io_insts_order_1; // @[Backend.scala 257:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 250:17]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 250:17]
       if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
         exInstsOrder_2 <= issueArbiter_io_insts_order_2; // @[Backend.scala 257:18]
       end
     end
     if (reset) begin // @[Backend.scala 82:29]
       exInstsValid_0 <= 1'h0; // @[Backend.scala 82:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInstsValid_0 <= 1'h0; // @[Backend.scala 254:23]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9393,7 +9417,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 82:29]
       exInstsValid_1 <= 1'h0; // @[Backend.scala 82:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInstsValid_1 <= 1'h0; // @[Backend.scala 254:23]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9404,7 +9428,7 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 82:29]
       exInstsValid_2 <= 1'h0; // @[Backend.scala 82:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInstsValid_2 <= 1'h0; // @[Backend.scala 254:23]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       if (csr_io_event_io_call_for_int) begin // @[Backend.scala 258:41]
@@ -9433,15 +9457,15 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 98:29]
       exInterruptd <= 1'h0; // @[Backend.scala 98:29]
-    end else if (kill_x) begin // @[Backend.scala 250:17]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 250:17]
       exInterruptd <= 1'h0; // @[Backend.scala 251:18]
     end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 256:24]
       exInterruptd <= csr_io_event_io_call_for_int; // @[Backend.scala 273:18]
     end
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
         if (isExPCJump) begin // @[Backend.scala 92:25]
-          if (_isExPCJump_T_1) begin // @[Backend.scala 370:16]
+          if (_isExPCJump_T_1) begin // @[Backend.scala 371:16]
             reBranchPC <= brPC;
           end else begin
             reBranchPC <= _jumpPc_T_4;
@@ -9453,9 +9477,9 @@ module Backend(
         end
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        if (exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0) begin // @[Backend.scala 428:19]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        if (exInsts_0_write_src == 2'h3 | exInsts_0_next_pc != 3'h0) begin // @[Backend.scala 429:19]
           wbResult_0 <= {{32'd0}, _exReBranchPC_T_3};
         end else if (2'h2 == exInsts_0_src_b) begin // @[Mux.scala 80:57]
           wbResult_0 <= csr_io_common_io_out;
@@ -9464,227 +9488,227 @@ module Backend(
         end
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbResult_1 <= mdu_io_resp_r; // @[Backend.scala 490:17]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbResult_1 <= mdu_io_resp_r; // @[Backend.scala 492:17]
       end
     end
     if (reset) begin // @[Backend.scala 125:33]
       wbInstsValid_0 <= 1'h0; // @[Backend.scala 125:33]
-    end else if (kill_x) begin // @[Backend.scala 471:17]
-      wbInstsValid_0 <= 1'h0; // @[Backend.scala 473:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-      wbInstsValid_0 <= exInstsTrueValid_0; // @[Backend.scala 485:23]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 472:17]
+      wbInstsValid_0 <= 1'h0; // @[Backend.scala 474:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+      wbInstsValid_0 <= exInstsTrueValid_0; // @[Backend.scala 487:23]
     end
     if (reset) begin // @[Backend.scala 125:33]
       wbInstsValid_1 <= 1'h0; // @[Backend.scala 125:33]
-    end else if (kill_x) begin // @[Backend.scala 471:17]
-      wbInstsValid_1 <= 1'h0; // @[Backend.scala 473:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-      wbInstsValid_1 <= exInstsTrueValid_1; // @[Backend.scala 485:23]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 472:17]
+      wbInstsValid_1 <= 1'h0; // @[Backend.scala 474:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+      wbInstsValid_1 <= exInstsTrueValid_1; // @[Backend.scala 487:23]
     end
     if (reset) begin // @[Backend.scala 125:33]
       wbInstsValid_2 <= 1'h0; // @[Backend.scala 125:33]
-    end else if (kill_x) begin // @[Backend.scala 471:17]
-      wbInstsValid_2 <= 1'h0; // @[Backend.scala 473:23]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-      wbInstsValid_2 <= ldstValid; // @[Backend.scala 485:23]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 472:17]
+      wbInstsValid_2 <= dcacheStall; // @[Backend.scala 476:21]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+      wbInstsValid_2 <= ldstValid; // @[Backend.scala 487:23]
     end
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInstsOrder_0 <= exInstsOrder_0; // @[Backend.scala 488:18]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInstsOrder_0 <= exInstsOrder_0; // @[Backend.scala 490:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInstsOrder_1 <= exInstsOrder_1; // @[Backend.scala 488:18]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInstsOrder_1 <= exInstsOrder_1; // @[Backend.scala 490:18]
       end
     end
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInstsOrder_2 <= exInstsOrder_2; // @[Backend.scala 488:18]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInstsOrder_2 <= exInstsOrder_2; // @[Backend.scala 490:18]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_illegal <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_illegal <= exInsts_0_illegal; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_illegal <= exInsts_0_illegal; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_next_pc <= 3'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_next_pc <= exInsts_0_next_pc; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_next_pc <= exInsts_0_next_pc; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_alu_mdu_lsu <= 2'h3; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_alu_mdu_lsu <= exInsts_0_alu_mdu_lsu; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_alu_mdu_lsu <= exInsts_0_alu_mdu_lsu; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_write_dest <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_write_dest <= exInsts_0_write_dest; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_write_dest <= exInsts_0_write_dest; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_rd <= 5'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_rd <= exInsts_0_rd; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_rd <= exInsts_0_rd; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_imm <= 21'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_imm <= exInsts_0_imm; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_imm <= exInsts_0_imm; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_pc <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_pc <= exInsts_0_pc; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_pc <= exInsts_0_pc; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_ysyx_debug <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_ysyx_debug <= exInsts_0_ysyx_debug; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_ysyx_debug <= exInsts_0_ysyx_debug; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_ysyx_print <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_ysyx_print <= exInsts_0_ysyx_print; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_ysyx_print <= exInsts_0_ysyx_print; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__0_inst <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__0_inst <= exInsts_0_inst; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__0_inst <= exInsts_0_inst; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_write_dest <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__1_write_dest <= exInsts_1_write_dest; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__1_write_dest <= exInsts_1_write_dest; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_rd <= 5'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__1_rd <= exInsts_1_rd; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__1_rd <= exInsts_1_rd; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_pc <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__1_pc <= exInsts_1_pc; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__1_pc <= exInsts_1_pc; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_ysyx_print <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__1_ysyx_print <= exInsts_1_ysyx_print; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__1_ysyx_print <= exInsts_1_ysyx_print; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__1_inst <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__1_inst <= exInsts_1_inst; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__1_inst <= exInsts_1_inst; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_write_dest <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__2_write_dest <= exInsts_2_write_dest; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__2_write_dest <= exInsts_2_write_dest; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_mem_width <= 3'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__2_mem_width <= exInsts_2_mem_width; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__2_mem_width <= exInsts_2_mem_width; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_rd <= 5'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__2_rd <= exInsts_2_rd; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__2_rd <= exInsts_2_rd; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_pc <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__2_pc <= exInsts_2_pc; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__2_pc <= exInsts_2_pc; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_ysyx_print <= 1'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__2_ysyx_print <= exInsts_2_ysyx_print; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__2_ysyx_print <= exInsts_2_ysyx_print; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 127:33]
       wbInsts__2_inst <= 32'h0; // @[Backend.scala 127:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInsts__2_inst <= exInsts_2_inst; // @[Backend.scala 487:13]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInsts__2_inst <= exInsts_2_inst; // @[Backend.scala 489:13]
       end
     end
     if (reset) begin // @[Backend.scala 133:33]
       wbReBranch <= 1'h0; // @[Backend.scala 133:33]
-    end else if (kill_x) begin // @[Backend.scala 471:17]
-      wbReBranch <= 1'h0; // @[Backend.scala 475:16]
-    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-      wbReBranch <= reBranch; // @[Backend.scala 497:16]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 472:17]
+      wbReBranch <= 1'h0; // @[Backend.scala 477:16]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+      wbReBranch <= reBranch; // @[Backend.scala 499:16]
     end
     wbMisalignedAddr <= io_dcache_req_bits_addr; // @[Backend.scala 136:33]
     if (reset) begin // @[Backend.scala 137:33]
       wbInterruptd <= 1'h0; // @[Backend.scala 137:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbInterruptd <= exInterruptd & ~io_fb_bmfs_redirect_kill; // @[Backend.scala 479:18]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbInterruptd <= exInterruptd & _aluValid_T; // @[Backend.scala 481:18]
       end
     end
     if (reset) begin // @[Backend.scala 138:33]
       wbLdMa <= 1'h0; // @[Backend.scala 138:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbLdMa <= ldMisaligned; // @[Backend.scala 491:12]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbLdMa <= ldMisaligned; // @[Backend.scala 493:12]
       end
     end
     if (reset) begin // @[Backend.scala 139:33]
       wbStMa <= 1'h0; // @[Backend.scala 139:33]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbStMa <= stMisaligned; // @[Backend.scala 492:12]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbStMa <= stMisaligned; // @[Backend.scala 494:12]
       end
     end
     if (reset) begin // @[Backend.scala 140:33]
       wbBpuV <= 1'h0; // @[Backend.scala 140:33]
-    end else if (kill_x) begin // @[Backend.scala 471:17]
-      wbBpuV <= 1'h0; // @[Backend.scala 476:12]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Backend.scala 472:17]
+      wbBpuV <= 1'h0; // @[Backend.scala 478:12]
     end else begin
       wbBpuV <= _GEN_232;
     end
@@ -9693,62 +9717,67 @@ module Backend(
     wbBpuPCBr <= {wbBpuPCBr_hi,wbBpuPCBr_lo}; // @[Cat.scala 30:58]
     if (isExPCBr) begin // @[Backend.scala 119:22]
       wbBpuTarget <= brPC;
-    end else if (_isExPCJump_T_1) begin // @[Backend.scala 370:16]
+    end else if (_isExPCJump_T_1) begin // @[Backend.scala 371:16]
       wbBpuTarget <= brPC;
     end else begin
       wbBpuTarget <= _jumpPc_T_4;
     end
     wbBpuTaken <= reBranchBrTaken | isExPCJump; // @[Backend.scala 120:35]
-    if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbCsrData <= alu_io_r; // @[Backend.scala 494:15]
+    if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbCsrData <= alu_io_r; // @[Backend.scala 496:15]
       end
     end
-    wbLdDataValid <= mdu_io_resp_valid; // @[Backend.scala 453:30]
-    if (_kill_x_T) begin // @[Reg.scala 16:19]
+    if (reset) begin // @[Backend.scala 313:34]
+      exLastMemReqValid <= 1'h0; // @[Backend.scala 313:34]
+    end else if (~dcacheStall) begin // @[Backend.scala 356:23]
+      exLastMemReqValid <= _io_dcache_req_valid_T_1; // @[Backend.scala 357:23]
+    end
+    wbLdDataValid <= mdu_io_resp_valid; // @[Backend.scala 454:30]
+    if (_T_42) begin // @[Reg.scala 16:19]
       delayed_req_bits <= _delayed_req_bits_T_1; // @[Reg.scala 16:23]
     end
-    if (reset) begin // @[Backend.scala 455:28]
-      wbMMIOValid <= 1'h0; // @[Backend.scala 455:28]
-    end else if (!(kill_x)) begin // @[Backend.scala 471:17]
-      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 477:26]
-        wbMMIOValid <= exMMIOValid; // @[Backend.scala 478:17]
+    if (reset) begin // @[Backend.scala 456:28]
+      wbMMIOValid <= 1'h0; // @[Backend.scala 456:28]
+    end else if (!(io_fb_bmfs_redirect_kill)) begin // @[Backend.scala 472:17]
+      if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 479:26]
+        wbMMIOValid <= exMMIOValid; // @[Backend.scala 480:17]
       end
     end
-    wb_mmio_ld_data <= csr_io_common_io_out; // @[Backend.scala 456:32]
-    if (_stall_i_T & wbLdDataForStall_REG) begin // @[Backend.scala 452:26]
+    wb_mmio_ld_data <= csr_io_common_io_out; // @[Backend.scala 457:32]
+    if (_stall_i_T & wbLdDataForStall_REG) begin // @[Backend.scala 453:26]
       if (_T_43) begin // @[Conditional.scala 40:58]
-        wbLdDataForStall <= _wbLdData_T_5; // @[Backend.scala 460:41]
+        wbLdDataForStall <= _wbLdData_T_5; // @[Backend.scala 461:41]
       end else if (_T_44) begin // @[Conditional.scala 39:67]
-        wbLdDataForStall <= _wbLdData_T_6; // @[Backend.scala 461:41]
+        wbLdDataForStall <= _wbLdData_T_6; // @[Backend.scala 462:41]
       end else if (_T_45) begin // @[Conditional.scala 39:67]
-        wbLdDataForStall <= _wbLdData_T_9; // @[Backend.scala 462:41]
+        wbLdDataForStall <= _wbLdData_T_9; // @[Backend.scala 463:41]
       end else begin
         wbLdDataForStall <= _GEN_226;
       end
     end
-    if (reset) begin // @[Backend.scala 321:29]
-      exLastMemReq_addr <= 32'h0; // @[Backend.scala 321:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 355:23]
-      exLastMemReq_addr <= exCurMemReq_addr; // @[Backend.scala 357:18]
+    if (reset) begin // @[Backend.scala 322:29]
+      exLastMemReq_addr <= 32'h0; // @[Backend.scala 322:29]
+    end else if (~dcacheStall) begin // @[Backend.scala 356:23]
+      exLastMemReq_addr <= exCurMemReq_addr; // @[Backend.scala 358:18]
     end
-    if (reset) begin // @[Backend.scala 321:29]
-      exLastMemReq_wdata <= 64'h0; // @[Backend.scala 321:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 355:23]
-      exLastMemReq_wdata <= exFwdRtData_2; // @[Backend.scala 357:18]
+    if (reset) begin // @[Backend.scala 322:29]
+      exLastMemReq_wdata <= 64'h0; // @[Backend.scala 322:29]
+    end else if (~dcacheStall) begin // @[Backend.scala 356:23]
+      exLastMemReq_wdata <= exFwdRtData_2; // @[Backend.scala 358:18]
     end
-    if (reset) begin // @[Backend.scala 321:29]
-      exLastMemReq_wen <= 1'h0; // @[Backend.scala 321:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 355:23]
-      exLastMemReq_wen <= _stMisaligned_T; // @[Backend.scala 357:18]
+    if (reset) begin // @[Backend.scala 322:29]
+      exLastMemReq_wen <= 1'h0; // @[Backend.scala 322:29]
+    end else if (~dcacheStall) begin // @[Backend.scala 356:23]
+      exLastMemReq_wen <= _stMisaligned_T; // @[Backend.scala 358:18]
     end
-    if (reset) begin // @[Backend.scala 321:29]
-      exLastMemReq_mtype <= 3'h2; // @[Backend.scala 321:29]
-    end else if (_kill_x_T) begin // @[Backend.scala 355:23]
-      exLastMemReq_mtype <= exCurMemReq_mtype; // @[Backend.scala 357:18]
+    if (reset) begin // @[Backend.scala 322:29]
+      exLastMemReq_mtype <= 3'h2; // @[Backend.scala 322:29]
+    end else if (~dcacheStall) begin // @[Backend.scala 356:23]
+      exLastMemReq_mtype <= exCurMemReq_mtype; // @[Backend.scala 358:18]
     end
-    wbLdDataForStall_REG <= mdu_io_resp_valid; // @[Backend.scala 452:56]
-    wb_mmio_sd_data <= exFwdRtData_2; // @[Backend.scala 558:33]
+    wbLdDataForStall_REG <= mdu_io_resp_valid; // @[Backend.scala 453:56]
+    wb_mmio_sd_data <= exFwdRtData_2; // @[Backend.scala 560:33]
     if (64'h2004000 == ldstAddr) begin // @[Mux.scala 80:57]
       wb_mmio_num <= 12'hffe;
     end else if (64'h200bff8 == ldstAddr) begin // @[Mux.scala 80:57]
@@ -9756,34 +9785,69 @@ module Backend(
     end else begin
       wb_mmio_num <= 12'h0;
     end
-    REG <= wbInstsValid_0 & _issueQueue_io_deqReq_T & |wbInsts__0_inst; // @[Backend.scala 606:90]
-    REG_1 <= wbInstsValid_1 & _issueQueue_io_deqReq_T & |wbInsts__1_inst; // @[Backend.scala 606:90]
-    REG_2 <= wbInstsValid_2 & _issueQueue_io_deqReq_T & |wbInsts__2_inst; // @[Backend.scala 606:90]
-    if (wbInstsValid_0) begin // @[Backend.scala 607:64]
-      REG_3 <= wbInsts__0_pc;
-    end else begin
-      REG_3 <= 32'h0;
+    if (dcacheStall & ~REG) begin // @[Backend.scala 609:48]
+      bufInsts0_pc <= wbInsts__0_pc; // @[Backend.scala 610:17]
     end
-    if (wbInstsValid_1) begin // @[Backend.scala 607:64]
-      REG_4 <= wbInsts__1_pc;
+    if (dcacheStall & ~REG) begin // @[Backend.scala 609:48]
+      bufInsts0_inst <= wbInsts__0_inst; // @[Backend.scala 610:17]
+    end
+    if (dcacheStall & ~REG) begin // @[Backend.scala 609:48]
+      bufInstsValid0 <= wbInstsValid_0; // @[Backend.scala 611:22]
+    end
+    if (dcacheStall & ~REG) begin // @[Backend.scala 609:48]
+      bufInstsOrder0 <= wbInstsOrder_0; // @[Backend.scala 612:22]
+    end
+    REG <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 314:36]
+    tmp_REG <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 314:36]
+    if (tmp_REG) begin // @[Backend.scala 616:20]
+      REG_1 <= bufInstsValid0 & _issueQueue_io_deqReq_T & |bufInsts0_inst;
+    end else begin
+      REG_1 <= wbInstsValid_0 & _issueQueue_io_deqReq_T & |wbInsts__0_inst;
+    end
+    REG_2 <= _tmp_T_13 & _tmp_T_14; // @[Backend.scala 618:49]
+    REG_3 <= _tmp_T_21 & _tmp_T_22; // @[Backend.scala 618:49]
+    tmp_REG_3 <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 314:36]
+    if (tmp_REG_3) begin // @[Backend.scala 621:20]
+      if (bufInstsValid0) begin // @[Backend.scala 621:46]
+        REG_4 <= bufInsts0_pc;
+      end else begin
+        REG_4 <= 32'h0;
+      end
+    end else if (wbInstsValid_0) begin // @[Backend.scala 621:86]
+      REG_4 <= wbInsts__0_pc;
     end else begin
       REG_4 <= 32'h0;
     end
-    if (wbInstsValid_2) begin // @[Backend.scala 607:64]
-      REG_5 <= wbInsts__2_pc;
+    if (wbInstsValid_1) begin // @[Backend.scala 623:23]
+      REG_5 <= wbInsts__1_pc;
     end else begin
       REG_5 <= 32'h0;
     end
-    REG_6 <= wbInstsOrder_0; // @[Backend.scala 608:60]
-    REG_7 <= wbInstsOrder_1; // @[Backend.scala 608:60]
-    REG_8 <= wbInstsOrder_2; // @[Backend.scala 608:60]
-    REG_9 <= wbInsts__0_inst; // @[Backend.scala 609:60]
-    REG_10 <= wbInsts__1_inst; // @[Backend.scala 609:60]
-    REG_11 <= wbInsts__2_inst; // @[Backend.scala 609:60]
-    REG_12 <= wbMMIOValid; // @[Backend.scala 610:72]
-    REG_13 <= wbInsts__0_ysyx_print; // @[Backend.scala 616:60]
-    REG_14 <= wbInsts__1_ysyx_print; // @[Backend.scala 616:60]
-    REG_15 <= wbInsts__2_ysyx_print; // @[Backend.scala 616:60]
+    if (wbInstsValid_2) begin // @[Backend.scala 623:23]
+      REG_6 <= wbInsts__2_pc;
+    end else begin
+      REG_6 <= 32'h0;
+    end
+    tmp_REG_6 <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 314:36]
+    if (tmp_REG_6) begin // @[Backend.scala 626:20]
+      REG_7 <= bufInstsOrder0;
+    end else begin
+      REG_7 <= wbInstsOrder_0;
+    end
+    REG_8 <= wbInstsOrder_1; // @[Backend.scala 628:19]
+    REG_9 <= wbInstsOrder_2; // @[Backend.scala 628:19]
+    tmp_REG_9 <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 314:36]
+    if (tmp_REG_9) begin // @[Backend.scala 631:20]
+      REG_10 <= bufInsts0_inst;
+    end else begin
+      REG_10 <= wbInsts__0_inst;
+    end
+    REG_11 <= wbInsts__1_inst; // @[Backend.scala 633:19]
+    REG_12 <= wbInsts__2_inst; // @[Backend.scala 633:19]
+    REG_13 <= wbMMIOValid; // @[Backend.scala 635:72]
+    REG_14 <= wbInsts__0_ysyx_print; // @[Backend.scala 641:60]
+    REG_15 <= wbInsts__1_ysyx_print; // @[Backend.scala 641:60]
+    REG_16 <= wbInsts__2_ysyx_print; // @[Backend.scala 641:60]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -9822,191 +9886,191 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  exLastMemReqValid = _RAND_0[0:0];
+  exInsts_0_illegal = _RAND_0[0:0];
   _RAND_1 = {1{`RANDOM}};
-  exInsts_0_illegal = _RAND_1[0:0];
+  exInsts_0_next_pc = _RAND_1[2:0];
   _RAND_2 = {1{`RANDOM}};
-  exInsts_0_next_pc = _RAND_2[2:0];
+  exInsts_0_alu_mdu_lsu = _RAND_2[1:0];
   _RAND_3 = {1{`RANDOM}};
-  exInsts_0_alu_mdu_lsu = _RAND_3[1:0];
+  exInsts_0_branch_type = _RAND_3[3:0];
   _RAND_4 = {1{`RANDOM}};
-  exInsts_0_branch_type = _RAND_4[3:0];
+  exInsts_0_src_a = _RAND_4[1:0];
   _RAND_5 = {1{`RANDOM}};
-  exInsts_0_src_a = _RAND_5[1:0];
+  exInsts_0_src_b = _RAND_5[1:0];
   _RAND_6 = {1{`RANDOM}};
-  exInsts_0_src_b = _RAND_6[1:0];
+  exInsts_0_write_dest = _RAND_6[0:0];
   _RAND_7 = {1{`RANDOM}};
-  exInsts_0_write_dest = _RAND_7[0:0];
+  exInsts_0_alu_op = _RAND_7[4:0];
   _RAND_8 = {1{`RANDOM}};
-  exInsts_0_alu_op = _RAND_8[4:0];
+  exInsts_0_alu_expand = _RAND_8[0:0];
   _RAND_9 = {1{`RANDOM}};
-  exInsts_0_alu_expand = _RAND_9[0:0];
+  exInsts_0_write_src = _RAND_9[1:0];
   _RAND_10 = {1{`RANDOM}};
-  exInsts_0_write_src = _RAND_10[1:0];
+  exInsts_0_rs1 = _RAND_10[4:0];
   _RAND_11 = {1{`RANDOM}};
-  exInsts_0_rs1 = _RAND_11[4:0];
+  exInsts_0_rd = _RAND_11[4:0];
   _RAND_12 = {1{`RANDOM}};
-  exInsts_0_rd = _RAND_12[4:0];
+  exInsts_0_imm = _RAND_12[20:0];
   _RAND_13 = {1{`RANDOM}};
-  exInsts_0_imm = _RAND_13[20:0];
+  exInsts_0_pc = _RAND_13[31:0];
   _RAND_14 = {1{`RANDOM}};
-  exInsts_0_pc = _RAND_14[31:0];
+  exInsts_0_predict_taken = _RAND_14[0:0];
   _RAND_15 = {1{`RANDOM}};
-  exInsts_0_predict_taken = _RAND_15[0:0];
+  exInsts_0_target_pc = _RAND_15[31:0];
   _RAND_16 = {1{`RANDOM}};
-  exInsts_0_target_pc = _RAND_16[31:0];
+  exInsts_0_ysyx_debug = _RAND_16[0:0];
   _RAND_17 = {1{`RANDOM}};
-  exInsts_0_ysyx_debug = _RAND_17[0:0];
+  exInsts_0_ysyx_print = _RAND_17[0:0];
   _RAND_18 = {1{`RANDOM}};
-  exInsts_0_ysyx_print = _RAND_18[0:0];
+  exInsts_0_inst = _RAND_18[31:0];
   _RAND_19 = {1{`RANDOM}};
-  exInsts_0_inst = _RAND_19[31:0];
+  exInsts_1_src_a = _RAND_19[1:0];
   _RAND_20 = {1{`RANDOM}};
-  exInsts_1_src_a = _RAND_20[1:0];
+  exInsts_1_src_b = _RAND_20[1:0];
   _RAND_21 = {1{`RANDOM}};
-  exInsts_1_src_b = _RAND_21[1:0];
+  exInsts_1_write_dest = _RAND_21[0:0];
   _RAND_22 = {1{`RANDOM}};
-  exInsts_1_write_dest = _RAND_22[0:0];
+  exInsts_1_alu_op = _RAND_22[4:0];
   _RAND_23 = {1{`RANDOM}};
-  exInsts_1_alu_op = _RAND_23[4:0];
+  exInsts_1_alu_expand = _RAND_23[0:0];
   _RAND_24 = {1{`RANDOM}};
-  exInsts_1_alu_expand = _RAND_24[0:0];
+  exInsts_1_rd = _RAND_24[4:0];
   _RAND_25 = {1{`RANDOM}};
-  exInsts_1_rd = _RAND_25[4:0];
+  exInsts_1_imm = _RAND_25[20:0];
   _RAND_26 = {1{`RANDOM}};
-  exInsts_1_imm = _RAND_26[20:0];
+  exInsts_1_pc = _RAND_26[31:0];
   _RAND_27 = {1{`RANDOM}};
-  exInsts_1_pc = _RAND_27[31:0];
+  exInsts_1_ysyx_print = _RAND_27[0:0];
   _RAND_28 = {1{`RANDOM}};
-  exInsts_1_ysyx_print = _RAND_28[0:0];
+  exInsts_1_inst = _RAND_28[31:0];
   _RAND_29 = {1{`RANDOM}};
-  exInsts_1_inst = _RAND_29[31:0];
+  exInsts_2_src_a = _RAND_29[1:0];
   _RAND_30 = {1{`RANDOM}};
-  exInsts_2_src_a = _RAND_30[1:0];
+  exInsts_2_write_dest = _RAND_30[0:0];
   _RAND_31 = {1{`RANDOM}};
-  exInsts_2_write_dest = _RAND_31[0:0];
+  exInsts_2_alu_op = _RAND_31[4:0];
   _RAND_32 = {1{`RANDOM}};
-  exInsts_2_alu_op = _RAND_32[4:0];
+  exInsts_2_mem_width = _RAND_32[2:0];
   _RAND_33 = {1{`RANDOM}};
-  exInsts_2_mem_width = _RAND_33[2:0];
+  exInsts_2_rd = _RAND_33[4:0];
   _RAND_34 = {1{`RANDOM}};
-  exInsts_2_rd = _RAND_34[4:0];
+  exInsts_2_imm = _RAND_34[20:0];
   _RAND_35 = {1{`RANDOM}};
-  exInsts_2_imm = _RAND_35[20:0];
+  exInsts_2_pc = _RAND_35[31:0];
   _RAND_36 = {1{`RANDOM}};
-  exInsts_2_pc = _RAND_36[31:0];
+  exInsts_2_ysyx_print = _RAND_36[0:0];
   _RAND_37 = {1{`RANDOM}};
-  exInsts_2_ysyx_print = _RAND_37[0:0];
+  exInsts_2_inst = _RAND_37[31:0];
   _RAND_38 = {1{`RANDOM}};
-  exInsts_2_inst = _RAND_38[31:0];
+  exInstsOrder_0 = _RAND_38[1:0];
   _RAND_39 = {1{`RANDOM}};
-  exInstsOrder_0 = _RAND_39[1:0];
+  exInstsOrder_1 = _RAND_39[1:0];
   _RAND_40 = {1{`RANDOM}};
-  exInstsOrder_1 = _RAND_40[1:0];
+  exInstsOrder_2 = _RAND_40[1:0];
   _RAND_41 = {1{`RANDOM}};
-  exInstsOrder_2 = _RAND_41[1:0];
+  exInstsValid_0 = _RAND_41[0:0];
   _RAND_42 = {1{`RANDOM}};
-  exInstsValid_0 = _RAND_42[0:0];
+  exInstsValid_1 = _RAND_42[0:0];
   _RAND_43 = {1{`RANDOM}};
-  exInstsValid_1 = _RAND_43[0:0];
-  _RAND_44 = {1{`RANDOM}};
-  exInstsValid_2 = _RAND_44[0:0];
+  exInstsValid_2 = _RAND_43[0:0];
+  _RAND_44 = {2{`RANDOM}};
+  exFwdRsData_0 = _RAND_44[63:0];
   _RAND_45 = {2{`RANDOM}};
-  exFwdRsData_0 = _RAND_45[63:0];
+  exFwdRsData_1 = _RAND_45[63:0];
   _RAND_46 = {2{`RANDOM}};
-  exFwdRsData_1 = _RAND_46[63:0];
+  exFwdRsData_2 = _RAND_46[63:0];
   _RAND_47 = {2{`RANDOM}};
-  exFwdRsData_2 = _RAND_47[63:0];
+  exFwdRtData_0 = _RAND_47[63:0];
   _RAND_48 = {2{`RANDOM}};
-  exFwdRtData_0 = _RAND_48[63:0];
+  exFwdRtData_1 = _RAND_48[63:0];
   _RAND_49 = {2{`RANDOM}};
-  exFwdRtData_1 = _RAND_49[63:0];
-  _RAND_50 = {2{`RANDOM}};
-  exFwdRtData_2 = _RAND_50[63:0];
-  _RAND_51 = {1{`RANDOM}};
-  exInterruptd = _RAND_51[0:0];
+  exFwdRtData_2 = _RAND_49[63:0];
+  _RAND_50 = {1{`RANDOM}};
+  exInterruptd = _RAND_50[0:0];
+  _RAND_51 = {2{`RANDOM}};
+  reBranchPC = _RAND_51[63:0];
   _RAND_52 = {2{`RANDOM}};
-  reBranchPC = _RAND_52[63:0];
+  wbResult_0 = _RAND_52[63:0];
   _RAND_53 = {2{`RANDOM}};
-  wbResult_0 = _RAND_53[63:0];
-  _RAND_54 = {2{`RANDOM}};
-  wbResult_1 = _RAND_54[63:0];
+  wbResult_1 = _RAND_53[63:0];
+  _RAND_54 = {1{`RANDOM}};
+  wbInstsValid_0 = _RAND_54[0:0];
   _RAND_55 = {1{`RANDOM}};
-  wbInstsValid_0 = _RAND_55[0:0];
+  wbInstsValid_1 = _RAND_55[0:0];
   _RAND_56 = {1{`RANDOM}};
-  wbInstsValid_1 = _RAND_56[0:0];
+  wbInstsValid_2 = _RAND_56[0:0];
   _RAND_57 = {1{`RANDOM}};
-  wbInstsValid_2 = _RAND_57[0:0];
+  wbInstsOrder_0 = _RAND_57[1:0];
   _RAND_58 = {1{`RANDOM}};
-  wbInstsOrder_0 = _RAND_58[1:0];
+  wbInstsOrder_1 = _RAND_58[1:0];
   _RAND_59 = {1{`RANDOM}};
-  wbInstsOrder_1 = _RAND_59[1:0];
+  wbInstsOrder_2 = _RAND_59[1:0];
   _RAND_60 = {1{`RANDOM}};
-  wbInstsOrder_2 = _RAND_60[1:0];
+  wbInsts__0_illegal = _RAND_60[0:0];
   _RAND_61 = {1{`RANDOM}};
-  wbInsts__0_illegal = _RAND_61[0:0];
+  wbInsts__0_next_pc = _RAND_61[2:0];
   _RAND_62 = {1{`RANDOM}};
-  wbInsts__0_next_pc = _RAND_62[2:0];
+  wbInsts__0_alu_mdu_lsu = _RAND_62[1:0];
   _RAND_63 = {1{`RANDOM}};
-  wbInsts__0_alu_mdu_lsu = _RAND_63[1:0];
+  wbInsts__0_write_dest = _RAND_63[0:0];
   _RAND_64 = {1{`RANDOM}};
-  wbInsts__0_write_dest = _RAND_64[0:0];
+  wbInsts__0_rd = _RAND_64[4:0];
   _RAND_65 = {1{`RANDOM}};
-  wbInsts__0_rd = _RAND_65[4:0];
+  wbInsts__0_imm = _RAND_65[20:0];
   _RAND_66 = {1{`RANDOM}};
-  wbInsts__0_imm = _RAND_66[20:0];
+  wbInsts__0_pc = _RAND_66[31:0];
   _RAND_67 = {1{`RANDOM}};
-  wbInsts__0_pc = _RAND_67[31:0];
+  wbInsts__0_ysyx_debug = _RAND_67[0:0];
   _RAND_68 = {1{`RANDOM}};
-  wbInsts__0_ysyx_debug = _RAND_68[0:0];
+  wbInsts__0_ysyx_print = _RAND_68[0:0];
   _RAND_69 = {1{`RANDOM}};
-  wbInsts__0_ysyx_print = _RAND_69[0:0];
+  wbInsts__0_inst = _RAND_69[31:0];
   _RAND_70 = {1{`RANDOM}};
-  wbInsts__0_inst = _RAND_70[31:0];
+  wbInsts__1_write_dest = _RAND_70[0:0];
   _RAND_71 = {1{`RANDOM}};
-  wbInsts__1_write_dest = _RAND_71[0:0];
+  wbInsts__1_rd = _RAND_71[4:0];
   _RAND_72 = {1{`RANDOM}};
-  wbInsts__1_rd = _RAND_72[4:0];
+  wbInsts__1_pc = _RAND_72[31:0];
   _RAND_73 = {1{`RANDOM}};
-  wbInsts__1_pc = _RAND_73[31:0];
+  wbInsts__1_ysyx_print = _RAND_73[0:0];
   _RAND_74 = {1{`RANDOM}};
-  wbInsts__1_ysyx_print = _RAND_74[0:0];
+  wbInsts__1_inst = _RAND_74[31:0];
   _RAND_75 = {1{`RANDOM}};
-  wbInsts__1_inst = _RAND_75[31:0];
+  wbInsts__2_write_dest = _RAND_75[0:0];
   _RAND_76 = {1{`RANDOM}};
-  wbInsts__2_write_dest = _RAND_76[0:0];
+  wbInsts__2_mem_width = _RAND_76[2:0];
   _RAND_77 = {1{`RANDOM}};
-  wbInsts__2_mem_width = _RAND_77[2:0];
+  wbInsts__2_rd = _RAND_77[4:0];
   _RAND_78 = {1{`RANDOM}};
-  wbInsts__2_rd = _RAND_78[4:0];
+  wbInsts__2_pc = _RAND_78[31:0];
   _RAND_79 = {1{`RANDOM}};
-  wbInsts__2_pc = _RAND_79[31:0];
+  wbInsts__2_ysyx_print = _RAND_79[0:0];
   _RAND_80 = {1{`RANDOM}};
-  wbInsts__2_ysyx_print = _RAND_80[0:0];
+  wbInsts__2_inst = _RAND_80[31:0];
   _RAND_81 = {1{`RANDOM}};
-  wbInsts__2_inst = _RAND_81[31:0];
+  wbReBranch = _RAND_81[0:0];
   _RAND_82 = {1{`RANDOM}};
-  wbReBranch = _RAND_82[0:0];
+  wbMisalignedAddr = _RAND_82[31:0];
   _RAND_83 = {1{`RANDOM}};
-  wbMisalignedAddr = _RAND_83[31:0];
+  wbInterruptd = _RAND_83[0:0];
   _RAND_84 = {1{`RANDOM}};
-  wbInterruptd = _RAND_84[0:0];
+  wbLdMa = _RAND_84[0:0];
   _RAND_85 = {1{`RANDOM}};
-  wbLdMa = _RAND_85[0:0];
+  wbStMa = _RAND_85[0:0];
   _RAND_86 = {1{`RANDOM}};
-  wbStMa = _RAND_86[0:0];
+  wbBpuV = _RAND_86[0:0];
   _RAND_87 = {1{`RANDOM}};
-  wbBpuV = _RAND_87[0:0];
+  wbBpuErrpr = _RAND_87[0:0];
   _RAND_88 = {1{`RANDOM}};
-  wbBpuErrpr = _RAND_88[0:0];
-  _RAND_89 = {1{`RANDOM}};
-  wbBpuPCBr = _RAND_89[31:0];
-  _RAND_90 = {2{`RANDOM}};
-  wbBpuTarget = _RAND_90[63:0];
-  _RAND_91 = {1{`RANDOM}};
-  wbBpuTaken = _RAND_91[0:0];
-  _RAND_92 = {2{`RANDOM}};
-  wbCsrData = _RAND_92[63:0];
+  wbBpuPCBr = _RAND_88[31:0];
+  _RAND_89 = {2{`RANDOM}};
+  wbBpuTarget = _RAND_89[63:0];
+  _RAND_90 = {1{`RANDOM}};
+  wbBpuTaken = _RAND_90[0:0];
+  _RAND_91 = {2{`RANDOM}};
+  wbCsrData = _RAND_91[63:0];
+  _RAND_92 = {1{`RANDOM}};
+  exLastMemReqValid = _RAND_92[0:0];
   _RAND_93 = {1{`RANDOM}};
   wbLdDataValid = _RAND_93[0:0];
   _RAND_94 = {1{`RANDOM}};
@@ -10032,37 +10096,55 @@ initial begin
   _RAND_104 = {1{`RANDOM}};
   wb_mmio_num = _RAND_104[11:0];
   _RAND_105 = {1{`RANDOM}};
-  REG = _RAND_105[0:0];
+  bufInsts0_pc = _RAND_105[31:0];
   _RAND_106 = {1{`RANDOM}};
-  REG_1 = _RAND_106[0:0];
+  bufInsts0_inst = _RAND_106[31:0];
   _RAND_107 = {1{`RANDOM}};
-  REG_2 = _RAND_107[0:0];
+  bufInstsValid0 = _RAND_107[0:0];
   _RAND_108 = {1{`RANDOM}};
-  REG_3 = _RAND_108[31:0];
+  bufInstsOrder0 = _RAND_108[1:0];
   _RAND_109 = {1{`RANDOM}};
-  REG_4 = _RAND_109[31:0];
+  REG = _RAND_109[0:0];
   _RAND_110 = {1{`RANDOM}};
-  REG_5 = _RAND_110[31:0];
+  tmp_REG = _RAND_110[0:0];
   _RAND_111 = {1{`RANDOM}};
-  REG_6 = _RAND_111[1:0];
+  REG_1 = _RAND_111[0:0];
   _RAND_112 = {1{`RANDOM}};
-  REG_7 = _RAND_112[1:0];
+  REG_2 = _RAND_112[0:0];
   _RAND_113 = {1{`RANDOM}};
-  REG_8 = _RAND_113[1:0];
+  REG_3 = _RAND_113[0:0];
   _RAND_114 = {1{`RANDOM}};
-  REG_9 = _RAND_114[31:0];
+  tmp_REG_3 = _RAND_114[0:0];
   _RAND_115 = {1{`RANDOM}};
-  REG_10 = _RAND_115[31:0];
+  REG_4 = _RAND_115[31:0];
   _RAND_116 = {1{`RANDOM}};
-  REG_11 = _RAND_116[31:0];
+  REG_5 = _RAND_116[31:0];
   _RAND_117 = {1{`RANDOM}};
-  REG_12 = _RAND_117[0:0];
+  REG_6 = _RAND_117[31:0];
   _RAND_118 = {1{`RANDOM}};
-  REG_13 = _RAND_118[0:0];
+  tmp_REG_6 = _RAND_118[0:0];
   _RAND_119 = {1{`RANDOM}};
-  REG_14 = _RAND_119[0:0];
+  REG_7 = _RAND_119[1:0];
   _RAND_120 = {1{`RANDOM}};
-  REG_15 = _RAND_120[0:0];
+  REG_8 = _RAND_120[1:0];
+  _RAND_121 = {1{`RANDOM}};
+  REG_9 = _RAND_121[1:0];
+  _RAND_122 = {1{`RANDOM}};
+  tmp_REG_9 = _RAND_122[0:0];
+  _RAND_123 = {1{`RANDOM}};
+  REG_10 = _RAND_123[31:0];
+  _RAND_124 = {1{`RANDOM}};
+  REG_11 = _RAND_124[31:0];
+  _RAND_125 = {1{`RANDOM}};
+  REG_12 = _RAND_125[31:0];
+  _RAND_126 = {1{`RANDOM}};
+  REG_13 = _RAND_126[0:0];
+  _RAND_127 = {1{`RANDOM}};
+  REG_14 = _RAND_127[0:0];
+  _RAND_128 = {1{`RANDOM}};
+  REG_15 = _RAND_128[0:0];
+  _RAND_129 = {1{`RANDOM}};
+  REG_16 = _RAND_129[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
