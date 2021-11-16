@@ -2629,7 +2629,7 @@ module MDU(
   wire [128:0] _mulsu_res_T_2 = $signed(io_req_in1) * $signed(_mulsu_res_T_1); // @[MDU.scala 52:47]
   reg [127:0] mulsu_res; // @[MDU.scala 52:26]
   wire  mdu_op = io_req_op[4]; // @[MDU.scala 54:25]
-  wire  mul_op = io_req_op[2]; // @[MDU.scala 55:25]
+  wire  mul_op = ~io_req_op[2]; // @[MDU.scala 55:16]
   wire  div_valid = mdu_op & ~mul_op & io_req_valid; // @[MDU.scala 57:38]
   wire  mult_valid = mdu_op & mul_op & io_req_valid; // @[MDU.scala 58:37]
   reg  diving; // @[MDU.scala 62:24]
@@ -7830,12 +7830,12 @@ module Backend(
   reg [63:0] _RAND_96;
   reg [63:0] _RAND_97;
   reg [31:0] _RAND_98;
-  reg [31:0] _RAND_99;
-  reg [63:0] _RAND_100;
+  reg [63:0] _RAND_99;
+  reg [31:0] _RAND_100;
   reg [31:0] _RAND_101;
   reg [31:0] _RAND_102;
-  reg [31:0] _RAND_103;
-  reg [63:0] _RAND_104;
+  reg [63:0] _RAND_103;
+  reg [31:0] _RAND_104;
   reg [31:0] _RAND_105;
   reg [31:0] _RAND_106;
   reg [31:0] _RAND_107;
@@ -7852,7 +7852,6 @@ module Backend(
   reg [31:0] _RAND_118;
   reg [31:0] _RAND_119;
   reg [31:0] _RAND_120;
-  reg [31:0] _RAND_121;
 `endif // RANDOMIZE_REG_INIT
   wire [63:0] alu_io_a; // @[Backend.scala 58:28]
   wire [63:0] alu_io_b; // @[Backend.scala 58:28]
@@ -8405,7 +8404,6 @@ module Backend(
   wire [63:0] _alu_io_a_T = {59'h0,exInsts_0_rs1}; // @[Cat.scala 30:58]
   wire [63:0] _alu_io_a_T_2 = 2'h2 == exInsts_0_src_a ? {{32'd0}, exInsts_0_pc} : exFwdRsData_0; // @[Mux.scala 80:57]
   wire [63:0] _alu_io_b_T_1 = 2'h1 == exInsts_0_src_b ? genImm_0 : exFwdRtData_0; // @[Mux.scala 80:57]
-  reg  mdu_io_req_valid_REG; // @[Backend.scala 305:43]
   wire  ldMisaligned = exInsts_2_write_dest & memMisaligned; // @[Backend.scala 315:62]
   wire  _stMisaligned_T = ~exInsts_2_write_dest; // @[Backend.scala 316:41]
   wire  stMisaligned = ~exInsts_2_write_dest & memMisaligned; // @[Backend.scala 316:62]
@@ -8887,7 +8885,7 @@ module Backend(
   assign alu_io_aluExpand = exInsts_0_alu_expand; // @[Backend.scala 300:20]
   assign mdu_clock = clock;
   assign mdu_reset = reset;
-  assign mdu_io_req_valid = mduValid & ~mdu_io_req_valid_REG; // @[Backend.scala 305:32]
+  assign mdu_io_req_valid = exInstsValid_1 & _aluValid_T; // @[Backend.scala 285:33]
   assign mdu_io_req_op = exInsts_1_alu_op; // @[Backend.scala 308:17]
   assign mdu_io_req_expand = exInsts_1_alu_expand; // @[Backend.scala 309:21]
   assign mdu_io_req_in1 = exInsts_1_src_a == 2'h0 ? exFwdRsData_1 : {{32'd0}, exInsts_1_pc}; // @[Backend.scala 306:24]
@@ -9729,7 +9727,6 @@ module Backend(
         wbLdDataForStall <= _GEN_226;
       end
     end
-    mdu_io_req_valid_REG <= exLastMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 313:36]
     if (reset) begin // @[Backend.scala 321:29]
       exLastMemReq_addr <= 32'h0; // @[Backend.scala 321:29]
     end else if (_kill_x_T) begin // @[Backend.scala 355:23]
@@ -10021,53 +10018,51 @@ initial begin
   _RAND_97 = {2{`RANDOM}};
   wbLdDataForStall = _RAND_97[63:0];
   _RAND_98 = {1{`RANDOM}};
-  mdu_io_req_valid_REG = _RAND_98[0:0];
-  _RAND_99 = {1{`RANDOM}};
-  exLastMemReq_addr = _RAND_99[31:0];
-  _RAND_100 = {2{`RANDOM}};
-  exLastMemReq_wdata = _RAND_100[63:0];
+  exLastMemReq_addr = _RAND_98[31:0];
+  _RAND_99 = {2{`RANDOM}};
+  exLastMemReq_wdata = _RAND_99[63:0];
+  _RAND_100 = {1{`RANDOM}};
+  exLastMemReq_wen = _RAND_100[0:0];
   _RAND_101 = {1{`RANDOM}};
-  exLastMemReq_wen = _RAND_101[0:0];
+  exLastMemReq_mtype = _RAND_101[2:0];
   _RAND_102 = {1{`RANDOM}};
-  exLastMemReq_mtype = _RAND_102[2:0];
-  _RAND_103 = {1{`RANDOM}};
-  wbLdDataForStall_REG = _RAND_103[0:0];
-  _RAND_104 = {2{`RANDOM}};
-  wb_mmio_sd_data = _RAND_104[63:0];
+  wbLdDataForStall_REG = _RAND_102[0:0];
+  _RAND_103 = {2{`RANDOM}};
+  wb_mmio_sd_data = _RAND_103[63:0];
+  _RAND_104 = {1{`RANDOM}};
+  wb_mmio_num = _RAND_104[11:0];
   _RAND_105 = {1{`RANDOM}};
-  wb_mmio_num = _RAND_105[11:0];
+  REG = _RAND_105[0:0];
   _RAND_106 = {1{`RANDOM}};
-  REG = _RAND_106[0:0];
+  REG_1 = _RAND_106[0:0];
   _RAND_107 = {1{`RANDOM}};
-  REG_1 = _RAND_107[0:0];
+  REG_2 = _RAND_107[0:0];
   _RAND_108 = {1{`RANDOM}};
-  REG_2 = _RAND_108[0:0];
+  REG_3 = _RAND_108[31:0];
   _RAND_109 = {1{`RANDOM}};
-  REG_3 = _RAND_109[31:0];
+  REG_4 = _RAND_109[31:0];
   _RAND_110 = {1{`RANDOM}};
-  REG_4 = _RAND_110[31:0];
+  REG_5 = _RAND_110[31:0];
   _RAND_111 = {1{`RANDOM}};
-  REG_5 = _RAND_111[31:0];
+  REG_6 = _RAND_111[1:0];
   _RAND_112 = {1{`RANDOM}};
-  REG_6 = _RAND_112[1:0];
+  REG_7 = _RAND_112[1:0];
   _RAND_113 = {1{`RANDOM}};
-  REG_7 = _RAND_113[1:0];
+  REG_8 = _RAND_113[1:0];
   _RAND_114 = {1{`RANDOM}};
-  REG_8 = _RAND_114[1:0];
+  REG_9 = _RAND_114[31:0];
   _RAND_115 = {1{`RANDOM}};
-  REG_9 = _RAND_115[31:0];
+  REG_10 = _RAND_115[31:0];
   _RAND_116 = {1{`RANDOM}};
-  REG_10 = _RAND_116[31:0];
+  REG_11 = _RAND_116[31:0];
   _RAND_117 = {1{`RANDOM}};
-  REG_11 = _RAND_117[31:0];
+  REG_12 = _RAND_117[0:0];
   _RAND_118 = {1{`RANDOM}};
-  REG_12 = _RAND_118[0:0];
+  REG_13 = _RAND_118[0:0];
   _RAND_119 = {1{`RANDOM}};
-  REG_13 = _RAND_119[0:0];
+  REG_14 = _RAND_119[0:0];
   _RAND_120 = {1{`RANDOM}};
-  REG_14 = _RAND_120[0:0];
-  _RAND_121 = {1{`RANDOM}};
-  REG_15 = _RAND_121[0:0];
+  REG_15 = _RAND_120[0:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
