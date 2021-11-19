@@ -1947,19 +1947,16 @@ module Frontend(
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
   reg [63:0] _RAND_1;
-  reg [63:0] _RAND_2;
-  reg [31:0] _RAND_3;
+  reg [31:0] _RAND_2;
+  reg [63:0] _RAND_3;
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
   reg [63:0] _RAND_6;
   reg [31:0] _RAND_7;
   reg [31:0] _RAND_8;
-  reg [63:0] _RAND_9;
-  reg [31:0] _RAND_10;
-  reg [31:0] _RAND_11;
-  reg [31:0] _RAND_12;
-  reg [63:0] _RAND_13;
-  reg [63:0] _RAND_14;
+  reg [31:0] _RAND_9;
+  reg [63:0] _RAND_10;
+  reg [63:0] _RAND_11;
 `endif // RANDOMIZE_REG_INIT
   wire  pc_gen_clock; // @[Frontend.scala 67:30]
   wire  pc_gen_reset; // @[Frontend.scala 67:30]
@@ -1978,107 +1975,100 @@ module Frontend(
   wire [63:0] pc_gen_io_bpu_update_exe_pc_br; // @[Frontend.scala 67:30]
   wire [63:0] pc_gen_io_bpu_update_exe_target; // @[Frontend.scala 67:30]
   wire  pc_gen_io_bpu_update_exe_taken; // @[Frontend.scala 67:30]
-  wire [63:0] Dec_io_pc; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_io_inst; // @[Frontend.scala 85:62]
-  wire  Dec_io_bht_predict_taken; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_io_target_pc; // @[Frontend.scala 85:62]
-  wire  Dec_io_mops_illegal; // @[Frontend.scala 85:62]
-  wire [2:0] Dec_io_mops_next_pc; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_io_mops_alu_mdu_lsu; // @[Frontend.scala 85:62]
-  wire [3:0] Dec_io_mops_branch_type; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_io_mops_src_a; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_io_mops_src_b; // @[Frontend.scala 85:62]
-  wire  Dec_io_mops_write_dest; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_io_mops_alu_op; // @[Frontend.scala 85:62]
-  wire  Dec_io_mops_alu_expand; // @[Frontend.scala 85:62]
-  wire [2:0] Dec_io_mops_mem_width; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_io_mops_write_src; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_io_mops_rs1; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_io_mops_rs2; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_io_mops_rd; // @[Frontend.scala 85:62]
-  wire [20:0] Dec_io_mops_imm; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_io_mops_pc; // @[Frontend.scala 85:62]
-  wire  Dec_io_mops_predict_taken; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_io_mops_target_pc; // @[Frontend.scala 85:62]
-  wire  Dec_io_mops_ysyx_debug; // @[Frontend.scala 85:62]
-  wire  Dec_io_mops_ysyx_print; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_io_mops_inst; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_1_io_pc; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_1_io_inst; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_bht_predict_taken; // @[Frontend.scala 85:62]
-  wire [63:0] Dec_1_io_target_pc; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_mops_illegal; // @[Frontend.scala 85:62]
-  wire [2:0] Dec_1_io_mops_next_pc; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_1_io_mops_alu_mdu_lsu; // @[Frontend.scala 85:62]
-  wire [3:0] Dec_1_io_mops_branch_type; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_1_io_mops_src_a; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_1_io_mops_src_b; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_mops_write_dest; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_1_io_mops_alu_op; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_mops_alu_expand; // @[Frontend.scala 85:62]
-  wire [2:0] Dec_1_io_mops_mem_width; // @[Frontend.scala 85:62]
-  wire [1:0] Dec_1_io_mops_write_src; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_1_io_mops_rs1; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_1_io_mops_rs2; // @[Frontend.scala 85:62]
-  wire [4:0] Dec_1_io_mops_rd; // @[Frontend.scala 85:62]
-  wire [20:0] Dec_1_io_mops_imm; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_1_io_mops_pc; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_mops_predict_taken; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_1_io_mops_target_pc; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_mops_ysyx_debug; // @[Frontend.scala 85:62]
-  wire  Dec_1_io_mops_ysyx_print; // @[Frontend.scala 85:62]
-  wire [31:0] Dec_1_io_mops_inst; // @[Frontend.scala 85:62]
+  wire [63:0] Dec_io_pc; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_io_inst; // @[Frontend.scala 81:62]
+  wire  Dec_io_bht_predict_taken; // @[Frontend.scala 81:62]
+  wire [63:0] Dec_io_target_pc; // @[Frontend.scala 81:62]
+  wire  Dec_io_mops_illegal; // @[Frontend.scala 81:62]
+  wire [2:0] Dec_io_mops_next_pc; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_io_mops_alu_mdu_lsu; // @[Frontend.scala 81:62]
+  wire [3:0] Dec_io_mops_branch_type; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_io_mops_src_a; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_io_mops_src_b; // @[Frontend.scala 81:62]
+  wire  Dec_io_mops_write_dest; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_io_mops_alu_op; // @[Frontend.scala 81:62]
+  wire  Dec_io_mops_alu_expand; // @[Frontend.scala 81:62]
+  wire [2:0] Dec_io_mops_mem_width; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_io_mops_write_src; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_io_mops_rs1; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_io_mops_rs2; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_io_mops_rd; // @[Frontend.scala 81:62]
+  wire [20:0] Dec_io_mops_imm; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_io_mops_pc; // @[Frontend.scala 81:62]
+  wire  Dec_io_mops_predict_taken; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_io_mops_target_pc; // @[Frontend.scala 81:62]
+  wire  Dec_io_mops_ysyx_debug; // @[Frontend.scala 81:62]
+  wire  Dec_io_mops_ysyx_print; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_io_mops_inst; // @[Frontend.scala 81:62]
+  wire [63:0] Dec_1_io_pc; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_1_io_inst; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_bht_predict_taken; // @[Frontend.scala 81:62]
+  wire [63:0] Dec_1_io_target_pc; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_mops_illegal; // @[Frontend.scala 81:62]
+  wire [2:0] Dec_1_io_mops_next_pc; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_1_io_mops_alu_mdu_lsu; // @[Frontend.scala 81:62]
+  wire [3:0] Dec_1_io_mops_branch_type; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_1_io_mops_src_a; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_1_io_mops_src_b; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_mops_write_dest; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_1_io_mops_alu_op; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_mops_alu_expand; // @[Frontend.scala 81:62]
+  wire [2:0] Dec_1_io_mops_mem_width; // @[Frontend.scala 81:62]
+  wire [1:0] Dec_1_io_mops_write_src; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_1_io_mops_rs1; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_1_io_mops_rs2; // @[Frontend.scala 81:62]
+  wire [4:0] Dec_1_io_mops_rd; // @[Frontend.scala 81:62]
+  wire [20:0] Dec_1_io_mops_imm; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_1_io_mops_pc; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_mops_predict_taken; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_1_io_mops_target_pc; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_mops_ysyx_debug; // @[Frontend.scala 81:62]
+  wire  Dec_1_io_mops_ysyx_print; // @[Frontend.scala 81:62]
+  wire [31:0] Dec_1_io_mops_inst; // @[Frontend.scala 81:62]
   reg  last_req_valid; // @[Frontend.scala 70:31]
   reg [63:0] repc; // @[Frontend.scala 71:27]
-  reg [63:0] reptar; // @[Frontend.scala 72:27]
-  reg [1:0] repstat; // @[Frontend.scala 73:27]
-  reg  repred; // @[Frontend.scala 74:27]
-  reg  renarrow; // @[Frontend.scala 75:54]
-  wire  cache_stall = ~io_icache_resp_valid & last_req_valid; // @[Frontend.scala 116:43]
-  wire  stall_f = io_fb_fmbs_please_wait | cache_stall; // @[Frontend.scala 109:29]
-  wire [63:0] may_illegal_req_addr = stall_f ? repc : pc_gen_io_pc_o; // @[Frontend.scala 80:33]
-  reg [63:0] decode_pc_low_reg; // @[Frontend.scala 83:34]
-  reg  decode_valid_reg; // @[Frontend.scala 84:34]
-  reg  next_respn; // @[Frontend.scala 89:34]
+  reg  renarrow; // @[Frontend.scala 72:54]
+  reg [63:0] decode_pc_low_reg; // @[Frontend.scala 79:34]
+  reg  decode_valid_reg; // @[Frontend.scala 80:34]
+  reg  next_respn; // @[Frontend.scala 84:34]
   wire [1:0] _fire_number_respn_T = {1'h0,next_respn}; // @[Cat.scala 30:58]
-  wire [1:0] fire_number_respn = _fire_number_respn_T + 2'h1; // @[Frontend.scala 90:48]
-  reg [63:0] decode_pc_predict_target; // @[Frontend.scala 93:37]
-  reg [1:0] decode_pc_second_state; // @[Frontend.scala 94:37]
-  reg  decode_pc_predict_taken; // @[Frontend.scala 95:37]
-  reg  delayed_early_update; // @[Frontend.scala 96:37]
-  reg [63:0] dec_kill_redirect_pc_REG; // @[Frontend.scala 127:35]
-  wire [61:0] pc_gen_io_bpu_update_dec_pc_br_hi = decode_pc_low_reg[63:2]; // @[Frontend.scala 124:66]
-  wire [1:0] pc_gen_io_bpu_update_dec_pc_br_lo = decode_pc_predict_target[1:0]; // @[Frontend.scala 124:107]
-  reg [63:0] pc_gen_io_bpu_update_dec_pc_br_REG; // @[Frontend.scala 124:44]
-  wire [63:0] _dec_kill_redirect_pc_T_2 = decode_pc_low_reg + 64'h8; // @[Frontend.scala 127:106]
-  wire [63:0] _dec_kill_redirect_pc_T_4 = decode_pc_low_reg + 64'h4; // @[Frontend.scala 127:131]
-  wire [61:0] io_icache_req_bits_addr_hi = may_illegal_req_addr[63:2]; // @[Frontend.scala 145:55]
-  wire [63:0] _io_icache_req_bits_addr_T = {io_icache_req_bits_addr_hi,2'h0}; // @[Cat.scala 30:58]
-  wire [1:0] _io_icache_req_bits_mtype_T = renarrow ? 2'h2 : 2'h3; // @[Frontend.scala 151:49]
-  wire [1:0] _io_icache_req_bits_mtype_T_1 = pc_gen_io_narrow_o ? 2'h2 : 2'h3; // @[Frontend.scala 151:89]
-  wire [1:0] _io_icache_req_bits_mtype_T_2 = stall_f ? _io_icache_req_bits_mtype_T : _io_icache_req_bits_mtype_T_1; // @[Frontend.scala 151:36]
-  wire  kill_d = io_fb_bmfs_redirect_kill | delayed_early_update; // @[Frontend.scala 158:39]
-  wire  _T_1 = ~cache_stall; // @[Frontend.scala 162:27]
-  wire  frontend_fire = _T_1 & decode_valid_reg & ~delayed_early_update; // @[Frontend.scala 170:53]
-  wire [1:0] _io_fb_fmbs_instn_T = frontend_fire ? fire_number_respn : 2'h0; // @[Frontend.scala 171:44]
-  wire [64:0] _T_4 = {{1'd0}, decode_pc_low_reg}; // @[Frontend.scala 174:39]
+  wire [1:0] fire_number_respn = _fire_number_respn_T + 2'h1; // @[Frontend.scala 85:48]
+  reg [63:0] decode_pc_predict_target; // @[Frontend.scala 88:37]
+  reg [1:0] decode_pc_second_state; // @[Frontend.scala 89:37]
+  reg  decode_pc_predict_taken; // @[Frontend.scala 90:37]
+  reg  delayed_early_update; // @[Frontend.scala 91:37]
+  wire  cache_stall = ~io_icache_resp_valid & last_req_valid; // @[Frontend.scala 107:43]
+  wire  stall_f = io_fb_fmbs_please_wait | cache_stall; // @[Frontend.scala 100:29]
+  reg [63:0] dec_kill_redirect_pc_REG; // @[Frontend.scala 118:35]
+  wire [61:0] pc_gen_io_bpu_update_dec_pc_br_hi = decode_pc_low_reg[63:2]; // @[Frontend.scala 115:66]
+  wire [1:0] pc_gen_io_bpu_update_dec_pc_br_lo = decode_pc_predict_target[1:0]; // @[Frontend.scala 115:107]
+  reg [63:0] pc_gen_io_bpu_update_dec_pc_br_REG; // @[Frontend.scala 115:44]
+  wire [63:0] _dec_kill_redirect_pc_T_2 = decode_pc_low_reg + 64'h8; // @[Frontend.scala 118:106]
+  wire [63:0] _dec_kill_redirect_pc_T_4 = decode_pc_low_reg + 64'h4; // @[Frontend.scala 118:131]
+  wire [63:0] _repc_T = stall_f ? repc : pc_gen_io_pc_o; // @[Frontend.scala 120:14]
+  wire [1:0] _io_icache_req_bits_mtype_T = renarrow ? 2'h2 : 2'h3; // @[Frontend.scala 139:49]
+  wire [1:0] _io_icache_req_bits_mtype_T_1 = pc_gen_io_narrow_o ? 2'h2 : 2'h3; // @[Frontend.scala 139:89]
+  wire [1:0] _io_icache_req_bits_mtype_T_2 = stall_f ? _io_icache_req_bits_mtype_T : _io_icache_req_bits_mtype_T_1; // @[Frontend.scala 139:36]
+  wire  kill_d = io_fb_bmfs_redirect_kill | delayed_early_update; // @[Frontend.scala 148:39]
+  wire  frontend_fire = ~cache_stall & decode_valid_reg & ~delayed_early_update; // @[Frontend.scala 160:53]
+  wire [64:0] _T_2 = {{1'd0}, decode_pc_low_reg}; // @[Frontend.scala 164:39]
   wire [134:0] io_fb_fmbs_inst_ops_0_lo = {Dec_io_mops_rs1,Dec_io_mops_rs2,Dec_io_mops_rd,Dec_io_mops_imm,Dec_io_mops_pc
-    ,Dec_io_mops_predict_taken,Dec_io_mops_target_pc,Dec_io_mops_ysyx_debug,Dec_io_mops_ysyx_print,Dec_io_mops_inst}; // @[Frontend.scala 183:44]
+    ,Dec_io_mops_predict_taken,Dec_io_mops_target_pc,Dec_io_mops_ysyx_debug,Dec_io_mops_ysyx_print,Dec_io_mops_inst}; // @[Frontend.scala 173:44]
   wire [11:0] io_fb_fmbs_inst_ops_0_hi_lo = {Dec_io_mops_write_dest,Dec_io_mops_alu_op,Dec_io_mops_alu_expand,
-    Dec_io_mops_mem_width,Dec_io_mops_write_src}; // @[Frontend.scala 183:44]
+    Dec_io_mops_mem_width,Dec_io_mops_write_src}; // @[Frontend.scala 173:44]
   wire [25:0] io_fb_fmbs_inst_ops_0_hi = {Dec_io_mops_illegal,Dec_io_mops_next_pc,Dec_io_mops_alu_mdu_lsu,
-    Dec_io_mops_branch_type,Dec_io_mops_src_a,Dec_io_mops_src_b,io_fb_fmbs_inst_ops_0_hi_lo}; // @[Frontend.scala 183:44]
-  wire [31:0] _T_14 = {30'h0,decode_pc_second_state}; // @[Cat.scala 30:58]
+    Dec_io_mops_branch_type,Dec_io_mops_src_a,Dec_io_mops_src_b,io_fb_fmbs_inst_ops_0_hi_lo}; // @[Frontend.scala 173:44]
+  wire [31:0] _T_12 = {30'h0,decode_pc_second_state}; // @[Cat.scala 30:58]
   wire [134:0] io_fb_fmbs_inst_ops_1_lo = {Dec_1_io_mops_rs1,Dec_1_io_mops_rs2,Dec_1_io_mops_rd,Dec_1_io_mops_imm,
     Dec_1_io_mops_pc,Dec_1_io_mops_predict_taken,Dec_1_io_mops_target_pc,Dec_1_io_mops_ysyx_debug,
-    Dec_1_io_mops_ysyx_print,Dec_1_io_mops_inst}; // @[Frontend.scala 183:44]
+    Dec_1_io_mops_ysyx_print,Dec_1_io_mops_inst}; // @[Frontend.scala 173:44]
   wire [11:0] io_fb_fmbs_inst_ops_1_hi_lo = {Dec_1_io_mops_write_dest,Dec_1_io_mops_alu_op,Dec_1_io_mops_alu_expand,
-    Dec_1_io_mops_mem_width,Dec_1_io_mops_write_src}; // @[Frontend.scala 183:44]
+    Dec_1_io_mops_mem_width,Dec_1_io_mops_write_src}; // @[Frontend.scala 173:44]
   wire [25:0] io_fb_fmbs_inst_ops_1_hi = {Dec_1_io_mops_illegal,Dec_1_io_mops_next_pc,Dec_1_io_mops_alu_mdu_lsu,
-    Dec_1_io_mops_branch_type,Dec_1_io_mops_src_a,Dec_1_io_mops_src_b,io_fb_fmbs_inst_ops_1_hi_lo}; // @[Frontend.scala 183:44]
+    Dec_1_io_mops_branch_type,Dec_1_io_mops_src_a,Dec_1_io_mops_src_b,io_fb_fmbs_inst_ops_1_hi_lo}; // @[Frontend.scala 173:44]
   wire  _predict_taken_but_not_br_T_4 = Dec_io_mops_next_pc == 3'h1 | Dec_io_mops_next_pc == 3'h2 | Dec_io_mops_next_pc
-     == 3'h3; // @[Frontend.scala 105:54]
-  wire  predict_taken_but_not_br = Dec_io_bht_predict_taken & ~_predict_taken_but_not_br_T_4; // @[Frontend.scala 185:57]
+     == 3'h3; // @[Frontend.scala 94:54]
+  wire  predict_taken_but_not_br = Dec_io_bht_predict_taken & ~_predict_taken_but_not_br_T_4; // @[Frontend.scala 175:57]
   PCGen pc_gen ( // @[Frontend.scala 67:30]
     .clock(pc_gen_clock),
     .reset(pc_gen_reset),
@@ -2098,7 +2088,7 @@ module Frontend(
     .io_bpu_update_exe_target(pc_gen_io_bpu_update_exe_target),
     .io_bpu_update_exe_taken(pc_gen_io_bpu_update_exe_taken)
   );
-  Dec Dec ( // @[Frontend.scala 85:62]
+  Dec Dec ( // @[Frontend.scala 81:62]
     .io_pc(Dec_io_pc),
     .io_inst(Dec_io_inst),
     .io_bht_predict_taken(Dec_io_bht_predict_taken),
@@ -2125,7 +2115,7 @@ module Frontend(
     .io_mops_ysyx_print(Dec_io_mops_ysyx_print),
     .io_mops_inst(Dec_io_mops_inst)
   );
-  Dec Dec_1 ( // @[Frontend.scala 85:62]
+  Dec Dec_1 ( // @[Frontend.scala 81:62]
     .io_pc(Dec_1_io_pc),
     .io_inst(Dec_1_io_inst),
     .io_bht_predict_taken(Dec_1_io_bht_predict_taken),
@@ -2152,109 +2142,84 @@ module Frontend(
     .io_mops_ysyx_print(Dec_1_io_mops_ysyx_print),
     .io_mops_inst(Dec_1_io_mops_inst)
   );
-  assign io_fb_fmbs_instn = io_fb_fmbs_please_wait ? 2'h0 : _io_fb_fmbs_instn_T; // @[Frontend.scala 171:26]
-  assign io_fb_fmbs_inst_ops_0 = {io_fb_fmbs_inst_ops_0_hi,io_fb_fmbs_inst_ops_0_lo}; // @[Frontend.scala 183:44]
-  assign io_fb_fmbs_inst_ops_1 = {io_fb_fmbs_inst_ops_1_hi,io_fb_fmbs_inst_ops_1_lo}; // @[Frontend.scala 183:44]
-  assign io_icache_req_valid = 1'h1; // @[Frontend.scala 143:28]
-  assign io_icache_req_bits_addr = _io_icache_req_bits_addr_T[31:0]; // @[Frontend.scala 145:28]
-  assign io_icache_req_bits_mtype = {{1'd0}, _io_icache_req_bits_mtype_T_2}; // @[Frontend.scala 151:36]
+  assign io_fb_fmbs_instn = io_fb_fmbs_please_wait | ~frontend_fire ? 2'h0 : fire_number_respn; // @[Frontend.scala 161:26]
+  assign io_fb_fmbs_inst_ops_0 = {io_fb_fmbs_inst_ops_0_hi,io_fb_fmbs_inst_ops_0_lo}; // @[Frontend.scala 173:44]
+  assign io_fb_fmbs_inst_ops_1 = {io_fb_fmbs_inst_ops_1_hi,io_fb_fmbs_inst_ops_1_lo}; // @[Frontend.scala 173:44]
+  assign io_icache_req_valid = 1'h1; // @[Frontend.scala 131:28]
+  assign io_icache_req_bits_addr = _repc_T[31:0]; // @[Frontend.scala 133:28]
+  assign io_icache_req_bits_mtype = {{1'd0}, _io_icache_req_bits_mtype_T_2}; // @[Frontend.scala 139:36]
   assign pc_gen_clock = clock;
   assign pc_gen_reset = reset;
-  assign pc_gen_io_please_wait = io_fb_fmbs_please_wait | cache_stall; // @[Frontend.scala 109:29]
-  assign pc_gen_io_redirect = io_fb_bmfs_redirect_kill | delayed_early_update; // @[Frontend.scala 158:39]
-  assign pc_gen_io_redirect_pc = io_fb_bmfs_redirect_kill ? io_fb_bmfs_redirect_pc : dec_kill_redirect_pc_REG; // @[Frontend.scala 122:31]
-  assign pc_gen_io_bpu_update_dec_v = delayed_early_update; // @[Frontend.scala 125:30]
-  assign pc_gen_io_bpu_update_dec_pc_br = pc_gen_io_bpu_update_dec_pc_br_REG; // @[Frontend.scala 124:34]
-  assign pc_gen_io_bpu_update_exe_v = io_fb_bmfs_bpu_v; // @[Frontend.scala 126:28]
-  assign pc_gen_io_bpu_update_exe_errpr = io_fb_bmfs_bpu_errpr; // @[Frontend.scala 126:28]
-  assign pc_gen_io_bpu_update_exe_pc_br = io_fb_bmfs_bpu_pc_br; // @[Frontend.scala 126:28]
-  assign pc_gen_io_bpu_update_exe_target = io_fb_bmfs_bpu_target; // @[Frontend.scala 126:28]
-  assign pc_gen_io_bpu_update_exe_taken = io_fb_bmfs_bpu_taken; // @[Frontend.scala 126:28]
-  assign Dec_io_pc = _T_4[63:0]; // @[Frontend.scala 174:39]
-  assign Dec_io_inst = io_icache_resp_bits_rdata_0; // @[Frontend.scala 175:18]
-  assign Dec_io_bht_predict_taken = decode_pc_low_reg[4:2] == 3'h0 & ~next_respn ? 1'h0 : decode_pc_predict_taken; // @[Frontend.scala 177:39]
-  assign Dec_io_target_pc = decode_pc_predict_target; // @[Frontend.scala 178:25]
-  assign Dec_1_io_pc = decode_pc_low_reg + 64'h4; // @[Frontend.scala 174:39]
-  assign Dec_1_io_inst = io_icache_resp_bits_rdata_1; // @[Frontend.scala 175:18]
-  assign Dec_1_io_bht_predict_taken = 1'h0; // @[Frontend.scala 180:33]
-  assign Dec_1_io_target_pc = {{32'd0}, _T_14}; // @[Cat.scala 30:58]
+  assign pc_gen_io_please_wait = io_fb_fmbs_please_wait | cache_stall; // @[Frontend.scala 100:29]
+  assign pc_gen_io_redirect = io_fb_bmfs_redirect_kill | delayed_early_update; // @[Frontend.scala 148:39]
+  assign pc_gen_io_redirect_pc = io_fb_bmfs_redirect_kill ? io_fb_bmfs_redirect_pc : dec_kill_redirect_pc_REG; // @[Frontend.scala 113:31]
+  assign pc_gen_io_bpu_update_dec_v = delayed_early_update; // @[Frontend.scala 116:30]
+  assign pc_gen_io_bpu_update_dec_pc_br = pc_gen_io_bpu_update_dec_pc_br_REG; // @[Frontend.scala 115:34]
+  assign pc_gen_io_bpu_update_exe_v = io_fb_bmfs_bpu_v; // @[Frontend.scala 117:28]
+  assign pc_gen_io_bpu_update_exe_errpr = io_fb_bmfs_bpu_errpr; // @[Frontend.scala 117:28]
+  assign pc_gen_io_bpu_update_exe_pc_br = io_fb_bmfs_bpu_pc_br; // @[Frontend.scala 117:28]
+  assign pc_gen_io_bpu_update_exe_target = io_fb_bmfs_bpu_target; // @[Frontend.scala 117:28]
+  assign pc_gen_io_bpu_update_exe_taken = io_fb_bmfs_bpu_taken; // @[Frontend.scala 117:28]
+  assign Dec_io_pc = _T_2[63:0]; // @[Frontend.scala 164:39]
+  assign Dec_io_inst = io_icache_resp_bits_rdata_0; // @[Frontend.scala 165:18]
+  assign Dec_io_bht_predict_taken = decode_pc_low_reg[4:2] == 3'h0 & ~next_respn ? 1'h0 : decode_pc_predict_taken; // @[Frontend.scala 167:39]
+  assign Dec_io_target_pc = decode_pc_predict_target; // @[Frontend.scala 168:25]
+  assign Dec_1_io_pc = decode_pc_low_reg + 64'h4; // @[Frontend.scala 164:39]
+  assign Dec_1_io_inst = io_icache_resp_bits_rdata_1; // @[Frontend.scala 165:18]
+  assign Dec_1_io_bht_predict_taken = 1'h0; // @[Frontend.scala 170:33]
+  assign Dec_1_io_target_pc = {{32'd0}, _T_12}; // @[Cat.scala 30:58]
   always @(posedge clock) begin
     if (reset) begin // @[Frontend.scala 70:31]
       last_req_valid <= 1'h0; // @[Frontend.scala 70:31]
     end else begin
-      last_req_valid <= io_icache_req_valid; // @[Frontend.scala 117:18]
+      last_req_valid <= io_icache_req_valid; // @[Frontend.scala 108:18]
     end
-    if (!(stall_f)) begin // @[Frontend.scala 129:14]
+    if (!(stall_f)) begin // @[Frontend.scala 120:14]
       repc <= pc_gen_io_pc_o;
     end
-    if (!(stall_f)) begin // @[Frontend.scala 130:16]
-      reptar <= pc_gen_io_predict_target_o;
-    end
-    if (!(stall_f)) begin // @[Frontend.scala 131:17]
-      repstat <= pc_gen_io_predict_sstat_o;
-    end
-    if (!(stall_f)) begin // @[Frontend.scala 132:16]
-      repred <= pc_gen_io_predict_taken_o;
-    end
-    if (!(stall_f)) begin // @[Frontend.scala 134:20]
+    if (!(stall_f)) begin // @[Frontend.scala 122:20]
       renarrow <= pc_gen_io_narrow_o;
     end
-    if (reset) begin // @[Frontend.scala 83:34]
-      decode_pc_low_reg <= 64'h80000000; // @[Frontend.scala 83:34]
-    end else if (!(kill_d)) begin // @[Frontend.scala 160:17]
-      if (~io_fb_fmbs_please_wait & ~cache_stall) begin // @[Frontend.scala 162:41]
-        if (stall_f) begin // @[Frontend.scala 80:33]
-          decode_pc_low_reg <= repc;
-        end else begin
-          decode_pc_low_reg <= pc_gen_io_pc_o;
-        end
+    if (reset) begin // @[Frontend.scala 79:34]
+      decode_pc_low_reg <= 64'h80000000; // @[Frontend.scala 79:34]
+    end else if (!(kill_d)) begin // @[Frontend.scala 150:17]
+      if (~stall_f) begin // @[Frontend.scala 152:25]
+        decode_pc_low_reg <= {{32'd0}, io_icache_req_bits_addr}; // @[Frontend.scala 153:30]
       end
     end
-    if (reset) begin // @[Frontend.scala 84:34]
-      decode_valid_reg <= 1'h0; // @[Frontend.scala 84:34]
-    end else if (kill_d) begin // @[Frontend.scala 160:17]
-      decode_valid_reg <= 1'h0; // @[Frontend.scala 161:23]
-    end else if (~io_fb_fmbs_please_wait & ~cache_stall) begin // @[Frontend.scala 162:41]
-      decode_valid_reg <= io_icache_req_valid; // @[Frontend.scala 167:23]
+    if (reset) begin // @[Frontend.scala 80:34]
+      decode_valid_reg <= 1'h0; // @[Frontend.scala 80:34]
+    end else if (kill_d) begin // @[Frontend.scala 150:17]
+      decode_valid_reg <= 1'h0; // @[Frontend.scala 151:23]
+    end else if (~stall_f) begin // @[Frontend.scala 152:25]
+      decode_valid_reg <= io_icache_req_valid; // @[Frontend.scala 157:30]
     end
-    next_respn <= io_icache_resp_bits_respn; // @[Frontend.scala 89:34]
-    if (!(kill_d)) begin // @[Frontend.scala 160:17]
-      if (~io_fb_fmbs_please_wait & ~cache_stall) begin // @[Frontend.scala 162:41]
-        if (stall_f) begin // @[Frontend.scala 130:16]
-          decode_pc_predict_target <= reptar;
-        end else begin
-          decode_pc_predict_target <= pc_gen_io_predict_target_o;
-        end
+    next_respn <= io_icache_resp_bits_respn; // @[Frontend.scala 84:34]
+    if (!(kill_d)) begin // @[Frontend.scala 150:17]
+      if (~stall_f) begin // @[Frontend.scala 152:25]
+        decode_pc_predict_target <= pc_gen_io_predict_target_o; // @[Frontend.scala 154:30]
       end
     end
-    if (!(kill_d)) begin // @[Frontend.scala 160:17]
-      if (~io_fb_fmbs_please_wait & ~cache_stall) begin // @[Frontend.scala 162:41]
-        if (stall_f) begin // @[Frontend.scala 131:17]
-          decode_pc_second_state <= repstat;
-        end else begin
-          decode_pc_second_state <= pc_gen_io_predict_sstat_o;
-        end
+    if (!(kill_d)) begin // @[Frontend.scala 150:17]
+      if (~stall_f) begin // @[Frontend.scala 152:25]
+        decode_pc_second_state <= pc_gen_io_predict_sstat_o; // @[Frontend.scala 155:30]
       end
     end
-    if (!(kill_d)) begin // @[Frontend.scala 160:17]
-      if (~io_fb_fmbs_please_wait & ~cache_stall) begin // @[Frontend.scala 162:41]
-        if (stall_f) begin // @[Frontend.scala 132:16]
-          decode_pc_predict_taken <= repred;
-        end else begin
-          decode_pc_predict_taken <= pc_gen_io_predict_taken_o;
-        end
+    if (!(kill_d)) begin // @[Frontend.scala 150:17]
+      if (~stall_f) begin // @[Frontend.scala 152:25]
+        decode_pc_predict_taken <= pc_gen_io_predict_taken_o; // @[Frontend.scala 156:30]
       end
     end
-    if (reset) begin // @[Frontend.scala 96:37]
-      delayed_early_update <= 1'h0; // @[Frontend.scala 96:37]
-    end else if (io_fb_bmfs_redirect_kill) begin // @[Frontend.scala 195:30]
+    if (reset) begin // @[Frontend.scala 91:37]
+      delayed_early_update <= 1'h0; // @[Frontend.scala 91:37]
+    end else if (io_fb_bmfs_redirect_kill) begin // @[Frontend.scala 176:30]
       delayed_early_update <= 1'h0;
     end else begin
       delayed_early_update <= predict_taken_but_not_br & frontend_fire;
     end
-    if (io_fb_fmbs_please_wait) begin // @[Frontend.scala 127:39]
+    if (io_fb_fmbs_please_wait) begin // @[Frontend.scala 118:39]
       dec_kill_redirect_pc_REG <= decode_pc_low_reg;
-    end else if (|next_respn) begin // @[Frontend.scala 127:71]
+    end else if (|next_respn) begin // @[Frontend.scala 118:71]
       dec_kill_redirect_pc_REG <= _dec_kill_redirect_pc_T_2;
     end else begin
       dec_kill_redirect_pc_REG <= _dec_kill_redirect_pc_T_4;
@@ -2301,32 +2266,26 @@ initial begin
   last_req_valid = _RAND_0[0:0];
   _RAND_1 = {2{`RANDOM}};
   repc = _RAND_1[63:0];
-  _RAND_2 = {2{`RANDOM}};
-  reptar = _RAND_2[63:0];
-  _RAND_3 = {1{`RANDOM}};
-  repstat = _RAND_3[1:0];
+  _RAND_2 = {1{`RANDOM}};
+  renarrow = _RAND_2[0:0];
+  _RAND_3 = {2{`RANDOM}};
+  decode_pc_low_reg = _RAND_3[63:0];
   _RAND_4 = {1{`RANDOM}};
-  repred = _RAND_4[0:0];
+  decode_valid_reg = _RAND_4[0:0];
   _RAND_5 = {1{`RANDOM}};
-  renarrow = _RAND_5[0:0];
+  next_respn = _RAND_5[0:0];
   _RAND_6 = {2{`RANDOM}};
-  decode_pc_low_reg = _RAND_6[63:0];
+  decode_pc_predict_target = _RAND_6[63:0];
   _RAND_7 = {1{`RANDOM}};
-  decode_valid_reg = _RAND_7[0:0];
+  decode_pc_second_state = _RAND_7[1:0];
   _RAND_8 = {1{`RANDOM}};
-  next_respn = _RAND_8[0:0];
-  _RAND_9 = {2{`RANDOM}};
-  decode_pc_predict_target = _RAND_9[63:0];
-  _RAND_10 = {1{`RANDOM}};
-  decode_pc_second_state = _RAND_10[1:0];
-  _RAND_11 = {1{`RANDOM}};
-  decode_pc_predict_taken = _RAND_11[0:0];
-  _RAND_12 = {1{`RANDOM}};
-  delayed_early_update = _RAND_12[0:0];
-  _RAND_13 = {2{`RANDOM}};
-  dec_kill_redirect_pc_REG = _RAND_13[63:0];
-  _RAND_14 = {2{`RANDOM}};
-  pc_gen_io_bpu_update_dec_pc_br_REG = _RAND_14[63:0];
+  decode_pc_predict_taken = _RAND_8[0:0];
+  _RAND_9 = {1{`RANDOM}};
+  delayed_early_update = _RAND_9[0:0];
+  _RAND_10 = {2{`RANDOM}};
+  dec_kill_redirect_pc_REG = _RAND_10[63:0];
+  _RAND_11 = {2{`RANDOM}};
+  pc_gen_io_bpu_update_dec_pc_br_REG = _RAND_11[63:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
