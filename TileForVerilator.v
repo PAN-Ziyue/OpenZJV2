@@ -42539,21 +42539,20 @@ module DcacheDP(
   reg [31:0] _RAND_12;
   reg [31:0] _RAND_13;
   reg [31:0] _RAND_14;
-  reg [31:0] _RAND_15;
-  reg [255:0] _RAND_16;
-  reg [31:0] _RAND_17;
-  reg [63:0] _RAND_18;
+  reg [255:0] _RAND_15;
+  reg [31:0] _RAND_16;
+  reg [63:0] _RAND_17;
+  reg [31:0] _RAND_18;
   reg [31:0] _RAND_19;
   reg [31:0] _RAND_20;
   reg [31:0] _RAND_21;
-  reg [31:0] _RAND_22;
-  reg [63:0] _RAND_23;
+  reg [63:0] _RAND_22;
+  reg [31:0] _RAND_23;
   reg [31:0] _RAND_24;
-  reg [31:0] _RAND_25;
+  reg [63:0] _RAND_25;
   reg [63:0] _RAND_26;
   reg [63:0] _RAND_27;
   reg [63:0] _RAND_28;
-  reg [63:0] _RAND_29;
 `endif // RANDOMIZE_REG_INIT
   wire  data_clock; // @[Dcache.scala 66:20]
   wire  data_reset; // @[Dcache.scala 66:20]
@@ -42575,23 +42574,23 @@ module DcacheDP(
   wire [8:0] df_index = io_cpu_req_bits_addr[13:5]; // @[Dcache.scala 74:49]
   wire [17:0] df_tag = io_cpu_req_bits_addr[31:14]; // @[Dcache.scala 75:49]
   wire [1:0] df_offset = io_cpu_req_bits_addr[4:3]; // @[Dcache.scala 76:49]
-  reg  mmio_state; // @[Dcache.scala 127:27]
-  wire  _df_mmio_stall_T = ~io_bar_resp_valid; // @[Dcache.scala 129:40]
-  wire  df_mmio_stall = mmio_state & ~io_bar_resp_valid; // @[Dcache.scala 129:37]
+  reg  mmio_state; // @[Dcache.scala 125:27]
+  wire  _df_mmio_stall_T = ~io_bar_resp_valid; // @[Dcache.scala 127:40]
+  wire  df_mmio_stall = mmio_state & ~io_bar_resp_valid; // @[Dcache.scala 127:37]
   wire  _df_mmio_req_T = ~df_mmio_stall; // @[Dcache.scala 79:56]
   reg [31:0] df_mmio_req_addr; // @[Reg.scala 15:16]
   reg [63:0] df_mmio_req_wdata; // @[Reg.scala 15:16]
   reg  df_mmio_req_wen; // @[Reg.scala 15:16]
   reg [2:0] df_mmio_req_mtype; // @[Reg.scala 15:16]
-  reg  wb_valid; // @[Dcache.scala 98:31]
-  reg  wb_state; // @[Dcache.scala 213:25]
-  wire  _T_27 = ~wb_state; // @[Conditional.scala 37:30]
-  wire  wb_write_cache = wb_valid & wb_state & io_bar_resp_valid; // @[Dcache.scala 215:58]
-  wire  _GEN_56 = wb_state & wb_write_cache; // @[Conditional.scala 39:67 Dcache.scala 256:23 Dcache.scala 248:17]
-  wire  _GEN_59 = _T_27 ? 1'h0 : _GEN_56; // @[Conditional.scala 40:58 Dcache.scala 248:17]
-  wire  wb_resp_valid = wb_valid & _GEN_59; // @[Dcache.scala 249:19 Dcache.scala 248:17]
-  wire  wb_stall = wb_valid & ~wb_resp_valid; // @[Dcache.scala 106:33]
-  wire  _dp_index_T = ~wb_stall; // @[Dcache.scala 87:49]
+  reg  wb_valid; // @[Dcache.scala 96:31]
+  reg  wb_state; // @[Dcache.scala 200:25]
+  wire  _T_24 = ~wb_state; // @[Conditional.scala 37:30]
+  wire  wb_write_cache = wb_valid & wb_state & io_bar_resp_valid; // @[Dcache.scala 202:58]
+  wire  _GEN_56 = wb_state & wb_write_cache; // @[Conditional.scala 39:67 Dcache.scala 243:23 Dcache.scala 235:17]
+  wire  _GEN_59 = _T_24 ? 1'h0 : _GEN_56; // @[Conditional.scala 40:58 Dcache.scala 235:17]
+  wire  wb_resp_valid = wb_valid & _GEN_59; // @[Dcache.scala 236:19 Dcache.scala 235:17]
+  wire  wb_stall = wb_valid & ~wb_resp_valid; // @[Dcache.scala 104:33]
+  wire  _dp_index_T = ~wb_stall; // @[Dcache.scala 86:49]
   reg [8:0] dp_index; // @[Reg.scala 15:16]
   reg [17:0] dp_tag; // @[Reg.scala 15:16]
   reg [1:0] dp_offset; // @[Reg.scala 15:16]
@@ -42599,99 +42598,95 @@ module DcacheDP(
   reg [63:0] dp_req_wdata; // @[Reg.scala 15:16]
   reg  dp_req_wen; // @[Reg.scala 15:16]
   reg [2:0] dp_req_mtype; // @[Reg.scala 15:16]
-  reg  dp_valid; // @[Dcache.scala 91:36]
-  wire  dp_resp_valid = dp_valid & meta_io_hit; // @[Dcache.scala 92:38]
-  reg  dp_mmio_is_csr_addr; // @[Dcache.scala 93:36]
-  reg [255:0] wb_dirty_data; // @[Dcache.scala 96:27]
-  reg [31:0] wb_dirty_addr; // @[Dcache.scala 97:27]
-  reg [63:0] wb_req_wdata; // @[Dcache.scala 100:31]
-  reg  wb_req_wen; // @[Dcache.scala 100:31]
-  reg [8:0] wb_index; // @[Dcache.scala 101:27]
-  reg [17:0] wb_tag; // @[Dcache.scala 102:27]
-  reg [4:0] wb_offset; // @[Dcache.scala 103:27]
+  reg  dp_valid; // @[Dcache.scala 90:36]
+  wire  dp_resp_valid = dp_valid & meta_io_hit; // @[Dcache.scala 91:38]
+  reg [255:0] wb_dirty_data; // @[Dcache.scala 94:27]
+  reg [31:0] wb_dirty_addr; // @[Dcache.scala 95:27]
+  reg [63:0] wb_req_wdata; // @[Dcache.scala 98:31]
+  reg  wb_req_wen; // @[Dcache.scala 98:31]
+  reg [8:0] wb_index; // @[Dcache.scala 99:27]
+  reg [17:0] wb_tag; // @[Dcache.scala 100:27]
+  reg [4:0] wb_offset; // @[Dcache.scala 101:27]
   wire [31:0] wb_refill_addr = {wb_tag,wb_index,5'h0}; // @[Cat.scala 30:58]
-  reg [63:0] wb_mask; // @[Dcache.scala 110:27]
-  reg [5:0] wb_shift; // @[Dcache.scala 111:27]
-  wire  _df_mmio_valid_T_9 = io_cpu_req_bits_addr == 32'h200bff8 | io_cpu_req_bits_addr == 32'h2004000; // @[Dcache.scala 140:27]
-  wire  df_mmio_valid = (dp_resp_valid | ~dp_valid & ~wb_valid) & (~io_cpu_req_bits_addr[31] | _df_mmio_valid_T_9) &
-    io_cpu_req_valid; // @[Dcache.scala 143:145]
+  reg [63:0] wb_mask; // @[Dcache.scala 108:27]
+  reg [5:0] wb_shift; // @[Dcache.scala 109:27]
+  wire  df_mmio_valid = (dp_resp_valid | ~dp_valid & ~wb_valid) & ~io_cpu_req_bits_addr[31] & io_cpu_req_valid; // @[Dcache.scala 132:101]
   wire  _T = ~mmio_state; // @[Conditional.scala 37:30]
-  wire  _GEN_16 = mmio_state & (io_bar_resp_valid | dp_mmio_is_csr_addr); // @[Conditional.scala 39:67 Dcache.scala 155:26 Dcache.scala 148:22]
-  wire  df_mmio_resp_valid = _T ? 1'h0 : _GEN_16; // @[Conditional.scala 40:58 Dcache.scala 148:22]
-  reg  REG; // @[Dcache.scala 164:31]
+  wire  _GEN_16 = mmio_state & io_bar_resp_valid; // @[Conditional.scala 39:67 Dcache.scala 143:26 Dcache.scala 136:22]
+  wire  df_mmio_resp_valid = _T ? 1'h0 : _GEN_16; // @[Conditional.scala 40:58 Dcache.scala 136:22]
+  reg  REG; // @[Dcache.scala 152:31]
   wire [255:0] _WIRE_1 = data_io_dinb;
-  reg [63:0] REG_1_0; // @[Dcache.scala 165:12]
-  reg [63:0] REG_1_1; // @[Dcache.scala 165:12]
-  reg [63:0] REG_1_2; // @[Dcache.scala 165:12]
-  reg [63:0] REG_1_3; // @[Dcache.scala 165:12]
+  reg [63:0] REG_1_0; // @[Dcache.scala 153:12]
+  reg [63:0] REG_1_1; // @[Dcache.scala 153:12]
+  reg [63:0] REG_1_2; // @[Dcache.scala 153:12]
+  reg [63:0] REG_1_3; // @[Dcache.scala 153:12]
   wire [255:0] _WIRE_3 = data_io_douta;
-  wire [63:0] dp_fetch_line_0 = REG ? REG_1_0 : _WIRE_3[63:0]; // @[Dcache.scala 164:23]
-  wire [63:0] dp_fetch_line_1 = REG ? REG_1_1 : _WIRE_3[127:64]; // @[Dcache.scala 164:23]
-  wire [63:0] dp_fetch_line_2 = REG ? REG_1_2 : _WIRE_3[191:128]; // @[Dcache.scala 164:23]
-  wire [63:0] dp_fetch_line_3 = REG ? REG_1_3 : _WIRE_3[255:192]; // @[Dcache.scala 164:23]
-  wire  _dp_valid_T_1 = dp_valid & ~meta_io_hit; // @[Dcache.scala 168:33]
+  wire [63:0] dp_fetch_line_0 = REG ? REG_1_0 : _WIRE_3[63:0]; // @[Dcache.scala 152:23]
+  wire [63:0] dp_fetch_line_1 = REG ? REG_1_1 : _WIRE_3[127:64]; // @[Dcache.scala 152:23]
+  wire [63:0] dp_fetch_line_2 = REG ? REG_1_2 : _WIRE_3[191:128]; // @[Dcache.scala 152:23]
+  wire [63:0] dp_fetch_line_3 = REG ? REG_1_3 : _WIRE_3[255:192]; // @[Dcache.scala 152:23]
+  wire  _dp_valid_T_1 = dp_valid & ~meta_io_hit; // @[Dcache.scala 156:33]
   wire [63:0] _dp_mask_T_1 = 3'h1 == dp_req_mtype ? 64'hffff : 64'hffffffffffffffff; // @[Mux.scala 80:57]
   wire [63:0] _dp_mask_T_3 = 3'h0 == dp_req_mtype ? 64'hff : _dp_mask_T_1; // @[Mux.scala 80:57]
   wire [63:0] dp_mask = 3'h2 == dp_req_mtype ? 64'hffffffff : _dp_mask_T_3; // @[Mux.scala 80:57]
-  wire [5:0] dp_shift = {dp_req_addr[2:0], 3'h0}; // @[Dcache.scala 183:51]
-  wire [63:0] _dp_write_word_T = dp_mask & dp_req_wdata; // @[Dcache.scala 184:33]
-  wire [126:0] _GEN_63 = {{63'd0}, _dp_write_word_T}; // @[Dcache.scala 184:49]
-  wire [126:0] _dp_write_word_T_1 = _GEN_63 << dp_shift; // @[Dcache.scala 184:49]
-  wire [126:0] _GEN_64 = {{63'd0}, dp_mask}; // @[Dcache.scala 184:85]
-  wire [126:0] _dp_write_word_T_2 = _GEN_64 << dp_shift; // @[Dcache.scala 184:85]
-  wire [126:0] _dp_write_word_T_3 = ~_dp_write_word_T_2; // @[Dcache.scala 184:75]
-  wire [63:0] _GEN_20 = 2'h1 == dp_offset ? dp_fetch_line_1 : dp_fetch_line_0; // @[Dcache.scala 184:108 Dcache.scala 184:108]
-  wire [63:0] _GEN_21 = 2'h2 == dp_offset ? dp_fetch_line_2 : _GEN_20; // @[Dcache.scala 184:108 Dcache.scala 184:108]
-  wire [63:0] _GEN_22 = 2'h3 == dp_offset ? dp_fetch_line_3 : _GEN_21; // @[Dcache.scala 184:108 Dcache.scala 184:108]
-  wire [126:0] _GEN_65 = {{63'd0}, _GEN_22}; // @[Dcache.scala 184:108]
-  wire [126:0] _dp_write_word_T_4 = _dp_write_word_T_3 & _GEN_65; // @[Dcache.scala 184:108]
-  wire [126:0] dp_write_word = _dp_write_word_T_1 | _dp_write_word_T_4; // @[Dcache.scala 184:71]
-  wire [31:0] UNCACHED_RESP_RDATA_hi = io_bar_resp_data[31:0]; // @[Dcache.scala 185:67]
+  wire [5:0] dp_shift = {dp_req_addr[2:0], 3'h0}; // @[Dcache.scala 171:51]
+  wire [63:0] _dp_write_word_T = dp_mask & dp_req_wdata; // @[Dcache.scala 172:33]
+  wire [126:0] _GEN_63 = {{63'd0}, _dp_write_word_T}; // @[Dcache.scala 172:49]
+  wire [126:0] _dp_write_word_T_1 = _GEN_63 << dp_shift; // @[Dcache.scala 172:49]
+  wire [126:0] _GEN_64 = {{63'd0}, dp_mask}; // @[Dcache.scala 172:85]
+  wire [126:0] _dp_write_word_T_2 = _GEN_64 << dp_shift; // @[Dcache.scala 172:85]
+  wire [126:0] _dp_write_word_T_3 = ~_dp_write_word_T_2; // @[Dcache.scala 172:75]
+  wire [63:0] _GEN_20 = 2'h1 == dp_offset ? dp_fetch_line_1 : dp_fetch_line_0; // @[Dcache.scala 172:108 Dcache.scala 172:108]
+  wire [63:0] _GEN_21 = 2'h2 == dp_offset ? dp_fetch_line_2 : _GEN_20; // @[Dcache.scala 172:108 Dcache.scala 172:108]
+  wire [63:0] _GEN_22 = 2'h3 == dp_offset ? dp_fetch_line_3 : _GEN_21; // @[Dcache.scala 172:108 Dcache.scala 172:108]
+  wire [126:0] _GEN_65 = {{63'd0}, _GEN_22}; // @[Dcache.scala 172:108]
+  wire [126:0] _dp_write_word_T_4 = _dp_write_word_T_3 & _GEN_65; // @[Dcache.scala 172:108]
+  wire [126:0] dp_write_word = _dp_write_word_T_1 | _dp_write_word_T_4; // @[Dcache.scala 172:71]
+  wire [31:0] UNCACHED_RESP_RDATA_hi = io_bar_resp_data[31:0]; // @[Dcache.scala 173:67]
   wire [63:0] UNCACHED_RESP_RDATA = {UNCACHED_RESP_RDATA_hi,UNCACHED_RESP_RDATA_hi}; // @[Cat.scala 30:58]
-  wire [63:0] dp_write_line_0 = 2'h0 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_0; // @[Dcache.scala 187:28 Dcache.scala 187:28 Dcache.scala 186:17]
-  wire [63:0] dp_write_line_1 = 2'h1 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_1; // @[Dcache.scala 187:28 Dcache.scala 187:28 Dcache.scala 186:17]
-  wire [63:0] dp_write_line_2 = 2'h2 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_2; // @[Dcache.scala 187:28 Dcache.scala 187:28 Dcache.scala 186:17]
-  wire [63:0] dp_write_line_3 = 2'h3 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_3; // @[Dcache.scala 187:28 Dcache.scala 187:28 Dcache.scala 186:17]
-  wire [63:0] _T_16 = dp_mmio_is_csr_addr ? 64'h0 : UNCACHED_RESP_RDATA; // @[Dcache.scala 194:30]
-  wire [63:0] _T_17 = mmio_state ? _T_16 : _GEN_22; // @[Dcache.scala 194:8]
-  wire [63:0] wb_refill_line_0 = io_bar_resp_data[63:0]; // @[Dcache.scala 227:48]
-  wire [63:0] wb_refill_line_1 = io_bar_resp_data[127:64]; // @[Dcache.scala 227:48]
-  wire [63:0] _GEN_28 = 2'h1 == wb_offset[1:0] ? wb_refill_line_1 : wb_refill_line_0; // @[Dcache.scala 193:35 Dcache.scala 193:35]
-  wire [63:0] wb_refill_line_2 = io_bar_resp_data[191:128]; // @[Dcache.scala 227:48]
-  wire [63:0] _GEN_29 = 2'h2 == wb_offset[1:0] ? wb_refill_line_2 : _GEN_28; // @[Dcache.scala 193:35 Dcache.scala 193:35]
-  wire [63:0] wb_refill_line_3 = io_bar_resp_data[255:192]; // @[Dcache.scala 227:48]
-  wire [63:0] _GEN_30 = 2'h3 == wb_offset[1:0] ? wb_refill_line_3 : _GEN_29; // @[Dcache.scala 193:35 Dcache.scala 193:35]
-  wire [63:0] _T_18 = wb_valid ? _GEN_30 : _T_17; // @[Dcache.scala 193:35]
-  wire  _data_io_web_T_1 = dp_resp_valid & dp_req_wen; // @[Dcache.scala 198:74]
-  wire [63:0] _wb_write_word_T = wb_mask & wb_req_wdata; // @[Dcache.scala 245:33]
-  wire [126:0] _GEN_66 = {{63'd0}, _wb_write_word_T}; // @[Dcache.scala 245:49]
-  wire [126:0] _wb_write_word_T_1 = _GEN_66 << wb_shift; // @[Dcache.scala 245:49]
-  wire [126:0] _GEN_67 = {{63'd0}, wb_mask}; // @[Dcache.scala 245:85]
-  wire [126:0] _wb_write_word_T_2 = _GEN_67 << wb_shift; // @[Dcache.scala 245:85]
-  wire [126:0] _wb_write_word_T_3 = ~_wb_write_word_T_2; // @[Dcache.scala 245:75]
-  wire [126:0] _GEN_68 = {{63'd0}, _GEN_30}; // @[Dcache.scala 245:108]
-  wire [126:0] _wb_write_word_T_5 = _wb_write_word_T_3 & _GEN_68; // @[Dcache.scala 245:108]
-  wire [126:0] wb_write_word = _wb_write_word_T_1 | _wb_write_word_T_5; // @[Dcache.scala 245:71]
-  wire [63:0] wb_write_line_1 = 2'h1 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_1; // @[Dcache.scala 247:28 Dcache.scala 247:28 Dcache.scala 246:17]
-  wire [63:0] wb_write_line_0 = 2'h0 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_0; // @[Dcache.scala 247:28 Dcache.scala 247:28 Dcache.scala 246:17]
-  wire [63:0] wb_write_line_3 = 2'h3 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_3; // @[Dcache.scala 247:28 Dcache.scala 247:28 Dcache.scala 246:17]
-  wire [63:0] wb_write_line_2 = 2'h2 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_2; // @[Dcache.scala 247:28 Dcache.scala 247:28 Dcache.scala 246:17]
-  wire [255:0] _data_io_dinb_T = {wb_write_line_3,wb_write_line_2,wb_write_line_1,wb_write_line_0}; // @[Dcache.scala 199:70]
-  wire [255:0] _data_io_dinb_T_1 = wb_req_wen ? _data_io_dinb_T : io_bar_resp_data; // @[Dcache.scala 199:37]
-  wire [255:0] _data_io_dinb_T_2 = {dp_write_line_3,dp_write_line_2,dp_write_line_1,dp_write_line_0}; // @[Dcache.scala 199:113]
-  wire  _meta_io_update_T_2 = wb_valid ? 1'h0 : _data_io_web_T_1; // @[Dcache.scala 207:30]
-  wire [63:0] _io_bar_req_data_T = mmio_state ? df_mmio_req_wdata : io_cpu_req_bits_wdata; // @[Dcache.scala 217:55]
-  wire [31:0] _io_bar_req_addr_T_1 = _T_27 ? wb_dirty_addr : wb_refill_addr; // @[Dcache.scala 218:40]
-  wire [31:0] _io_bar_req_addr_T_2 = mmio_state ? df_mmio_req_addr : io_cpu_req_bits_addr; // @[Dcache.scala 218:106]
-  wire [2:0] _io_bar_req_mtype_T = mmio_state ? df_mmio_req_mtype : io_cpu_req_bits_mtype; // @[Dcache.scala 219:52]
-  wire  _io_bar_req_valid_T_5 = mmio_state ? ~dp_mmio_is_csr_addr & _df_mmio_stall_T : df_mmio_valid; // @[Dcache.scala 221:72]
-  wire  _io_bar_req_wen_T_1 = mmio_state ? df_mmio_req_wen : io_cpu_req_bits_wen; // @[Dcache.scala 225:70]
-  wire  _wb_state_T = meta_io_dirty ? 1'h0 : 1'h1; // @[Dcache.scala 232:26]
+  wire [63:0] dp_write_line_0 = 2'h0 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_0; // @[Dcache.scala 175:28 Dcache.scala 175:28 Dcache.scala 174:17]
+  wire [63:0] dp_write_line_1 = 2'h1 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_1; // @[Dcache.scala 175:28 Dcache.scala 175:28 Dcache.scala 174:17]
+  wire [63:0] dp_write_line_2 = 2'h2 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_2; // @[Dcache.scala 175:28 Dcache.scala 175:28 Dcache.scala 174:17]
+  wire [63:0] dp_write_line_3 = 2'h3 == dp_offset ? dp_write_word[63:0] : dp_fetch_line_3; // @[Dcache.scala 175:28 Dcache.scala 175:28 Dcache.scala 174:17]
+  wire [63:0] _T_14 = mmio_state ? UNCACHED_RESP_RDATA : _GEN_22; // @[Dcache.scala 182:8]
+  wire [63:0] wb_refill_line_0 = io_bar_resp_data[63:0]; // @[Dcache.scala 214:48]
+  wire [63:0] wb_refill_line_1 = io_bar_resp_data[127:64]; // @[Dcache.scala 214:48]
+  wire [63:0] _GEN_28 = 2'h1 == wb_offset[1:0] ? wb_refill_line_1 : wb_refill_line_0; // @[Dcache.scala 181:35 Dcache.scala 181:35]
+  wire [63:0] wb_refill_line_2 = io_bar_resp_data[191:128]; // @[Dcache.scala 214:48]
+  wire [63:0] _GEN_29 = 2'h2 == wb_offset[1:0] ? wb_refill_line_2 : _GEN_28; // @[Dcache.scala 181:35 Dcache.scala 181:35]
+  wire [63:0] wb_refill_line_3 = io_bar_resp_data[255:192]; // @[Dcache.scala 214:48]
+  wire [63:0] _GEN_30 = 2'h3 == wb_offset[1:0] ? wb_refill_line_3 : _GEN_29; // @[Dcache.scala 181:35 Dcache.scala 181:35]
+  wire [63:0] _T_15 = wb_valid ? _GEN_30 : _T_14; // @[Dcache.scala 181:35]
+  wire  _data_io_web_T_1 = dp_resp_valid & dp_req_wen; // @[Dcache.scala 185:74]
+  wire [63:0] _wb_write_word_T = wb_mask & wb_req_wdata; // @[Dcache.scala 232:33]
+  wire [126:0] _GEN_66 = {{63'd0}, _wb_write_word_T}; // @[Dcache.scala 232:49]
+  wire [126:0] _wb_write_word_T_1 = _GEN_66 << wb_shift; // @[Dcache.scala 232:49]
+  wire [126:0] _GEN_67 = {{63'd0}, wb_mask}; // @[Dcache.scala 232:85]
+  wire [126:0] _wb_write_word_T_2 = _GEN_67 << wb_shift; // @[Dcache.scala 232:85]
+  wire [126:0] _wb_write_word_T_3 = ~_wb_write_word_T_2; // @[Dcache.scala 232:75]
+  wire [126:0] _GEN_68 = {{63'd0}, _GEN_30}; // @[Dcache.scala 232:108]
+  wire [126:0] _wb_write_word_T_5 = _wb_write_word_T_3 & _GEN_68; // @[Dcache.scala 232:108]
+  wire [126:0] wb_write_word = _wb_write_word_T_1 | _wb_write_word_T_5; // @[Dcache.scala 232:71]
+  wire [63:0] wb_write_line_1 = 2'h1 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_1; // @[Dcache.scala 234:28 Dcache.scala 234:28 Dcache.scala 233:17]
+  wire [63:0] wb_write_line_0 = 2'h0 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_0; // @[Dcache.scala 234:28 Dcache.scala 234:28 Dcache.scala 233:17]
+  wire [63:0] wb_write_line_3 = 2'h3 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_3; // @[Dcache.scala 234:28 Dcache.scala 234:28 Dcache.scala 233:17]
+  wire [63:0] wb_write_line_2 = 2'h2 == wb_offset[1:0] ? wb_write_word[63:0] : wb_refill_line_2; // @[Dcache.scala 234:28 Dcache.scala 234:28 Dcache.scala 233:17]
+  wire [255:0] _data_io_dinb_T = {wb_write_line_3,wb_write_line_2,wb_write_line_1,wb_write_line_0}; // @[Dcache.scala 186:70]
+  wire [255:0] _data_io_dinb_T_1 = wb_req_wen ? _data_io_dinb_T : io_bar_resp_data; // @[Dcache.scala 186:37]
+  wire [255:0] _data_io_dinb_T_2 = {dp_write_line_3,dp_write_line_2,dp_write_line_1,dp_write_line_0}; // @[Dcache.scala 186:113]
+  wire  _meta_io_update_T_2 = wb_valid ? 1'h0 : _data_io_web_T_1; // @[Dcache.scala 194:30]
+  wire [63:0] _io_bar_req_data_T = mmio_state ? df_mmio_req_wdata : io_cpu_req_bits_wdata; // @[Dcache.scala 204:55]
+  wire [31:0] _io_bar_req_addr_T_1 = _T_24 ? wb_dirty_addr : wb_refill_addr; // @[Dcache.scala 205:40]
+  wire [31:0] _io_bar_req_addr_T_2 = mmio_state ? df_mmio_req_addr : io_cpu_req_bits_addr; // @[Dcache.scala 205:106]
+  wire [2:0] _io_bar_req_mtype_T = mmio_state ? df_mmio_req_mtype : io_cpu_req_bits_mtype; // @[Dcache.scala 206:52]
+  wire  _io_bar_req_valid_T_3 = mmio_state ? _df_mmio_stall_T : df_mmio_valid; // @[Dcache.scala 208:72]
+  wire  _io_bar_req_wen_T_1 = mmio_state ? df_mmio_req_wen : io_cpu_req_bits_wen; // @[Dcache.scala 212:70]
+  wire  _wb_state_T = meta_io_dirty ? 1'h0 : 1'h1; // @[Dcache.scala 219:26]
   wire [31:0] _wb_dirty_addr_T = {meta_io_tag_fetch,dp_index,5'h0}; // @[Cat.scala 30:58]
-  wire [255:0] _wb_dirty_data_T = {dp_fetch_line_3,dp_fetch_line_2,dp_fetch_line_1,dp_fetch_line_0}; // @[Dcache.scala 234:43]
-  wire  _GEN_31 = _dp_index_T ? _wb_state_T : wb_state; // @[Dcache.scala 231:20 Dcache.scala 232:20 Dcache.scala 213:25]
-  wire  _GEN_55 = wb_state | _meta_io_update_T_2; // @[Conditional.scala 39:67 Dcache.scala 255:24 Dcache.scala 207:24]
-  wire  _GEN_58 = _T_27 ? _meta_io_update_T_2 : _GEN_55; // @[Conditional.scala 40:58 Dcache.scala 207:24]
+  wire [255:0] _wb_dirty_data_T = {dp_fetch_line_3,dp_fetch_line_2,dp_fetch_line_1,dp_fetch_line_0}; // @[Dcache.scala 221:43]
+  wire  _GEN_31 = _dp_index_T ? _wb_state_T : wb_state; // @[Dcache.scala 218:20 Dcache.scala 219:20 Dcache.scala 200:25]
+  wire  _GEN_55 = wb_state | _meta_io_update_T_2; // @[Conditional.scala 39:67 Dcache.scala 242:24 Dcache.scala 194:24]
+  wire  _GEN_58 = _T_24 ? _meta_io_update_T_2 : _GEN_55; // @[Conditional.scala 40:58 Dcache.scala 194:24]
   DualPortBRAM_2 data ( // @[Dcache.scala 66:20]
     .clock(data_clock),
     .reset(data_reset),
@@ -42713,34 +42708,34 @@ module DcacheDP(
     .io_tag_fetch(meta_io_tag_fetch),
     .io_dirty(meta_io_dirty)
   );
-  assign io_cpu_resp_valid = wb_resp_valid | dp_resp_valid | df_mmio_resp_valid; // @[Dcache.scala 190:63]
-  assign io_cpu_resp_bits_rdata_0 = _T_18[31:0]; // @[Dcache.scala 196:42]
-  assign io_cpu_resp_bits_rdata_1 = _T_18[63:32]; // @[Dcache.scala 196:42]
-  assign io_bar_req_valid = wb_valid ? wb_valid & _df_mmio_stall_T : _io_bar_req_valid_T_5; // @[Dcache.scala 221:26]
-  assign io_bar_req_wen = wb_valid ? _T_27 : _io_bar_req_wen_T_1; // @[Dcache.scala 225:26]
-  assign io_bar_req_addr = wb_valid ? _io_bar_req_addr_T_1 : _io_bar_req_addr_T_2; // @[Dcache.scala 218:26]
-  assign io_bar_req_data = wb_valid ? wb_dirty_data : {{192'd0}, _io_bar_req_data_T}; // @[Dcache.scala 217:26]
-  assign io_bar_req_mtype = wb_valid ? 3'h4 : _io_bar_req_mtype_T; // @[Dcache.scala 219:26]
+  assign io_cpu_resp_valid = wb_resp_valid | dp_resp_valid | df_mmio_resp_valid; // @[Dcache.scala 178:63]
+  assign io_cpu_resp_bits_rdata_0 = _T_15[31:0]; // @[Dcache.scala 183:42]
+  assign io_cpu_resp_bits_rdata_1 = _T_15[63:32]; // @[Dcache.scala 183:42]
+  assign io_bar_req_valid = wb_valid ? wb_valid & _df_mmio_stall_T : _io_bar_req_valid_T_3; // @[Dcache.scala 208:26]
+  assign io_bar_req_wen = wb_valid ? _T_24 : _io_bar_req_wen_T_1; // @[Dcache.scala 212:26]
+  assign io_bar_req_addr = wb_valid ? _io_bar_req_addr_T_1 : _io_bar_req_addr_T_2; // @[Dcache.scala 205:26]
+  assign io_bar_req_data = wb_valid ? wb_dirty_data : {{192'd0}, _io_bar_req_data_T}; // @[Dcache.scala 204:26]
+  assign io_bar_req_mtype = wb_valid ? 3'h4 : _io_bar_req_mtype_T; // @[Dcache.scala 206:26]
   assign data_clock = clock;
   assign data_reset = reset;
-  assign data_io_web = wb_valid ? wb_write_cache : dp_resp_valid & dp_req_wen; // @[Dcache.scala 198:23]
+  assign data_io_web = wb_valid ? wb_write_cache : dp_resp_valid & dp_req_wen; // @[Dcache.scala 185:23]
   assign data_io_addra = io_cpu_req_bits_addr[13:5]; // @[Dcache.scala 74:49]
-  assign data_io_addrb = wb_valid ? wb_index : dp_index; // @[Dcache.scala 201:23]
-  assign data_io_dinb = wb_valid ? _data_io_dinb_T_1 : _data_io_dinb_T_2; // @[Dcache.scala 199:23]
+  assign data_io_addrb = wb_valid ? wb_index : dp_index; // @[Dcache.scala 188:23]
+  assign data_io_dinb = wb_valid ? _data_io_dinb_T_1 : _data_io_dinb_T_2; // @[Dcache.scala 186:23]
   assign meta_clock = clock;
   assign meta_reset = reset;
   assign meta_io_index_fetch = io_cpu_req_bits_addr[13:5]; // @[Dcache.scala 74:49]
-  assign meta_io_index_update = wb_valid ? wb_index : dp_index; // @[Dcache.scala 205:30]
-  assign meta_io_tag_update = wb_valid ? wb_tag : dp_tag; // @[Dcache.scala 204:30]
-  assign meta_io_update = wb_valid ? _GEN_58 : _meta_io_update_T_2; // @[Dcache.scala 249:19 Dcache.scala 207:24]
-  assign meta_io_write = wb_valid ? wb_req_wen : dp_req_wen; // @[Dcache.scala 206:30]
+  assign meta_io_index_update = wb_valid ? wb_index : dp_index; // @[Dcache.scala 192:30]
+  assign meta_io_tag_update = wb_valid ? wb_tag : dp_tag; // @[Dcache.scala 191:30]
+  assign meta_io_update = wb_valid ? _GEN_58 : _meta_io_update_T_2; // @[Dcache.scala 236:19 Dcache.scala 194:24]
+  assign meta_io_write = wb_valid ? wb_req_wen : dp_req_wen; // @[Dcache.scala 193:30]
   always @(posedge clock) begin
-    if (reset) begin // @[Dcache.scala 127:27]
-      mmio_state <= 1'h0; // @[Dcache.scala 127:27]
+    if (reset) begin // @[Dcache.scala 125:27]
+      mmio_state <= 1'h0; // @[Dcache.scala 125:27]
     end else if (_T) begin // @[Conditional.scala 40:58]
-      mmio_state <= df_mmio_valid | mmio_state; // @[Dcache.scala 151:18]
+      mmio_state <= df_mmio_valid | mmio_state; // @[Dcache.scala 139:18]
     end else if (mmio_state) begin // @[Conditional.scala 39:67]
-      if (df_mmio_resp_valid) begin // @[Dcache.scala 154:24]
+      if (df_mmio_resp_valid) begin // @[Dcache.scala 142:24]
         mmio_state <= 1'h0;
       end
     end
@@ -42756,16 +42751,16 @@ module DcacheDP(
     if (_df_mmio_req_T) begin // @[Reg.scala 16:19]
       df_mmio_req_mtype <= io_cpu_req_bits_mtype; // @[Reg.scala 16:23]
     end
-    if (reset) begin // @[Dcache.scala 98:31]
-      wb_valid <= 1'h0; // @[Dcache.scala 98:31]
-    end else if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_valid <= _dp_valid_T_1; // @[Dcache.scala 235:20]
+    if (reset) begin // @[Dcache.scala 96:31]
+      wb_valid <= 1'h0; // @[Dcache.scala 96:31]
+    end else if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_valid <= _dp_valid_T_1; // @[Dcache.scala 222:20]
     end
-    if (reset) begin // @[Dcache.scala 213:25]
-      wb_state <= 1'h0; // @[Dcache.scala 213:25]
-    end else if (wb_valid) begin // @[Dcache.scala 249:19]
-      if (_T_27) begin // @[Conditional.scala 40:58]
-        wb_state <= io_bar_resp_valid | wb_state; // @[Dcache.scala 252:18]
+    if (reset) begin // @[Dcache.scala 200:25]
+      wb_state <= 1'h0; // @[Dcache.scala 200:25]
+    end else if (wb_valid) begin // @[Dcache.scala 236:19]
+      if (_T_24) begin // @[Conditional.scala 40:58]
+        wb_state <= io_bar_resp_valid | wb_state; // @[Dcache.scala 239:18]
       end else begin
         wb_state <= _GEN_31;
       end
@@ -42793,40 +42788,39 @@ module DcacheDP(
     if (_dp_index_T) begin // @[Reg.scala 16:19]
       dp_req_mtype <= io_cpu_req_bits_mtype; // @[Reg.scala 16:23]
     end
-    if (reset) begin // @[Dcache.scala 91:36]
-      dp_valid <= 1'h0; // @[Dcache.scala 91:36]
-    end else if (dp_valid & ~meta_io_hit | wb_stall | df_mmio_valid | mmio_state) begin // @[Dcache.scala 168:23]
+    if (reset) begin // @[Dcache.scala 90:36]
+      dp_valid <= 1'h0; // @[Dcache.scala 90:36]
+    end else if (dp_valid & ~meta_io_hit | wb_stall | df_mmio_valid | mmio_state) begin // @[Dcache.scala 156:23]
       dp_valid <= 1'h0;
     end else begin
       dp_valid <= io_cpu_req_valid;
     end
-    dp_mmio_is_csr_addr <= io_cpu_req_bits_addr == 32'h200bff8 | io_cpu_req_bits_addr == 32'h2004000; // @[Dcache.scala 140:27]
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_dirty_data <= _wb_dirty_data_T; // @[Dcache.scala 234:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_dirty_data <= _wb_dirty_data_T; // @[Dcache.scala 221:20]
     end
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_dirty_addr <= _wb_dirty_addr_T; // @[Dcache.scala 233:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_dirty_addr <= _wb_dirty_addr_T; // @[Dcache.scala 220:20]
     end
-    if (reset) begin // @[Dcache.scala 100:31]
-      wb_req_wdata <= 64'h0; // @[Dcache.scala 100:31]
-    end else if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_req_wdata <= dp_req_wdata; // @[Dcache.scala 237:20]
+    if (reset) begin // @[Dcache.scala 98:31]
+      wb_req_wdata <= 64'h0; // @[Dcache.scala 98:31]
+    end else if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_req_wdata <= dp_req_wdata; // @[Dcache.scala 224:20]
     end
-    if (reset) begin // @[Dcache.scala 100:31]
-      wb_req_wen <= 1'h0; // @[Dcache.scala 100:31]
-    end else if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_req_wen <= dp_req_wen; // @[Dcache.scala 237:20]
+    if (reset) begin // @[Dcache.scala 98:31]
+      wb_req_wen <= 1'h0; // @[Dcache.scala 98:31]
+    end else if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_req_wen <= dp_req_wen; // @[Dcache.scala 224:20]
     end
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_index <= dp_index; // @[Dcache.scala 238:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_index <= dp_index; // @[Dcache.scala 225:20]
     end
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_tag <= dp_tag; // @[Dcache.scala 239:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_tag <= dp_tag; // @[Dcache.scala 226:20]
     end
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_offset <= {{3'd0}, dp_offset}; // @[Dcache.scala 240:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_offset <= {{3'd0}, dp_offset}; // @[Dcache.scala 227:20]
     end
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
       if (3'h2 == dp_req_mtype) begin // @[Mux.scala 80:57]
         wb_mask <= 64'hffffffff;
       end else if (3'h0 == dp_req_mtype) begin // @[Mux.scala 80:57]
@@ -42837,14 +42831,14 @@ module DcacheDP(
         wb_mask <= 64'hffffffffffffffff;
       end
     end
-    if (_dp_index_T) begin // @[Dcache.scala 231:20]
-      wb_shift <= dp_shift; // @[Dcache.scala 242:20]
+    if (_dp_index_T) begin // @[Dcache.scala 218:20]
+      wb_shift <= dp_shift; // @[Dcache.scala 229:20]
     end
-    REG <= data_io_web & data_io_addra == data_io_addrb; // @[Dcache.scala 164:44]
-    REG_1_0 <= _WIRE_1[63:0]; // @[Dcache.scala 165:34]
-    REG_1_1 <= _WIRE_1[127:64]; // @[Dcache.scala 165:34]
-    REG_1_2 <= _WIRE_1[191:128]; // @[Dcache.scala 165:34]
-    REG_1_3 <= _WIRE_1[255:192]; // @[Dcache.scala 165:34]
+    REG <= data_io_web & data_io_addra == data_io_addrb; // @[Dcache.scala 152:44]
+    REG_1_0 <= _WIRE_1[63:0]; // @[Dcache.scala 153:34]
+    REG_1_1 <= _WIRE_1[127:64]; // @[Dcache.scala 153:34]
+    REG_1_2 <= _WIRE_1[191:128]; // @[Dcache.scala 153:34]
+    REG_1_3 <= _WIRE_1[255:192]; // @[Dcache.scala 153:34]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -42912,36 +42906,34 @@ initial begin
   dp_req_mtype = _RAND_13[2:0];
   _RAND_14 = {1{`RANDOM}};
   dp_valid = _RAND_14[0:0];
-  _RAND_15 = {1{`RANDOM}};
-  dp_mmio_is_csr_addr = _RAND_15[0:0];
-  _RAND_16 = {8{`RANDOM}};
-  wb_dirty_data = _RAND_16[255:0];
-  _RAND_17 = {1{`RANDOM}};
-  wb_dirty_addr = _RAND_17[31:0];
-  _RAND_18 = {2{`RANDOM}};
-  wb_req_wdata = _RAND_18[63:0];
+  _RAND_15 = {8{`RANDOM}};
+  wb_dirty_data = _RAND_15[255:0];
+  _RAND_16 = {1{`RANDOM}};
+  wb_dirty_addr = _RAND_16[31:0];
+  _RAND_17 = {2{`RANDOM}};
+  wb_req_wdata = _RAND_17[63:0];
+  _RAND_18 = {1{`RANDOM}};
+  wb_req_wen = _RAND_18[0:0];
   _RAND_19 = {1{`RANDOM}};
-  wb_req_wen = _RAND_19[0:0];
+  wb_index = _RAND_19[8:0];
   _RAND_20 = {1{`RANDOM}};
-  wb_index = _RAND_20[8:0];
+  wb_tag = _RAND_20[17:0];
   _RAND_21 = {1{`RANDOM}};
-  wb_tag = _RAND_21[17:0];
-  _RAND_22 = {1{`RANDOM}};
-  wb_offset = _RAND_22[4:0];
-  _RAND_23 = {2{`RANDOM}};
-  wb_mask = _RAND_23[63:0];
+  wb_offset = _RAND_21[4:0];
+  _RAND_22 = {2{`RANDOM}};
+  wb_mask = _RAND_22[63:0];
+  _RAND_23 = {1{`RANDOM}};
+  wb_shift = _RAND_23[5:0];
   _RAND_24 = {1{`RANDOM}};
-  wb_shift = _RAND_24[5:0];
-  _RAND_25 = {1{`RANDOM}};
-  REG = _RAND_25[0:0];
+  REG = _RAND_24[0:0];
+  _RAND_25 = {2{`RANDOM}};
+  REG_1_0 = _RAND_25[63:0];
   _RAND_26 = {2{`RANDOM}};
-  REG_1_0 = _RAND_26[63:0];
+  REG_1_1 = _RAND_26[63:0];
   _RAND_27 = {2{`RANDOM}};
-  REG_1_1 = _RAND_27[63:0];
+  REG_1_2 = _RAND_27[63:0];
   _RAND_28 = {2{`RANDOM}};
-  REG_1_2 = _RAND_28[63:0];
-  _RAND_29 = {2{`RANDOM}};
-  REG_1_3 = _RAND_29[63:0];
+  REG_1_3 = _RAND_28[63:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -42977,40 +42969,40 @@ module DcacheDPFilter(
   reg [31:0] _RAND_4;
   reg [31:0] _RAND_5;
 `endif // RANDOMIZE_REG_INIT
-  wire  dcache_clock; // @[Dcache.scala 272:22]
-  wire  dcache_reset; // @[Dcache.scala 272:22]
-  wire  dcache_io_cpu_req_valid; // @[Dcache.scala 272:22]
-  wire [31:0] dcache_io_cpu_req_bits_addr; // @[Dcache.scala 272:22]
-  wire [63:0] dcache_io_cpu_req_bits_wdata; // @[Dcache.scala 272:22]
-  wire  dcache_io_cpu_req_bits_wen; // @[Dcache.scala 272:22]
-  wire [2:0] dcache_io_cpu_req_bits_mtype; // @[Dcache.scala 272:22]
-  wire  dcache_io_cpu_resp_valid; // @[Dcache.scala 272:22]
-  wire [31:0] dcache_io_cpu_resp_bits_rdata_0; // @[Dcache.scala 272:22]
-  wire [31:0] dcache_io_cpu_resp_bits_rdata_1; // @[Dcache.scala 272:22]
-  wire  dcache_io_bar_req_valid; // @[Dcache.scala 272:22]
-  wire  dcache_io_bar_req_wen; // @[Dcache.scala 272:22]
-  wire [31:0] dcache_io_bar_req_addr; // @[Dcache.scala 272:22]
-  wire [255:0] dcache_io_bar_req_data; // @[Dcache.scala 272:22]
-  wire [2:0] dcache_io_bar_req_mtype; // @[Dcache.scala 272:22]
-  wire  dcache_io_bar_resp_valid; // @[Dcache.scala 272:22]
-  wire [255:0] dcache_io_bar_resp_data; // @[Dcache.scala 272:22]
-  reg [63:0] mtime; // @[Dcache.scala 277:20]
-  reg [63:0] mtimecmp; // @[Dcache.scala 278:23]
-  reg  counter; // @[Dcache.scala 279:26]
-  wire [5:0] _GEN_15 = {{5'd0}, counter}; // @[Dcache.scala 281:28]
-  wire  _counter_T = _GEN_15 == 6'h32; // @[Dcache.scala 281:28]
-  wire [63:0] _mtime_T_1 = mtime + 64'h1; // @[Dcache.scala 283:22]
-  wire [63:0] _GEN_0 = _counter_T ? _mtime_T_1 : mtime; // @[Dcache.scala 282:36 Dcache.scala 283:13 Dcache.scala 277:20]
-  wire  _hit_clint_addr_T = io_dcache_cpu_req_bits_addr == 32'h200bff8; // @[Dcache.scala 292:54]
-  wire  _hit_clint_addr_T_1 = io_dcache_cpu_req_bits_addr == 32'h2004000; // @[Dcache.scala 292:102]
-  wire  hit_clint_addr = io_dcache_cpu_req_bits_addr == 32'h200bff8 | io_dcache_cpu_req_bits_addr == 32'h2004000; // @[Dcache.scala 292:71]
-  reg [31:0] last_req_addr; // @[Dcache.scala 293:33]
-  reg  io_dcache_cpu_resp_valid_REG; // @[Dcache.scala 310:42]
-  reg  io_dcache_cpu_resp_valid_REG_1; // @[Dcache.scala 314:42]
-  wire [31:0] _GEN_9 = last_req_addr == 32'h2004000 ? mtimecmp[31:0] : dcache_io_cpu_resp_bits_rdata_0; // @[Dcache.scala 311:52 Dcache.scala 312:40 Dcache.scala 274:13]
-  wire [31:0] _GEN_10 = last_req_addr == 32'h2004000 ? mtimecmp[63:32] : dcache_io_cpu_resp_bits_rdata_1; // @[Dcache.scala 311:52 Dcache.scala 313:40 Dcache.scala 274:13]
-  wire  _GEN_11 = last_req_addr == 32'h2004000 ? io_dcache_cpu_resp_valid_REG_1 : dcache_io_cpu_resp_valid; // @[Dcache.scala 311:52 Dcache.scala 314:32 Dcache.scala 274:13]
-  DcacheDP dcache ( // @[Dcache.scala 272:22]
+  wire  dcache_clock; // @[Dcache.scala 259:22]
+  wire  dcache_reset; // @[Dcache.scala 259:22]
+  wire  dcache_io_cpu_req_valid; // @[Dcache.scala 259:22]
+  wire [31:0] dcache_io_cpu_req_bits_addr; // @[Dcache.scala 259:22]
+  wire [63:0] dcache_io_cpu_req_bits_wdata; // @[Dcache.scala 259:22]
+  wire  dcache_io_cpu_req_bits_wen; // @[Dcache.scala 259:22]
+  wire [2:0] dcache_io_cpu_req_bits_mtype; // @[Dcache.scala 259:22]
+  wire  dcache_io_cpu_resp_valid; // @[Dcache.scala 259:22]
+  wire [31:0] dcache_io_cpu_resp_bits_rdata_0; // @[Dcache.scala 259:22]
+  wire [31:0] dcache_io_cpu_resp_bits_rdata_1; // @[Dcache.scala 259:22]
+  wire  dcache_io_bar_req_valid; // @[Dcache.scala 259:22]
+  wire  dcache_io_bar_req_wen; // @[Dcache.scala 259:22]
+  wire [31:0] dcache_io_bar_req_addr; // @[Dcache.scala 259:22]
+  wire [255:0] dcache_io_bar_req_data; // @[Dcache.scala 259:22]
+  wire [2:0] dcache_io_bar_req_mtype; // @[Dcache.scala 259:22]
+  wire  dcache_io_bar_resp_valid; // @[Dcache.scala 259:22]
+  wire [255:0] dcache_io_bar_resp_data; // @[Dcache.scala 259:22]
+  reg [63:0] mtime; // @[Dcache.scala 264:20]
+  reg [63:0] mtimecmp; // @[Dcache.scala 265:23]
+  reg  counter; // @[Dcache.scala 266:26]
+  wire [5:0] _GEN_15 = {{5'd0}, counter}; // @[Dcache.scala 268:28]
+  wire  _counter_T = _GEN_15 == 6'h32; // @[Dcache.scala 268:28]
+  wire [63:0] _mtime_T_1 = mtime + 64'h1; // @[Dcache.scala 270:22]
+  wire [63:0] _GEN_0 = _counter_T ? _mtime_T_1 : mtime; // @[Dcache.scala 269:36 Dcache.scala 270:13 Dcache.scala 264:20]
+  wire  _hit_clint_addr_T = io_dcache_cpu_req_bits_addr == 32'h200bff8; // @[Dcache.scala 279:54]
+  wire  _hit_clint_addr_T_1 = io_dcache_cpu_req_bits_addr == 32'h2004000; // @[Dcache.scala 279:102]
+  wire  hit_clint_addr = io_dcache_cpu_req_bits_addr == 32'h200bff8 | io_dcache_cpu_req_bits_addr == 32'h2004000; // @[Dcache.scala 279:71]
+  reg [31:0] last_req_addr; // @[Dcache.scala 280:33]
+  reg  io_dcache_cpu_resp_valid_REG; // @[Dcache.scala 297:42]
+  reg  io_dcache_cpu_resp_valid_REG_1; // @[Dcache.scala 301:42]
+  wire [31:0] _GEN_9 = last_req_addr == 32'h2004000 ? mtimecmp[31:0] : dcache_io_cpu_resp_bits_rdata_0; // @[Dcache.scala 298:52 Dcache.scala 299:40 Dcache.scala 261:13]
+  wire [31:0] _GEN_10 = last_req_addr == 32'h2004000 ? mtimecmp[63:32] : dcache_io_cpu_resp_bits_rdata_1; // @[Dcache.scala 298:52 Dcache.scala 300:40 Dcache.scala 261:13]
+  wire  _GEN_11 = last_req_addr == 32'h2004000 ? io_dcache_cpu_resp_valid_REG_1 : dcache_io_cpu_resp_valid; // @[Dcache.scala 298:52 Dcache.scala 301:32 Dcache.scala 261:13]
+  DcacheDP dcache ( // @[Dcache.scala 259:22]
     .clock(dcache_clock),
     .reset(dcache_reset),
     .io_cpu_req_valid(dcache_io_cpu_req_valid),
@@ -43029,28 +43021,28 @@ module DcacheDPFilter(
     .io_bar_resp_valid(dcache_io_bar_resp_valid),
     .io_bar_resp_data(dcache_io_bar_resp_data)
   );
-  assign io_dcache_cpu_resp_valid = last_req_addr == 32'h200bff8 ? io_dcache_cpu_resp_valid_REG : _GEN_11; // @[Dcache.scala 307:43 Dcache.scala 310:32]
-  assign io_dcache_cpu_resp_bits_rdata_0 = last_req_addr == 32'h200bff8 ? mtime[31:0] : _GEN_9; // @[Dcache.scala 307:43 Dcache.scala 308:40]
-  assign io_dcache_cpu_resp_bits_rdata_1 = last_req_addr == 32'h200bff8 ? mtime[63:32] : _GEN_10; // @[Dcache.scala 307:43 Dcache.scala 309:40]
-  assign io_dcache_bar_req_valid = dcache_io_bar_req_valid; // @[Dcache.scala 274:13]
-  assign io_dcache_bar_req_wen = dcache_io_bar_req_wen; // @[Dcache.scala 274:13]
-  assign io_dcache_bar_req_addr = dcache_io_bar_req_addr; // @[Dcache.scala 274:13]
-  assign io_dcache_bar_req_data = dcache_io_bar_req_data; // @[Dcache.scala 274:13]
-  assign io_dcache_bar_req_mtype = dcache_io_bar_req_mtype; // @[Dcache.scala 274:13]
+  assign io_dcache_cpu_resp_valid = last_req_addr == 32'h200bff8 ? io_dcache_cpu_resp_valid_REG : _GEN_11; // @[Dcache.scala 294:43 Dcache.scala 297:32]
+  assign io_dcache_cpu_resp_bits_rdata_0 = last_req_addr == 32'h200bff8 ? mtime[31:0] : _GEN_9; // @[Dcache.scala 294:43 Dcache.scala 295:40]
+  assign io_dcache_cpu_resp_bits_rdata_1 = last_req_addr == 32'h200bff8 ? mtime[63:32] : _GEN_10; // @[Dcache.scala 294:43 Dcache.scala 296:40]
+  assign io_dcache_bar_req_valid = dcache_io_bar_req_valid; // @[Dcache.scala 261:13]
+  assign io_dcache_bar_req_wen = dcache_io_bar_req_wen; // @[Dcache.scala 261:13]
+  assign io_dcache_bar_req_addr = dcache_io_bar_req_addr; // @[Dcache.scala 261:13]
+  assign io_dcache_bar_req_data = dcache_io_bar_req_data; // @[Dcache.scala 261:13]
+  assign io_dcache_bar_req_mtype = dcache_io_bar_req_mtype; // @[Dcache.scala 261:13]
   assign dcache_clock = clock;
   assign dcache_reset = reset;
-  assign dcache_io_cpu_req_valid = hit_clint_addr ? 1'h0 : io_dcache_cpu_req_valid; // @[Dcache.scala 294:27 Dcache.scala 295:31 Dcache.scala 274:13]
-  assign dcache_io_cpu_req_bits_addr = io_dcache_cpu_req_bits_addr; // @[Dcache.scala 274:13]
-  assign dcache_io_cpu_req_bits_wdata = io_dcache_cpu_req_bits_wdata; // @[Dcache.scala 274:13]
-  assign dcache_io_cpu_req_bits_wen = io_dcache_cpu_req_bits_wen; // @[Dcache.scala 274:13]
-  assign dcache_io_cpu_req_bits_mtype = io_dcache_cpu_req_bits_mtype; // @[Dcache.scala 274:13]
-  assign dcache_io_bar_resp_valid = io_dcache_bar_resp_valid; // @[Dcache.scala 274:13]
-  assign dcache_io_bar_resp_data = io_dcache_bar_resp_data; // @[Dcache.scala 274:13]
+  assign dcache_io_cpu_req_valid = hit_clint_addr ? 1'h0 : io_dcache_cpu_req_valid; // @[Dcache.scala 281:27 Dcache.scala 282:31 Dcache.scala 261:13]
+  assign dcache_io_cpu_req_bits_addr = io_dcache_cpu_req_bits_addr; // @[Dcache.scala 261:13]
+  assign dcache_io_cpu_req_bits_wdata = io_dcache_cpu_req_bits_wdata; // @[Dcache.scala 261:13]
+  assign dcache_io_cpu_req_bits_wen = io_dcache_cpu_req_bits_wen; // @[Dcache.scala 261:13]
+  assign dcache_io_cpu_req_bits_mtype = io_dcache_cpu_req_bits_mtype; // @[Dcache.scala 261:13]
+  assign dcache_io_bar_resp_valid = io_dcache_bar_resp_valid; // @[Dcache.scala 261:13]
+  assign dcache_io_bar_resp_data = io_dcache_bar_resp_data; // @[Dcache.scala 261:13]
   always @(posedge clock) begin
-    if (hit_clint_addr) begin // @[Dcache.scala 294:27]
-      if (io_dcache_cpu_req_valid & io_dcache_cpu_req_bits_wen) begin // @[Dcache.scala 297:68]
-        if (_hit_clint_addr_T) begin // @[Dcache.scala 298:61]
-          mtime <= io_dcache_cpu_req_bits_wdata; // @[Dcache.scala 299:17]
+    if (hit_clint_addr) begin // @[Dcache.scala 281:27]
+      if (io_dcache_cpu_req_valid & io_dcache_cpu_req_bits_wen) begin // @[Dcache.scala 284:68]
+        if (_hit_clint_addr_T) begin // @[Dcache.scala 285:61]
+          mtime <= io_dcache_cpu_req_bits_wdata; // @[Dcache.scala 286:17]
         end else begin
           mtime <= _GEN_0;
         end
@@ -43060,25 +43052,25 @@ module DcacheDPFilter(
     end else begin
       mtime <= _GEN_0;
     end
-    if (hit_clint_addr) begin // @[Dcache.scala 294:27]
-      if (io_dcache_cpu_req_valid & io_dcache_cpu_req_bits_wen) begin // @[Dcache.scala 297:68]
-        if (!(_hit_clint_addr_T)) begin // @[Dcache.scala 298:61]
-          if (_hit_clint_addr_T_1) begin // @[Dcache.scala 300:70]
-            mtimecmp <= io_dcache_cpu_req_bits_wdata; // @[Dcache.scala 301:20]
+    if (hit_clint_addr) begin // @[Dcache.scala 281:27]
+      if (io_dcache_cpu_req_valid & io_dcache_cpu_req_bits_wen) begin // @[Dcache.scala 284:68]
+        if (!(_hit_clint_addr_T)) begin // @[Dcache.scala 285:61]
+          if (_hit_clint_addr_T_1) begin // @[Dcache.scala 287:70]
+            mtimecmp <= io_dcache_cpu_req_bits_wdata; // @[Dcache.scala 288:20]
           end
         end
       end
     end
-    if (reset) begin // @[Dcache.scala 279:26]
-      counter <= 1'h0; // @[Dcache.scala 279:26]
-    end else if (_GEN_15 == 6'h32) begin // @[Dcache.scala 281:19]
+    if (reset) begin // @[Dcache.scala 266:26]
+      counter <= 1'h0; // @[Dcache.scala 266:26]
+    end else if (_GEN_15 == 6'h32) begin // @[Dcache.scala 268:19]
       counter <= 1'h0;
     end else begin
       counter <= counter + 1'h1;
     end
-    last_req_addr <= io_dcache_cpu_req_bits_addr; // @[Dcache.scala 293:33]
-    io_dcache_cpu_resp_valid_REG <= io_dcache_cpu_req_valid; // @[Dcache.scala 310:42]
-    io_dcache_cpu_resp_valid_REG_1 <= io_dcache_cpu_req_valid; // @[Dcache.scala 314:42]
+    last_req_addr <= io_dcache_cpu_req_bits_addr; // @[Dcache.scala 280:33]
+    io_dcache_cpu_resp_valid_REG <= io_dcache_cpu_req_valid; // @[Dcache.scala 297:42]
+    io_dcache_cpu_resp_valid_REG_1 <= io_dcache_cpu_req_valid; // @[Dcache.scala 301:42]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
