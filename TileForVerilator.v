@@ -14360,13 +14360,11 @@ module Backend(
   reg [31:0] _RAND_123;
   reg [31:0] _RAND_124;
   reg [31:0] _RAND_125;
-  reg [31:0] _RAND_126;
-  reg [31:0] _RAND_127;
+  reg [63:0] _RAND_126;
+  reg [63:0] _RAND_127;
   reg [63:0] _RAND_128;
   reg [63:0] _RAND_129;
   reg [63:0] _RAND_130;
-  reg [63:0] _RAND_131;
-  reg [63:0] _RAND_132;
 `endif // RANDOMIZE_REG_INIT
   wire [63:0] alu_io_a; // @[Backend.scala 59:28]
   wire [63:0] alu_io_b; // @[Backend.scala 59:28]
@@ -14997,12 +14995,10 @@ module Backend(
   reg [31:0] REG_10; // @[Backend.scala 622:26]
   reg [31:0] REG_11; // @[Backend.scala 623:19]
   reg [31:0] REG_12; // @[Backend.scala 623:19]
-  reg  REG_13; // @[Backend.scala 625:88]
-  reg  REG_14; // @[Backend.scala 625:80]
-  reg  REG_15; // @[Backend.scala 625:72]
+  reg  REG_13; // @[Backend.scala 625:72]
+  reg  REG_14; // @[Backend.scala 631:60]
+  reg  REG_15; // @[Backend.scala 631:60]
   reg  REG_16; // @[Backend.scala 631:60]
-  reg  REG_17; // @[Backend.scala 631:60]
-  reg  REG_18; // @[Backend.scala 631:60]
   reg [63:0] counter; // @[Backend.scala 636:26]
   reg [63:0] dstall; // @[Backend.scala 637:25]
   reg [63:0] istall; // @[Backend.scala 639:25]
@@ -15032,10 +15028,10 @@ module Backend(
   wire [31:0] _WIRE_3_2 = REG_12; // @[Backend.scala 620:34 Backend.scala 620:34]
   wire  _WIRE_4_0 = 1'h0; // @[Backend.scala 625:34 Backend.scala 625:34]
   wire  _WIRE_4_1 = 1'h0; // @[Backend.scala 625:34 Backend.scala 625:34]
-  wire  _WIRE_4_2 = REG_15; // @[Backend.scala 625:34 Backend.scala 625:34]
-  wire  _WIRE_5_0 = REG_16; // @[Backend.scala 631:34 Backend.scala 631:34]
-  wire  _WIRE_5_1 = REG_17; // @[Backend.scala 631:34 Backend.scala 631:34]
-  wire  _WIRE_5_2 = REG_18; // @[Backend.scala 631:34 Backend.scala 631:34]
+  wire  _WIRE_4_2 = REG_13; // @[Backend.scala 625:34 Backend.scala 625:34]
+  wire  _WIRE_5_0 = REG_14; // @[Backend.scala 631:34 Backend.scala 631:34]
+  wire  _WIRE_5_1 = REG_15; // @[Backend.scala 631:34 Backend.scala 631:34]
+  wire  _WIRE_5_2 = REG_16; // @[Backend.scala 631:34 Backend.scala 631:34]
   ALU alu ( // @[Backend.scala 59:28]
     .io_a(alu_io_a),
     .io_b(alu_io_b),
@@ -16341,12 +16337,10 @@ module Backend(
     end
     REG_11 <= wbInsts__1_inst; // @[Backend.scala 623:19]
     REG_12 <= wbInsts__2_inst; // @[Backend.scala 623:19]
-    REG_13 <= io_dcache_req_bits_addr[31:20] == 12'h200; // @[Backend.scala 625:121]
-    REG_14 <= REG_13; // @[Backend.scala 625:80]
-    REG_15 <= REG_14; // @[Backend.scala 625:72]
-    REG_16 <= wbInsts__0_ysyx_print; // @[Backend.scala 631:60]
-    REG_17 <= wbInsts__1_ysyx_print; // @[Backend.scala 631:60]
-    REG_18 <= wbInsts__2_ysyx_print; // @[Backend.scala 631:60]
+    REG_13 <= io_dcache_resp_valid & ~exLastMemReq_addr[31]; // @[Backend.scala 625:94]
+    REG_14 <= wbInsts__0_ysyx_print; // @[Backend.scala 631:60]
+    REG_15 <= wbInsts__1_ysyx_print; // @[Backend.scala 631:60]
+    REG_16 <= wbInsts__2_ysyx_print; // @[Backend.scala 631:60]
     if (reset) begin // @[Backend.scala 636:26]
       counter <= 64'h0; // @[Backend.scala 636:26]
     end else begin
@@ -16661,20 +16655,16 @@ initial begin
   REG_15 = _RAND_124[0:0];
   _RAND_125 = {1{`RANDOM}};
   REG_16 = _RAND_125[0:0];
-  _RAND_126 = {1{`RANDOM}};
-  REG_17 = _RAND_126[0:0];
-  _RAND_127 = {1{`RANDOM}};
-  REG_18 = _RAND_127[0:0];
+  _RAND_126 = {2{`RANDOM}};
+  counter = _RAND_126[63:0];
+  _RAND_127 = {2{`RANDOM}};
+  dstall = _RAND_127[63:0];
   _RAND_128 = {2{`RANDOM}};
-  counter = _RAND_128[63:0];
+  istall = _RAND_128[63:0];
   _RAND_129 = {2{`RANDOM}};
-  dstall = _RAND_129[63:0];
+  mduStall = _RAND_129[63:0];
   _RAND_130 = {2{`RANDOM}};
-  istall = _RAND_130[63:0];
-  _RAND_131 = {2{`RANDOM}};
-  mduStall = _RAND_131[63:0];
-  _RAND_132 = {2{`RANDOM}};
-  common = _RAND_132[63:0];
+  common = _RAND_130[63:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
