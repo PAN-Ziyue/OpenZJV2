@@ -14226,6 +14226,7 @@ module Backend(
   output         _WIRE_5_0_0,
   output         _WIRE_5_0_1,
   output         _WIRE_5_0_2,
+  output [63:0]  instret_0,
   output [1:0]   _WIRE_2_0_0,
   output [1:0]   _WIRE_2_0_1,
   output [1:0]   _WIRE_2_0_2,
@@ -14365,6 +14366,7 @@ module Backend(
   reg [63:0] _RAND_128;
   reg [63:0] _RAND_129;
   reg [63:0] _RAND_130;
+  reg [63:0] _RAND_131;
 `endif // RANDOMIZE_REG_INIT
   wire [63:0] alu_io_a; // @[Backend.scala 59:28]
   wire [63:0] alu_io_b; // @[Backend.scala 59:28]
@@ -14950,10 +14952,13 @@ module Backend(
   wire [63:0] _io_fb_bmfs_redirect_pc_T = csr_io_event_io_except_kill ? csr_io_event_io_redirect_pc : {{32'd0},
     reBranchPC}; // @[Backend.scala 497:34]
   wire  wbExcepts_0 = |wbInsts__0_pc[1:0]; // @[Backend.scala 530:39]
+  wire  _regFile_io_wen_vec_0_T_1 = ~wbExcepts_0; // @[Backend.scala 506:68]
   wire  _regFile_io_wen_vec_0_T_2 = wbInsts__0_write_dest & ~wbExcepts_0; // @[Backend.scala 506:65]
   wire  wbExcepts_1 = |wbInsts__1_pc[1:0]; // @[Backend.scala 531:39]
+  wire  _regFile_io_wen_vec_0_T_5 = ~wbExcepts_1; // @[Backend.scala 507:70]
   wire  _regFile_io_wen_vec_0_T_6 = _T_9 & ~wbExcepts_1; // @[Backend.scala 507:67]
   wire  wbLdMaReal = wbInstsValid_2 & wbLdMa; // @[Backend.scala 523:39]
+  wire  _regFile_io_wen_vec_1_T_1 = ~wbLdMaReal; // @[Backend.scala 513:68]
   wire  _regFile_io_wen_vec_1_T_2 = wbInsts__2_write_dest & ~wbLdMaReal; // @[Backend.scala 513:65]
   wire  csrWbValid = wbInsts__0_next_pc == 4'h0 & wbInsts__0_alu_mdu_lsu == 2'h0; // @[Backend.scala 521:62]
   wire  wbALUSysReal = wbInsts__0_next_pc == 4'h5 & wbInstsValid_0; // @[Backend.scala 525:63]
@@ -14999,6 +15004,7 @@ module Backend(
   reg  REG_14; // @[Backend.scala 631:60]
   reg  REG_15; // @[Backend.scala 631:60]
   reg  REG_16; // @[Backend.scala 631:60]
+  reg [63:0] instret; // @[Backend.scala 635:26]
   reg [63:0] counter; // @[Backend.scala 636:26]
   reg [63:0] dstall; // @[Backend.scala 637:25]
   reg [63:0] istall; // @[Backend.scala 639:25]
@@ -15012,6 +15018,15 @@ module Backend(
   wire [63:0] _GEN_415 = {{63'd0}, _common_T}; // @[Backend.scala 645:22]
   wire [63:0] _common_T_3 = common + _GEN_415; // @[Backend.scala 645:22]
   wire [63:0] _counter_T_1 = counter + 64'h1; // @[Backend.scala 646:24]
+  wire  _instret_T_1 = wbInstsValid_0 & _regFile_io_wen_vec_0_T_1; // @[Backend.scala 647:66]
+  wire [63:0] _GEN_416 = {{63'd0}, _instret_T_1}; // @[Backend.scala 647:47]
+  wire [63:0] _instret_T_3 = instret + _GEN_416; // @[Backend.scala 647:47]
+  wire  _instret_T_5 = wbInstsValid_1 & _regFile_io_wen_vec_0_T_5; // @[Backend.scala 647:110]
+  wire [63:0] _GEN_417 = {{63'd0}, _instret_T_5}; // @[Backend.scala 647:91]
+  wire [63:0] _instret_T_7 = _instret_T_3 + _GEN_417; // @[Backend.scala 647:91]
+  wire  _instret_T_9 = wbInstsValid_2 & _regFile_io_wen_vec_1_T_1; // @[Backend.scala 647:154]
+  wire [63:0] _GEN_418 = {{63'd0}, _instret_T_9}; // @[Backend.scala 647:135]
+  wire [63:0] _instret_T_11 = _instret_T_7 + _GEN_418; // @[Backend.scala 647:135]
   wire [63:0] _GEN_419 = {{63'd0}, _stall_i_T}; // @[Backend.scala 648:26]
   wire [63:0] _mduStall_T_2 = mduStall + _GEN_419; // @[Backend.scala 648:26]
   wire  _WIRE__0 = REG_1; // @[Backend.scala 605:34 Backend.scala 605:34]
@@ -15426,6 +15441,7 @@ module Backend(
   assign _WIRE_5_0_0 = _WIRE_5_0;
   assign _WIRE_5_0_1 = _WIRE_5_1;
   assign _WIRE_5_0_2 = _WIRE_5_2;
+  assign instret_0 = instret;
   assign _WIRE_2_0_0 = _WIRE_2_0;
   assign _WIRE_2_0_1 = _WIRE_2_1;
   assign _WIRE_2_0_2 = _WIRE_2_2;
@@ -16341,6 +16357,11 @@ module Backend(
     REG_14 <= wbInsts__0_ysyx_print; // @[Backend.scala 631:60]
     REG_15 <= wbInsts__1_ysyx_print; // @[Backend.scala 631:60]
     REG_16 <= wbInsts__2_ysyx_print; // @[Backend.scala 631:60]
+    if (reset) begin // @[Backend.scala 635:26]
+      instret <= 64'h0; // @[Backend.scala 635:26]
+    end else if (!(bubble_w)) begin // @[Backend.scala 647:19]
+      instret <= _instret_T_11;
+    end
     if (reset) begin // @[Backend.scala 636:26]
       counter <= 64'h0; // @[Backend.scala 636:26]
     end else begin
@@ -16656,15 +16677,17 @@ initial begin
   _RAND_125 = {1{`RANDOM}};
   REG_16 = _RAND_125[0:0];
   _RAND_126 = {2{`RANDOM}};
-  counter = _RAND_126[63:0];
+  instret = _RAND_126[63:0];
   _RAND_127 = {2{`RANDOM}};
-  dstall = _RAND_127[63:0];
+  counter = _RAND_127[63:0];
   _RAND_128 = {2{`RANDOM}};
-  istall = _RAND_128[63:0];
+  dstall = _RAND_128[63:0];
   _RAND_129 = {2{`RANDOM}};
-  mduStall = _RAND_129[63:0];
+  istall = _RAND_129[63:0];
   _RAND_130 = {2{`RANDOM}};
-  common = _RAND_130[63:0];
+  mduStall = _RAND_130[63:0];
+  _RAND_131 = {2{`RANDOM}};
+  common = _RAND_131[63:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -16762,6 +16785,7 @@ module Core(
   output        _WIRE_5_0,
   output        _WIRE_5_1,
   output        _WIRE_5_2,
+  output [63:0] instret,
   output [1:0]  _WIRE_2_0,
   output [1:0]  _WIRE_2_1,
   output [1:0]  _WIRE_2_2,
@@ -16884,6 +16908,7 @@ module Core(
   wire  be__WIRE_5_0_0; // @[Core.scala 98:18]
   wire  be__WIRE_5_0_1; // @[Core.scala 98:18]
   wire  be__WIRE_5_0_2; // @[Core.scala 98:18]
+  wire [63:0] be_instret_0; // @[Core.scala 98:18]
   wire [1:0] be__WIRE_2_0_0; // @[Core.scala 98:18]
   wire [1:0] be__WIRE_2_0_1; // @[Core.scala 98:18]
   wire [1:0] be__WIRE_2_0_2; // @[Core.scala 98:18]
@@ -17008,6 +17033,7 @@ module Core(
     ._WIRE_5_0_0(be__WIRE_5_0_0),
     ._WIRE_5_0_1(be__WIRE_5_0_1),
     ._WIRE_5_0_2(be__WIRE_5_0_2),
+    .instret_0(be_instret_0),
     ._WIRE_2_0_0(be__WIRE_2_0_0),
     ._WIRE_2_0_1(be__WIRE_2_0_1),
     ._WIRE_2_0_2(be__WIRE_2_0_2),
@@ -17092,6 +17118,7 @@ module Core(
   assign _WIRE_5_0 = be__WIRE_5_0_0;
   assign _WIRE_5_1 = be__WIRE_5_0_1;
   assign _WIRE_5_2 = be__WIRE_5_0_2;
+  assign instret = be_instret_0;
   assign _WIRE_2_0 = be__WIRE_2_0_0;
   assign _WIRE_2_1 = be__WIRE_2_0_1;
   assign _WIRE_2_2 = be__WIRE_2_0_2;
@@ -44408,151 +44435,153 @@ module TileForVerilator(
   output [63:0] io_difftest_common,
   output [63:0] io_difftest_dstall,
   output [63:0] io_difftest_istall,
-  output [63:0] io_difftest_mduStall
+  output [63:0] io_difftest_mduStall,
+  output [63:0] io_difftest_instret
 );
-  wire  core_clock; // @[Tile.scala 102:20]
-  wire  core_reset; // @[Tile.scala 102:20]
-  wire [31:0] core_io_icache_req_bits_addr; // @[Tile.scala 102:20]
-  wire [2:0] core_io_icache_req_bits_mtype; // @[Tile.scala 102:20]
-  wire  core_io_icache_resp_valid; // @[Tile.scala 102:20]
-  wire [31:0] core_io_icache_resp_bits_rdata_0; // @[Tile.scala 102:20]
-  wire [31:0] core_io_icache_resp_bits_rdata_1; // @[Tile.scala 102:20]
-  wire  core_io_icache_resp_bits_respn; // @[Tile.scala 102:20]
-  wire  core_io_dcache_req_valid; // @[Tile.scala 102:20]
-  wire [31:0] core_io_dcache_req_bits_addr; // @[Tile.scala 102:20]
-  wire [63:0] core_io_dcache_req_bits_wdata; // @[Tile.scala 102:20]
-  wire  core_io_dcache_req_bits_wen; // @[Tile.scala 102:20]
-  wire [2:0] core_io_dcache_req_bits_mtype; // @[Tile.scala 102:20]
-  wire  core_io_dcache_resp_valid; // @[Tile.scala 102:20]
-  wire [31:0] core_io_dcache_resp_bits_rdata_0; // @[Tile.scala 102:20]
-  wire [31:0] core_io_dcache_resp_bits_rdata_1; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mstatus; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_sstatus; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mepc; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_sepc; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mtval; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_stval; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mtvec; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_stvec; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mcause; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_scause; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_satp; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mip; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mie; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mscratch; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_sscratch; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_mideleg; // @[Tile.scala 102:20]
-  wire [63:0] core_csrs_medeleg; // @[Tile.scala 102:20]
-  wire [63:0] core_istall; // @[Tile.scala 102:20]
-  wire  core__WIRE_4_0; // @[Tile.scala 102:20]
-  wire  core__WIRE_4_1; // @[Tile.scala 102:20]
-  wire  core__WIRE_4_2; // @[Tile.scala 102:20]
-  wire [31:0] core__WIRE_1_0; // @[Tile.scala 102:20]
-  wire [31:0] core__WIRE_1_1; // @[Tile.scala 102:20]
-  wire [31:0] core__WIRE_1_2; // @[Tile.scala 102:20]
-  wire [4:0] core_difftest_saddr; // @[Tile.scala 102:20]
-  wire [1:0] core_current_mode; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__0; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__1; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__2; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__3; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__4; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__5; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__6; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__7; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__8; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__9; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__10; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__11; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__12; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__13; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__14; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__15; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__16; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__17; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__18; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__19; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__20; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__21; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__22; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__23; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__24; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__25; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__26; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__27; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__28; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__29; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__30; // @[Tile.scala 102:20]
-  wire [63:0] core__WIRE__31; // @[Tile.scala 102:20]
-  wire [63:0] core_dstall; // @[Tile.scala 102:20]
-  wire  core__WIRE_0_0; // @[Tile.scala 102:20]
-  wire  core__WIRE_0_1; // @[Tile.scala 102:20]
-  wire  core__WIRE_0_2; // @[Tile.scala 102:20]
-  wire [63:0] core_counter; // @[Tile.scala 102:20]
-  wire [31:0] core_difftest_sval; // @[Tile.scala 102:20]
-  wire [63:0] core_mduStall; // @[Tile.scala 102:20]
-  wire [31:0] core__WIRE_3_0; // @[Tile.scala 102:20]
-  wire [31:0] core__WIRE_3_1; // @[Tile.scala 102:20]
-  wire [31:0] core__WIRE_3_2; // @[Tile.scala 102:20]
-  wire [63:0] core_common; // @[Tile.scala 102:20]
-  wire  core__WIRE_5_0; // @[Tile.scala 102:20]
-  wire  core__WIRE_5_1; // @[Tile.scala 102:20]
-  wire  core__WIRE_5_2; // @[Tile.scala 102:20]
-  wire [1:0] core__WIRE_2_0; // @[Tile.scala 102:20]
-  wire [1:0] core__WIRE_2_1; // @[Tile.scala 102:20]
-  wire [1:0] core__WIRE_2_2; // @[Tile.scala 102:20]
-  wire  core_REG_0; // @[Tile.scala 102:20]
-  wire  core_difftest_sync; // @[Tile.scala 102:20]
-  wire  core_wbInsts_0_ysyx_debug; // @[Tile.scala 102:20]
-  wire  icache_clock; // @[Tile.scala 103:22]
-  wire  icache_reset; // @[Tile.scala 103:22]
-  wire [31:0] icache_io_cpu_req_bits_addr; // @[Tile.scala 103:22]
-  wire [2:0] icache_io_cpu_req_bits_mtype; // @[Tile.scala 103:22]
-  wire  icache_io_cpu_resp_valid; // @[Tile.scala 103:22]
-  wire [31:0] icache_io_cpu_resp_bits_rdata_0; // @[Tile.scala 103:22]
-  wire [31:0] icache_io_cpu_resp_bits_rdata_1; // @[Tile.scala 103:22]
-  wire  icache_io_cpu_resp_bits_respn; // @[Tile.scala 103:22]
-  wire  icache_io_bar_req_valid; // @[Tile.scala 103:22]
-  wire [31:0] icache_io_bar_req_addr; // @[Tile.scala 103:22]
-  wire  icache_io_bar_resp_valid; // @[Tile.scala 103:22]
-  wire [255:0] icache_io_bar_resp_data; // @[Tile.scala 103:22]
-  wire  dcache_clock; // @[Tile.scala 104:22]
-  wire  dcache_reset; // @[Tile.scala 104:22]
-  wire  dcache_io_dcache_cpu_req_valid; // @[Tile.scala 104:22]
-  wire [31:0] dcache_io_dcache_cpu_req_bits_addr; // @[Tile.scala 104:22]
-  wire [63:0] dcache_io_dcache_cpu_req_bits_wdata; // @[Tile.scala 104:22]
-  wire  dcache_io_dcache_cpu_req_bits_wen; // @[Tile.scala 104:22]
-  wire [2:0] dcache_io_dcache_cpu_req_bits_mtype; // @[Tile.scala 104:22]
-  wire  dcache_io_dcache_cpu_resp_valid; // @[Tile.scala 104:22]
-  wire [31:0] dcache_io_dcache_cpu_resp_bits_rdata_0; // @[Tile.scala 104:22]
-  wire [31:0] dcache_io_dcache_cpu_resp_bits_rdata_1; // @[Tile.scala 104:22]
-  wire  dcache_io_dcache_bar_req_valid; // @[Tile.scala 104:22]
-  wire  dcache_io_dcache_bar_req_wen; // @[Tile.scala 104:22]
-  wire [31:0] dcache_io_dcache_bar_req_addr; // @[Tile.scala 104:22]
-  wire [255:0] dcache_io_dcache_bar_req_data; // @[Tile.scala 104:22]
-  wire [2:0] dcache_io_dcache_bar_req_mtype; // @[Tile.scala 104:22]
-  wire  dcache_io_dcache_bar_resp_valid; // @[Tile.scala 104:22]
-  wire [255:0] dcache_io_dcache_bar_resp_data; // @[Tile.scala 104:22]
-  wire  mem_clock; // @[Tile.scala 105:19]
-  wire  mem_reset; // @[Tile.scala 105:19]
-  wire  mem_io_icache_io_req_valid; // @[Tile.scala 105:19]
-  wire [31:0] mem_io_icache_io_req_addr; // @[Tile.scala 105:19]
-  wire  mem_io_icache_io_resp_valid; // @[Tile.scala 105:19]
-  wire [255:0] mem_io_icache_io_resp_data; // @[Tile.scala 105:19]
-  wire  mem_io_dcache_io_req_valid; // @[Tile.scala 105:19]
-  wire  mem_io_dcache_io_req_wen; // @[Tile.scala 105:19]
-  wire [31:0] mem_io_dcache_io_req_addr; // @[Tile.scala 105:19]
-  wire [255:0] mem_io_dcache_io_req_data; // @[Tile.scala 105:19]
-  wire [2:0] mem_io_dcache_io_req_mtype; // @[Tile.scala 105:19]
-  wire  mem_io_dcache_io_resp_valid; // @[Tile.scala 105:19]
-  wire [255:0] mem_io_dcache_io_resp_data; // @[Tile.scala 105:19]
+  wire  core_clock; // @[Tile.scala 103:20]
+  wire  core_reset; // @[Tile.scala 103:20]
+  wire [31:0] core_io_icache_req_bits_addr; // @[Tile.scala 103:20]
+  wire [2:0] core_io_icache_req_bits_mtype; // @[Tile.scala 103:20]
+  wire  core_io_icache_resp_valid; // @[Tile.scala 103:20]
+  wire [31:0] core_io_icache_resp_bits_rdata_0; // @[Tile.scala 103:20]
+  wire [31:0] core_io_icache_resp_bits_rdata_1; // @[Tile.scala 103:20]
+  wire  core_io_icache_resp_bits_respn; // @[Tile.scala 103:20]
+  wire  core_io_dcache_req_valid; // @[Tile.scala 103:20]
+  wire [31:0] core_io_dcache_req_bits_addr; // @[Tile.scala 103:20]
+  wire [63:0] core_io_dcache_req_bits_wdata; // @[Tile.scala 103:20]
+  wire  core_io_dcache_req_bits_wen; // @[Tile.scala 103:20]
+  wire [2:0] core_io_dcache_req_bits_mtype; // @[Tile.scala 103:20]
+  wire  core_io_dcache_resp_valid; // @[Tile.scala 103:20]
+  wire [31:0] core_io_dcache_resp_bits_rdata_0; // @[Tile.scala 103:20]
+  wire [31:0] core_io_dcache_resp_bits_rdata_1; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mstatus; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_sstatus; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mepc; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_sepc; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mtval; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_stval; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mtvec; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_stvec; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mcause; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_scause; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_satp; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mip; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mie; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mscratch; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_sscratch; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_mideleg; // @[Tile.scala 103:20]
+  wire [63:0] core_csrs_medeleg; // @[Tile.scala 103:20]
+  wire [63:0] core_istall; // @[Tile.scala 103:20]
+  wire  core__WIRE_4_0; // @[Tile.scala 103:20]
+  wire  core__WIRE_4_1; // @[Tile.scala 103:20]
+  wire  core__WIRE_4_2; // @[Tile.scala 103:20]
+  wire [31:0] core__WIRE_1_0; // @[Tile.scala 103:20]
+  wire [31:0] core__WIRE_1_1; // @[Tile.scala 103:20]
+  wire [31:0] core__WIRE_1_2; // @[Tile.scala 103:20]
+  wire [4:0] core_difftest_saddr; // @[Tile.scala 103:20]
+  wire [1:0] core_current_mode; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__0; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__1; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__2; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__3; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__4; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__5; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__6; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__7; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__8; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__9; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__10; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__11; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__12; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__13; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__14; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__15; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__16; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__17; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__18; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__19; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__20; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__21; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__22; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__23; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__24; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__25; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__26; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__27; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__28; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__29; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__30; // @[Tile.scala 103:20]
+  wire [63:0] core__WIRE__31; // @[Tile.scala 103:20]
+  wire [63:0] core_dstall; // @[Tile.scala 103:20]
+  wire  core__WIRE_0_0; // @[Tile.scala 103:20]
+  wire  core__WIRE_0_1; // @[Tile.scala 103:20]
+  wire  core__WIRE_0_2; // @[Tile.scala 103:20]
+  wire [63:0] core_counter; // @[Tile.scala 103:20]
+  wire [31:0] core_difftest_sval; // @[Tile.scala 103:20]
+  wire [63:0] core_mduStall; // @[Tile.scala 103:20]
+  wire [31:0] core__WIRE_3_0; // @[Tile.scala 103:20]
+  wire [31:0] core__WIRE_3_1; // @[Tile.scala 103:20]
+  wire [31:0] core__WIRE_3_2; // @[Tile.scala 103:20]
+  wire [63:0] core_common; // @[Tile.scala 103:20]
+  wire  core__WIRE_5_0; // @[Tile.scala 103:20]
+  wire  core__WIRE_5_1; // @[Tile.scala 103:20]
+  wire  core__WIRE_5_2; // @[Tile.scala 103:20]
+  wire [63:0] core_instret; // @[Tile.scala 103:20]
+  wire [1:0] core__WIRE_2_0; // @[Tile.scala 103:20]
+  wire [1:0] core__WIRE_2_1; // @[Tile.scala 103:20]
+  wire [1:0] core__WIRE_2_2; // @[Tile.scala 103:20]
+  wire  core_REG_0; // @[Tile.scala 103:20]
+  wire  core_difftest_sync; // @[Tile.scala 103:20]
+  wire  core_wbInsts_0_ysyx_debug; // @[Tile.scala 103:20]
+  wire  icache_clock; // @[Tile.scala 104:22]
+  wire  icache_reset; // @[Tile.scala 104:22]
+  wire [31:0] icache_io_cpu_req_bits_addr; // @[Tile.scala 104:22]
+  wire [2:0] icache_io_cpu_req_bits_mtype; // @[Tile.scala 104:22]
+  wire  icache_io_cpu_resp_valid; // @[Tile.scala 104:22]
+  wire [31:0] icache_io_cpu_resp_bits_rdata_0; // @[Tile.scala 104:22]
+  wire [31:0] icache_io_cpu_resp_bits_rdata_1; // @[Tile.scala 104:22]
+  wire  icache_io_cpu_resp_bits_respn; // @[Tile.scala 104:22]
+  wire  icache_io_bar_req_valid; // @[Tile.scala 104:22]
+  wire [31:0] icache_io_bar_req_addr; // @[Tile.scala 104:22]
+  wire  icache_io_bar_resp_valid; // @[Tile.scala 104:22]
+  wire [255:0] icache_io_bar_resp_data; // @[Tile.scala 104:22]
+  wire  dcache_clock; // @[Tile.scala 105:22]
+  wire  dcache_reset; // @[Tile.scala 105:22]
+  wire  dcache_io_dcache_cpu_req_valid; // @[Tile.scala 105:22]
+  wire [31:0] dcache_io_dcache_cpu_req_bits_addr; // @[Tile.scala 105:22]
+  wire [63:0] dcache_io_dcache_cpu_req_bits_wdata; // @[Tile.scala 105:22]
+  wire  dcache_io_dcache_cpu_req_bits_wen; // @[Tile.scala 105:22]
+  wire [2:0] dcache_io_dcache_cpu_req_bits_mtype; // @[Tile.scala 105:22]
+  wire  dcache_io_dcache_cpu_resp_valid; // @[Tile.scala 105:22]
+  wire [31:0] dcache_io_dcache_cpu_resp_bits_rdata_0; // @[Tile.scala 105:22]
+  wire [31:0] dcache_io_dcache_cpu_resp_bits_rdata_1; // @[Tile.scala 105:22]
+  wire  dcache_io_dcache_bar_req_valid; // @[Tile.scala 105:22]
+  wire  dcache_io_dcache_bar_req_wen; // @[Tile.scala 105:22]
+  wire [31:0] dcache_io_dcache_bar_req_addr; // @[Tile.scala 105:22]
+  wire [255:0] dcache_io_dcache_bar_req_data; // @[Tile.scala 105:22]
+  wire [2:0] dcache_io_dcache_bar_req_mtype; // @[Tile.scala 105:22]
+  wire  dcache_io_dcache_bar_resp_valid; // @[Tile.scala 105:22]
+  wire [255:0] dcache_io_dcache_bar_resp_data; // @[Tile.scala 105:22]
+  wire  mem_clock; // @[Tile.scala 106:19]
+  wire  mem_reset; // @[Tile.scala 106:19]
+  wire  mem_io_icache_io_req_valid; // @[Tile.scala 106:19]
+  wire [31:0] mem_io_icache_io_req_addr; // @[Tile.scala 106:19]
+  wire  mem_io_icache_io_resp_valid; // @[Tile.scala 106:19]
+  wire [255:0] mem_io_icache_io_resp_data; // @[Tile.scala 106:19]
+  wire  mem_io_dcache_io_req_valid; // @[Tile.scala 106:19]
+  wire  mem_io_dcache_io_req_wen; // @[Tile.scala 106:19]
+  wire [31:0] mem_io_dcache_io_req_addr; // @[Tile.scala 106:19]
+  wire [255:0] mem_io_dcache_io_req_data; // @[Tile.scala 106:19]
+  wire [2:0] mem_io_dcache_io_req_mtype; // @[Tile.scala 106:19]
+  wire  mem_io_dcache_io_resp_valid; // @[Tile.scala 106:19]
+  wire [255:0] mem_io_dcache_io_resp_data; // @[Tile.scala 106:19]
   wire  difftest__sync = io_difftest_sync;
   wire [31:0] difftest__sval = io_difftest_sval;
   wire [4:0] difftest__saddr = io_difftest_saddr;
   wire [31:0] difftestPCs_0 = core__WIRE_1_0;
   wire [31:0] difftestPCs_1 = core__WIRE_1_1;
   wire [31:0] difftestPCs_2 = core__WIRE_1_2;
-  Core core ( // @[Tile.scala 102:20]
+  Core core ( // @[Tile.scala 103:20]
     .clock(core_clock),
     .reset(core_reset),
     .io_icache_req_bits_addr(core_io_icache_req_bits_addr),
@@ -44641,6 +44670,7 @@ module TileForVerilator(
     ._WIRE_5_0(core__WIRE_5_0),
     ._WIRE_5_1(core__WIRE_5_1),
     ._WIRE_5_2(core__WIRE_5_2),
+    .instret(core_instret),
     ._WIRE_2_0(core__WIRE_2_0),
     ._WIRE_2_1(core__WIRE_2_1),
     ._WIRE_2_2(core__WIRE_2_2),
@@ -44648,7 +44678,7 @@ module TileForVerilator(
     .difftest_sync(core_difftest_sync),
     .wbInsts_0_ysyx_debug(core_wbInsts_0_ysyx_debug)
   );
-  ICache icache ( // @[Tile.scala 103:22]
+  ICache icache ( // @[Tile.scala 104:22]
     .clock(icache_clock),
     .reset(icache_reset),
     .io_cpu_req_bits_addr(icache_io_cpu_req_bits_addr),
@@ -44662,7 +44692,7 @@ module TileForVerilator(
     .io_bar_resp_valid(icache_io_bar_resp_valid),
     .io_bar_resp_data(icache_io_bar_resp_data)
   );
-  DcacheDPFilter dcache ( // @[Tile.scala 104:22]
+  DcacheDPFilter dcache ( // @[Tile.scala 105:22]
     .clock(dcache_clock),
     .reset(dcache_reset),
     .io_dcache_cpu_req_valid(dcache_io_dcache_cpu_req_valid),
@@ -44681,7 +44711,7 @@ module TileForVerilator(
     .io_dcache_bar_resp_valid(dcache_io_dcache_bar_resp_valid),
     .io_dcache_bar_resp_data(dcache_io_dcache_bar_resp_data)
   );
-  SimMem mem ( // @[Tile.scala 105:19]
+  SimMem mem ( // @[Tile.scala 106:19]
     .clock(mem_clock),
     .reset(mem_reset),
     .io_icache_io_req_valid(mem_io_icache_io_req_valid),
@@ -44696,115 +44726,116 @@ module TileForVerilator(
     .io_dcache_io_resp_valid(mem_io_dcache_io_resp_valid),
     .io_dcache_io_resp_data(mem_io_dcache_io_resp_data)
   );
-  assign io_difftest_gprs_0 = core__WIRE__0; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_1 = core__WIRE__1; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_2 = core__WIRE__2; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_3 = core__WIRE__3; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_4 = core__WIRE__4; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_5 = core__WIRE__5; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_6 = core__WIRE__6; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_7 = core__WIRE__7; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_8 = core__WIRE__8; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_9 = core__WIRE__9; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_10 = core__WIRE__10; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_11 = core__WIRE__11; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_12 = core__WIRE__12; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_13 = core__WIRE__13; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_14 = core__WIRE__14; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_15 = core__WIRE__15; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_16 = core__WIRE__16; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_17 = core__WIRE__17; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_18 = core__WIRE__18; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_19 = core__WIRE__19; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_20 = core__WIRE__20; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_21 = core__WIRE__21; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_22 = core__WIRE__22; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_23 = core__WIRE__23; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_24 = core__WIRE__24; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_25 = core__WIRE__25; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_26 = core__WIRE__26; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_27 = core__WIRE__27; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_28 = core__WIRE__28; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_29 = core__WIRE__29; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_30 = core__WIRE__30; // @[Tile.scala 139:15]
-  assign io_difftest_gprs_31 = core__WIRE__31; // @[Tile.scala 139:15]
-  assign io_difftest_valids_0 = core__WIRE_0_0; // @[Tile.scala 139:15]
-  assign io_difftest_valids_1 = core__WIRE_0_1; // @[Tile.scala 139:15]
-  assign io_difftest_valids_2 = core__WIRE_0_2; // @[Tile.scala 139:15]
-  assign io_difftest_pcs_0 = {{32'd0}, difftestPCs_0}; // @[Tile.scala 139:15]
-  assign io_difftest_pcs_1 = {{32'd0}, difftestPCs_1}; // @[Tile.scala 139:15]
-  assign io_difftest_pcs_2 = {{32'd0}, difftestPCs_2}; // @[Tile.scala 139:15]
-  assign io_difftest_orders_0 = core__WIRE_2_0; // @[Tile.scala 139:15]
-  assign io_difftest_orders_1 = core__WIRE_2_1; // @[Tile.scala 139:15]
-  assign io_difftest_orders_2 = core__WIRE_2_2; // @[Tile.scala 139:15]
-  assign io_difftest_insts_0 = core__WIRE_3_0; // @[Tile.scala 139:15]
-  assign io_difftest_insts_1 = core__WIRE_3_1; // @[Tile.scala 139:15]
-  assign io_difftest_insts_2 = core__WIRE_3_2; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mstatus = core_csrs_mstatus; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_sstatus = core_csrs_sstatus; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mepc = core_csrs_mepc; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_sepc = core_csrs_sepc; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mtval = core_csrs_mtval; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_stval = core_csrs_stval; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mtvec = core_csrs_mtvec; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_stvec = core_csrs_stvec; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mcause = core_csrs_mcause; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_scause = core_csrs_scause; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_satp = core_csrs_satp; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mip = core_csrs_mip; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mie = core_csrs_mie; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mscratch = core_csrs_mscratch; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_sscratch = core_csrs_sscratch; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_mideleg = core_csrs_mideleg; // @[Tile.scala 139:15]
-  assign io_difftest_csrs_medeleg = core_csrs_medeleg; // @[Tile.scala 139:15]
-  assign io_difftest_int = core_REG_0; // @[Tile.scala 139:15]
-  assign io_difftest_finish = core_wbInsts_0_ysyx_debug; // @[Tile.scala 139:15]
-  assign io_difftest_mmio_0 = core__WIRE_4_0; // @[Tile.scala 139:15]
-  assign io_difftest_mmio_1 = core__WIRE_4_1; // @[Tile.scala 139:15]
-  assign io_difftest_mmio_2 = core__WIRE_4_2; // @[Tile.scala 139:15]
-  assign io_difftest_print_0 = core__WIRE_5_0; // @[Tile.scala 139:15]
-  assign io_difftest_print_1 = core__WIRE_5_1; // @[Tile.scala 139:15]
-  assign io_difftest_print_2 = core__WIRE_5_2; // @[Tile.scala 139:15]
-  assign io_difftest_mode = core_current_mode; // @[Tile.scala 139:15]
-  assign io_difftest_counter = core_counter; // @[Tile.scala 139:15]
-  assign io_difftest_common = core_common; // @[Tile.scala 139:15]
-  assign io_difftest_dstall = core_dstall; // @[Tile.scala 139:15]
-  assign io_difftest_istall = core_istall; // @[Tile.scala 139:15]
-  assign io_difftest_mduStall = core_mduStall; // @[Tile.scala 139:15]
+  assign io_difftest_gprs_0 = core__WIRE__0; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_1 = core__WIRE__1; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_2 = core__WIRE__2; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_3 = core__WIRE__3; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_4 = core__WIRE__4; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_5 = core__WIRE__5; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_6 = core__WIRE__6; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_7 = core__WIRE__7; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_8 = core__WIRE__8; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_9 = core__WIRE__9; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_10 = core__WIRE__10; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_11 = core__WIRE__11; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_12 = core__WIRE__12; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_13 = core__WIRE__13; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_14 = core__WIRE__14; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_15 = core__WIRE__15; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_16 = core__WIRE__16; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_17 = core__WIRE__17; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_18 = core__WIRE__18; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_19 = core__WIRE__19; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_20 = core__WIRE__20; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_21 = core__WIRE__21; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_22 = core__WIRE__22; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_23 = core__WIRE__23; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_24 = core__WIRE__24; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_25 = core__WIRE__25; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_26 = core__WIRE__26; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_27 = core__WIRE__27; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_28 = core__WIRE__28; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_29 = core__WIRE__29; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_30 = core__WIRE__30; // @[Tile.scala 141:15]
+  assign io_difftest_gprs_31 = core__WIRE__31; // @[Tile.scala 141:15]
+  assign io_difftest_valids_0 = core__WIRE_0_0; // @[Tile.scala 141:15]
+  assign io_difftest_valids_1 = core__WIRE_0_1; // @[Tile.scala 141:15]
+  assign io_difftest_valids_2 = core__WIRE_0_2; // @[Tile.scala 141:15]
+  assign io_difftest_pcs_0 = {{32'd0}, difftestPCs_0}; // @[Tile.scala 141:15]
+  assign io_difftest_pcs_1 = {{32'd0}, difftestPCs_1}; // @[Tile.scala 141:15]
+  assign io_difftest_pcs_2 = {{32'd0}, difftestPCs_2}; // @[Tile.scala 141:15]
+  assign io_difftest_orders_0 = core__WIRE_2_0; // @[Tile.scala 141:15]
+  assign io_difftest_orders_1 = core__WIRE_2_1; // @[Tile.scala 141:15]
+  assign io_difftest_orders_2 = core__WIRE_2_2; // @[Tile.scala 141:15]
+  assign io_difftest_insts_0 = core__WIRE_3_0; // @[Tile.scala 141:15]
+  assign io_difftest_insts_1 = core__WIRE_3_1; // @[Tile.scala 141:15]
+  assign io_difftest_insts_2 = core__WIRE_3_2; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mstatus = core_csrs_mstatus; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_sstatus = core_csrs_sstatus; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mepc = core_csrs_mepc; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_sepc = core_csrs_sepc; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mtval = core_csrs_mtval; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_stval = core_csrs_stval; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mtvec = core_csrs_mtvec; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_stvec = core_csrs_stvec; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mcause = core_csrs_mcause; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_scause = core_csrs_scause; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_satp = core_csrs_satp; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mip = core_csrs_mip; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mie = core_csrs_mie; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mscratch = core_csrs_mscratch; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_sscratch = core_csrs_sscratch; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_mideleg = core_csrs_mideleg; // @[Tile.scala 141:15]
+  assign io_difftest_csrs_medeleg = core_csrs_medeleg; // @[Tile.scala 141:15]
+  assign io_difftest_int = core_REG_0; // @[Tile.scala 141:15]
+  assign io_difftest_finish = core_wbInsts_0_ysyx_debug; // @[Tile.scala 141:15]
+  assign io_difftest_mmio_0 = core__WIRE_4_0; // @[Tile.scala 141:15]
+  assign io_difftest_mmio_1 = core__WIRE_4_1; // @[Tile.scala 141:15]
+  assign io_difftest_mmio_2 = core__WIRE_4_2; // @[Tile.scala 141:15]
+  assign io_difftest_print_0 = core__WIRE_5_0; // @[Tile.scala 141:15]
+  assign io_difftest_print_1 = core__WIRE_5_1; // @[Tile.scala 141:15]
+  assign io_difftest_print_2 = core__WIRE_5_2; // @[Tile.scala 141:15]
+  assign io_difftest_mode = core_current_mode; // @[Tile.scala 141:15]
+  assign io_difftest_counter = core_counter; // @[Tile.scala 141:15]
+  assign io_difftest_common = core_common; // @[Tile.scala 141:15]
+  assign io_difftest_dstall = core_dstall; // @[Tile.scala 141:15]
+  assign io_difftest_istall = core_istall; // @[Tile.scala 141:15]
+  assign io_difftest_mduStall = core_mduStall; // @[Tile.scala 141:15]
+  assign io_difftest_instret = core_instret; // @[Tile.scala 141:15]
   assign core_clock = clock;
   assign core_reset = reset;
-  assign core_io_icache_resp_valid = icache_io_cpu_resp_valid; // @[Tile.scala 110:18]
-  assign core_io_icache_resp_bits_rdata_0 = icache_io_cpu_resp_bits_rdata_0; // @[Tile.scala 110:18]
-  assign core_io_icache_resp_bits_rdata_1 = icache_io_cpu_resp_bits_rdata_1; // @[Tile.scala 110:18]
-  assign core_io_icache_resp_bits_respn = icache_io_cpu_resp_bits_respn; // @[Tile.scala 110:18]
-  assign core_io_dcache_resp_valid = dcache_io_dcache_cpu_resp_valid; // @[Tile.scala 111:18]
-  assign core_io_dcache_resp_bits_rdata_0 = dcache_io_dcache_cpu_resp_bits_rdata_0; // @[Tile.scala 111:18]
-  assign core_io_dcache_resp_bits_rdata_1 = dcache_io_dcache_cpu_resp_bits_rdata_1; // @[Tile.scala 111:18]
+  assign core_io_icache_resp_valid = icache_io_cpu_resp_valid; // @[Tile.scala 111:18]
+  assign core_io_icache_resp_bits_rdata_0 = icache_io_cpu_resp_bits_rdata_0; // @[Tile.scala 111:18]
+  assign core_io_icache_resp_bits_rdata_1 = icache_io_cpu_resp_bits_rdata_1; // @[Tile.scala 111:18]
+  assign core_io_icache_resp_bits_respn = icache_io_cpu_resp_bits_respn; // @[Tile.scala 111:18]
+  assign core_io_dcache_resp_valid = dcache_io_dcache_cpu_resp_valid; // @[Tile.scala 112:18]
+  assign core_io_dcache_resp_bits_rdata_0 = dcache_io_dcache_cpu_resp_bits_rdata_0; // @[Tile.scala 112:18]
+  assign core_io_dcache_resp_bits_rdata_1 = dcache_io_dcache_cpu_resp_bits_rdata_1; // @[Tile.scala 112:18]
   assign core_difftest_saddr = difftest__saddr;
   assign core_difftest_sval = difftest__sval;
   assign core_difftest_sync = difftest__sync;
   assign icache_clock = clock;
   assign icache_reset = reset;
-  assign icache_io_cpu_req_bits_addr = core_io_icache_req_bits_addr; // @[Tile.scala 110:18]
-  assign icache_io_cpu_req_bits_mtype = core_io_icache_req_bits_mtype; // @[Tile.scala 110:18]
-  assign icache_io_bar_resp_valid = mem_io_icache_io_resp_valid; // @[Tile.scala 112:20]
-  assign icache_io_bar_resp_data = mem_io_icache_io_resp_data; // @[Tile.scala 112:20]
+  assign icache_io_cpu_req_bits_addr = core_io_icache_req_bits_addr; // @[Tile.scala 111:18]
+  assign icache_io_cpu_req_bits_mtype = core_io_icache_req_bits_mtype; // @[Tile.scala 111:18]
+  assign icache_io_bar_resp_valid = mem_io_icache_io_resp_valid; // @[Tile.scala 113:20]
+  assign icache_io_bar_resp_data = mem_io_icache_io_resp_data; // @[Tile.scala 113:20]
   assign dcache_clock = clock;
   assign dcache_reset = reset;
-  assign dcache_io_dcache_cpu_req_valid = core_io_dcache_req_valid; // @[Tile.scala 111:18]
-  assign dcache_io_dcache_cpu_req_bits_addr = core_io_dcache_req_bits_addr; // @[Tile.scala 111:18]
-  assign dcache_io_dcache_cpu_req_bits_wdata = core_io_dcache_req_bits_wdata; // @[Tile.scala 111:18]
-  assign dcache_io_dcache_cpu_req_bits_wen = core_io_dcache_req_bits_wen; // @[Tile.scala 111:18]
-  assign dcache_io_dcache_cpu_req_bits_mtype = core_io_dcache_req_bits_mtype; // @[Tile.scala 111:18]
-  assign dcache_io_dcache_bar_resp_valid = mem_io_dcache_io_resp_valid; // @[Tile.scala 113:20]
-  assign dcache_io_dcache_bar_resp_data = mem_io_dcache_io_resp_data; // @[Tile.scala 113:20]
+  assign dcache_io_dcache_cpu_req_valid = core_io_dcache_req_valid; // @[Tile.scala 112:18]
+  assign dcache_io_dcache_cpu_req_bits_addr = core_io_dcache_req_bits_addr; // @[Tile.scala 112:18]
+  assign dcache_io_dcache_cpu_req_bits_wdata = core_io_dcache_req_bits_wdata; // @[Tile.scala 112:18]
+  assign dcache_io_dcache_cpu_req_bits_wen = core_io_dcache_req_bits_wen; // @[Tile.scala 112:18]
+  assign dcache_io_dcache_cpu_req_bits_mtype = core_io_dcache_req_bits_mtype; // @[Tile.scala 112:18]
+  assign dcache_io_dcache_bar_resp_valid = mem_io_dcache_io_resp_valid; // @[Tile.scala 114:20]
+  assign dcache_io_dcache_bar_resp_data = mem_io_dcache_io_resp_data; // @[Tile.scala 114:20]
   assign mem_clock = clock;
   assign mem_reset = reset;
-  assign mem_io_icache_io_req_valid = icache_io_bar_req_valid; // @[Tile.scala 112:20]
-  assign mem_io_icache_io_req_addr = icache_io_bar_req_addr; // @[Tile.scala 112:20]
-  assign mem_io_dcache_io_req_valid = dcache_io_dcache_bar_req_valid; // @[Tile.scala 113:20]
-  assign mem_io_dcache_io_req_wen = dcache_io_dcache_bar_req_wen; // @[Tile.scala 113:20]
-  assign mem_io_dcache_io_req_addr = dcache_io_dcache_bar_req_addr; // @[Tile.scala 113:20]
-  assign mem_io_dcache_io_req_data = dcache_io_dcache_bar_req_data; // @[Tile.scala 113:20]
-  assign mem_io_dcache_io_req_mtype = dcache_io_dcache_bar_req_mtype; // @[Tile.scala 113:20]
+  assign mem_io_icache_io_req_valid = icache_io_bar_req_valid; // @[Tile.scala 113:20]
+  assign mem_io_icache_io_req_addr = icache_io_bar_req_addr; // @[Tile.scala 113:20]
+  assign mem_io_dcache_io_req_valid = dcache_io_dcache_bar_req_valid; // @[Tile.scala 114:20]
+  assign mem_io_dcache_io_req_wen = dcache_io_dcache_bar_req_wen; // @[Tile.scala 114:20]
+  assign mem_io_dcache_io_req_addr = dcache_io_dcache_bar_req_addr; // @[Tile.scala 114:20]
+  assign mem_io_dcache_io_req_data = dcache_io_dcache_bar_req_data; // @[Tile.scala 114:20]
+  assign mem_io_dcache_io_req_mtype = dcache_io_dcache_bar_req_mtype; // @[Tile.scala 114:20]
 endmodule
