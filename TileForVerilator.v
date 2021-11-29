@@ -14901,7 +14901,6 @@ module Backend(
   wire [1:0] _exCurMemReq_memReq_mtype_T_9 = 3'h4 == exInsts_2_mem_width ? 2'h2 : _exCurMemReq_memReq_mtype_T_7; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_11 = 3'h5 == exInsts_2_mem_width ? 2'h3 : _exCurMemReq_memReq_mtype_T_9; // @[Mux.scala 80:57]
   wire [1:0] _exCurMemReq_memReq_mtype_T_13 = 3'h6 == exInsts_2_mem_width ? 2'h2 : _exCurMemReq_memReq_mtype_T_11; // @[Mux.scala 80:57]
-  wire  _T_42 = ~dcacheStall; // @[Backend.scala 349:9]
   wire [2:0] exCurMemReq_mtype = {{1'd0}, _exCurMemReq_memReq_mtype_T_13}; // @[Backend.scala 339:22 Backend.scala 342:18]
   wire [31:0] exCurMemReq_addr = ldstAddr[31:0]; // @[Backend.scala 339:22 Backend.scala 344:18]
   wire  _GEN_218 = isExPCJump ? _bpuErrpr_T_7 | ~exInsts_0_predict_taken | |jumpPc[1:0] : exCsrValid; // @[Backend.scala 393:29 Backend.scala 394:16]
@@ -14910,6 +14909,7 @@ module Backend(
   wire  reBranch = exInstsTrueValid_0 & _GEN_220; // @[Backend.scala 369:29 Backend.scala 362:12]
   wire  exInstsTrueValid_1 = mduValid & ~mduExptMask; // @[Backend.scala 415:35]
   wire [5:0] _delayed_req_bits_T_1 = {io_dcache_req_bits_addr[2:0], 3'h0}; // @[Backend.scala 438:81]
+  wire  _delayed_req_bits_T_2 = ~dcacheStall; // @[Backend.scala 438:99]
   wire  _GEN_231 = _issueQueue_io_deqReq_T & bpuV; // @[Backend.scala 462:26 Backend.scala 464:12 Backend.scala 485:12]
   wire [63:0] _GEN_307 = _issueQueue_io_deqReq_T ? exReBranchPC : {{32'd0}, reBranchPC}; // @[Backend.scala 462:26 Backend.scala 480:16 Backend.scala 124:29]
   wire [63:0] _GEN_387 = io_fb_bmfs_redirect_kill ? {{32'd0}, reBranchPC} : _GEN_307; // @[Backend.scala 455:17 Backend.scala 124:29]
@@ -15331,10 +15331,10 @@ module Backend(
   assign io_fb_bmfs_bpu_taken = wbBpuTaken; // @[Backend.scala 494:30]
   assign io_fb_fmbs_please_wait = ~issueQueue_io_sufficient; // @[Backend.scala 153:29]
   assign io_dcache_req_valid = exMemRealValid | dcacheStall; // @[Backend.scala 312:41]
-  assign io_dcache_req_bits_addr = dcacheStall ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 355:28]
-  assign io_dcache_req_bits_wdata = dcacheStall ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 355:28]
-  assign io_dcache_req_bits_wen = dcacheStall ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 355:28]
-  assign io_dcache_req_bits_mtype = dcacheStall ? exLastMemReq_mtype : exCurMemReq_mtype; // @[Backend.scala 355:28]
+  assign io_dcache_req_bits_addr = bubble_w ? exLastMemReq_addr : exCurMemReq_addr; // @[Backend.scala 355:28]
+  assign io_dcache_req_bits_wdata = bubble_w ? exLastMemReq_wdata : exFwdRtData_2; // @[Backend.scala 355:28]
+  assign io_dcache_req_bits_wen = bubble_w ? exLastMemReq_wen : _stMisaligned_T; // @[Backend.scala 355:28]
+  assign io_dcache_req_bits_mtype = bubble_w ? exLastMemReq_mtype : exCurMemReq_mtype; // @[Backend.scala 355:28]
   assign csrs_mstatus = csr_csrs_0_mstatus;
   assign csrs_sstatus = csr_csrs_0_sstatus;
   assign csrs_mepc = csr_csrs_0_mepc;
@@ -16219,30 +16219,30 @@ module Backend(
     end
     if (reset) begin // @[Backend.scala 306:34]
       exLastMemReqValid <= 1'h0; // @[Backend.scala 306:34]
-    end else if (~dcacheStall) begin // @[Backend.scala 349:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 349:19]
       exLastMemReqValid <= exMemRealValid; // @[Backend.scala 350:23]
     end
-    if (_T_42) begin // @[Reg.scala 16:19]
+    if (_delayed_req_bits_T_2) begin // @[Reg.scala 16:19]
       delayed_req_bits <= _delayed_req_bits_T_1; // @[Reg.scala 16:23]
     end
     if (reset) begin // @[Backend.scala 315:29]
       exLastMemReq_addr <= 32'h0; // @[Backend.scala 315:29]
-    end else if (~dcacheStall) begin // @[Backend.scala 349:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 349:19]
       exLastMemReq_addr <= exCurMemReq_addr; // @[Backend.scala 351:18]
     end
     if (reset) begin // @[Backend.scala 315:29]
       exLastMemReq_wdata <= 64'h0; // @[Backend.scala 315:29]
-    end else if (~dcacheStall) begin // @[Backend.scala 349:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 349:19]
       exLastMemReq_wdata <= exFwdRtData_2; // @[Backend.scala 351:18]
     end
     if (reset) begin // @[Backend.scala 315:29]
       exLastMemReq_wen <= 1'h0; // @[Backend.scala 315:29]
-    end else if (~dcacheStall) begin // @[Backend.scala 349:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 349:19]
       exLastMemReq_wen <= _stMisaligned_T; // @[Backend.scala 351:18]
     end
     if (reset) begin // @[Backend.scala 315:29]
       exLastMemReq_mtype <= 3'h2; // @[Backend.scala 315:29]
-    end else if (~dcacheStall) begin // @[Backend.scala 349:23]
+    end else if (_issueQueue_io_deqReq_T) begin // @[Backend.scala 349:19]
       exLastMemReq_mtype <= exCurMemReq_mtype; // @[Backend.scala 351:18]
     end
     if (dcacheStall & ~REG) begin // @[Backend.scala 591:48]
