@@ -14349,6 +14349,7 @@ module Backend(
   wire [1:0] _exMemReq_memReq_mtype_T_9 = 3'h4 == exInsts_2_mem_width ? 2'h2 : _exMemReq_memReq_mtype_T_7; // @[Mux.scala 80:57]
   wire [1:0] _exMemReq_memReq_mtype_T_11 = 3'h5 == exInsts_2_mem_width ? 2'h3 : _exMemReq_memReq_mtype_T_9; // @[Mux.scala 80:57]
   wire [1:0] _exMemReq_memReq_mtype_T_13 = 3'h6 == exInsts_2_mem_width ? 2'h2 : _exMemReq_memReq_mtype_T_11; // @[Mux.scala 80:57]
+  wire  _T_42 = ~dcacheStall; // @[Backend.scala 348:9]
   wire [31:0] exMemReq_addr = ldstAddr[31:0]; // @[Backend.scala 338:22 Backend.scala 343:18]
   wire  _GEN_218 = isExPCJump ? _bpuErrpr_T_7 | ~exInsts_0_predict_taken | |jumpPc[1:0] : exCsrValid; // @[Backend.scala 392:29 Backend.scala 393:16]
   wire  _GEN_220 = isExPCBr ? reBranchBrTaken ^ exInsts_0_predict_taken | reBranchBrTaken & (_bpuErrpr_T_2 | |brPC[1:0])
@@ -14393,11 +14394,11 @@ module Backend(
   reg  REG; // @[Backend.scala 590:33]
   reg  tmp_REG; // @[Backend.scala 597:28]
   reg  REG_1; // @[Backend.scala 598:26]
-  wire  _tmp_T_13 = wbInstsValid_1 & _issueQueue_io_deqReq_T; // @[Backend.scala 597:112]
-  wire  _tmp_T_14 = |wbInsts__1_inst; // @[Backend.scala 597:147]
+  wire  _tmp_T_13 = wbInstsValid_1 & _T_42; // @[Backend.scala 597:115]
+  wire  _tmp_T_14 = |wbInsts__1_inst; // @[Backend.scala 597:153]
   reg  REG_2; // @[Backend.scala 599:19]
-  wire  _tmp_T_21 = wbInstsValid_2 & _issueQueue_io_deqReq_T; // @[Backend.scala 597:112]
-  wire  _tmp_T_22 = |wbInsts__2_inst; // @[Backend.scala 597:147]
+  wire  _tmp_T_21 = wbInstsValid_2 & _T_42; // @[Backend.scala 597:115]
+  wire  _tmp_T_22 = |wbInsts__2_inst; // @[Backend.scala 597:153]
   reg  REG_3; // @[Backend.scala 599:19]
   reg  tmp_REG_3; // @[Backend.scala 602:28]
   reg [31:0] REG_4; // @[Backend.scala 603:26]
@@ -15690,13 +15691,13 @@ module Backend(
     end
     REG <= wbMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 306:32]
     tmp_REG <= wbMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 306:32]
-    if (tmp_REG) begin // @[Backend.scala 597:20]
-      REG_1 <= bufInstsValid0 & _issueQueue_io_deqReq_T & |bufInsts0_inst;
+    if (tmp_REG & _T_42) begin // @[Backend.scala 597:20]
+      REG_1 <= bufInstsValid0 & |bufInsts0_inst;
     end else begin
-      REG_1 <= wbInstsValid_0 & _issueQueue_io_deqReq_T & |wbInsts__0_inst;
+      REG_1 <= wbInstsValid_0 & _T_42 & |wbInsts__0_inst;
     end
-    REG_2 <= _tmp_T_13 & _tmp_T_14; // @[Backend.scala 599:49]
-    REG_3 <= _tmp_T_21 & _tmp_T_22; // @[Backend.scala 599:49]
+    REG_2 <= _tmp_T_13 & _tmp_T_14; // @[Backend.scala 599:52]
+    REG_3 <= _tmp_T_21 & _tmp_T_22; // @[Backend.scala 599:52]
     tmp_REG_3 <= wbMemReqValid & ~io_dcache_resp_valid; // @[Backend.scala 306:32]
     if (tmp_REG_3) begin // @[Backend.scala 602:20]
       if (bufInstsValid0) begin // @[Backend.scala 602:46]
