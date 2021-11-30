@@ -8562,9 +8562,9 @@ module Frontend(
   wire [1:0] pc_gen_io_bpu_update_dec_pc_br_lo_1 = decode_pc_predict_target_1[1:0]; // @[Frontend.scala 101:85]
   wire [31:0] _pc_gen_io_bpu_update_dec_pc_br_T_3 = {pc_gen_io_bpu_update_dec_pc_br_hi_1,
     pc_gen_io_bpu_update_dec_pc_br_lo_1}; // @[Cat.scala 30:58]
-  wire  _predict_taken_but_not_br_0_T_4 = Dec_io_mops_next_pc == 4'h2 | Dec_io_mops_next_pc == 4'h3 |
-    Dec_io_mops_next_pc == 4'h4; // @[Frontend.scala 83:54]
-  wire  predict_taken_but_not_br_0 = Dec_io_bht_predict_taken & ~_predict_taken_but_not_br_0_T_4; // @[Frontend.scala 153:62]
+  wire  _predict_taken_but_not_br_0_T_10 = 7'h6f == Dec_io_inst[6:0] | 7'h67 == Dec_io_inst[6:0] | 7'h63 == Dec_io_inst[
+    6:0]; // @[Frontend.scala 83:76]
+  wire  predict_taken_but_not_br_0 = Dec_io_bht_predict_taken & ~_predict_taken_but_not_br_0_T_10; // @[Frontend.scala 153:62]
   reg [31:0] pc_gen_io_bpu_update_dec_pc_br_REG; // @[Frontend.scala 100:44]
   wire [1:0] _io_icache_req_bits_mtype_T = renarrow ? 2'h2 : 2'h3; // @[Frontend.scala 124:49]
   wire [1:0] _io_icache_req_bits_mtype_T_1 = pc_gen_io_fetch_word_o ? 2'h2 : 2'h3; // @[Frontend.scala 124:89]
@@ -8588,9 +8588,9 @@ module Frontend(
     Dec_1_io_mops_mem_width,Dec_1_io_mops_write_src}; // @[Frontend.scala 152:44]
   wire [26:0] io_fb_fmbs_inst_ops_1_hi = {Dec_1_io_mops_illegal,Dec_1_io_mops_next_pc,Dec_1_io_mops_alu_mdu_lsu,
     Dec_1_io_mops_branch_type,Dec_1_io_mops_src_a,Dec_1_io_mops_src_b,io_fb_fmbs_inst_ops_1_hi_lo}; // @[Frontend.scala 152:44]
-  wire  _predict_taken_but_not_br_1_T_4 = Dec_1_io_mops_next_pc == 4'h2 | Dec_1_io_mops_next_pc == 4'h3 |
-    Dec_1_io_mops_next_pc == 4'h4; // @[Frontend.scala 83:54]
-  wire  predict_taken_but_not_br_1 = Dec_1_io_bht_predict_taken & ~_predict_taken_but_not_br_1_T_4; // @[Frontend.scala 153:62]
+  wire  _predict_taken_but_not_br_1_T_10 = 7'h6f == Dec_1_io_inst[6:0] | 7'h67 == Dec_1_io_inst[6:0] | 7'h63 ==
+    Dec_1_io_inst[6:0]; // @[Frontend.scala 83:76]
+  wire  predict_taken_but_not_br_1 = Dec_1_io_bht_predict_taken & ~_predict_taken_but_not_br_1_T_10; // @[Frontend.scala 153:62]
   wire [1:0] _GEN_12 = {{1'd0}, next_respn}; // @[Frontend.scala 155:35]
   wire [1:0] _dec_update_T_2 = {predict_taken_but_not_br_1,predict_taken_but_not_br_0}; // @[Frontend.scala 155:139]
   wire  _dec_update_T_4 = _GEN_12 == 2'h0 | decode_pc_predict_taken_0 ? predict_taken_but_not_br_0 : |_dec_update_T_2; // @[Frontend.scala 155:23]
@@ -9326,9 +9326,9 @@ module FIFO(
   output        io_dout_1_ysyx_debug,
   output        io_dout_1_ysyx_print,
   output [31:0] io_dout_1_inst,
-  input  [3:0]  io_enqStep,
+  input  [2:0]  io_enqStep,
   input         io_enqReq,
-  input  [3:0]  io_deqStep,
+  input  [2:0]  io_deqStep,
   input         io_deqReq,
   input         io_din_0_illegal,
   input  [3:0]  io_din_0_next_pc,
@@ -9374,7 +9374,7 @@ module FIFO(
   input  [31:0] io_din_1_inst,
   input         io_flush,
   output        io_sufficient,
-  output [3:0]  io_items
+  output [2:0]  io_items
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
@@ -9506,48 +9506,6 @@ module FIFO(
   reg [31:0] _RAND_126;
   reg [31:0] _RAND_127;
   reg [31:0] _RAND_128;
-  reg [31:0] _RAND_129;
-  reg [31:0] _RAND_130;
-  reg [31:0] _RAND_131;
-  reg [31:0] _RAND_132;
-  reg [31:0] _RAND_133;
-  reg [31:0] _RAND_134;
-  reg [31:0] _RAND_135;
-  reg [31:0] _RAND_136;
-  reg [31:0] _RAND_137;
-  reg [31:0] _RAND_138;
-  reg [31:0] _RAND_139;
-  reg [31:0] _RAND_140;
-  reg [31:0] _RAND_141;
-  reg [31:0] _RAND_142;
-  reg [31:0] _RAND_143;
-  reg [31:0] _RAND_144;
-  reg [31:0] _RAND_145;
-  reg [31:0] _RAND_146;
-  reg [31:0] _RAND_147;
-  reg [31:0] _RAND_148;
-  reg [31:0] _RAND_149;
-  reg [31:0] _RAND_150;
-  reg [31:0] _RAND_151;
-  reg [31:0] _RAND_152;
-  reg [31:0] _RAND_153;
-  reg [31:0] _RAND_154;
-  reg [31:0] _RAND_155;
-  reg [31:0] _RAND_156;
-  reg [31:0] _RAND_157;
-  reg [31:0] _RAND_158;
-  reg [31:0] _RAND_159;
-  reg [31:0] _RAND_160;
-  reg [31:0] _RAND_161;
-  reg [31:0] _RAND_162;
-  reg [31:0] _RAND_163;
-  reg [31:0] _RAND_164;
-  reg [31:0] _RAND_165;
-  reg [31:0] _RAND_166;
-  reg [31:0] _RAND_167;
-  reg [31:0] _RAND_168;
-  reg [31:0] _RAND_169;
-  reg [31:0] _RAND_170;
 `endif // RANDOMIZE_REG_INIT
   reg  mem_0_illegal; // @[FIFO.scala 21:16]
   reg [3:0] mem_0_next_pc; // @[FIFO.scala 21:16]
@@ -9675,1548 +9633,1128 @@ module FIFO(
   reg  mem_5_ysyx_debug; // @[FIFO.scala 21:16]
   reg  mem_5_ysyx_print; // @[FIFO.scala 21:16]
   reg [31:0] mem_5_inst; // @[FIFO.scala 21:16]
-  reg  mem_6_illegal; // @[FIFO.scala 21:16]
-  reg [3:0] mem_6_next_pc; // @[FIFO.scala 21:16]
-  reg [1:0] mem_6_alu_mdu_lsu; // @[FIFO.scala 21:16]
-  reg [3:0] mem_6_branch_type; // @[FIFO.scala 21:16]
-  reg [1:0] mem_6_src_a; // @[FIFO.scala 21:16]
-  reg [1:0] mem_6_src_b; // @[FIFO.scala 21:16]
-  reg  mem_6_write_dest; // @[FIFO.scala 21:16]
-  reg [4:0] mem_6_alu_op; // @[FIFO.scala 21:16]
-  reg  mem_6_alu_expand; // @[FIFO.scala 21:16]
-  reg [2:0] mem_6_mem_width; // @[FIFO.scala 21:16]
-  reg [1:0] mem_6_write_src; // @[FIFO.scala 21:16]
-  reg [4:0] mem_6_rs1; // @[FIFO.scala 21:16]
-  reg [4:0] mem_6_rs2; // @[FIFO.scala 21:16]
-  reg [4:0] mem_6_rd; // @[FIFO.scala 21:16]
-  reg [19:0] mem_6_imm; // @[FIFO.scala 21:16]
-  reg [31:0] mem_6_pc; // @[FIFO.scala 21:16]
-  reg  mem_6_predict_taken; // @[FIFO.scala 21:16]
-  reg [31:0] mem_6_target_pc; // @[FIFO.scala 21:16]
-  reg  mem_6_ysyx_debug; // @[FIFO.scala 21:16]
-  reg  mem_6_ysyx_print; // @[FIFO.scala 21:16]
-  reg [31:0] mem_6_inst; // @[FIFO.scala 21:16]
-  reg  mem_7_illegal; // @[FIFO.scala 21:16]
-  reg [3:0] mem_7_next_pc; // @[FIFO.scala 21:16]
-  reg [1:0] mem_7_alu_mdu_lsu; // @[FIFO.scala 21:16]
-  reg [3:0] mem_7_branch_type; // @[FIFO.scala 21:16]
-  reg [1:0] mem_7_src_a; // @[FIFO.scala 21:16]
-  reg [1:0] mem_7_src_b; // @[FIFO.scala 21:16]
-  reg  mem_7_write_dest; // @[FIFO.scala 21:16]
-  reg [4:0] mem_7_alu_op; // @[FIFO.scala 21:16]
-  reg  mem_7_alu_expand; // @[FIFO.scala 21:16]
-  reg [2:0] mem_7_mem_width; // @[FIFO.scala 21:16]
-  reg [1:0] mem_7_write_src; // @[FIFO.scala 21:16]
-  reg [4:0] mem_7_rs1; // @[FIFO.scala 21:16]
-  reg [4:0] mem_7_rs2; // @[FIFO.scala 21:16]
-  reg [4:0] mem_7_rd; // @[FIFO.scala 21:16]
-  reg [19:0] mem_7_imm; // @[FIFO.scala 21:16]
-  reg [31:0] mem_7_pc; // @[FIFO.scala 21:16]
-  reg  mem_7_predict_taken; // @[FIFO.scala 21:16]
-  reg [31:0] mem_7_target_pc; // @[FIFO.scala 21:16]
-  reg  mem_7_ysyx_debug; // @[FIFO.scala 21:16]
-  reg  mem_7_ysyx_print; // @[FIFO.scala 21:16]
-  reg [31:0] mem_7_inst; // @[FIFO.scala 21:16]
   reg  maybe_full; // @[FIFO.scala 31:27]
-  reg [3:0] enqPtr; // @[FIFO.scala 24:25]
-  wire [3:0] enqPtr_cntNext = enqPtr + io_enqStep; // @[FIFO.scala 25:26]
-  wire [3:0] _enqPtr_cntReg_T_2 = enqPtr_cntNext - 4'h8; // @[FIFO.scala 27:48]
+  reg [2:0] enqPtr; // @[FIFO.scala 24:25]
+  wire [2:0] enqPtr_cntNext = enqPtr + io_enqStep; // @[FIFO.scala 25:26]
+  wire [2:0] _enqPtr_cntReg_T_2 = enqPtr_cntNext - 3'h6; // @[FIFO.scala 27:48]
   wire  do_enq = io_enqReq & io_sufficient; // @[FIFO.scala 40:23]
-  reg [3:0] deqPtr; // @[FIFO.scala 24:25]
-  wire [3:0] deqPtr_cntNext = deqPtr + io_deqStep; // @[FIFO.scala 25:26]
-  wire [3:0] _deqPtr_cntReg_T_2 = deqPtr_cntNext - 4'h8; // @[FIFO.scala 27:48]
+  reg [2:0] deqPtr; // @[FIFO.scala 24:25]
+  wire [2:0] deqPtr_cntNext = deqPtr + io_deqStep; // @[FIFO.scala 25:26]
+  wire [2:0] _deqPtr_cntReg_T_2 = deqPtr_cntNext - 3'h6; // @[FIFO.scala 27:48]
   wire  ptr_match = enqPtr == deqPtr; // @[FIFO.scala 37:26]
   wire  empty = ptr_match & ~maybe_full | io_flush; // @[FIFO.scala 38:40]
   wire  do_deq = io_deqReq & ~empty; // @[FIFO.scala 41:23]
   wire  full = ptr_match & maybe_full; // @[FIFO.scala 39:24]
-  wire [3:0] ptr_diff = enqPtr - deqPtr; // @[FIFO.scala 42:25]
-  wire [3:0] _io_sufficient_T_2 = 4'h8 - io_items; // @[FIFO.scala 43:47]
-  wire [3:0] _io_items_T = maybe_full ? 4'h8 : 4'h0; // @[FIFO.scala 44:33]
-  wire [3:0] _io_items_T_3 = 4'h8 + ptr_diff; // @[FIFO.scala 44:88]
-  wire [3:0] _io_items_T_4 = deqPtr > enqPtr ? _io_items_T_3 : ptr_diff; // @[FIFO.scala 44:63]
-  wire [4:0] _T = {{1'd0}, enqPtr}; // @[FIFO.scala 48:19]
-  wire [3:0] _GEN_0 = _T[3:0] % 4'h8; // @[FIFO.scala 48:26]
-  wire [3:0] _T_2 = _GEN_0[3:0]; // @[FIFO.scala 48:26]
-  wire [3:0] _T_5 = enqPtr + 4'h1; // @[FIFO.scala 48:19]
-  wire [3:0] _GEN_1 = _T_5 % 4'h8; // @[FIFO.scala 48:26]
-  wire [3:0] _T_6 = _GEN_1[3:0]; // @[FIFO.scala 48:26]
-  wire [4:0] _io_dout_0_T = {{1'd0}, deqPtr}; // @[FIFO.scala 57:31]
-  wire [3:0] _GEN_2 = _io_dout_0_T[3:0] % 4'h8; // @[FIFO.scala 57:38]
-  wire [3:0] _io_dout_0_T_2 = _GEN_2[3:0]; // @[FIFO.scala 57:38]
-  wire [31:0] _GEN_508 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_inst : mem_0_inst; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_509 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_inst : _GEN_508; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_510 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_inst : _GEN_509; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_511 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_inst : _GEN_510; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_512 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_inst : _GEN_511; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_513 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_inst : _GEN_512; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_516 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_ysyx_print : mem_0_ysyx_print; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_517 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_ysyx_print : _GEN_516; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_518 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_ysyx_print : _GEN_517; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_519 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_ysyx_print : _GEN_518; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_520 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_ysyx_print : _GEN_519; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_521 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_ysyx_print : _GEN_520; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_524 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_ysyx_debug : mem_0_ysyx_debug; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_525 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_ysyx_debug : _GEN_524; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_526 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_ysyx_debug : _GEN_525; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_527 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_ysyx_debug : _GEN_526; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_528 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_ysyx_debug : _GEN_527; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_529 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_ysyx_debug : _GEN_528; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_532 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_533 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_target_pc : _GEN_532; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_534 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_target_pc : _GEN_533; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_535 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_target_pc : _GEN_534; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_536 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_target_pc : _GEN_535; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_537 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_target_pc : _GEN_536; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_540 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_predict_taken : mem_0_predict_taken; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_541 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_predict_taken : _GEN_540; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_542 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_predict_taken : _GEN_541; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_543 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_predict_taken : _GEN_542; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_544 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_predict_taken : _GEN_543; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_545 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_predict_taken : _GEN_544; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_548 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_549 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_pc : _GEN_548; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_550 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_pc : _GEN_549; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_551 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_pc : _GEN_550; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_552 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_pc : _GEN_551; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_553 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_pc : _GEN_552; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_556 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_imm : mem_0_imm; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_557 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_imm : _GEN_556; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_558 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_imm : _GEN_557; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_559 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_imm : _GEN_558; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_560 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_imm : _GEN_559; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_561 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_imm : _GEN_560; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_564 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_rd : mem_0_rd; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_565 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_rd : _GEN_564; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_566 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_rd : _GEN_565; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_567 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_rd : _GEN_566; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_568 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_rd : _GEN_567; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_569 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_rd : _GEN_568; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_572 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_rs2 : mem_0_rs2; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_573 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_rs2 : _GEN_572; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_574 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_rs2 : _GEN_573; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_575 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_rs2 : _GEN_574; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_576 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_rs2 : _GEN_575; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_577 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_rs2 : _GEN_576; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_580 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_rs1 : mem_0_rs1; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_581 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_rs1 : _GEN_580; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_582 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_rs1 : _GEN_581; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_583 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_rs1 : _GEN_582; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_584 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_rs1 : _GEN_583; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_585 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_rs1 : _GEN_584; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_588 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_write_src : mem_0_write_src; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_589 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_write_src : _GEN_588; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_590 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_write_src : _GEN_589; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_591 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_write_src : _GEN_590; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_592 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_write_src : _GEN_591; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_593 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_write_src : _GEN_592; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_596 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_mem_width : mem_0_mem_width; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_597 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_mem_width : _GEN_596; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_598 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_mem_width : _GEN_597; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_599 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_mem_width : _GEN_598; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_600 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_mem_width : _GEN_599; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_601 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_mem_width : _GEN_600; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_604 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_alu_expand : mem_0_alu_expand; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_605 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_alu_expand : _GEN_604; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_606 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_alu_expand : _GEN_605; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_607 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_alu_expand : _GEN_606; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_608 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_alu_expand : _GEN_607; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_609 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_alu_expand : _GEN_608; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_612 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_alu_op : mem_0_alu_op; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_613 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_alu_op : _GEN_612; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_614 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_alu_op : _GEN_613; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_615 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_alu_op : _GEN_614; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_616 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_alu_op : _GEN_615; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_617 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_alu_op : _GEN_616; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_620 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_write_dest : mem_0_write_dest; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_621 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_write_dest : _GEN_620; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_622 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_write_dest : _GEN_621; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_623 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_write_dest : _GEN_622; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_624 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_write_dest : _GEN_623; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_625 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_write_dest : _GEN_624; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_628 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_src_b : mem_0_src_b; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_629 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_src_b : _GEN_628; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_630 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_src_b : _GEN_629; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_631 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_src_b : _GEN_630; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_632 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_src_b : _GEN_631; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_633 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_src_b : _GEN_632; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_636 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_src_a : mem_0_src_a; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_637 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_src_a : _GEN_636; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_638 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_src_a : _GEN_637; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_639 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_src_a : _GEN_638; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_640 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_src_a : _GEN_639; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_641 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_src_a : _GEN_640; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_644 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_branch_type : mem_0_branch_type; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_645 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_branch_type : _GEN_644; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_646 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_branch_type : _GEN_645; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_647 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_branch_type : _GEN_646; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_648 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_branch_type : _GEN_647; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_649 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_branch_type : _GEN_648; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_652 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_alu_mdu_lsu : mem_0_alu_mdu_lsu; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_653 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_alu_mdu_lsu : _GEN_652; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_654 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_alu_mdu_lsu : _GEN_653; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_655 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_alu_mdu_lsu : _GEN_654; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_656 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_alu_mdu_lsu : _GEN_655; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_657 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_alu_mdu_lsu : _GEN_656; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_660 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_next_pc : mem_0_next_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_661 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_next_pc : _GEN_660; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_662 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_next_pc : _GEN_661; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_663 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_next_pc : _GEN_662; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_664 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_next_pc : _GEN_663; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_665 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_next_pc : _GEN_664; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_668 = 3'h1 == _io_dout_0_T_2[2:0] ? mem_1_illegal : mem_0_illegal; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_669 = 3'h2 == _io_dout_0_T_2[2:0] ? mem_2_illegal : _GEN_668; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_670 = 3'h3 == _io_dout_0_T_2[2:0] ? mem_3_illegal : _GEN_669; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_671 = 3'h4 == _io_dout_0_T_2[2:0] ? mem_4_illegal : _GEN_670; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_672 = 3'h5 == _io_dout_0_T_2[2:0] ? mem_5_illegal : _GEN_671; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_673 = 3'h6 == _io_dout_0_T_2[2:0] ? mem_6_illegal : _GEN_672; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _io_dout_1_T_1 = deqPtr + 4'h1; // @[FIFO.scala 57:31]
-  wire [3:0] _GEN_3 = _io_dout_1_T_1 % 4'h8; // @[FIFO.scala 57:38]
-  wire [3:0] _io_dout_1_T_2 = _GEN_3[3:0]; // @[FIFO.scala 57:38]
-  wire [31:0] _GEN_676 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_inst : mem_0_inst; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_677 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_inst : _GEN_676; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_678 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_inst : _GEN_677; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_679 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_inst : _GEN_678; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_680 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_inst : _GEN_679; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_681 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_inst : _GEN_680; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_684 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_ysyx_print : mem_0_ysyx_print; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_685 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_ysyx_print : _GEN_684; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_686 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_ysyx_print : _GEN_685; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_687 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_ysyx_print : _GEN_686; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_688 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_ysyx_print : _GEN_687; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_689 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_ysyx_print : _GEN_688; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_692 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_ysyx_debug : mem_0_ysyx_debug; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_693 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_ysyx_debug : _GEN_692; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_694 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_ysyx_debug : _GEN_693; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_695 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_ysyx_debug : _GEN_694; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_696 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_ysyx_debug : _GEN_695; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_697 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_ysyx_debug : _GEN_696; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_700 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_701 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_target_pc : _GEN_700; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_702 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_target_pc : _GEN_701; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_703 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_target_pc : _GEN_702; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_704 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_target_pc : _GEN_703; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_705 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_target_pc : _GEN_704; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_708 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_predict_taken : mem_0_predict_taken; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_709 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_predict_taken : _GEN_708; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_710 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_predict_taken : _GEN_709; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_711 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_predict_taken : _GEN_710; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_712 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_predict_taken : _GEN_711; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_713 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_predict_taken : _GEN_712; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_716 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_717 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_pc : _GEN_716; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_718 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_pc : _GEN_717; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_719 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_pc : _GEN_718; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_720 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_pc : _GEN_719; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [31:0] _GEN_721 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_pc : _GEN_720; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_724 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_imm : mem_0_imm; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_725 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_imm : _GEN_724; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_726 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_imm : _GEN_725; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_727 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_imm : _GEN_726; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_728 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_imm : _GEN_727; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [19:0] _GEN_729 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_imm : _GEN_728; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_732 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_rd : mem_0_rd; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_733 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_rd : _GEN_732; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_734 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_rd : _GEN_733; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_735 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_rd : _GEN_734; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_736 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_rd : _GEN_735; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_737 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_rd : _GEN_736; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_740 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_rs2 : mem_0_rs2; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_741 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_rs2 : _GEN_740; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_742 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_rs2 : _GEN_741; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_743 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_rs2 : _GEN_742; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_744 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_rs2 : _GEN_743; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_745 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_rs2 : _GEN_744; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_748 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_rs1 : mem_0_rs1; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_749 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_rs1 : _GEN_748; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_750 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_rs1 : _GEN_749; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_751 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_rs1 : _GEN_750; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_752 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_rs1 : _GEN_751; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_753 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_rs1 : _GEN_752; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_756 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_write_src : mem_0_write_src; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_757 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_write_src : _GEN_756; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_758 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_write_src : _GEN_757; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_759 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_write_src : _GEN_758; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_760 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_write_src : _GEN_759; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_761 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_write_src : _GEN_760; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_764 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_mem_width : mem_0_mem_width; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_765 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_mem_width : _GEN_764; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_766 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_mem_width : _GEN_765; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_767 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_mem_width : _GEN_766; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_768 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_mem_width : _GEN_767; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [2:0] _GEN_769 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_mem_width : _GEN_768; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_772 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_alu_expand : mem_0_alu_expand; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_773 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_alu_expand : _GEN_772; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_774 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_alu_expand : _GEN_773; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_775 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_alu_expand : _GEN_774; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_776 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_alu_expand : _GEN_775; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_777 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_alu_expand : _GEN_776; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_780 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_alu_op : mem_0_alu_op; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_781 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_alu_op : _GEN_780; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_782 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_alu_op : _GEN_781; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_783 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_alu_op : _GEN_782; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_784 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_alu_op : _GEN_783; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [4:0] _GEN_785 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_alu_op : _GEN_784; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_788 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_write_dest : mem_0_write_dest; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_789 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_write_dest : _GEN_788; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_790 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_write_dest : _GEN_789; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_791 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_write_dest : _GEN_790; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_792 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_write_dest : _GEN_791; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_793 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_write_dest : _GEN_792; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_796 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_src_b : mem_0_src_b; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_797 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_src_b : _GEN_796; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_798 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_src_b : _GEN_797; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_799 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_src_b : _GEN_798; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_800 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_src_b : _GEN_799; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_801 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_src_b : _GEN_800; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_804 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_src_a : mem_0_src_a; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_805 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_src_a : _GEN_804; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_806 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_src_a : _GEN_805; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_807 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_src_a : _GEN_806; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_808 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_src_a : _GEN_807; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_809 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_src_a : _GEN_808; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_812 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_branch_type : mem_0_branch_type; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_813 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_branch_type : _GEN_812; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_814 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_branch_type : _GEN_813; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_815 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_branch_type : _GEN_814; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_816 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_branch_type : _GEN_815; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_817 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_branch_type : _GEN_816; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_820 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_alu_mdu_lsu : mem_0_alu_mdu_lsu; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_821 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_alu_mdu_lsu : _GEN_820; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_822 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_alu_mdu_lsu : _GEN_821; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_823 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_alu_mdu_lsu : _GEN_822; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_824 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_alu_mdu_lsu : _GEN_823; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [1:0] _GEN_825 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_alu_mdu_lsu : _GEN_824; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_828 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_next_pc : mem_0_next_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_829 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_next_pc : _GEN_828; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_830 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_next_pc : _GEN_829; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_831 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_next_pc : _GEN_830; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_832 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_next_pc : _GEN_831; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire [3:0] _GEN_833 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_next_pc : _GEN_832; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_836 = 3'h1 == _io_dout_1_T_2[2:0] ? mem_1_illegal : mem_0_illegal; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_837 = 3'h2 == _io_dout_1_T_2[2:0] ? mem_2_illegal : _GEN_836; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_838 = 3'h3 == _io_dout_1_T_2[2:0] ? mem_3_illegal : _GEN_837; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_839 = 3'h4 == _io_dout_1_T_2[2:0] ? mem_4_illegal : _GEN_838; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_840 = 3'h5 == _io_dout_1_T_2[2:0] ? mem_5_illegal : _GEN_839; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  wire  _GEN_841 = 3'h6 == _io_dout_1_T_2[2:0] ? mem_6_illegal : _GEN_840; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_illegal = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_illegal : _GEN_673; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_next_pc = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_next_pc : _GEN_665; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_alu_mdu_lsu = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_alu_mdu_lsu : _GEN_657; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_branch_type = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_branch_type : _GEN_649; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_src_a = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_src_a : _GEN_641; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_src_b = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_src_b : _GEN_633; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_write_dest = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_write_dest : _GEN_625; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_alu_op = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_alu_op : _GEN_617; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_alu_expand = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_alu_expand : _GEN_609; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_mem_width = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_mem_width : _GEN_601; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_write_src = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_write_src : _GEN_593; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_rs1 = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_rs1 : _GEN_585; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_rs2 = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_rs2 : _GEN_577; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_rd = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_rd : _GEN_569; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_imm = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_imm : _GEN_561; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_pc = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_pc : _GEN_553; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_predict_taken = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_predict_taken : _GEN_545; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_target_pc = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_target_pc : _GEN_537; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_ysyx_debug = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_ysyx_debug : _GEN_529; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_ysyx_print = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_ysyx_print : _GEN_521; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_0_inst = 3'h7 == _io_dout_0_T_2[2:0] ? mem_7_inst : _GEN_513; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_illegal = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_illegal : _GEN_841; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_next_pc = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_next_pc : _GEN_833; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_alu_mdu_lsu = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_alu_mdu_lsu : _GEN_825; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_branch_type = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_branch_type : _GEN_817; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_src_a = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_src_a : _GEN_809; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_src_b = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_src_b : _GEN_801; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_write_dest = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_write_dest : _GEN_793; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_alu_op = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_alu_op : _GEN_785; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_alu_expand = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_alu_expand : _GEN_777; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_mem_width = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_mem_width : _GEN_769; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_write_src = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_write_src : _GEN_761; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_rs1 = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_rs1 : _GEN_753; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_rs2 = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_rs2 : _GEN_745; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_rd = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_rd : _GEN_737; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_imm = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_imm : _GEN_729; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_pc = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_pc : _GEN_721; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_predict_taken = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_predict_taken : _GEN_713; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_target_pc = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_target_pc : _GEN_705; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_ysyx_debug = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_ysyx_debug : _GEN_697; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_ysyx_print = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_ysyx_print : _GEN_689; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_dout_1_inst = 3'h7 == _io_dout_1_T_2[2:0] ? mem_7_inst : _GEN_681; // @[FIFO.scala 57:16 FIFO.scala 57:16]
-  assign io_sufficient = ~full & 4'h2 <= _io_sufficient_T_2; // @[FIFO.scala 43:26]
+  wire [2:0] ptr_diff = enqPtr - deqPtr; // @[FIFO.scala 42:25]
+  wire [2:0] _io_sufficient_T_2 = 3'h6 - io_items; // @[FIFO.scala 43:47]
+  wire [2:0] _io_items_T = maybe_full ? 3'h6 : 3'h0; // @[FIFO.scala 44:33]
+  wire [2:0] _io_items_T_3 = 3'h6 + ptr_diff; // @[FIFO.scala 44:88]
+  wire [2:0] _io_items_T_4 = deqPtr > enqPtr ? _io_items_T_3 : ptr_diff; // @[FIFO.scala 44:63]
+  wire [3:0] _T = {{1'd0}, enqPtr}; // @[FIFO.scala 48:19]
+  wire [2:0] _GEN_0 = _T[2:0] % 3'h6; // @[FIFO.scala 48:26]
+  wire [2:0] _T_2 = _GEN_0[2:0]; // @[FIFO.scala 48:26]
+  wire [2:0] _T_4 = enqPtr + 3'h1; // @[FIFO.scala 48:19]
+  wire [2:0] _GEN_1 = _T_4 % 3'h6; // @[FIFO.scala 48:26]
+  wire [2:0] _T_5 = _GEN_1[2:0]; // @[FIFO.scala 48:26]
+  wire [3:0] _io_dout_0_T = {{1'd0}, deqPtr}; // @[FIFO.scala 57:31]
+  wire [2:0] _GEN_2 = _io_dout_0_T[2:0] % 3'h6; // @[FIFO.scala 57:38]
+  wire [2:0] _io_dout_0_T_2 = _GEN_2[2:0]; // @[FIFO.scala 57:38]
+  wire [31:0] _GEN_382 = 3'h1 == _io_dout_0_T_2 ? mem_1_inst : mem_0_inst; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_383 = 3'h2 == _io_dout_0_T_2 ? mem_2_inst : _GEN_382; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_384 = 3'h3 == _io_dout_0_T_2 ? mem_3_inst : _GEN_383; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_385 = 3'h4 == _io_dout_0_T_2 ? mem_4_inst : _GEN_384; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_388 = 3'h1 == _io_dout_0_T_2 ? mem_1_ysyx_print : mem_0_ysyx_print; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_389 = 3'h2 == _io_dout_0_T_2 ? mem_2_ysyx_print : _GEN_388; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_390 = 3'h3 == _io_dout_0_T_2 ? mem_3_ysyx_print : _GEN_389; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_391 = 3'h4 == _io_dout_0_T_2 ? mem_4_ysyx_print : _GEN_390; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_394 = 3'h1 == _io_dout_0_T_2 ? mem_1_ysyx_debug : mem_0_ysyx_debug; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_395 = 3'h2 == _io_dout_0_T_2 ? mem_2_ysyx_debug : _GEN_394; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_396 = 3'h3 == _io_dout_0_T_2 ? mem_3_ysyx_debug : _GEN_395; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_397 = 3'h4 == _io_dout_0_T_2 ? mem_4_ysyx_debug : _GEN_396; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_400 = 3'h1 == _io_dout_0_T_2 ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_401 = 3'h2 == _io_dout_0_T_2 ? mem_2_target_pc : _GEN_400; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_402 = 3'h3 == _io_dout_0_T_2 ? mem_3_target_pc : _GEN_401; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_403 = 3'h4 == _io_dout_0_T_2 ? mem_4_target_pc : _GEN_402; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_406 = 3'h1 == _io_dout_0_T_2 ? mem_1_predict_taken : mem_0_predict_taken; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_407 = 3'h2 == _io_dout_0_T_2 ? mem_2_predict_taken : _GEN_406; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_408 = 3'h3 == _io_dout_0_T_2 ? mem_3_predict_taken : _GEN_407; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_409 = 3'h4 == _io_dout_0_T_2 ? mem_4_predict_taken : _GEN_408; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_412 = 3'h1 == _io_dout_0_T_2 ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_413 = 3'h2 == _io_dout_0_T_2 ? mem_2_pc : _GEN_412; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_414 = 3'h3 == _io_dout_0_T_2 ? mem_3_pc : _GEN_413; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_415 = 3'h4 == _io_dout_0_T_2 ? mem_4_pc : _GEN_414; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_418 = 3'h1 == _io_dout_0_T_2 ? mem_1_imm : mem_0_imm; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_419 = 3'h2 == _io_dout_0_T_2 ? mem_2_imm : _GEN_418; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_420 = 3'h3 == _io_dout_0_T_2 ? mem_3_imm : _GEN_419; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_421 = 3'h4 == _io_dout_0_T_2 ? mem_4_imm : _GEN_420; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_424 = 3'h1 == _io_dout_0_T_2 ? mem_1_rd : mem_0_rd; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_425 = 3'h2 == _io_dout_0_T_2 ? mem_2_rd : _GEN_424; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_426 = 3'h3 == _io_dout_0_T_2 ? mem_3_rd : _GEN_425; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_427 = 3'h4 == _io_dout_0_T_2 ? mem_4_rd : _GEN_426; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_430 = 3'h1 == _io_dout_0_T_2 ? mem_1_rs2 : mem_0_rs2; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_431 = 3'h2 == _io_dout_0_T_2 ? mem_2_rs2 : _GEN_430; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_432 = 3'h3 == _io_dout_0_T_2 ? mem_3_rs2 : _GEN_431; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_433 = 3'h4 == _io_dout_0_T_2 ? mem_4_rs2 : _GEN_432; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_436 = 3'h1 == _io_dout_0_T_2 ? mem_1_rs1 : mem_0_rs1; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_437 = 3'h2 == _io_dout_0_T_2 ? mem_2_rs1 : _GEN_436; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_438 = 3'h3 == _io_dout_0_T_2 ? mem_3_rs1 : _GEN_437; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_439 = 3'h4 == _io_dout_0_T_2 ? mem_4_rs1 : _GEN_438; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_442 = 3'h1 == _io_dout_0_T_2 ? mem_1_write_src : mem_0_write_src; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_443 = 3'h2 == _io_dout_0_T_2 ? mem_2_write_src : _GEN_442; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_444 = 3'h3 == _io_dout_0_T_2 ? mem_3_write_src : _GEN_443; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_445 = 3'h4 == _io_dout_0_T_2 ? mem_4_write_src : _GEN_444; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_448 = 3'h1 == _io_dout_0_T_2 ? mem_1_mem_width : mem_0_mem_width; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_449 = 3'h2 == _io_dout_0_T_2 ? mem_2_mem_width : _GEN_448; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_450 = 3'h3 == _io_dout_0_T_2 ? mem_3_mem_width : _GEN_449; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_451 = 3'h4 == _io_dout_0_T_2 ? mem_4_mem_width : _GEN_450; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_454 = 3'h1 == _io_dout_0_T_2 ? mem_1_alu_expand : mem_0_alu_expand; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_455 = 3'h2 == _io_dout_0_T_2 ? mem_2_alu_expand : _GEN_454; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_456 = 3'h3 == _io_dout_0_T_2 ? mem_3_alu_expand : _GEN_455; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_457 = 3'h4 == _io_dout_0_T_2 ? mem_4_alu_expand : _GEN_456; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_460 = 3'h1 == _io_dout_0_T_2 ? mem_1_alu_op : mem_0_alu_op; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_461 = 3'h2 == _io_dout_0_T_2 ? mem_2_alu_op : _GEN_460; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_462 = 3'h3 == _io_dout_0_T_2 ? mem_3_alu_op : _GEN_461; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_463 = 3'h4 == _io_dout_0_T_2 ? mem_4_alu_op : _GEN_462; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_466 = 3'h1 == _io_dout_0_T_2 ? mem_1_write_dest : mem_0_write_dest; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_467 = 3'h2 == _io_dout_0_T_2 ? mem_2_write_dest : _GEN_466; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_468 = 3'h3 == _io_dout_0_T_2 ? mem_3_write_dest : _GEN_467; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_469 = 3'h4 == _io_dout_0_T_2 ? mem_4_write_dest : _GEN_468; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_472 = 3'h1 == _io_dout_0_T_2 ? mem_1_src_b : mem_0_src_b; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_473 = 3'h2 == _io_dout_0_T_2 ? mem_2_src_b : _GEN_472; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_474 = 3'h3 == _io_dout_0_T_2 ? mem_3_src_b : _GEN_473; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_475 = 3'h4 == _io_dout_0_T_2 ? mem_4_src_b : _GEN_474; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_478 = 3'h1 == _io_dout_0_T_2 ? mem_1_src_a : mem_0_src_a; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_479 = 3'h2 == _io_dout_0_T_2 ? mem_2_src_a : _GEN_478; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_480 = 3'h3 == _io_dout_0_T_2 ? mem_3_src_a : _GEN_479; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_481 = 3'h4 == _io_dout_0_T_2 ? mem_4_src_a : _GEN_480; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_484 = 3'h1 == _io_dout_0_T_2 ? mem_1_branch_type : mem_0_branch_type; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_485 = 3'h2 == _io_dout_0_T_2 ? mem_2_branch_type : _GEN_484; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_486 = 3'h3 == _io_dout_0_T_2 ? mem_3_branch_type : _GEN_485; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_487 = 3'h4 == _io_dout_0_T_2 ? mem_4_branch_type : _GEN_486; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_490 = 3'h1 == _io_dout_0_T_2 ? mem_1_alu_mdu_lsu : mem_0_alu_mdu_lsu; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_491 = 3'h2 == _io_dout_0_T_2 ? mem_2_alu_mdu_lsu : _GEN_490; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_492 = 3'h3 == _io_dout_0_T_2 ? mem_3_alu_mdu_lsu : _GEN_491; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_493 = 3'h4 == _io_dout_0_T_2 ? mem_4_alu_mdu_lsu : _GEN_492; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_496 = 3'h1 == _io_dout_0_T_2 ? mem_1_next_pc : mem_0_next_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_497 = 3'h2 == _io_dout_0_T_2 ? mem_2_next_pc : _GEN_496; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_498 = 3'h3 == _io_dout_0_T_2 ? mem_3_next_pc : _GEN_497; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_499 = 3'h4 == _io_dout_0_T_2 ? mem_4_next_pc : _GEN_498; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_502 = 3'h1 == _io_dout_0_T_2 ? mem_1_illegal : mem_0_illegal; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_503 = 3'h2 == _io_dout_0_T_2 ? mem_2_illegal : _GEN_502; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_504 = 3'h3 == _io_dout_0_T_2 ? mem_3_illegal : _GEN_503; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_505 = 3'h4 == _io_dout_0_T_2 ? mem_4_illegal : _GEN_504; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _io_dout_1_T_1 = deqPtr + 3'h1; // @[FIFO.scala 57:31]
+  wire [2:0] _GEN_3 = _io_dout_1_T_1 % 3'h6; // @[FIFO.scala 57:38]
+  wire [2:0] _io_dout_1_T_2 = _GEN_3[2:0]; // @[FIFO.scala 57:38]
+  wire [31:0] _GEN_508 = 3'h1 == _io_dout_1_T_2 ? mem_1_inst : mem_0_inst; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_509 = 3'h2 == _io_dout_1_T_2 ? mem_2_inst : _GEN_508; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_510 = 3'h3 == _io_dout_1_T_2 ? mem_3_inst : _GEN_509; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_511 = 3'h4 == _io_dout_1_T_2 ? mem_4_inst : _GEN_510; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_514 = 3'h1 == _io_dout_1_T_2 ? mem_1_ysyx_print : mem_0_ysyx_print; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_515 = 3'h2 == _io_dout_1_T_2 ? mem_2_ysyx_print : _GEN_514; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_516 = 3'h3 == _io_dout_1_T_2 ? mem_3_ysyx_print : _GEN_515; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_517 = 3'h4 == _io_dout_1_T_2 ? mem_4_ysyx_print : _GEN_516; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_520 = 3'h1 == _io_dout_1_T_2 ? mem_1_ysyx_debug : mem_0_ysyx_debug; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_521 = 3'h2 == _io_dout_1_T_2 ? mem_2_ysyx_debug : _GEN_520; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_522 = 3'h3 == _io_dout_1_T_2 ? mem_3_ysyx_debug : _GEN_521; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_523 = 3'h4 == _io_dout_1_T_2 ? mem_4_ysyx_debug : _GEN_522; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_526 = 3'h1 == _io_dout_1_T_2 ? mem_1_target_pc : mem_0_target_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_527 = 3'h2 == _io_dout_1_T_2 ? mem_2_target_pc : _GEN_526; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_528 = 3'h3 == _io_dout_1_T_2 ? mem_3_target_pc : _GEN_527; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_529 = 3'h4 == _io_dout_1_T_2 ? mem_4_target_pc : _GEN_528; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_532 = 3'h1 == _io_dout_1_T_2 ? mem_1_predict_taken : mem_0_predict_taken; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_533 = 3'h2 == _io_dout_1_T_2 ? mem_2_predict_taken : _GEN_532; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_534 = 3'h3 == _io_dout_1_T_2 ? mem_3_predict_taken : _GEN_533; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_535 = 3'h4 == _io_dout_1_T_2 ? mem_4_predict_taken : _GEN_534; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_538 = 3'h1 == _io_dout_1_T_2 ? mem_1_pc : mem_0_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_539 = 3'h2 == _io_dout_1_T_2 ? mem_2_pc : _GEN_538; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_540 = 3'h3 == _io_dout_1_T_2 ? mem_3_pc : _GEN_539; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [31:0] _GEN_541 = 3'h4 == _io_dout_1_T_2 ? mem_4_pc : _GEN_540; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_544 = 3'h1 == _io_dout_1_T_2 ? mem_1_imm : mem_0_imm; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_545 = 3'h2 == _io_dout_1_T_2 ? mem_2_imm : _GEN_544; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_546 = 3'h3 == _io_dout_1_T_2 ? mem_3_imm : _GEN_545; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [19:0] _GEN_547 = 3'h4 == _io_dout_1_T_2 ? mem_4_imm : _GEN_546; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_550 = 3'h1 == _io_dout_1_T_2 ? mem_1_rd : mem_0_rd; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_551 = 3'h2 == _io_dout_1_T_2 ? mem_2_rd : _GEN_550; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_552 = 3'h3 == _io_dout_1_T_2 ? mem_3_rd : _GEN_551; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_553 = 3'h4 == _io_dout_1_T_2 ? mem_4_rd : _GEN_552; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_556 = 3'h1 == _io_dout_1_T_2 ? mem_1_rs2 : mem_0_rs2; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_557 = 3'h2 == _io_dout_1_T_2 ? mem_2_rs2 : _GEN_556; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_558 = 3'h3 == _io_dout_1_T_2 ? mem_3_rs2 : _GEN_557; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_559 = 3'h4 == _io_dout_1_T_2 ? mem_4_rs2 : _GEN_558; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_562 = 3'h1 == _io_dout_1_T_2 ? mem_1_rs1 : mem_0_rs1; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_563 = 3'h2 == _io_dout_1_T_2 ? mem_2_rs1 : _GEN_562; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_564 = 3'h3 == _io_dout_1_T_2 ? mem_3_rs1 : _GEN_563; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_565 = 3'h4 == _io_dout_1_T_2 ? mem_4_rs1 : _GEN_564; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_568 = 3'h1 == _io_dout_1_T_2 ? mem_1_write_src : mem_0_write_src; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_569 = 3'h2 == _io_dout_1_T_2 ? mem_2_write_src : _GEN_568; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_570 = 3'h3 == _io_dout_1_T_2 ? mem_3_write_src : _GEN_569; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_571 = 3'h4 == _io_dout_1_T_2 ? mem_4_write_src : _GEN_570; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_574 = 3'h1 == _io_dout_1_T_2 ? mem_1_mem_width : mem_0_mem_width; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_575 = 3'h2 == _io_dout_1_T_2 ? mem_2_mem_width : _GEN_574; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_576 = 3'h3 == _io_dout_1_T_2 ? mem_3_mem_width : _GEN_575; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [2:0] _GEN_577 = 3'h4 == _io_dout_1_T_2 ? mem_4_mem_width : _GEN_576; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_580 = 3'h1 == _io_dout_1_T_2 ? mem_1_alu_expand : mem_0_alu_expand; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_581 = 3'h2 == _io_dout_1_T_2 ? mem_2_alu_expand : _GEN_580; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_582 = 3'h3 == _io_dout_1_T_2 ? mem_3_alu_expand : _GEN_581; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_583 = 3'h4 == _io_dout_1_T_2 ? mem_4_alu_expand : _GEN_582; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_586 = 3'h1 == _io_dout_1_T_2 ? mem_1_alu_op : mem_0_alu_op; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_587 = 3'h2 == _io_dout_1_T_2 ? mem_2_alu_op : _GEN_586; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_588 = 3'h3 == _io_dout_1_T_2 ? mem_3_alu_op : _GEN_587; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [4:0] _GEN_589 = 3'h4 == _io_dout_1_T_2 ? mem_4_alu_op : _GEN_588; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_592 = 3'h1 == _io_dout_1_T_2 ? mem_1_write_dest : mem_0_write_dest; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_593 = 3'h2 == _io_dout_1_T_2 ? mem_2_write_dest : _GEN_592; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_594 = 3'h3 == _io_dout_1_T_2 ? mem_3_write_dest : _GEN_593; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_595 = 3'h4 == _io_dout_1_T_2 ? mem_4_write_dest : _GEN_594; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_598 = 3'h1 == _io_dout_1_T_2 ? mem_1_src_b : mem_0_src_b; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_599 = 3'h2 == _io_dout_1_T_2 ? mem_2_src_b : _GEN_598; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_600 = 3'h3 == _io_dout_1_T_2 ? mem_3_src_b : _GEN_599; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_601 = 3'h4 == _io_dout_1_T_2 ? mem_4_src_b : _GEN_600; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_604 = 3'h1 == _io_dout_1_T_2 ? mem_1_src_a : mem_0_src_a; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_605 = 3'h2 == _io_dout_1_T_2 ? mem_2_src_a : _GEN_604; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_606 = 3'h3 == _io_dout_1_T_2 ? mem_3_src_a : _GEN_605; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_607 = 3'h4 == _io_dout_1_T_2 ? mem_4_src_a : _GEN_606; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_610 = 3'h1 == _io_dout_1_T_2 ? mem_1_branch_type : mem_0_branch_type; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_611 = 3'h2 == _io_dout_1_T_2 ? mem_2_branch_type : _GEN_610; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_612 = 3'h3 == _io_dout_1_T_2 ? mem_3_branch_type : _GEN_611; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_613 = 3'h4 == _io_dout_1_T_2 ? mem_4_branch_type : _GEN_612; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_616 = 3'h1 == _io_dout_1_T_2 ? mem_1_alu_mdu_lsu : mem_0_alu_mdu_lsu; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_617 = 3'h2 == _io_dout_1_T_2 ? mem_2_alu_mdu_lsu : _GEN_616; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_618 = 3'h3 == _io_dout_1_T_2 ? mem_3_alu_mdu_lsu : _GEN_617; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [1:0] _GEN_619 = 3'h4 == _io_dout_1_T_2 ? mem_4_alu_mdu_lsu : _GEN_618; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_622 = 3'h1 == _io_dout_1_T_2 ? mem_1_next_pc : mem_0_next_pc; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_623 = 3'h2 == _io_dout_1_T_2 ? mem_2_next_pc : _GEN_622; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_624 = 3'h3 == _io_dout_1_T_2 ? mem_3_next_pc : _GEN_623; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire [3:0] _GEN_625 = 3'h4 == _io_dout_1_T_2 ? mem_4_next_pc : _GEN_624; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_628 = 3'h1 == _io_dout_1_T_2 ? mem_1_illegal : mem_0_illegal; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_629 = 3'h2 == _io_dout_1_T_2 ? mem_2_illegal : _GEN_628; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_630 = 3'h3 == _io_dout_1_T_2 ? mem_3_illegal : _GEN_629; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  wire  _GEN_631 = 3'h4 == _io_dout_1_T_2 ? mem_4_illegal : _GEN_630; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_illegal = 3'h5 == _io_dout_0_T_2 ? mem_5_illegal : _GEN_505; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_next_pc = 3'h5 == _io_dout_0_T_2 ? mem_5_next_pc : _GEN_499; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_alu_mdu_lsu = 3'h5 == _io_dout_0_T_2 ? mem_5_alu_mdu_lsu : _GEN_493; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_branch_type = 3'h5 == _io_dout_0_T_2 ? mem_5_branch_type : _GEN_487; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_src_a = 3'h5 == _io_dout_0_T_2 ? mem_5_src_a : _GEN_481; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_src_b = 3'h5 == _io_dout_0_T_2 ? mem_5_src_b : _GEN_475; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_write_dest = 3'h5 == _io_dout_0_T_2 ? mem_5_write_dest : _GEN_469; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_alu_op = 3'h5 == _io_dout_0_T_2 ? mem_5_alu_op : _GEN_463; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_alu_expand = 3'h5 == _io_dout_0_T_2 ? mem_5_alu_expand : _GEN_457; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_mem_width = 3'h5 == _io_dout_0_T_2 ? mem_5_mem_width : _GEN_451; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_write_src = 3'h5 == _io_dout_0_T_2 ? mem_5_write_src : _GEN_445; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_rs1 = 3'h5 == _io_dout_0_T_2 ? mem_5_rs1 : _GEN_439; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_rs2 = 3'h5 == _io_dout_0_T_2 ? mem_5_rs2 : _GEN_433; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_rd = 3'h5 == _io_dout_0_T_2 ? mem_5_rd : _GEN_427; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_imm = 3'h5 == _io_dout_0_T_2 ? mem_5_imm : _GEN_421; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_pc = 3'h5 == _io_dout_0_T_2 ? mem_5_pc : _GEN_415; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_predict_taken = 3'h5 == _io_dout_0_T_2 ? mem_5_predict_taken : _GEN_409; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_target_pc = 3'h5 == _io_dout_0_T_2 ? mem_5_target_pc : _GEN_403; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_ysyx_debug = 3'h5 == _io_dout_0_T_2 ? mem_5_ysyx_debug : _GEN_397; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_ysyx_print = 3'h5 == _io_dout_0_T_2 ? mem_5_ysyx_print : _GEN_391; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_0_inst = 3'h5 == _io_dout_0_T_2 ? mem_5_inst : _GEN_385; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_illegal = 3'h5 == _io_dout_1_T_2 ? mem_5_illegal : _GEN_631; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_next_pc = 3'h5 == _io_dout_1_T_2 ? mem_5_next_pc : _GEN_625; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_alu_mdu_lsu = 3'h5 == _io_dout_1_T_2 ? mem_5_alu_mdu_lsu : _GEN_619; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_branch_type = 3'h5 == _io_dout_1_T_2 ? mem_5_branch_type : _GEN_613; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_src_a = 3'h5 == _io_dout_1_T_2 ? mem_5_src_a : _GEN_607; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_src_b = 3'h5 == _io_dout_1_T_2 ? mem_5_src_b : _GEN_601; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_write_dest = 3'h5 == _io_dout_1_T_2 ? mem_5_write_dest : _GEN_595; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_alu_op = 3'h5 == _io_dout_1_T_2 ? mem_5_alu_op : _GEN_589; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_alu_expand = 3'h5 == _io_dout_1_T_2 ? mem_5_alu_expand : _GEN_583; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_mem_width = 3'h5 == _io_dout_1_T_2 ? mem_5_mem_width : _GEN_577; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_write_src = 3'h5 == _io_dout_1_T_2 ? mem_5_write_src : _GEN_571; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_rs1 = 3'h5 == _io_dout_1_T_2 ? mem_5_rs1 : _GEN_565; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_rs2 = 3'h5 == _io_dout_1_T_2 ? mem_5_rs2 : _GEN_559; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_rd = 3'h5 == _io_dout_1_T_2 ? mem_5_rd : _GEN_553; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_imm = 3'h5 == _io_dout_1_T_2 ? mem_5_imm : _GEN_547; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_pc = 3'h5 == _io_dout_1_T_2 ? mem_5_pc : _GEN_541; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_predict_taken = 3'h5 == _io_dout_1_T_2 ? mem_5_predict_taken : _GEN_535; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_target_pc = 3'h5 == _io_dout_1_T_2 ? mem_5_target_pc : _GEN_529; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_ysyx_debug = 3'h5 == _io_dout_1_T_2 ? mem_5_ysyx_debug : _GEN_523; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_ysyx_print = 3'h5 == _io_dout_1_T_2 ? mem_5_ysyx_print : _GEN_517; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_dout_1_inst = 3'h5 == _io_dout_1_T_2 ? mem_5_inst : _GEN_511; // @[FIFO.scala 57:16 FIFO.scala 57:16]
+  assign io_sufficient = ~full & 3'h2 <= _io_sufficient_T_2; // @[FIFO.scala 43:26]
   assign io_items = ptr_match ? _io_items_T : _io_items_T_4; // @[FIFO.scala 44:18]
   always @(posedge clock) begin
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h0 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h0 == _T_5) begin // @[FIFO.scala 48:36]
         mem_0_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h0 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h0 == _T_2) begin // @[FIFO.scala 48:36]
         mem_0_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h1 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h1 == _T_5) begin // @[FIFO.scala 48:36]
         mem_1_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h1 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h1 == _T_2) begin // @[FIFO.scala 48:36]
         mem_1_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h2 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h2 == _T_5) begin // @[FIFO.scala 48:36]
         mem_2_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h2 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h2 == _T_2) begin // @[FIFO.scala 48:36]
         mem_2_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h3 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h3 == _T_5) begin // @[FIFO.scala 48:36]
         mem_3_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h3 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h3 == _T_2) begin // @[FIFO.scala 48:36]
         mem_3_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h4 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h4 == _T_5) begin // @[FIFO.scala 48:36]
         mem_4_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h4 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h4 == _T_2) begin // @[FIFO.scala 48:36]
         mem_4_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
       end
     end
     if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h5 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
+      if (3'h5 == _T_5) begin // @[FIFO.scala 48:36]
         mem_5_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h5 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
+      end else if (3'h5 == _T_2) begin // @[FIFO.scala 48:36]
         mem_5_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h6 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h6 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_6_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_illegal <= io_din_1_illegal; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_illegal <= io_din_0_illegal; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_next_pc <= io_din_1_next_pc; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_next_pc <= io_din_0_next_pc; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_alu_mdu_lsu <= io_din_1_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_alu_mdu_lsu <= io_din_0_alu_mdu_lsu; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_branch_type <= io_din_1_branch_type; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_branch_type <= io_din_0_branch_type; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_src_a <= io_din_1_src_a; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_src_a <= io_din_0_src_a; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_src_b <= io_din_1_src_b; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_src_b <= io_din_0_src_b; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_write_dest <= io_din_1_write_dest; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_write_dest <= io_din_0_write_dest; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_alu_op <= io_din_1_alu_op; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_alu_op <= io_din_0_alu_op; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_alu_expand <= io_din_1_alu_expand; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_alu_expand <= io_din_0_alu_expand; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_mem_width <= io_din_1_mem_width; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_mem_width <= io_din_0_mem_width; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_write_src <= io_din_1_write_src; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_write_src <= io_din_0_write_src; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_rs1 <= io_din_1_rs1; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_rs1 <= io_din_0_rs1; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_rs2 <= io_din_1_rs2; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_rs2 <= io_din_0_rs2; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_rd <= io_din_1_rd; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_rd <= io_din_0_rd; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_imm <= io_din_1_imm; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_imm <= io_din_0_imm; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_pc <= io_din_1_pc; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_pc <= io_din_0_pc; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_predict_taken <= io_din_1_predict_taken; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_predict_taken <= io_din_0_predict_taken; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_target_pc <= io_din_1_target_pc; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_target_pc <= io_din_0_target_pc; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_ysyx_debug <= io_din_1_ysyx_debug; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_ysyx_debug <= io_din_0_ysyx_debug; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_ysyx_print <= io_din_1_ysyx_print; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_ysyx_print <= io_din_0_ysyx_print; // @[FIFO.scala 48:36]
-      end
-    end
-    if (do_enq) begin // @[FIFO.scala 46:16]
-      if (3'h7 == _T_6[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_inst <= io_din_1_inst; // @[FIFO.scala 48:36]
-      end else if (3'h7 == _T_2[2:0]) begin // @[FIFO.scala 48:36]
-        mem_7_inst <= io_din_0_inst; // @[FIFO.scala 48:36]
       end
     end
     if (reset) begin // @[FIFO.scala 31:27]
@@ -11227,22 +10765,22 @@ module FIFO(
       maybe_full <= do_enq; // @[FIFO.scala 53:16]
     end
     if (reset) begin // @[FIFO.scala 24:25]
-      enqPtr <= 4'h0; // @[FIFO.scala 24:25]
+      enqPtr <= 3'h0; // @[FIFO.scala 24:25]
     end else if (io_flush) begin // @[FIFO.scala 60:18]
-      enqPtr <= 4'h0; // @[FIFO.scala 61:12]
+      enqPtr <= 3'h0; // @[FIFO.scala 61:12]
     end else if (do_enq) begin // @[FIFO.scala 26:16]
-      if (enqPtr_cntNext >= 4'h8) begin // @[FIFO.scala 27:20]
+      if (enqPtr_cntNext >= 3'h6) begin // @[FIFO.scala 27:20]
         enqPtr <= _enqPtr_cntReg_T_2;
       end else begin
         enqPtr <= enqPtr_cntNext;
       end
     end
     if (reset) begin // @[FIFO.scala 24:25]
-      deqPtr <= 4'h0; // @[FIFO.scala 24:25]
+      deqPtr <= 3'h0; // @[FIFO.scala 24:25]
     end else if (io_flush) begin // @[FIFO.scala 60:18]
-      deqPtr <= 4'h0; // @[FIFO.scala 62:12]
+      deqPtr <= 3'h0; // @[FIFO.scala 62:12]
     end else if (do_deq) begin // @[FIFO.scala 26:16]
-      if (deqPtr_cntNext >= 4'h8) begin // @[FIFO.scala 27:20]
+      if (deqPtr_cntNext >= 3'h6) begin // @[FIFO.scala 27:20]
         deqPtr <= _deqPtr_cntReg_T_2;
       end else begin
         deqPtr <= deqPtr_cntNext;
@@ -11538,95 +11076,11 @@ initial begin
   _RAND_125 = {1{`RANDOM}};
   mem_5_inst = _RAND_125[31:0];
   _RAND_126 = {1{`RANDOM}};
-  mem_6_illegal = _RAND_126[0:0];
+  maybe_full = _RAND_126[0:0];
   _RAND_127 = {1{`RANDOM}};
-  mem_6_next_pc = _RAND_127[3:0];
+  enqPtr = _RAND_127[2:0];
   _RAND_128 = {1{`RANDOM}};
-  mem_6_alu_mdu_lsu = _RAND_128[1:0];
-  _RAND_129 = {1{`RANDOM}};
-  mem_6_branch_type = _RAND_129[3:0];
-  _RAND_130 = {1{`RANDOM}};
-  mem_6_src_a = _RAND_130[1:0];
-  _RAND_131 = {1{`RANDOM}};
-  mem_6_src_b = _RAND_131[1:0];
-  _RAND_132 = {1{`RANDOM}};
-  mem_6_write_dest = _RAND_132[0:0];
-  _RAND_133 = {1{`RANDOM}};
-  mem_6_alu_op = _RAND_133[4:0];
-  _RAND_134 = {1{`RANDOM}};
-  mem_6_alu_expand = _RAND_134[0:0];
-  _RAND_135 = {1{`RANDOM}};
-  mem_6_mem_width = _RAND_135[2:0];
-  _RAND_136 = {1{`RANDOM}};
-  mem_6_write_src = _RAND_136[1:0];
-  _RAND_137 = {1{`RANDOM}};
-  mem_6_rs1 = _RAND_137[4:0];
-  _RAND_138 = {1{`RANDOM}};
-  mem_6_rs2 = _RAND_138[4:0];
-  _RAND_139 = {1{`RANDOM}};
-  mem_6_rd = _RAND_139[4:0];
-  _RAND_140 = {1{`RANDOM}};
-  mem_6_imm = _RAND_140[19:0];
-  _RAND_141 = {1{`RANDOM}};
-  mem_6_pc = _RAND_141[31:0];
-  _RAND_142 = {1{`RANDOM}};
-  mem_6_predict_taken = _RAND_142[0:0];
-  _RAND_143 = {1{`RANDOM}};
-  mem_6_target_pc = _RAND_143[31:0];
-  _RAND_144 = {1{`RANDOM}};
-  mem_6_ysyx_debug = _RAND_144[0:0];
-  _RAND_145 = {1{`RANDOM}};
-  mem_6_ysyx_print = _RAND_145[0:0];
-  _RAND_146 = {1{`RANDOM}};
-  mem_6_inst = _RAND_146[31:0];
-  _RAND_147 = {1{`RANDOM}};
-  mem_7_illegal = _RAND_147[0:0];
-  _RAND_148 = {1{`RANDOM}};
-  mem_7_next_pc = _RAND_148[3:0];
-  _RAND_149 = {1{`RANDOM}};
-  mem_7_alu_mdu_lsu = _RAND_149[1:0];
-  _RAND_150 = {1{`RANDOM}};
-  mem_7_branch_type = _RAND_150[3:0];
-  _RAND_151 = {1{`RANDOM}};
-  mem_7_src_a = _RAND_151[1:0];
-  _RAND_152 = {1{`RANDOM}};
-  mem_7_src_b = _RAND_152[1:0];
-  _RAND_153 = {1{`RANDOM}};
-  mem_7_write_dest = _RAND_153[0:0];
-  _RAND_154 = {1{`RANDOM}};
-  mem_7_alu_op = _RAND_154[4:0];
-  _RAND_155 = {1{`RANDOM}};
-  mem_7_alu_expand = _RAND_155[0:0];
-  _RAND_156 = {1{`RANDOM}};
-  mem_7_mem_width = _RAND_156[2:0];
-  _RAND_157 = {1{`RANDOM}};
-  mem_7_write_src = _RAND_157[1:0];
-  _RAND_158 = {1{`RANDOM}};
-  mem_7_rs1 = _RAND_158[4:0];
-  _RAND_159 = {1{`RANDOM}};
-  mem_7_rs2 = _RAND_159[4:0];
-  _RAND_160 = {1{`RANDOM}};
-  mem_7_rd = _RAND_160[4:0];
-  _RAND_161 = {1{`RANDOM}};
-  mem_7_imm = _RAND_161[19:0];
-  _RAND_162 = {1{`RANDOM}};
-  mem_7_pc = _RAND_162[31:0];
-  _RAND_163 = {1{`RANDOM}};
-  mem_7_predict_taken = _RAND_163[0:0];
-  _RAND_164 = {1{`RANDOM}};
-  mem_7_target_pc = _RAND_164[31:0];
-  _RAND_165 = {1{`RANDOM}};
-  mem_7_ysyx_debug = _RAND_165[0:0];
-  _RAND_166 = {1{`RANDOM}};
-  mem_7_ysyx_print = _RAND_166[0:0];
-  _RAND_167 = {1{`RANDOM}};
-  mem_7_inst = _RAND_167[31:0];
-  _RAND_168 = {1{`RANDOM}};
-  maybe_full = _RAND_168[0:0];
-  _RAND_169 = {1{`RANDOM}};
-  enqPtr = _RAND_169[3:0];
-  _RAND_170 = {1{`RANDOM}};
-  deqPtr = _RAND_170[3:0];
+  deqPtr = _RAND_128[2:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
@@ -11678,7 +11132,7 @@ module IssueArbiter(
   input         io_insts_in_1_ysyx_debug,
   input         io_insts_in_1_ysyx_print,
   input  [31:0] io_insts_in_1_inst,
-  input  [3:0]  io_queue_items,
+  input  [2:0]  io_queue_items,
   input  [4:0]  io_ld_dest_ex,
   input  [63:0] io_rss_in_0,
   input  [63:0] io_rss_in_1,
@@ -11737,7 +11191,7 @@ module IssueArbiter(
   output [1:0]  io_insts_order_2
 );
   wire  _T_5 = io_ld_dest_ex == 5'h0 | io_insts_in_0_rs1 != io_ld_dest_ex & io_insts_in_0_rs2 != io_ld_dest_ex; // @[IssueArbiter.scala 39:18]
-  wire  issue_valid_0 = io_queue_items > 4'h0 & _T_5; // @[IssueArbiter.scala 53:29]
+  wire  issue_valid_0 = io_queue_items > 3'h0 & _T_5; // @[IssueArbiter.scala 53:29]
   wire  _T_8 = io_insts_in_0_rd != 5'h0; // @[IssueArbiter.scala 31:14]
   wire  _T_12 = io_insts_in_0_rd != 5'h0 & (io_insts_in_0_rd == io_insts_in_1_rs1 | io_insts_in_0_rd ==
     io_insts_in_1_rs2); // @[IssueArbiter.scala 31:22]
@@ -11752,7 +11206,7 @@ module IssueArbiter(
      & io_insts_in_1_alu_mdu_lsu == 2'h2); // @[IssueArbiter.scala 46:7]
   wire  _T_34 = _T_23 & io_insts_in_0_alu_mdu_lsu != 2'h0 & _T_33; // @[IssueArbiter.scala 45:108]
   wire  _T_40 = io_ld_dest_ex == 5'h0 | io_insts_in_1_rs1 != io_ld_dest_ex & io_insts_in_1_rs2 != io_ld_dest_ex; // @[IssueArbiter.scala 39:18]
-  wire  _T_41 = io_queue_items > 4'h1 & _T_34 & _T_40; // @[IssueArbiter.scala 56:79]
+  wire  _T_41 = io_queue_items > 3'h1 & _T_34 & _T_40; // @[IssueArbiter.scala 56:79]
   wire [1:0] _GEN_1 = _T_41 ? 2'h2 : 2'h1; // @[IssueArbiter.scala 57:58 IssueArbiter.scala 60:20 IssueArbiter.scala 55:18]
   wire  issue_valid_1 = issue_valid_0 & _T_41; // @[IssueArbiter.scala 53:83]
   wire  _T_42 = 2'h0 == io_insts_in_0_alu_mdu_lsu; // @[Conditional.scala 37:30]
@@ -14394,9 +13848,9 @@ module Backend(
   wire  issueQueue_io_dout_1_ysyx_debug; // @[Backend.scala 68:28]
   wire  issueQueue_io_dout_1_ysyx_print; // @[Backend.scala 68:28]
   wire [31:0] issueQueue_io_dout_1_inst; // @[Backend.scala 68:28]
-  wire [3:0] issueQueue_io_enqStep; // @[Backend.scala 68:28]
+  wire [2:0] issueQueue_io_enqStep; // @[Backend.scala 68:28]
   wire  issueQueue_io_enqReq; // @[Backend.scala 68:28]
-  wire [3:0] issueQueue_io_deqStep; // @[Backend.scala 68:28]
+  wire [2:0] issueQueue_io_deqStep; // @[Backend.scala 68:28]
   wire  issueQueue_io_deqReq; // @[Backend.scala 68:28]
   wire  issueQueue_io_din_0_illegal; // @[Backend.scala 68:28]
   wire [3:0] issueQueue_io_din_0_next_pc; // @[Backend.scala 68:28]
@@ -14442,7 +13896,7 @@ module Backend(
   wire [31:0] issueQueue_io_din_1_inst; // @[Backend.scala 68:28]
   wire  issueQueue_io_flush; // @[Backend.scala 68:28]
   wire  issueQueue_io_sufficient; // @[Backend.scala 68:28]
-  wire [3:0] issueQueue_io_items; // @[Backend.scala 68:28]
+  wire [2:0] issueQueue_io_items; // @[Backend.scala 68:28]
   wire  issueArbiter_io_insts_in_0_illegal; // @[Backend.scala 69:28]
   wire [3:0] issueArbiter_io_insts_in_0_next_pc; // @[Backend.scala 69:28]
   wire [1:0] issueArbiter_io_insts_in_0_alu_mdu_lsu; // @[Backend.scala 69:28]
@@ -14485,7 +13939,7 @@ module Backend(
   wire  issueArbiter_io_insts_in_1_ysyx_debug; // @[Backend.scala 69:28]
   wire  issueArbiter_io_insts_in_1_ysyx_print; // @[Backend.scala 69:28]
   wire [31:0] issueArbiter_io_insts_in_1_inst; // @[Backend.scala 69:28]
-  wire [3:0] issueArbiter_io_queue_items; // @[Backend.scala 69:28]
+  wire [2:0] issueArbiter_io_queue_items; // @[Backend.scala 69:28]
   wire [4:0] issueArbiter_io_ld_dest_ex; // @[Backend.scala 69:28]
   wire [63:0] issueArbiter_io_rss_in_0; // @[Backend.scala 69:28]
   wire [63:0] issueArbiter_io_rss_in_1; // @[Backend.scala 69:28]
@@ -15416,9 +14870,9 @@ module Backend(
   assign mdu_io_req_in2 = exInsts_1_src_b == 2'h0 ? exFwdRtData_1 : genImm_1; // @[Backend.scala 299:24]
   assign issueQueue_clock = clock;
   assign issueQueue_reset = reset;
-  assign issueQueue_io_enqStep = {{2'd0}, io_fb_fmbs_instn}; // @[Backend.scala 157:25]
+  assign issueQueue_io_enqStep = {{1'd0}, io_fb_fmbs_instn}; // @[Backend.scala 157:25]
   assign issueQueue_io_enqReq = io_fb_fmbs_instn != 2'h0; // @[Backend.scala 156:45]
-  assign issueQueue_io_deqStep = {{2'd0}, issueArbiter_io_issue_num}; // @[Backend.scala 64:26 Backend.scala 170:31]
+  assign issueQueue_io_deqStep = {{1'd0}, issueArbiter_io_issue_num}; // @[Backend.scala 64:26 Backend.scala 170:31]
   assign issueQueue_io_deqReq = ~bubble_w & ~(|issueQueue_io_items & issueNum == 2'h0); // @[Backend.scala 155:37]
   assign issueQueue_io_din_0_illegal = io_fb_fmbs_inst_ops_0[160]; // @[Backend.scala 162:60]
   assign issueQueue_io_din_0_next_pc = io_fb_fmbs_inst_ops_0[159:156]; // @[Backend.scala 162:60]
