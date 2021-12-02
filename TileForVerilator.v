@@ -1,10 +1,10 @@
 module SimDualPortBRAM(
   input        clock,
   input        reset,
-  input        io_wea,
+  input        io_web,
   input  [7:0] io_addra,
   input  [7:0] io_addrb,
-  input  [1:0] io_dina,
+  input  [1:0] io_dinb,
   output [1:0] io_douta,
   output [1:0] io_doutb
 );
@@ -1033,1794 +1033,1794 @@ module SimDualPortBRAM(
   always @(posedge clock) begin
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_0 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_0 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_0 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_1 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_1 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_1 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_2 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_2 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_2 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_3 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_3 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_3 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_4 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_4 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_4 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_5 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_5 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_5 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_6 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_6 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_6 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_7 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_7 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_7 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_8 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_8 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_8 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_9 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_9 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_9 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_10 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_10 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_10 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_11 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_11 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_11 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_12 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_12 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_12 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_13 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_13 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_13 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_14 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_14 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_14 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_15 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_15 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_15 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_16 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h10 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_16 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h10 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_16 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_17 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h11 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_17 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h11 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_17 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_18 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h12 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_18 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h12 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_18 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_19 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h13 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_19 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h13 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_19 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_20 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h14 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_20 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h14 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_20 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_21 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h15 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_21 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h15 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_21 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_22 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h16 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_22 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h16 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_22 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_23 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h17 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_23 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h17 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_23 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_24 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h18 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_24 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h18 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_24 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_25 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h19 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_25 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h19 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_25 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_26 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_26 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_26 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_27 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_27 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_27 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_28 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_28 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_28 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_29 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_29 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_29 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_30 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_30 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_30 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_31 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h1f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_31 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h1f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_31 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_32 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h20 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_32 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h20 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_32 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_33 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h21 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_33 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h21 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_33 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_34 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h22 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_34 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h22 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_34 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_35 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h23 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_35 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h23 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_35 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_36 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h24 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_36 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h24 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_36 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_37 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h25 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_37 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h25 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_37 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_38 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h26 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_38 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h26 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_38 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_39 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h27 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_39 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h27 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_39 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_40 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h28 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_40 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h28 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_40 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_41 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h29 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_41 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h29 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_41 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_42 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_42 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_42 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_43 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_43 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_43 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_44 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_44 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_44 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_45 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_45 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_45 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_46 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_46 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_46 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_47 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h2f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_47 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h2f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_47 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_48 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h30 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_48 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h30 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_48 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_49 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h31 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_49 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h31 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_49 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_50 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h32 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_50 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h32 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_50 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_51 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h33 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_51 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h33 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_51 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_52 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h34 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_52 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h34 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_52 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_53 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h35 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_53 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h35 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_53 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_54 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h36 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_54 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h36 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_54 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_55 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h37 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_55 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h37 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_55 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_56 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h38 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_56 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h38 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_56 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_57 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h39 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_57 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h39 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_57 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_58 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_58 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_58 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_59 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_59 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_59 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_60 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_60 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_60 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_61 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_61 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_61 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_62 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_62 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_62 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_63 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h3f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_63 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h3f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_63 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_64 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h40 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_64 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h40 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_64 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_65 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h41 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_65 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h41 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_65 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_66 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h42 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_66 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h42 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_66 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_67 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h43 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_67 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h43 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_67 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_68 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h44 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_68 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h44 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_68 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_69 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h45 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_69 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h45 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_69 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_70 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h46 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_70 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h46 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_70 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_71 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h47 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_71 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h47 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_71 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_72 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h48 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_72 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h48 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_72 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_73 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h49 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_73 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h49 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_73 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_74 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_74 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_74 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_75 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_75 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_75 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_76 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_76 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_76 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_77 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_77 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_77 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_78 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_78 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_78 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_79 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h4f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_79 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h4f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_79 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_80 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h50 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_80 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h50 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_80 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_81 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h51 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_81 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h51 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_81 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_82 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h52 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_82 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h52 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_82 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_83 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h53 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_83 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h53 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_83 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_84 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h54 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_84 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h54 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_84 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_85 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h55 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_85 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h55 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_85 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_86 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h56 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_86 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h56 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_86 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_87 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h57 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_87 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h57 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_87 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_88 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h58 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_88 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h58 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_88 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_89 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h59 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_89 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h59 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_89 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_90 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_90 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_90 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_91 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_91 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_91 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_92 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_92 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_92 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_93 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_93 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_93 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_94 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_94 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_94 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_95 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h5f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_95 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h5f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_95 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_96 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h60 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_96 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h60 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_96 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_97 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h61 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_97 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h61 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_97 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_98 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h62 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_98 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h62 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_98 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_99 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h63 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_99 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h63 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_99 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_100 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h64 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_100 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h64 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_100 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_101 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h65 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_101 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h65 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_101 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_102 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h66 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_102 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h66 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_102 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_103 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h67 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_103 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h67 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_103 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_104 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h68 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_104 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h68 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_104 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_105 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h69 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_105 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h69 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_105 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_106 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_106 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_106 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_107 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_107 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_107 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_108 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_108 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_108 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_109 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_109 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_109 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_110 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_110 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_110 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_111 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h6f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_111 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h6f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_111 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_112 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h70 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_112 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h70 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_112 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_113 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h71 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_113 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h71 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_113 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_114 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h72 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_114 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h72 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_114 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_115 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h73 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_115 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h73 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_115 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_116 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h74 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_116 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h74 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_116 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_117 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h75 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_117 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h75 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_117 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_118 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h76 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_118 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h76 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_118 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_119 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h77 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_119 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h77 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_119 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_120 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h78 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_120 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h78 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_120 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_121 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h79 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_121 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h79 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_121 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_122 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_122 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_122 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_123 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_123 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_123 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_124 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_124 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_124 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_125 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_125 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_125 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_126 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_126 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_126 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_127 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h7f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_127 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h7f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_127 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_128 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h80 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_128 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h80 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_128 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_129 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h81 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_129 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h81 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_129 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_130 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h82 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_130 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h82 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_130 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_131 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h83 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_131 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h83 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_131 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_132 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h84 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_132 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h84 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_132 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_133 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h85 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_133 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h85 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_133 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_134 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h86 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_134 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h86 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_134 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_135 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h87 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_135 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h87 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_135 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_136 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h88 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_136 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h88 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_136 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_137 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h89 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_137 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h89 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_137 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_138 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_138 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_138 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_139 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_139 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_139 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_140 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_140 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_140 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_141 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_141 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_141 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_142 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_142 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_142 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_143 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h8f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_143 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h8f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_143 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_144 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h90 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_144 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h90 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_144 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_145 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h91 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_145 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h91 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_145 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_146 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h92 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_146 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h92 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_146 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_147 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h93 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_147 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h93 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_147 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_148 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h94 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_148 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h94 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_148 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_149 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h95 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_149 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h95 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_149 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_150 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h96 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_150 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h96 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_150 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_151 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h97 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_151 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h97 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_151 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_152 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h98 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_152 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h98 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_152 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_153 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h99 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_153 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h99 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_153 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_154 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9a == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_154 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9a == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_154 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_155 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9b == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_155 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9b == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_155 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_156 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9c == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_156 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9c == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_156 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_157 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9d == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_157 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9d == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_157 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_158 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9e == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_158 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9e == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_158 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_159 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'h9f == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_159 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'h9f == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_159 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_160 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_160 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_160 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_161 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_161 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_161 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_162 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_162 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_162 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_163 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_163 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_163 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_164 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_164 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_164 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_165 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_165 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_165 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_166 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_166 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_166 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_167 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_167 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_167 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_168 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_168 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_168 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_169 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'ha9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_169 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'ha9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_169 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_170 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'haa == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_170 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'haa == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_170 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_171 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hab == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_171 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hab == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_171 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_172 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hac == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_172 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hac == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_172 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_173 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'had == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_173 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'had == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_173 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_174 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hae == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_174 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hae == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_174 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_175 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'haf == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_175 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'haf == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_175 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_176 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_176 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_176 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_177 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_177 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_177 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_178 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_178 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_178 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_179 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_179 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_179 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_180 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_180 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_180 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_181 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_181 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_181 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_182 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_182 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_182 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_183 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_183 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_183 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_184 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_184 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_184 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_185 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hb9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_185 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hb9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_185 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_186 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hba == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_186 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hba == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_186 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_187 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hbb == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_187 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hbb == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_187 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_188 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hbc == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_188 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hbc == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_188 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_189 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hbd == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_189 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hbd == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_189 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_190 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hbe == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_190 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hbe == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_190 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_191 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hbf == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_191 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hbf == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_191 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_192 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_192 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_192 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_193 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_193 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_193 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_194 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_194 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_194 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_195 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_195 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_195 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_196 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_196 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_196 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_197 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_197 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_197 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_198 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_198 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_198 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_199 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_199 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_199 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_200 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_200 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_200 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_201 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hc9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_201 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hc9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_201 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_202 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hca == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_202 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hca == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_202 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_203 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hcb == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_203 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hcb == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_203 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_204 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hcc == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_204 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hcc == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_204 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_205 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hcd == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_205 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hcd == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_205 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_206 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hce == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_206 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hce == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_206 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_207 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hcf == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_207 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hcf == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_207 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_208 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_208 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_208 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_209 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_209 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_209 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_210 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_210 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_210 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_211 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_211 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_211 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_212 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_212 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_212 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_213 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_213 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_213 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_214 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_214 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_214 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_215 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_215 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_215 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_216 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_216 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_216 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_217 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hd9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_217 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hd9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_217 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_218 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hda == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_218 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hda == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_218 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_219 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hdb == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_219 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hdb == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_219 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_220 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hdc == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_220 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hdc == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_220 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_221 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hdd == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_221 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hdd == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_221 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_222 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hde == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_222 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hde == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_222 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_223 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hdf == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_223 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hdf == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_223 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_224 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_224 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_224 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_225 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_225 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_225 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_226 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_226 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_226 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_227 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_227 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_227 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_228 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_228 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_228 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_229 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_229 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_229 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_230 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_230 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_230 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_231 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_231 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_231 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_232 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_232 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_232 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_233 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'he9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_233 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'he9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_233 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_234 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hea == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_234 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hea == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_234 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_235 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'heb == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_235 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'heb == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_235 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_236 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hec == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_236 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hec == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_236 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_237 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hed == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_237 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hed == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_237 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_238 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hee == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_238 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hee == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_238 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_239 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hef == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_239 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hef == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_239 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_240 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf0 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_240 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_240 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_241 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf1 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_241 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_241 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_242 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf2 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_242 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_242 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_243 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf3 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_243 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_243 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_244 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf4 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_244 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_244 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_245 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf5 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_245 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_245 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_246 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf6 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_246 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_246 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_247 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf7 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_247 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_247 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_248 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf8 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_248 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_248 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_249 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hf9 == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_249 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hf9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_249 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_250 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hfa == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_250 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hfa == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_250 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_251 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hfb == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_251 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hfb == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_251 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_252 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hfc == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_252 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hfc == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_252 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_253 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hfd == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_253 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hfd == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_253 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_254 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hfe == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_254 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hfe == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_254 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_255 <= 2'h0; // @[RAMWrapper.scala 41:20]
-    end else if (io_wea) begin // @[RAMWrapper.scala 46:16]
-      if (8'hff == io_addra) begin // @[RAMWrapper.scala 47:19]
-        mem_255 <= io_dina; // @[RAMWrapper.scala 47:19]
+    end else if (io_web) begin // @[RAMWrapper.scala 49:16]
+      if (8'hff == io_addrb) begin // @[RAMWrapper.scala 50:19]
+        mem_255 <= io_dinb; // @[RAMWrapper.scala 50:19]
       end
     end
     if (8'hff == io_addra) begin // @[RAMWrapper.scala 43:22]
@@ -3409,28 +3409,28 @@ endmodule
 module DualPortBRAM(
   input        clock,
   input        reset,
-  input        io_wea,
+  input        io_web,
   input  [7:0] io_addra,
   input  [7:0] io_addrb,
-  input  [1:0] io_dina,
+  input  [1:0] io_dinb,
   output [1:0] io_douta,
   output [1:0] io_doutb
 );
   wire  sim_dual_port_bram_clock; // @[RAMWrapper.scala 30:36]
   wire  sim_dual_port_bram_reset; // @[RAMWrapper.scala 30:36]
-  wire  sim_dual_port_bram_io_wea; // @[RAMWrapper.scala 30:36]
+  wire  sim_dual_port_bram_io_web; // @[RAMWrapper.scala 30:36]
   wire [7:0] sim_dual_port_bram_io_addra; // @[RAMWrapper.scala 30:36]
   wire [7:0] sim_dual_port_bram_io_addrb; // @[RAMWrapper.scala 30:36]
-  wire [1:0] sim_dual_port_bram_io_dina; // @[RAMWrapper.scala 30:36]
+  wire [1:0] sim_dual_port_bram_io_dinb; // @[RAMWrapper.scala 30:36]
   wire [1:0] sim_dual_port_bram_io_douta; // @[RAMWrapper.scala 30:36]
   wire [1:0] sim_dual_port_bram_io_doutb; // @[RAMWrapper.scala 30:36]
   SimDualPortBRAM sim_dual_port_bram ( // @[RAMWrapper.scala 30:36]
     .clock(sim_dual_port_bram_clock),
     .reset(sim_dual_port_bram_reset),
-    .io_wea(sim_dual_port_bram_io_wea),
+    .io_web(sim_dual_port_bram_io_web),
     .io_addra(sim_dual_port_bram_io_addra),
     .io_addrb(sim_dual_port_bram_io_addrb),
-    .io_dina(sim_dual_port_bram_io_dina),
+    .io_dinb(sim_dual_port_bram_io_dinb),
     .io_douta(sim_dual_port_bram_io_douta),
     .io_doutb(sim_dual_port_bram_io_doutb)
   );
@@ -3438,10 +3438,10 @@ module DualPortBRAM(
   assign io_doutb = sim_dual_port_bram_io_doutb; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_clock = clock;
   assign sim_dual_port_bram_reset = reset;
-  assign sim_dual_port_bram_io_wea = io_wea; // @[RAMWrapper.scala 31:27]
+  assign sim_dual_port_bram_io_web = io_web; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_io_addra = io_addra; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_io_addrb = io_addrb; // @[RAMWrapper.scala 31:27]
-  assign sim_dual_port_bram_io_dina = io_dina; // @[RAMWrapper.scala 31:27]
+  assign sim_dual_port_bram_io_dinb = io_dinb; // @[RAMWrapper.scala 31:27]
 endmodule
 module SimDualPortBRAM_1(
   input         clock,
@@ -6916,10 +6916,10 @@ module BPU(
 `endif // RANDOMIZE_REG_INIT
   wire  history_clock; // @[BPU.scala 86:23]
   wire  history_reset; // @[BPU.scala 86:23]
-  wire  history_io_wea; // @[BPU.scala 86:23]
+  wire  history_io_web; // @[BPU.scala 86:23]
   wire [7:0] history_io_addra; // @[BPU.scala 86:23]
   wire [7:0] history_io_addrb; // @[BPU.scala 86:23]
-  wire [1:0] history_io_dina; // @[BPU.scala 86:23]
+  wire [1:0] history_io_dinb; // @[BPU.scala 86:23]
   wire [1:0] history_io_douta; // @[BPU.scala 86:23]
   wire [1:0] history_io_doutb; // @[BPU.scala 86:23]
   wire  buffer_clock; // @[BPU.scala 87:23]
@@ -6943,49 +6943,49 @@ module BPU(
   wire [1:0] _wdata_T_6 = io_update_exe_pc_br[1:0] - 2'h1; // @[BPU.scala 93:126]
   wire [1:0] _wdata_T_7 = io_update_exe_taken ? _wdata_T_3 : _wdata_T_6; // @[BPU.scala 93:45]
   wire [1:0] _wdata_T_10 = io_update_dec_pc_br[1:0] - 2'h1; // @[BPU.scala 93:160]
-  wire  history_io_addra_higher_hi_hi_hi = waddr[16] ^ waddr[15] ^ waddr[9]; // @[BPU.scala 60:56]
-  wire  history_io_addra_higher_hi_hi_lo = waddr[15] ^ waddr[14] ^ waddr[8]; // @[BPU.scala 60:105]
-  wire  history_io_addra_higher_hi_lo = waddr[14] ^ waddr[13] ^ waddr[7]; // @[BPU.scala 60:154]
-  wire  history_io_addra_higher_lo_hi_hi = waddr[13] ^ waddr[12] ^ waddr[6]; // @[BPU.scala 60:203]
-  wire  history_io_addra_higher_lo_hi_lo = waddr[12] ^ waddr[11] ^ waddr[5]; // @[BPU.scala 60:252]
-  wire  history_io_addra_higher_lo_lo = waddr[11] ^ waddr[10] ^ waddr[4]; // @[BPU.scala 60:300]
-  wire  history_io_addra_lo = waddr[10] ^ waddr[9] ^ waddr[3]; // @[BPU.scala 64:40]
-  wire  history_io_addra_lo_1 = waddr[2]; // @[BPU.scala 74:35]
-  wire [7:0] _history_io_addra_T_4 = {history_io_addra_higher_hi_hi_hi,history_io_addra_higher_hi_hi_lo,
-    history_io_addra_higher_hi_lo,history_io_addra_higher_lo_hi_hi,history_io_addra_higher_lo_hi_lo,
-    history_io_addra_higher_lo_lo,history_io_addra_lo,history_io_addra_lo_1}; // @[Cat.scala 30:58]
-  wire  history_io_addra_higher_hi_hi_hi_1 = io_req_next_line[16] ^ io_req_next_line[15] ^ io_req_next_line[9]; // @[BPU.scala 60:56]
-  wire  history_io_addra_higher_hi_hi_lo_1 = io_req_next_line[15] ^ io_req_next_line[14] ^ io_req_next_line[8]; // @[BPU.scala 60:105]
-  wire  history_io_addra_higher_hi_lo_1 = io_req_next_line[14] ^ io_req_next_line[13] ^ io_req_next_line[7]; // @[BPU.scala 60:154]
-  wire  history_io_addra_higher_lo_hi_hi_1 = io_req_next_line[13] ^ io_req_next_line[12] ^ io_req_next_line[6]; // @[BPU.scala 60:203]
-  wire  history_io_addra_higher_lo_hi_lo_1 = io_req_next_line[12] ^ io_req_next_line[11] ^ io_req_next_line[5]; // @[BPU.scala 60:252]
-  wire  history_io_addra_higher_lo_lo_1 = io_req_next_line[11] ^ io_req_next_line[10] ^ io_req_next_line[4]; // @[BPU.scala 60:300]
-  wire  history_io_addra_lo_2 = io_req_next_line[10] ^ io_req_next_line[9] ^ io_req_next_line[3]; // @[BPU.scala 64:40]
-  wire [6:0] history_io_addra_hi_3 = {history_io_addra_higher_hi_hi_hi_1,history_io_addra_higher_hi_hi_lo_1,
-    history_io_addra_higher_hi_lo_1,history_io_addra_higher_lo_hi_hi_1,history_io_addra_higher_lo_hi_lo_1,
-    history_io_addra_higher_lo_lo_1,history_io_addra_lo_2}; // @[Cat.scala 30:58]
-  wire  history_io_addra_lo_3 = io_req_next_line[2]; // @[BPU.scala 74:35]
-  wire [7:0] _history_io_addra_T_9 = {history_io_addra_higher_hi_hi_hi_1,history_io_addra_higher_hi_hi_lo_1,
-    history_io_addra_higher_hi_lo_1,history_io_addra_higher_lo_hi_hi_1,history_io_addra_higher_lo_hi_lo_1,
-    history_io_addra_higher_lo_lo_1,history_io_addra_lo_2,history_io_addra_lo_3}; // @[Cat.scala 30:58]
-  wire [63:0] _history_io_addrb_T_1 = io_req_next_line + 64'h4; // @[BPU.scala 98:60]
-  wire  history_io_addrb_higher_hi_hi_hi = _history_io_addrb_T_1[16] ^ _history_io_addrb_T_1[15] ^ _history_io_addrb_T_1
-    [9]; // @[BPU.scala 60:56]
-  wire  history_io_addrb_higher_hi_hi_lo = _history_io_addrb_T_1[15] ^ _history_io_addrb_T_1[14] ^ _history_io_addrb_T_1
-    [8]; // @[BPU.scala 60:105]
-  wire  history_io_addrb_higher_hi_lo = _history_io_addrb_T_1[14] ^ _history_io_addrb_T_1[13] ^ _history_io_addrb_T_1[7]
-    ; // @[BPU.scala 60:154]
-  wire  history_io_addrb_higher_lo_hi_hi = _history_io_addrb_T_1[13] ^ _history_io_addrb_T_1[12] ^ _history_io_addrb_T_1
-    [6]; // @[BPU.scala 60:203]
-  wire  history_io_addrb_higher_lo_hi_lo = _history_io_addrb_T_1[12] ^ _history_io_addrb_T_1[11] ^ _history_io_addrb_T_1
-    [5]; // @[BPU.scala 60:252]
-  wire  history_io_addrb_higher_lo_lo = _history_io_addrb_T_1[11] ^ _history_io_addrb_T_1[10] ^ _history_io_addrb_T_1[4]
-    ; // @[BPU.scala 60:300]
-  wire  history_io_addrb_lo = _history_io_addrb_T_1[10] ^ _history_io_addrb_T_1[9] ^ _history_io_addrb_T_1[3]; // @[BPU.scala 64:40]
-  wire [6:0] history_io_addrb_hi_1 = {history_io_addrb_higher_hi_hi_hi,history_io_addrb_higher_hi_hi_lo,
+  wire  history_io_addrb_higher_hi_hi_hi = waddr[16] ^ waddr[15] ^ waddr[9]; // @[BPU.scala 60:56]
+  wire  history_io_addrb_higher_hi_hi_lo = waddr[15] ^ waddr[14] ^ waddr[8]; // @[BPU.scala 60:105]
+  wire  history_io_addrb_higher_hi_lo = waddr[14] ^ waddr[13] ^ waddr[7]; // @[BPU.scala 60:154]
+  wire  history_io_addrb_higher_lo_hi_hi = waddr[13] ^ waddr[12] ^ waddr[6]; // @[BPU.scala 60:203]
+  wire  history_io_addrb_higher_lo_hi_lo = waddr[12] ^ waddr[11] ^ waddr[5]; // @[BPU.scala 60:252]
+  wire  history_io_addrb_higher_lo_lo = waddr[11] ^ waddr[10] ^ waddr[4]; // @[BPU.scala 60:300]
+  wire  history_io_addrb_lo = waddr[10] ^ waddr[9] ^ waddr[3]; // @[BPU.scala 64:40]
+  wire  history_io_addrb_lo_1 = waddr[2]; // @[BPU.scala 74:35]
+  wire [7:0] _history_io_addrb_T_4 = {history_io_addrb_higher_hi_hi_hi,history_io_addrb_higher_hi_hi_lo,
     history_io_addrb_higher_hi_lo,history_io_addrb_higher_lo_hi_hi,history_io_addrb_higher_lo_hi_lo,
-    history_io_addrb_higher_lo_lo,history_io_addrb_lo}; // @[Cat.scala 30:58]
-  wire  history_io_addrb_lo_1 = _history_io_addrb_T_1[2]; // @[BPU.scala 74:35]
+    history_io_addrb_higher_lo_lo,history_io_addrb_lo,history_io_addrb_lo_1}; // @[Cat.scala 30:58]
+  wire  history_io_addrb_higher_hi_hi_hi_1 = io_req_next_line[16] ^ io_req_next_line[15] ^ io_req_next_line[9]; // @[BPU.scala 60:56]
+  wire  history_io_addrb_higher_hi_hi_lo_1 = io_req_next_line[15] ^ io_req_next_line[14] ^ io_req_next_line[8]; // @[BPU.scala 60:105]
+  wire  history_io_addrb_higher_hi_lo_1 = io_req_next_line[14] ^ io_req_next_line[13] ^ io_req_next_line[7]; // @[BPU.scala 60:154]
+  wire  history_io_addrb_higher_lo_hi_hi_1 = io_req_next_line[13] ^ io_req_next_line[12] ^ io_req_next_line[6]; // @[BPU.scala 60:203]
+  wire  history_io_addrb_higher_lo_hi_lo_1 = io_req_next_line[12] ^ io_req_next_line[11] ^ io_req_next_line[5]; // @[BPU.scala 60:252]
+  wire  history_io_addrb_higher_lo_lo_1 = io_req_next_line[11] ^ io_req_next_line[10] ^ io_req_next_line[4]; // @[BPU.scala 60:300]
+  wire  history_io_addrb_lo_2 = io_req_next_line[10] ^ io_req_next_line[9] ^ io_req_next_line[3]; // @[BPU.scala 64:40]
+  wire [6:0] history_io_addrb_hi_3 = {history_io_addrb_higher_hi_hi_hi_1,history_io_addrb_higher_hi_hi_lo_1,
+    history_io_addrb_higher_hi_lo_1,history_io_addrb_higher_lo_hi_hi_1,history_io_addrb_higher_lo_hi_lo_1,
+    history_io_addrb_higher_lo_lo_1,history_io_addrb_lo_2}; // @[Cat.scala 30:58]
+  wire  history_io_addrb_lo_3 = io_req_next_line[2]; // @[BPU.scala 74:35]
+  wire [7:0] _history_io_addrb_T_9 = {history_io_addrb_higher_hi_hi_hi_1,history_io_addrb_higher_hi_hi_lo_1,
+    history_io_addrb_higher_hi_lo_1,history_io_addrb_higher_lo_hi_hi_1,history_io_addrb_higher_lo_hi_lo_1,
+    history_io_addrb_higher_lo_lo_1,history_io_addrb_lo_2,history_io_addrb_lo_3}; // @[Cat.scala 30:58]
+  wire [63:0] _history_io_addra_T_1 = io_req_next_line + 64'h4; // @[BPU.scala 98:60]
+  wire  history_io_addra_higher_hi_hi_hi = _history_io_addra_T_1[16] ^ _history_io_addra_T_1[15] ^ _history_io_addra_T_1
+    [9]; // @[BPU.scala 60:56]
+  wire  history_io_addra_higher_hi_hi_lo = _history_io_addra_T_1[15] ^ _history_io_addra_T_1[14] ^ _history_io_addra_T_1
+    [8]; // @[BPU.scala 60:105]
+  wire  history_io_addra_higher_hi_lo = _history_io_addra_T_1[14] ^ _history_io_addra_T_1[13] ^ _history_io_addra_T_1[7]
+    ; // @[BPU.scala 60:154]
+  wire  history_io_addra_higher_lo_hi_hi = _history_io_addra_T_1[13] ^ _history_io_addra_T_1[12] ^ _history_io_addra_T_1
+    [6]; // @[BPU.scala 60:203]
+  wire  history_io_addra_higher_lo_hi_lo = _history_io_addra_T_1[12] ^ _history_io_addra_T_1[11] ^ _history_io_addra_T_1
+    [5]; // @[BPU.scala 60:252]
+  wire  history_io_addra_higher_lo_lo = _history_io_addra_T_1[11] ^ _history_io_addra_T_1[10] ^ _history_io_addra_T_1[4]
+    ; // @[BPU.scala 60:300]
+  wire  history_io_addra_lo = _history_io_addra_T_1[10] ^ _history_io_addra_T_1[9] ^ _history_io_addra_T_1[3]; // @[BPU.scala 64:40]
+  wire [6:0] history_io_addra_hi_1 = {history_io_addra_higher_hi_hi_hi,history_io_addra_higher_hi_hi_lo,
+    history_io_addra_higher_hi_lo,history_io_addra_higher_lo_hi_hi,history_io_addra_higher_lo_hi_lo,
+    history_io_addra_higher_lo_lo,history_io_addra_lo}; // @[Cat.scala 30:58]
+  wire  history_io_addra_lo_1 = _history_io_addra_T_1[2]; // @[BPU.scala 74:35]
   reg  last_update; // @[BPU.scala 104:28]
   wire [1:0] _bht_first_T_1 = cache_or_update_hit ? chosen_result : 2'h0; // @[BPU.scala 105:41]
   wire [1:0] bht_first = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 105:24]
@@ -7004,16 +7004,16 @@ module BPU(
   reg  io_resp_target_0_REG; // @[BPU.scala 121:39]
   reg [61:0] io_resp_target_0_REG_1; // @[BPU.scala 121:63]
   wire [61:0] io_resp_target_0_hi = io_resp_target_0_REG ? io_resp_target_0_REG_1 : buffer_io_douta; // @[BPU.scala 121:31]
-  wire  hit_in_bht_cache = bht_cache_tag_0 == _history_io_addra_T_9; // @[BPU.scala 128:28]
+  wire  hit_in_bht_cache = bht_cache_tag_0 == _history_io_addrb_T_9; // @[BPU.scala 128:28]
   reg [7:0] bht_cache_tag_0_REG; // @[BPU.scala 143:49]
-  wire  update_query_hit = _history_io_addra_T_9 == _history_io_addra_T_4; // @[BPU.scala 148:64]
+  wire  update_query_hit = _history_io_addrb_T_9 == _history_io_addrb_T_4; // @[BPU.scala 148:64]
   DualPortBRAM history ( // @[BPU.scala 86:23]
     .clock(history_clock),
     .reset(history_reset),
-    .io_wea(history_io_wea),
+    .io_web(history_io_web),
     .io_addra(history_io_addra),
     .io_addrb(history_io_addrb),
-    .io_dina(history_io_dina),
+    .io_dinb(history_io_dinb),
     .io_douta(history_io_douta),
     .io_doutb(history_io_doutb)
   );
@@ -7033,15 +7033,15 @@ module BPU(
   assign io_resp_target_1 = {buffer_io_doutb,history_io_doutb}; // @[Cat.scala 30:58]
   assign history_clock = clock;
   assign history_reset = reset;
-  assign history_io_wea = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 92:23]
-  assign history_io_addra = update ? _history_io_addra_T_4 : _history_io_addra_T_9; // @[BPU.scala 97:26]
-  assign history_io_addrb = {history_io_addrb_hi_1,history_io_addrb_lo_1}; // @[Cat.scala 30:58]
-  assign history_io_dina = _waddr_T ? _wdata_T_7 : _wdata_T_10; // @[BPU.scala 93:23]
+  assign history_io_web = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 92:23]
+  assign history_io_addra = {history_io_addra_hi_1,history_io_addra_lo_1}; // @[Cat.scala 30:58]
+  assign history_io_addrb = update ? _history_io_addrb_T_4 : _history_io_addrb_T_9; // @[BPU.scala 97:26]
+  assign history_io_dinb = _waddr_T ? _wdata_T_7 : _wdata_T_10; // @[BPU.scala 93:23]
   assign buffer_clock = clock;
   assign buffer_reset = reset;
   assign buffer_io_wea = io_update_exe_errpr & io_update_exe_v; // @[BPU.scala 113:40]
   assign buffer_io_addra = {buffer_io_addra_hi_1,buffer_io_addra_lo_1}; // @[Cat.scala 30:58]
-  assign buffer_io_addrb = {history_io_addrb_hi_1,history_io_addrb_lo_1}; // @[Cat.scala 30:58]
+  assign buffer_io_addrb = {history_io_addra_hi_1,history_io_addra_lo_1}; // @[Cat.scala 30:58]
   assign buffer_io_dina = io_update_exe_target[63:2]; // @[BPU.scala 117:41]
   always @(posedge clock) begin
     if (!(update & hit_in_bht_cache)) begin // @[BPU.scala 135:36]
@@ -7087,7 +7087,7 @@ module BPU(
     end
     io_resp_target_0_REG <= buffer_io_wea; // @[BPU.scala 121:39]
     io_resp_target_0_REG_1 <= buffer_io_dina; // @[BPU.scala 121:63]
-    bht_cache_tag_0_REG <= {history_io_addra_hi_3,history_io_addra_lo_3}; // @[Cat.scala 30:58]
+    bht_cache_tag_0_REG <= {history_io_addrb_hi_3,history_io_addrb_lo_3}; // @[Cat.scala 30:58]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
