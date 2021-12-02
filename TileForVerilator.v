@@ -1,9 +1,11 @@
 module SimDualPortBRAM(
   input        clock,
   input        reset,
+  input        io_wea,
   input        io_web,
   input  [7:0] io_addra,
   input  [7:0] io_addrb,
+  input  [1:0] io_dina,
   input  [1:0] io_dinb,
   output [1:0] io_douta,
   output [1:0] io_doutb
@@ -1028,6 +1030,518 @@ module SimDualPortBRAM(
   wire [1:0] _GEN_505 = 8'hf9 == io_addrb ? mem_249 : _GEN_504; // @[RAMWrapper.scala 44:22 RAMWrapper.scala 44:22]
   wire [1:0] _GEN_506 = 8'hfa == io_addrb ? mem_250 : _GEN_505; // @[RAMWrapper.scala 44:22 RAMWrapper.scala 44:22]
   wire [1:0] _GEN_507 = 8'hfb == io_addrb ? mem_251 : _GEN_506; // @[RAMWrapper.scala 44:22 RAMWrapper.scala 44:22]
+  wire [1:0] _GEN_512 = 8'h0 == io_addra ? io_dina : mem_0; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_513 = 8'h1 == io_addra ? io_dina : mem_1; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_514 = 8'h2 == io_addra ? io_dina : mem_2; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_515 = 8'h3 == io_addra ? io_dina : mem_3; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_516 = 8'h4 == io_addra ? io_dina : mem_4; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_517 = 8'h5 == io_addra ? io_dina : mem_5; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_518 = 8'h6 == io_addra ? io_dina : mem_6; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_519 = 8'h7 == io_addra ? io_dina : mem_7; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_520 = 8'h8 == io_addra ? io_dina : mem_8; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_521 = 8'h9 == io_addra ? io_dina : mem_9; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_522 = 8'ha == io_addra ? io_dina : mem_10; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_523 = 8'hb == io_addra ? io_dina : mem_11; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_524 = 8'hc == io_addra ? io_dina : mem_12; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_525 = 8'hd == io_addra ? io_dina : mem_13; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_526 = 8'he == io_addra ? io_dina : mem_14; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_527 = 8'hf == io_addra ? io_dina : mem_15; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_528 = 8'h10 == io_addra ? io_dina : mem_16; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_529 = 8'h11 == io_addra ? io_dina : mem_17; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_530 = 8'h12 == io_addra ? io_dina : mem_18; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_531 = 8'h13 == io_addra ? io_dina : mem_19; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_532 = 8'h14 == io_addra ? io_dina : mem_20; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_533 = 8'h15 == io_addra ? io_dina : mem_21; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_534 = 8'h16 == io_addra ? io_dina : mem_22; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_535 = 8'h17 == io_addra ? io_dina : mem_23; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_536 = 8'h18 == io_addra ? io_dina : mem_24; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_537 = 8'h19 == io_addra ? io_dina : mem_25; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_538 = 8'h1a == io_addra ? io_dina : mem_26; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_539 = 8'h1b == io_addra ? io_dina : mem_27; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_540 = 8'h1c == io_addra ? io_dina : mem_28; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_541 = 8'h1d == io_addra ? io_dina : mem_29; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_542 = 8'h1e == io_addra ? io_dina : mem_30; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_543 = 8'h1f == io_addra ? io_dina : mem_31; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_544 = 8'h20 == io_addra ? io_dina : mem_32; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_545 = 8'h21 == io_addra ? io_dina : mem_33; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_546 = 8'h22 == io_addra ? io_dina : mem_34; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_547 = 8'h23 == io_addra ? io_dina : mem_35; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_548 = 8'h24 == io_addra ? io_dina : mem_36; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_549 = 8'h25 == io_addra ? io_dina : mem_37; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_550 = 8'h26 == io_addra ? io_dina : mem_38; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_551 = 8'h27 == io_addra ? io_dina : mem_39; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_552 = 8'h28 == io_addra ? io_dina : mem_40; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_553 = 8'h29 == io_addra ? io_dina : mem_41; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_554 = 8'h2a == io_addra ? io_dina : mem_42; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_555 = 8'h2b == io_addra ? io_dina : mem_43; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_556 = 8'h2c == io_addra ? io_dina : mem_44; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_557 = 8'h2d == io_addra ? io_dina : mem_45; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_558 = 8'h2e == io_addra ? io_dina : mem_46; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_559 = 8'h2f == io_addra ? io_dina : mem_47; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_560 = 8'h30 == io_addra ? io_dina : mem_48; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_561 = 8'h31 == io_addra ? io_dina : mem_49; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_562 = 8'h32 == io_addra ? io_dina : mem_50; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_563 = 8'h33 == io_addra ? io_dina : mem_51; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_564 = 8'h34 == io_addra ? io_dina : mem_52; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_565 = 8'h35 == io_addra ? io_dina : mem_53; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_566 = 8'h36 == io_addra ? io_dina : mem_54; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_567 = 8'h37 == io_addra ? io_dina : mem_55; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_568 = 8'h38 == io_addra ? io_dina : mem_56; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_569 = 8'h39 == io_addra ? io_dina : mem_57; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_570 = 8'h3a == io_addra ? io_dina : mem_58; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_571 = 8'h3b == io_addra ? io_dina : mem_59; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_572 = 8'h3c == io_addra ? io_dina : mem_60; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_573 = 8'h3d == io_addra ? io_dina : mem_61; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_574 = 8'h3e == io_addra ? io_dina : mem_62; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_575 = 8'h3f == io_addra ? io_dina : mem_63; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_576 = 8'h40 == io_addra ? io_dina : mem_64; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_577 = 8'h41 == io_addra ? io_dina : mem_65; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_578 = 8'h42 == io_addra ? io_dina : mem_66; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_579 = 8'h43 == io_addra ? io_dina : mem_67; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_580 = 8'h44 == io_addra ? io_dina : mem_68; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_581 = 8'h45 == io_addra ? io_dina : mem_69; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_582 = 8'h46 == io_addra ? io_dina : mem_70; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_583 = 8'h47 == io_addra ? io_dina : mem_71; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_584 = 8'h48 == io_addra ? io_dina : mem_72; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_585 = 8'h49 == io_addra ? io_dina : mem_73; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_586 = 8'h4a == io_addra ? io_dina : mem_74; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_587 = 8'h4b == io_addra ? io_dina : mem_75; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_588 = 8'h4c == io_addra ? io_dina : mem_76; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_589 = 8'h4d == io_addra ? io_dina : mem_77; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_590 = 8'h4e == io_addra ? io_dina : mem_78; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_591 = 8'h4f == io_addra ? io_dina : mem_79; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_592 = 8'h50 == io_addra ? io_dina : mem_80; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_593 = 8'h51 == io_addra ? io_dina : mem_81; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_594 = 8'h52 == io_addra ? io_dina : mem_82; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_595 = 8'h53 == io_addra ? io_dina : mem_83; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_596 = 8'h54 == io_addra ? io_dina : mem_84; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_597 = 8'h55 == io_addra ? io_dina : mem_85; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_598 = 8'h56 == io_addra ? io_dina : mem_86; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_599 = 8'h57 == io_addra ? io_dina : mem_87; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_600 = 8'h58 == io_addra ? io_dina : mem_88; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_601 = 8'h59 == io_addra ? io_dina : mem_89; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_602 = 8'h5a == io_addra ? io_dina : mem_90; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_603 = 8'h5b == io_addra ? io_dina : mem_91; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_604 = 8'h5c == io_addra ? io_dina : mem_92; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_605 = 8'h5d == io_addra ? io_dina : mem_93; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_606 = 8'h5e == io_addra ? io_dina : mem_94; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_607 = 8'h5f == io_addra ? io_dina : mem_95; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_608 = 8'h60 == io_addra ? io_dina : mem_96; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_609 = 8'h61 == io_addra ? io_dina : mem_97; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_610 = 8'h62 == io_addra ? io_dina : mem_98; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_611 = 8'h63 == io_addra ? io_dina : mem_99; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_612 = 8'h64 == io_addra ? io_dina : mem_100; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_613 = 8'h65 == io_addra ? io_dina : mem_101; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_614 = 8'h66 == io_addra ? io_dina : mem_102; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_615 = 8'h67 == io_addra ? io_dina : mem_103; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_616 = 8'h68 == io_addra ? io_dina : mem_104; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_617 = 8'h69 == io_addra ? io_dina : mem_105; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_618 = 8'h6a == io_addra ? io_dina : mem_106; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_619 = 8'h6b == io_addra ? io_dina : mem_107; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_620 = 8'h6c == io_addra ? io_dina : mem_108; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_621 = 8'h6d == io_addra ? io_dina : mem_109; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_622 = 8'h6e == io_addra ? io_dina : mem_110; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_623 = 8'h6f == io_addra ? io_dina : mem_111; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_624 = 8'h70 == io_addra ? io_dina : mem_112; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_625 = 8'h71 == io_addra ? io_dina : mem_113; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_626 = 8'h72 == io_addra ? io_dina : mem_114; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_627 = 8'h73 == io_addra ? io_dina : mem_115; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_628 = 8'h74 == io_addra ? io_dina : mem_116; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_629 = 8'h75 == io_addra ? io_dina : mem_117; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_630 = 8'h76 == io_addra ? io_dina : mem_118; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_631 = 8'h77 == io_addra ? io_dina : mem_119; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_632 = 8'h78 == io_addra ? io_dina : mem_120; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_633 = 8'h79 == io_addra ? io_dina : mem_121; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_634 = 8'h7a == io_addra ? io_dina : mem_122; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_635 = 8'h7b == io_addra ? io_dina : mem_123; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_636 = 8'h7c == io_addra ? io_dina : mem_124; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_637 = 8'h7d == io_addra ? io_dina : mem_125; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_638 = 8'h7e == io_addra ? io_dina : mem_126; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_639 = 8'h7f == io_addra ? io_dina : mem_127; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_640 = 8'h80 == io_addra ? io_dina : mem_128; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_641 = 8'h81 == io_addra ? io_dina : mem_129; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_642 = 8'h82 == io_addra ? io_dina : mem_130; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_643 = 8'h83 == io_addra ? io_dina : mem_131; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_644 = 8'h84 == io_addra ? io_dina : mem_132; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_645 = 8'h85 == io_addra ? io_dina : mem_133; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_646 = 8'h86 == io_addra ? io_dina : mem_134; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_647 = 8'h87 == io_addra ? io_dina : mem_135; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_648 = 8'h88 == io_addra ? io_dina : mem_136; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_649 = 8'h89 == io_addra ? io_dina : mem_137; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_650 = 8'h8a == io_addra ? io_dina : mem_138; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_651 = 8'h8b == io_addra ? io_dina : mem_139; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_652 = 8'h8c == io_addra ? io_dina : mem_140; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_653 = 8'h8d == io_addra ? io_dina : mem_141; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_654 = 8'h8e == io_addra ? io_dina : mem_142; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_655 = 8'h8f == io_addra ? io_dina : mem_143; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_656 = 8'h90 == io_addra ? io_dina : mem_144; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_657 = 8'h91 == io_addra ? io_dina : mem_145; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_658 = 8'h92 == io_addra ? io_dina : mem_146; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_659 = 8'h93 == io_addra ? io_dina : mem_147; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_660 = 8'h94 == io_addra ? io_dina : mem_148; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_661 = 8'h95 == io_addra ? io_dina : mem_149; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_662 = 8'h96 == io_addra ? io_dina : mem_150; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_663 = 8'h97 == io_addra ? io_dina : mem_151; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_664 = 8'h98 == io_addra ? io_dina : mem_152; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_665 = 8'h99 == io_addra ? io_dina : mem_153; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_666 = 8'h9a == io_addra ? io_dina : mem_154; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_667 = 8'h9b == io_addra ? io_dina : mem_155; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_668 = 8'h9c == io_addra ? io_dina : mem_156; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_669 = 8'h9d == io_addra ? io_dina : mem_157; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_670 = 8'h9e == io_addra ? io_dina : mem_158; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_671 = 8'h9f == io_addra ? io_dina : mem_159; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_672 = 8'ha0 == io_addra ? io_dina : mem_160; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_673 = 8'ha1 == io_addra ? io_dina : mem_161; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_674 = 8'ha2 == io_addra ? io_dina : mem_162; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_675 = 8'ha3 == io_addra ? io_dina : mem_163; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_676 = 8'ha4 == io_addra ? io_dina : mem_164; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_677 = 8'ha5 == io_addra ? io_dina : mem_165; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_678 = 8'ha6 == io_addra ? io_dina : mem_166; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_679 = 8'ha7 == io_addra ? io_dina : mem_167; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_680 = 8'ha8 == io_addra ? io_dina : mem_168; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_681 = 8'ha9 == io_addra ? io_dina : mem_169; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_682 = 8'haa == io_addra ? io_dina : mem_170; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_683 = 8'hab == io_addra ? io_dina : mem_171; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_684 = 8'hac == io_addra ? io_dina : mem_172; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_685 = 8'had == io_addra ? io_dina : mem_173; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_686 = 8'hae == io_addra ? io_dina : mem_174; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_687 = 8'haf == io_addra ? io_dina : mem_175; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_688 = 8'hb0 == io_addra ? io_dina : mem_176; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_689 = 8'hb1 == io_addra ? io_dina : mem_177; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_690 = 8'hb2 == io_addra ? io_dina : mem_178; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_691 = 8'hb3 == io_addra ? io_dina : mem_179; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_692 = 8'hb4 == io_addra ? io_dina : mem_180; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_693 = 8'hb5 == io_addra ? io_dina : mem_181; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_694 = 8'hb6 == io_addra ? io_dina : mem_182; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_695 = 8'hb7 == io_addra ? io_dina : mem_183; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_696 = 8'hb8 == io_addra ? io_dina : mem_184; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_697 = 8'hb9 == io_addra ? io_dina : mem_185; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_698 = 8'hba == io_addra ? io_dina : mem_186; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_699 = 8'hbb == io_addra ? io_dina : mem_187; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_700 = 8'hbc == io_addra ? io_dina : mem_188; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_701 = 8'hbd == io_addra ? io_dina : mem_189; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_702 = 8'hbe == io_addra ? io_dina : mem_190; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_703 = 8'hbf == io_addra ? io_dina : mem_191; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_704 = 8'hc0 == io_addra ? io_dina : mem_192; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_705 = 8'hc1 == io_addra ? io_dina : mem_193; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_706 = 8'hc2 == io_addra ? io_dina : mem_194; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_707 = 8'hc3 == io_addra ? io_dina : mem_195; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_708 = 8'hc4 == io_addra ? io_dina : mem_196; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_709 = 8'hc5 == io_addra ? io_dina : mem_197; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_710 = 8'hc6 == io_addra ? io_dina : mem_198; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_711 = 8'hc7 == io_addra ? io_dina : mem_199; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_712 = 8'hc8 == io_addra ? io_dina : mem_200; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_713 = 8'hc9 == io_addra ? io_dina : mem_201; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_714 = 8'hca == io_addra ? io_dina : mem_202; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_715 = 8'hcb == io_addra ? io_dina : mem_203; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_716 = 8'hcc == io_addra ? io_dina : mem_204; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_717 = 8'hcd == io_addra ? io_dina : mem_205; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_718 = 8'hce == io_addra ? io_dina : mem_206; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_719 = 8'hcf == io_addra ? io_dina : mem_207; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_720 = 8'hd0 == io_addra ? io_dina : mem_208; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_721 = 8'hd1 == io_addra ? io_dina : mem_209; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_722 = 8'hd2 == io_addra ? io_dina : mem_210; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_723 = 8'hd3 == io_addra ? io_dina : mem_211; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_724 = 8'hd4 == io_addra ? io_dina : mem_212; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_725 = 8'hd5 == io_addra ? io_dina : mem_213; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_726 = 8'hd6 == io_addra ? io_dina : mem_214; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_727 = 8'hd7 == io_addra ? io_dina : mem_215; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_728 = 8'hd8 == io_addra ? io_dina : mem_216; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_729 = 8'hd9 == io_addra ? io_dina : mem_217; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_730 = 8'hda == io_addra ? io_dina : mem_218; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_731 = 8'hdb == io_addra ? io_dina : mem_219; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_732 = 8'hdc == io_addra ? io_dina : mem_220; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_733 = 8'hdd == io_addra ? io_dina : mem_221; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_734 = 8'hde == io_addra ? io_dina : mem_222; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_735 = 8'hdf == io_addra ? io_dina : mem_223; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_736 = 8'he0 == io_addra ? io_dina : mem_224; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_737 = 8'he1 == io_addra ? io_dina : mem_225; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_738 = 8'he2 == io_addra ? io_dina : mem_226; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_739 = 8'he3 == io_addra ? io_dina : mem_227; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_740 = 8'he4 == io_addra ? io_dina : mem_228; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_741 = 8'he5 == io_addra ? io_dina : mem_229; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_742 = 8'he6 == io_addra ? io_dina : mem_230; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_743 = 8'he7 == io_addra ? io_dina : mem_231; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_744 = 8'he8 == io_addra ? io_dina : mem_232; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_745 = 8'he9 == io_addra ? io_dina : mem_233; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_746 = 8'hea == io_addra ? io_dina : mem_234; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_747 = 8'heb == io_addra ? io_dina : mem_235; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_748 = 8'hec == io_addra ? io_dina : mem_236; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_749 = 8'hed == io_addra ? io_dina : mem_237; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_750 = 8'hee == io_addra ? io_dina : mem_238; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_751 = 8'hef == io_addra ? io_dina : mem_239; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_752 = 8'hf0 == io_addra ? io_dina : mem_240; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_753 = 8'hf1 == io_addra ? io_dina : mem_241; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_754 = 8'hf2 == io_addra ? io_dina : mem_242; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_755 = 8'hf3 == io_addra ? io_dina : mem_243; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_756 = 8'hf4 == io_addra ? io_dina : mem_244; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_757 = 8'hf5 == io_addra ? io_dina : mem_245; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_758 = 8'hf6 == io_addra ? io_dina : mem_246; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_759 = 8'hf7 == io_addra ? io_dina : mem_247; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_760 = 8'hf8 == io_addra ? io_dina : mem_248; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_761 = 8'hf9 == io_addra ? io_dina : mem_249; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_762 = 8'hfa == io_addra ? io_dina : mem_250; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_763 = 8'hfb == io_addra ? io_dina : mem_251; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_764 = 8'hfc == io_addra ? io_dina : mem_252; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_765 = 8'hfd == io_addra ? io_dina : mem_253; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_766 = 8'hfe == io_addra ? io_dina : mem_254; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_767 = 8'hff == io_addra ? io_dina : mem_255; // @[RAMWrapper.scala 47:19 RAMWrapper.scala 47:19 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_768 = io_wea ? _GEN_512 : mem_0; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_769 = io_wea ? _GEN_513 : mem_1; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_770 = io_wea ? _GEN_514 : mem_2; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_771 = io_wea ? _GEN_515 : mem_3; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_772 = io_wea ? _GEN_516 : mem_4; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_773 = io_wea ? _GEN_517 : mem_5; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_774 = io_wea ? _GEN_518 : mem_6; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_775 = io_wea ? _GEN_519 : mem_7; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_776 = io_wea ? _GEN_520 : mem_8; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_777 = io_wea ? _GEN_521 : mem_9; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_778 = io_wea ? _GEN_522 : mem_10; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_779 = io_wea ? _GEN_523 : mem_11; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_780 = io_wea ? _GEN_524 : mem_12; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_781 = io_wea ? _GEN_525 : mem_13; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_782 = io_wea ? _GEN_526 : mem_14; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_783 = io_wea ? _GEN_527 : mem_15; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_784 = io_wea ? _GEN_528 : mem_16; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_785 = io_wea ? _GEN_529 : mem_17; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_786 = io_wea ? _GEN_530 : mem_18; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_787 = io_wea ? _GEN_531 : mem_19; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_788 = io_wea ? _GEN_532 : mem_20; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_789 = io_wea ? _GEN_533 : mem_21; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_790 = io_wea ? _GEN_534 : mem_22; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_791 = io_wea ? _GEN_535 : mem_23; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_792 = io_wea ? _GEN_536 : mem_24; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_793 = io_wea ? _GEN_537 : mem_25; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_794 = io_wea ? _GEN_538 : mem_26; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_795 = io_wea ? _GEN_539 : mem_27; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_796 = io_wea ? _GEN_540 : mem_28; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_797 = io_wea ? _GEN_541 : mem_29; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_798 = io_wea ? _GEN_542 : mem_30; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_799 = io_wea ? _GEN_543 : mem_31; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_800 = io_wea ? _GEN_544 : mem_32; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_801 = io_wea ? _GEN_545 : mem_33; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_802 = io_wea ? _GEN_546 : mem_34; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_803 = io_wea ? _GEN_547 : mem_35; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_804 = io_wea ? _GEN_548 : mem_36; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_805 = io_wea ? _GEN_549 : mem_37; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_806 = io_wea ? _GEN_550 : mem_38; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_807 = io_wea ? _GEN_551 : mem_39; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_808 = io_wea ? _GEN_552 : mem_40; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_809 = io_wea ? _GEN_553 : mem_41; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_810 = io_wea ? _GEN_554 : mem_42; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_811 = io_wea ? _GEN_555 : mem_43; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_812 = io_wea ? _GEN_556 : mem_44; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_813 = io_wea ? _GEN_557 : mem_45; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_814 = io_wea ? _GEN_558 : mem_46; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_815 = io_wea ? _GEN_559 : mem_47; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_816 = io_wea ? _GEN_560 : mem_48; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_817 = io_wea ? _GEN_561 : mem_49; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_818 = io_wea ? _GEN_562 : mem_50; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_819 = io_wea ? _GEN_563 : mem_51; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_820 = io_wea ? _GEN_564 : mem_52; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_821 = io_wea ? _GEN_565 : mem_53; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_822 = io_wea ? _GEN_566 : mem_54; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_823 = io_wea ? _GEN_567 : mem_55; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_824 = io_wea ? _GEN_568 : mem_56; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_825 = io_wea ? _GEN_569 : mem_57; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_826 = io_wea ? _GEN_570 : mem_58; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_827 = io_wea ? _GEN_571 : mem_59; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_828 = io_wea ? _GEN_572 : mem_60; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_829 = io_wea ? _GEN_573 : mem_61; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_830 = io_wea ? _GEN_574 : mem_62; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_831 = io_wea ? _GEN_575 : mem_63; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_832 = io_wea ? _GEN_576 : mem_64; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_833 = io_wea ? _GEN_577 : mem_65; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_834 = io_wea ? _GEN_578 : mem_66; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_835 = io_wea ? _GEN_579 : mem_67; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_836 = io_wea ? _GEN_580 : mem_68; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_837 = io_wea ? _GEN_581 : mem_69; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_838 = io_wea ? _GEN_582 : mem_70; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_839 = io_wea ? _GEN_583 : mem_71; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_840 = io_wea ? _GEN_584 : mem_72; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_841 = io_wea ? _GEN_585 : mem_73; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_842 = io_wea ? _GEN_586 : mem_74; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_843 = io_wea ? _GEN_587 : mem_75; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_844 = io_wea ? _GEN_588 : mem_76; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_845 = io_wea ? _GEN_589 : mem_77; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_846 = io_wea ? _GEN_590 : mem_78; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_847 = io_wea ? _GEN_591 : mem_79; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_848 = io_wea ? _GEN_592 : mem_80; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_849 = io_wea ? _GEN_593 : mem_81; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_850 = io_wea ? _GEN_594 : mem_82; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_851 = io_wea ? _GEN_595 : mem_83; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_852 = io_wea ? _GEN_596 : mem_84; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_853 = io_wea ? _GEN_597 : mem_85; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_854 = io_wea ? _GEN_598 : mem_86; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_855 = io_wea ? _GEN_599 : mem_87; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_856 = io_wea ? _GEN_600 : mem_88; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_857 = io_wea ? _GEN_601 : mem_89; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_858 = io_wea ? _GEN_602 : mem_90; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_859 = io_wea ? _GEN_603 : mem_91; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_860 = io_wea ? _GEN_604 : mem_92; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_861 = io_wea ? _GEN_605 : mem_93; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_862 = io_wea ? _GEN_606 : mem_94; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_863 = io_wea ? _GEN_607 : mem_95; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_864 = io_wea ? _GEN_608 : mem_96; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_865 = io_wea ? _GEN_609 : mem_97; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_866 = io_wea ? _GEN_610 : mem_98; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_867 = io_wea ? _GEN_611 : mem_99; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_868 = io_wea ? _GEN_612 : mem_100; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_869 = io_wea ? _GEN_613 : mem_101; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_870 = io_wea ? _GEN_614 : mem_102; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_871 = io_wea ? _GEN_615 : mem_103; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_872 = io_wea ? _GEN_616 : mem_104; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_873 = io_wea ? _GEN_617 : mem_105; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_874 = io_wea ? _GEN_618 : mem_106; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_875 = io_wea ? _GEN_619 : mem_107; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_876 = io_wea ? _GEN_620 : mem_108; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_877 = io_wea ? _GEN_621 : mem_109; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_878 = io_wea ? _GEN_622 : mem_110; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_879 = io_wea ? _GEN_623 : mem_111; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_880 = io_wea ? _GEN_624 : mem_112; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_881 = io_wea ? _GEN_625 : mem_113; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_882 = io_wea ? _GEN_626 : mem_114; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_883 = io_wea ? _GEN_627 : mem_115; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_884 = io_wea ? _GEN_628 : mem_116; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_885 = io_wea ? _GEN_629 : mem_117; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_886 = io_wea ? _GEN_630 : mem_118; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_887 = io_wea ? _GEN_631 : mem_119; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_888 = io_wea ? _GEN_632 : mem_120; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_889 = io_wea ? _GEN_633 : mem_121; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_890 = io_wea ? _GEN_634 : mem_122; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_891 = io_wea ? _GEN_635 : mem_123; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_892 = io_wea ? _GEN_636 : mem_124; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_893 = io_wea ? _GEN_637 : mem_125; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_894 = io_wea ? _GEN_638 : mem_126; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_895 = io_wea ? _GEN_639 : mem_127; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_896 = io_wea ? _GEN_640 : mem_128; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_897 = io_wea ? _GEN_641 : mem_129; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_898 = io_wea ? _GEN_642 : mem_130; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_899 = io_wea ? _GEN_643 : mem_131; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_900 = io_wea ? _GEN_644 : mem_132; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_901 = io_wea ? _GEN_645 : mem_133; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_902 = io_wea ? _GEN_646 : mem_134; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_903 = io_wea ? _GEN_647 : mem_135; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_904 = io_wea ? _GEN_648 : mem_136; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_905 = io_wea ? _GEN_649 : mem_137; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_906 = io_wea ? _GEN_650 : mem_138; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_907 = io_wea ? _GEN_651 : mem_139; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_908 = io_wea ? _GEN_652 : mem_140; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_909 = io_wea ? _GEN_653 : mem_141; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_910 = io_wea ? _GEN_654 : mem_142; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_911 = io_wea ? _GEN_655 : mem_143; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_912 = io_wea ? _GEN_656 : mem_144; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_913 = io_wea ? _GEN_657 : mem_145; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_914 = io_wea ? _GEN_658 : mem_146; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_915 = io_wea ? _GEN_659 : mem_147; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_916 = io_wea ? _GEN_660 : mem_148; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_917 = io_wea ? _GEN_661 : mem_149; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_918 = io_wea ? _GEN_662 : mem_150; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_919 = io_wea ? _GEN_663 : mem_151; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_920 = io_wea ? _GEN_664 : mem_152; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_921 = io_wea ? _GEN_665 : mem_153; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_922 = io_wea ? _GEN_666 : mem_154; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_923 = io_wea ? _GEN_667 : mem_155; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_924 = io_wea ? _GEN_668 : mem_156; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_925 = io_wea ? _GEN_669 : mem_157; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_926 = io_wea ? _GEN_670 : mem_158; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_927 = io_wea ? _GEN_671 : mem_159; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_928 = io_wea ? _GEN_672 : mem_160; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_929 = io_wea ? _GEN_673 : mem_161; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_930 = io_wea ? _GEN_674 : mem_162; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_931 = io_wea ? _GEN_675 : mem_163; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_932 = io_wea ? _GEN_676 : mem_164; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_933 = io_wea ? _GEN_677 : mem_165; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_934 = io_wea ? _GEN_678 : mem_166; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_935 = io_wea ? _GEN_679 : mem_167; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_936 = io_wea ? _GEN_680 : mem_168; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_937 = io_wea ? _GEN_681 : mem_169; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_938 = io_wea ? _GEN_682 : mem_170; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_939 = io_wea ? _GEN_683 : mem_171; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_940 = io_wea ? _GEN_684 : mem_172; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_941 = io_wea ? _GEN_685 : mem_173; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_942 = io_wea ? _GEN_686 : mem_174; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_943 = io_wea ? _GEN_687 : mem_175; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_944 = io_wea ? _GEN_688 : mem_176; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_945 = io_wea ? _GEN_689 : mem_177; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_946 = io_wea ? _GEN_690 : mem_178; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_947 = io_wea ? _GEN_691 : mem_179; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_948 = io_wea ? _GEN_692 : mem_180; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_949 = io_wea ? _GEN_693 : mem_181; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_950 = io_wea ? _GEN_694 : mem_182; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_951 = io_wea ? _GEN_695 : mem_183; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_952 = io_wea ? _GEN_696 : mem_184; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_953 = io_wea ? _GEN_697 : mem_185; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_954 = io_wea ? _GEN_698 : mem_186; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_955 = io_wea ? _GEN_699 : mem_187; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_956 = io_wea ? _GEN_700 : mem_188; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_957 = io_wea ? _GEN_701 : mem_189; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_958 = io_wea ? _GEN_702 : mem_190; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_959 = io_wea ? _GEN_703 : mem_191; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_960 = io_wea ? _GEN_704 : mem_192; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_961 = io_wea ? _GEN_705 : mem_193; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_962 = io_wea ? _GEN_706 : mem_194; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_963 = io_wea ? _GEN_707 : mem_195; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_964 = io_wea ? _GEN_708 : mem_196; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_965 = io_wea ? _GEN_709 : mem_197; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_966 = io_wea ? _GEN_710 : mem_198; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_967 = io_wea ? _GEN_711 : mem_199; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_968 = io_wea ? _GEN_712 : mem_200; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_969 = io_wea ? _GEN_713 : mem_201; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_970 = io_wea ? _GEN_714 : mem_202; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_971 = io_wea ? _GEN_715 : mem_203; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_972 = io_wea ? _GEN_716 : mem_204; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_973 = io_wea ? _GEN_717 : mem_205; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_974 = io_wea ? _GEN_718 : mem_206; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_975 = io_wea ? _GEN_719 : mem_207; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_976 = io_wea ? _GEN_720 : mem_208; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_977 = io_wea ? _GEN_721 : mem_209; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_978 = io_wea ? _GEN_722 : mem_210; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_979 = io_wea ? _GEN_723 : mem_211; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_980 = io_wea ? _GEN_724 : mem_212; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_981 = io_wea ? _GEN_725 : mem_213; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_982 = io_wea ? _GEN_726 : mem_214; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_983 = io_wea ? _GEN_727 : mem_215; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_984 = io_wea ? _GEN_728 : mem_216; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_985 = io_wea ? _GEN_729 : mem_217; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_986 = io_wea ? _GEN_730 : mem_218; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_987 = io_wea ? _GEN_731 : mem_219; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_988 = io_wea ? _GEN_732 : mem_220; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_989 = io_wea ? _GEN_733 : mem_221; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_990 = io_wea ? _GEN_734 : mem_222; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_991 = io_wea ? _GEN_735 : mem_223; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_992 = io_wea ? _GEN_736 : mem_224; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_993 = io_wea ? _GEN_737 : mem_225; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_994 = io_wea ? _GEN_738 : mem_226; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_995 = io_wea ? _GEN_739 : mem_227; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_996 = io_wea ? _GEN_740 : mem_228; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_997 = io_wea ? _GEN_741 : mem_229; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_998 = io_wea ? _GEN_742 : mem_230; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_999 = io_wea ? _GEN_743 : mem_231; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1000 = io_wea ? _GEN_744 : mem_232; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1001 = io_wea ? _GEN_745 : mem_233; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1002 = io_wea ? _GEN_746 : mem_234; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1003 = io_wea ? _GEN_747 : mem_235; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1004 = io_wea ? _GEN_748 : mem_236; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1005 = io_wea ? _GEN_749 : mem_237; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1006 = io_wea ? _GEN_750 : mem_238; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1007 = io_wea ? _GEN_751 : mem_239; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1008 = io_wea ? _GEN_752 : mem_240; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1009 = io_wea ? _GEN_753 : mem_241; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1010 = io_wea ? _GEN_754 : mem_242; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1011 = io_wea ? _GEN_755 : mem_243; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1012 = io_wea ? _GEN_756 : mem_244; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1013 = io_wea ? _GEN_757 : mem_245; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1014 = io_wea ? _GEN_758 : mem_246; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1015 = io_wea ? _GEN_759 : mem_247; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1016 = io_wea ? _GEN_760 : mem_248; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1017 = io_wea ? _GEN_761 : mem_249; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1018 = io_wea ? _GEN_762 : mem_250; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1019 = io_wea ? _GEN_763 : mem_251; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1020 = io_wea ? _GEN_764 : mem_252; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1021 = io_wea ? _GEN_765 : mem_253; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1022 = io_wea ? _GEN_766 : mem_254; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
+  wire [1:0] _GEN_1023 = io_wea ? _GEN_767 : mem_255; // @[RAMWrapper.scala 46:16 RAMWrapper.scala 41:20]
   assign io_douta = io_douta_REG; // @[RAMWrapper.scala 43:12]
   assign io_doutb = io_doutb_REG; // @[RAMWrapper.scala 44:12]
   always @(posedge clock) begin
@@ -1036,1792 +1550,2816 @@ module SimDualPortBRAM(
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_0 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_0 <= _GEN_768;
       end
+    end else begin
+      mem_0 <= _GEN_768;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_1 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_1 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_1 <= _GEN_769;
       end
+    end else begin
+      mem_1 <= _GEN_769;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_2 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_2 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_2 <= _GEN_770;
       end
+    end else begin
+      mem_2 <= _GEN_770;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_3 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_3 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_3 <= _GEN_771;
       end
+    end else begin
+      mem_3 <= _GEN_771;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_4 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_4 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_4 <= _GEN_772;
       end
+    end else begin
+      mem_4 <= _GEN_772;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_5 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_5 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_5 <= _GEN_773;
       end
+    end else begin
+      mem_5 <= _GEN_773;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_6 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_6 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_6 <= _GEN_774;
       end
+    end else begin
+      mem_6 <= _GEN_774;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_7 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_7 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_7 <= _GEN_775;
       end
+    end else begin
+      mem_7 <= _GEN_775;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_8 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_8 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_8 <= _GEN_776;
       end
+    end else begin
+      mem_8 <= _GEN_776;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_9 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_9 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_9 <= _GEN_777;
       end
+    end else begin
+      mem_9 <= _GEN_777;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_10 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_10 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_10 <= _GEN_778;
       end
+    end else begin
+      mem_10 <= _GEN_778;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_11 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_11 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_11 <= _GEN_779;
       end
+    end else begin
+      mem_11 <= _GEN_779;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_12 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_12 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_12 <= _GEN_780;
       end
+    end else begin
+      mem_12 <= _GEN_780;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_13 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_13 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_13 <= _GEN_781;
       end
+    end else begin
+      mem_13 <= _GEN_781;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_14 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_14 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_14 <= _GEN_782;
       end
+    end else begin
+      mem_14 <= _GEN_782;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_15 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_15 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_15 <= _GEN_783;
       end
+    end else begin
+      mem_15 <= _GEN_783;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_16 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h10 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_16 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_16 <= _GEN_784;
       end
+    end else begin
+      mem_16 <= _GEN_784;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_17 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h11 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_17 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_17 <= _GEN_785;
       end
+    end else begin
+      mem_17 <= _GEN_785;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_18 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h12 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_18 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_18 <= _GEN_786;
       end
+    end else begin
+      mem_18 <= _GEN_786;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_19 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h13 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_19 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_19 <= _GEN_787;
       end
+    end else begin
+      mem_19 <= _GEN_787;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_20 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h14 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_20 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_20 <= _GEN_788;
       end
+    end else begin
+      mem_20 <= _GEN_788;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_21 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h15 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_21 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_21 <= _GEN_789;
       end
+    end else begin
+      mem_21 <= _GEN_789;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_22 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h16 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_22 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_22 <= _GEN_790;
       end
+    end else begin
+      mem_22 <= _GEN_790;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_23 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h17 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_23 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_23 <= _GEN_791;
       end
+    end else begin
+      mem_23 <= _GEN_791;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_24 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h18 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_24 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_24 <= _GEN_792;
       end
+    end else begin
+      mem_24 <= _GEN_792;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_25 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h19 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_25 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_25 <= _GEN_793;
       end
+    end else begin
+      mem_25 <= _GEN_793;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_26 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_26 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_26 <= _GEN_794;
       end
+    end else begin
+      mem_26 <= _GEN_794;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_27 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_27 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_27 <= _GEN_795;
       end
+    end else begin
+      mem_27 <= _GEN_795;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_28 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_28 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_28 <= _GEN_796;
       end
+    end else begin
+      mem_28 <= _GEN_796;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_29 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_29 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_29 <= _GEN_797;
       end
+    end else begin
+      mem_29 <= _GEN_797;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_30 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_30 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_30 <= _GEN_798;
       end
+    end else begin
+      mem_30 <= _GEN_798;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_31 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h1f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_31 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_31 <= _GEN_799;
       end
+    end else begin
+      mem_31 <= _GEN_799;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_32 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h20 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_32 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_32 <= _GEN_800;
       end
+    end else begin
+      mem_32 <= _GEN_800;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_33 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h21 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_33 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_33 <= _GEN_801;
       end
+    end else begin
+      mem_33 <= _GEN_801;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_34 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h22 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_34 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_34 <= _GEN_802;
       end
+    end else begin
+      mem_34 <= _GEN_802;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_35 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h23 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_35 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_35 <= _GEN_803;
       end
+    end else begin
+      mem_35 <= _GEN_803;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_36 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h24 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_36 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_36 <= _GEN_804;
       end
+    end else begin
+      mem_36 <= _GEN_804;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_37 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h25 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_37 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_37 <= _GEN_805;
       end
+    end else begin
+      mem_37 <= _GEN_805;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_38 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h26 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_38 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_38 <= _GEN_806;
       end
+    end else begin
+      mem_38 <= _GEN_806;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_39 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h27 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_39 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_39 <= _GEN_807;
       end
+    end else begin
+      mem_39 <= _GEN_807;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_40 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h28 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_40 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_40 <= _GEN_808;
       end
+    end else begin
+      mem_40 <= _GEN_808;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_41 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h29 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_41 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_41 <= _GEN_809;
       end
+    end else begin
+      mem_41 <= _GEN_809;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_42 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_42 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_42 <= _GEN_810;
       end
+    end else begin
+      mem_42 <= _GEN_810;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_43 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_43 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_43 <= _GEN_811;
       end
+    end else begin
+      mem_43 <= _GEN_811;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_44 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_44 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_44 <= _GEN_812;
       end
+    end else begin
+      mem_44 <= _GEN_812;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_45 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_45 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_45 <= _GEN_813;
       end
+    end else begin
+      mem_45 <= _GEN_813;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_46 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_46 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_46 <= _GEN_814;
       end
+    end else begin
+      mem_46 <= _GEN_814;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_47 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h2f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_47 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_47 <= _GEN_815;
       end
+    end else begin
+      mem_47 <= _GEN_815;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_48 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h30 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_48 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_48 <= _GEN_816;
       end
+    end else begin
+      mem_48 <= _GEN_816;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_49 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h31 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_49 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_49 <= _GEN_817;
       end
+    end else begin
+      mem_49 <= _GEN_817;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_50 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h32 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_50 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_50 <= _GEN_818;
       end
+    end else begin
+      mem_50 <= _GEN_818;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_51 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h33 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_51 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_51 <= _GEN_819;
       end
+    end else begin
+      mem_51 <= _GEN_819;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_52 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h34 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_52 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_52 <= _GEN_820;
       end
+    end else begin
+      mem_52 <= _GEN_820;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_53 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h35 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_53 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_53 <= _GEN_821;
       end
+    end else begin
+      mem_53 <= _GEN_821;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_54 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h36 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_54 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_54 <= _GEN_822;
       end
+    end else begin
+      mem_54 <= _GEN_822;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_55 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h37 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_55 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_55 <= _GEN_823;
       end
+    end else begin
+      mem_55 <= _GEN_823;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_56 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h38 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_56 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_56 <= _GEN_824;
       end
+    end else begin
+      mem_56 <= _GEN_824;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_57 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h39 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_57 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_57 <= _GEN_825;
       end
+    end else begin
+      mem_57 <= _GEN_825;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_58 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_58 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_58 <= _GEN_826;
       end
+    end else begin
+      mem_58 <= _GEN_826;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_59 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_59 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_59 <= _GEN_827;
       end
+    end else begin
+      mem_59 <= _GEN_827;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_60 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_60 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_60 <= _GEN_828;
       end
+    end else begin
+      mem_60 <= _GEN_828;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_61 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_61 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_61 <= _GEN_829;
       end
+    end else begin
+      mem_61 <= _GEN_829;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_62 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_62 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_62 <= _GEN_830;
       end
+    end else begin
+      mem_62 <= _GEN_830;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_63 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h3f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_63 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_63 <= _GEN_831;
       end
+    end else begin
+      mem_63 <= _GEN_831;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_64 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h40 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_64 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_64 <= _GEN_832;
       end
+    end else begin
+      mem_64 <= _GEN_832;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_65 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h41 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_65 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_65 <= _GEN_833;
       end
+    end else begin
+      mem_65 <= _GEN_833;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_66 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h42 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_66 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_66 <= _GEN_834;
       end
+    end else begin
+      mem_66 <= _GEN_834;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_67 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h43 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_67 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_67 <= _GEN_835;
       end
+    end else begin
+      mem_67 <= _GEN_835;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_68 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h44 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_68 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_68 <= _GEN_836;
       end
+    end else begin
+      mem_68 <= _GEN_836;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_69 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h45 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_69 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_69 <= _GEN_837;
       end
+    end else begin
+      mem_69 <= _GEN_837;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_70 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h46 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_70 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_70 <= _GEN_838;
       end
+    end else begin
+      mem_70 <= _GEN_838;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_71 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h47 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_71 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_71 <= _GEN_839;
       end
+    end else begin
+      mem_71 <= _GEN_839;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_72 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h48 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_72 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_72 <= _GEN_840;
       end
+    end else begin
+      mem_72 <= _GEN_840;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_73 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h49 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_73 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_73 <= _GEN_841;
       end
+    end else begin
+      mem_73 <= _GEN_841;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_74 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_74 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_74 <= _GEN_842;
       end
+    end else begin
+      mem_74 <= _GEN_842;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_75 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_75 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_75 <= _GEN_843;
       end
+    end else begin
+      mem_75 <= _GEN_843;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_76 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_76 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_76 <= _GEN_844;
       end
+    end else begin
+      mem_76 <= _GEN_844;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_77 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_77 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_77 <= _GEN_845;
       end
+    end else begin
+      mem_77 <= _GEN_845;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_78 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_78 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_78 <= _GEN_846;
       end
+    end else begin
+      mem_78 <= _GEN_846;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_79 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h4f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_79 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_79 <= _GEN_847;
       end
+    end else begin
+      mem_79 <= _GEN_847;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_80 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h50 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_80 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_80 <= _GEN_848;
       end
+    end else begin
+      mem_80 <= _GEN_848;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_81 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h51 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_81 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_81 <= _GEN_849;
       end
+    end else begin
+      mem_81 <= _GEN_849;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_82 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h52 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_82 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_82 <= _GEN_850;
       end
+    end else begin
+      mem_82 <= _GEN_850;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_83 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h53 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_83 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_83 <= _GEN_851;
       end
+    end else begin
+      mem_83 <= _GEN_851;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_84 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h54 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_84 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_84 <= _GEN_852;
       end
+    end else begin
+      mem_84 <= _GEN_852;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_85 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h55 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_85 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_85 <= _GEN_853;
       end
+    end else begin
+      mem_85 <= _GEN_853;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_86 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h56 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_86 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_86 <= _GEN_854;
       end
+    end else begin
+      mem_86 <= _GEN_854;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_87 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h57 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_87 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_87 <= _GEN_855;
       end
+    end else begin
+      mem_87 <= _GEN_855;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_88 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h58 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_88 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_88 <= _GEN_856;
       end
+    end else begin
+      mem_88 <= _GEN_856;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_89 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h59 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_89 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_89 <= _GEN_857;
       end
+    end else begin
+      mem_89 <= _GEN_857;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_90 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_90 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_90 <= _GEN_858;
       end
+    end else begin
+      mem_90 <= _GEN_858;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_91 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_91 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_91 <= _GEN_859;
       end
+    end else begin
+      mem_91 <= _GEN_859;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_92 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_92 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_92 <= _GEN_860;
       end
+    end else begin
+      mem_92 <= _GEN_860;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_93 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_93 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_93 <= _GEN_861;
       end
+    end else begin
+      mem_93 <= _GEN_861;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_94 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_94 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_94 <= _GEN_862;
       end
+    end else begin
+      mem_94 <= _GEN_862;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_95 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h5f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_95 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_95 <= _GEN_863;
       end
+    end else begin
+      mem_95 <= _GEN_863;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_96 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h60 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_96 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_96 <= _GEN_864;
       end
+    end else begin
+      mem_96 <= _GEN_864;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_97 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h61 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_97 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_97 <= _GEN_865;
       end
+    end else begin
+      mem_97 <= _GEN_865;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_98 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h62 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_98 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_98 <= _GEN_866;
       end
+    end else begin
+      mem_98 <= _GEN_866;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_99 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h63 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_99 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_99 <= _GEN_867;
       end
+    end else begin
+      mem_99 <= _GEN_867;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_100 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h64 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_100 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_100 <= _GEN_868;
       end
+    end else begin
+      mem_100 <= _GEN_868;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_101 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h65 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_101 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_101 <= _GEN_869;
       end
+    end else begin
+      mem_101 <= _GEN_869;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_102 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h66 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_102 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_102 <= _GEN_870;
       end
+    end else begin
+      mem_102 <= _GEN_870;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_103 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h67 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_103 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_103 <= _GEN_871;
       end
+    end else begin
+      mem_103 <= _GEN_871;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_104 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h68 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_104 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_104 <= _GEN_872;
       end
+    end else begin
+      mem_104 <= _GEN_872;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_105 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h69 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_105 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_105 <= _GEN_873;
       end
+    end else begin
+      mem_105 <= _GEN_873;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_106 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_106 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_106 <= _GEN_874;
       end
+    end else begin
+      mem_106 <= _GEN_874;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_107 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_107 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_107 <= _GEN_875;
       end
+    end else begin
+      mem_107 <= _GEN_875;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_108 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_108 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_108 <= _GEN_876;
       end
+    end else begin
+      mem_108 <= _GEN_876;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_109 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_109 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_109 <= _GEN_877;
       end
+    end else begin
+      mem_109 <= _GEN_877;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_110 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_110 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_110 <= _GEN_878;
       end
+    end else begin
+      mem_110 <= _GEN_878;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_111 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h6f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_111 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_111 <= _GEN_879;
       end
+    end else begin
+      mem_111 <= _GEN_879;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_112 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h70 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_112 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_112 <= _GEN_880;
       end
+    end else begin
+      mem_112 <= _GEN_880;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_113 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h71 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_113 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_113 <= _GEN_881;
       end
+    end else begin
+      mem_113 <= _GEN_881;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_114 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h72 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_114 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_114 <= _GEN_882;
       end
+    end else begin
+      mem_114 <= _GEN_882;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_115 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h73 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_115 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_115 <= _GEN_883;
       end
+    end else begin
+      mem_115 <= _GEN_883;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_116 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h74 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_116 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_116 <= _GEN_884;
       end
+    end else begin
+      mem_116 <= _GEN_884;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_117 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h75 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_117 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_117 <= _GEN_885;
       end
+    end else begin
+      mem_117 <= _GEN_885;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_118 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h76 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_118 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_118 <= _GEN_886;
       end
+    end else begin
+      mem_118 <= _GEN_886;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_119 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h77 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_119 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_119 <= _GEN_887;
       end
+    end else begin
+      mem_119 <= _GEN_887;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_120 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h78 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_120 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_120 <= _GEN_888;
       end
+    end else begin
+      mem_120 <= _GEN_888;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_121 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h79 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_121 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_121 <= _GEN_889;
       end
+    end else begin
+      mem_121 <= _GEN_889;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_122 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_122 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_122 <= _GEN_890;
       end
+    end else begin
+      mem_122 <= _GEN_890;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_123 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_123 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_123 <= _GEN_891;
       end
+    end else begin
+      mem_123 <= _GEN_891;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_124 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_124 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_124 <= _GEN_892;
       end
+    end else begin
+      mem_124 <= _GEN_892;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_125 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_125 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_125 <= _GEN_893;
       end
+    end else begin
+      mem_125 <= _GEN_893;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_126 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_126 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_126 <= _GEN_894;
       end
+    end else begin
+      mem_126 <= _GEN_894;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_127 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h7f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_127 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_127 <= _GEN_895;
       end
+    end else begin
+      mem_127 <= _GEN_895;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_128 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h80 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_128 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_128 <= _GEN_896;
       end
+    end else begin
+      mem_128 <= _GEN_896;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_129 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h81 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_129 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_129 <= _GEN_897;
       end
+    end else begin
+      mem_129 <= _GEN_897;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_130 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h82 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_130 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_130 <= _GEN_898;
       end
+    end else begin
+      mem_130 <= _GEN_898;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_131 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h83 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_131 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_131 <= _GEN_899;
       end
+    end else begin
+      mem_131 <= _GEN_899;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_132 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h84 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_132 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_132 <= _GEN_900;
       end
+    end else begin
+      mem_132 <= _GEN_900;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_133 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h85 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_133 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_133 <= _GEN_901;
       end
+    end else begin
+      mem_133 <= _GEN_901;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_134 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h86 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_134 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_134 <= _GEN_902;
       end
+    end else begin
+      mem_134 <= _GEN_902;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_135 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h87 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_135 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_135 <= _GEN_903;
       end
+    end else begin
+      mem_135 <= _GEN_903;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_136 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h88 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_136 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_136 <= _GEN_904;
       end
+    end else begin
+      mem_136 <= _GEN_904;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_137 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h89 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_137 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_137 <= _GEN_905;
       end
+    end else begin
+      mem_137 <= _GEN_905;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_138 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_138 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_138 <= _GEN_906;
       end
+    end else begin
+      mem_138 <= _GEN_906;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_139 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_139 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_139 <= _GEN_907;
       end
+    end else begin
+      mem_139 <= _GEN_907;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_140 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_140 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_140 <= _GEN_908;
       end
+    end else begin
+      mem_140 <= _GEN_908;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_141 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_141 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_141 <= _GEN_909;
       end
+    end else begin
+      mem_141 <= _GEN_909;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_142 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_142 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_142 <= _GEN_910;
       end
+    end else begin
+      mem_142 <= _GEN_910;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_143 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h8f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_143 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_143 <= _GEN_911;
       end
+    end else begin
+      mem_143 <= _GEN_911;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_144 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h90 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_144 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_144 <= _GEN_912;
       end
+    end else begin
+      mem_144 <= _GEN_912;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_145 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h91 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_145 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_145 <= _GEN_913;
       end
+    end else begin
+      mem_145 <= _GEN_913;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_146 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h92 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_146 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_146 <= _GEN_914;
       end
+    end else begin
+      mem_146 <= _GEN_914;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_147 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h93 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_147 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_147 <= _GEN_915;
       end
+    end else begin
+      mem_147 <= _GEN_915;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_148 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h94 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_148 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_148 <= _GEN_916;
       end
+    end else begin
+      mem_148 <= _GEN_916;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_149 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h95 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_149 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_149 <= _GEN_917;
       end
+    end else begin
+      mem_149 <= _GEN_917;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_150 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h96 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_150 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_150 <= _GEN_918;
       end
+    end else begin
+      mem_150 <= _GEN_918;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_151 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h97 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_151 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_151 <= _GEN_919;
       end
+    end else begin
+      mem_151 <= _GEN_919;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_152 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h98 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_152 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_152 <= _GEN_920;
       end
+    end else begin
+      mem_152 <= _GEN_920;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_153 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h99 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_153 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_153 <= _GEN_921;
       end
+    end else begin
+      mem_153 <= _GEN_921;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_154 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9a == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_154 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_154 <= _GEN_922;
       end
+    end else begin
+      mem_154 <= _GEN_922;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_155 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9b == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_155 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_155 <= _GEN_923;
       end
+    end else begin
+      mem_155 <= _GEN_923;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_156 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9c == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_156 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_156 <= _GEN_924;
       end
+    end else begin
+      mem_156 <= _GEN_924;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_157 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9d == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_157 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_157 <= _GEN_925;
       end
+    end else begin
+      mem_157 <= _GEN_925;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_158 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9e == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_158 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_158 <= _GEN_926;
       end
+    end else begin
+      mem_158 <= _GEN_926;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_159 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'h9f == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_159 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_159 <= _GEN_927;
       end
+    end else begin
+      mem_159 <= _GEN_927;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_160 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_160 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_160 <= _GEN_928;
       end
+    end else begin
+      mem_160 <= _GEN_928;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_161 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_161 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_161 <= _GEN_929;
       end
+    end else begin
+      mem_161 <= _GEN_929;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_162 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_162 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_162 <= _GEN_930;
       end
+    end else begin
+      mem_162 <= _GEN_930;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_163 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_163 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_163 <= _GEN_931;
       end
+    end else begin
+      mem_163 <= _GEN_931;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_164 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_164 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_164 <= _GEN_932;
       end
+    end else begin
+      mem_164 <= _GEN_932;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_165 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_165 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_165 <= _GEN_933;
       end
+    end else begin
+      mem_165 <= _GEN_933;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_166 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_166 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_166 <= _GEN_934;
       end
+    end else begin
+      mem_166 <= _GEN_934;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_167 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_167 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_167 <= _GEN_935;
       end
+    end else begin
+      mem_167 <= _GEN_935;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_168 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_168 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_168 <= _GEN_936;
       end
+    end else begin
+      mem_168 <= _GEN_936;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_169 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'ha9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_169 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_169 <= _GEN_937;
       end
+    end else begin
+      mem_169 <= _GEN_937;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_170 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'haa == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_170 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_170 <= _GEN_938;
       end
+    end else begin
+      mem_170 <= _GEN_938;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_171 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hab == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_171 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_171 <= _GEN_939;
       end
+    end else begin
+      mem_171 <= _GEN_939;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_172 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hac == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_172 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_172 <= _GEN_940;
       end
+    end else begin
+      mem_172 <= _GEN_940;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_173 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'had == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_173 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_173 <= _GEN_941;
       end
+    end else begin
+      mem_173 <= _GEN_941;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_174 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hae == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_174 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_174 <= _GEN_942;
       end
+    end else begin
+      mem_174 <= _GEN_942;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_175 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'haf == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_175 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_175 <= _GEN_943;
       end
+    end else begin
+      mem_175 <= _GEN_943;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_176 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_176 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_176 <= _GEN_944;
       end
+    end else begin
+      mem_176 <= _GEN_944;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_177 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_177 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_177 <= _GEN_945;
       end
+    end else begin
+      mem_177 <= _GEN_945;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_178 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_178 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_178 <= _GEN_946;
       end
+    end else begin
+      mem_178 <= _GEN_946;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_179 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_179 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_179 <= _GEN_947;
       end
+    end else begin
+      mem_179 <= _GEN_947;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_180 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_180 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_180 <= _GEN_948;
       end
+    end else begin
+      mem_180 <= _GEN_948;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_181 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_181 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_181 <= _GEN_949;
       end
+    end else begin
+      mem_181 <= _GEN_949;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_182 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_182 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_182 <= _GEN_950;
       end
+    end else begin
+      mem_182 <= _GEN_950;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_183 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_183 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_183 <= _GEN_951;
       end
+    end else begin
+      mem_183 <= _GEN_951;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_184 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_184 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_184 <= _GEN_952;
       end
+    end else begin
+      mem_184 <= _GEN_952;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_185 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hb9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_185 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_185 <= _GEN_953;
       end
+    end else begin
+      mem_185 <= _GEN_953;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_186 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hba == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_186 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_186 <= _GEN_954;
       end
+    end else begin
+      mem_186 <= _GEN_954;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_187 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hbb == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_187 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_187 <= _GEN_955;
       end
+    end else begin
+      mem_187 <= _GEN_955;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_188 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hbc == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_188 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_188 <= _GEN_956;
       end
+    end else begin
+      mem_188 <= _GEN_956;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_189 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hbd == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_189 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_189 <= _GEN_957;
       end
+    end else begin
+      mem_189 <= _GEN_957;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_190 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hbe == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_190 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_190 <= _GEN_958;
       end
+    end else begin
+      mem_190 <= _GEN_958;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_191 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hbf == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_191 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_191 <= _GEN_959;
       end
+    end else begin
+      mem_191 <= _GEN_959;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_192 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_192 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_192 <= _GEN_960;
       end
+    end else begin
+      mem_192 <= _GEN_960;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_193 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_193 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_193 <= _GEN_961;
       end
+    end else begin
+      mem_193 <= _GEN_961;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_194 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_194 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_194 <= _GEN_962;
       end
+    end else begin
+      mem_194 <= _GEN_962;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_195 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_195 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_195 <= _GEN_963;
       end
+    end else begin
+      mem_195 <= _GEN_963;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_196 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_196 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_196 <= _GEN_964;
       end
+    end else begin
+      mem_196 <= _GEN_964;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_197 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_197 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_197 <= _GEN_965;
       end
+    end else begin
+      mem_197 <= _GEN_965;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_198 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_198 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_198 <= _GEN_966;
       end
+    end else begin
+      mem_198 <= _GEN_966;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_199 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_199 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_199 <= _GEN_967;
       end
+    end else begin
+      mem_199 <= _GEN_967;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_200 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_200 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_200 <= _GEN_968;
       end
+    end else begin
+      mem_200 <= _GEN_968;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_201 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hc9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_201 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_201 <= _GEN_969;
       end
+    end else begin
+      mem_201 <= _GEN_969;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_202 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hca == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_202 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_202 <= _GEN_970;
       end
+    end else begin
+      mem_202 <= _GEN_970;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_203 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hcb == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_203 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_203 <= _GEN_971;
       end
+    end else begin
+      mem_203 <= _GEN_971;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_204 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hcc == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_204 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_204 <= _GEN_972;
       end
+    end else begin
+      mem_204 <= _GEN_972;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_205 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hcd == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_205 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_205 <= _GEN_973;
       end
+    end else begin
+      mem_205 <= _GEN_973;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_206 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hce == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_206 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_206 <= _GEN_974;
       end
+    end else begin
+      mem_206 <= _GEN_974;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_207 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hcf == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_207 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_207 <= _GEN_975;
       end
+    end else begin
+      mem_207 <= _GEN_975;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_208 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_208 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_208 <= _GEN_976;
       end
+    end else begin
+      mem_208 <= _GEN_976;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_209 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_209 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_209 <= _GEN_977;
       end
+    end else begin
+      mem_209 <= _GEN_977;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_210 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_210 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_210 <= _GEN_978;
       end
+    end else begin
+      mem_210 <= _GEN_978;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_211 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_211 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_211 <= _GEN_979;
       end
+    end else begin
+      mem_211 <= _GEN_979;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_212 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_212 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_212 <= _GEN_980;
       end
+    end else begin
+      mem_212 <= _GEN_980;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_213 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_213 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_213 <= _GEN_981;
       end
+    end else begin
+      mem_213 <= _GEN_981;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_214 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_214 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_214 <= _GEN_982;
       end
+    end else begin
+      mem_214 <= _GEN_982;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_215 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_215 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_215 <= _GEN_983;
       end
+    end else begin
+      mem_215 <= _GEN_983;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_216 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_216 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_216 <= _GEN_984;
       end
+    end else begin
+      mem_216 <= _GEN_984;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_217 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hd9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_217 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_217 <= _GEN_985;
       end
+    end else begin
+      mem_217 <= _GEN_985;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_218 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hda == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_218 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_218 <= _GEN_986;
       end
+    end else begin
+      mem_218 <= _GEN_986;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_219 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hdb == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_219 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_219 <= _GEN_987;
       end
+    end else begin
+      mem_219 <= _GEN_987;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_220 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hdc == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_220 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_220 <= _GEN_988;
       end
+    end else begin
+      mem_220 <= _GEN_988;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_221 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hdd == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_221 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_221 <= _GEN_989;
       end
+    end else begin
+      mem_221 <= _GEN_989;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_222 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hde == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_222 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_222 <= _GEN_990;
       end
+    end else begin
+      mem_222 <= _GEN_990;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_223 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hdf == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_223 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_223 <= _GEN_991;
       end
+    end else begin
+      mem_223 <= _GEN_991;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_224 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_224 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_224 <= _GEN_992;
       end
+    end else begin
+      mem_224 <= _GEN_992;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_225 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_225 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_225 <= _GEN_993;
       end
+    end else begin
+      mem_225 <= _GEN_993;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_226 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_226 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_226 <= _GEN_994;
       end
+    end else begin
+      mem_226 <= _GEN_994;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_227 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_227 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_227 <= _GEN_995;
       end
+    end else begin
+      mem_227 <= _GEN_995;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_228 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_228 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_228 <= _GEN_996;
       end
+    end else begin
+      mem_228 <= _GEN_996;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_229 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_229 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_229 <= _GEN_997;
       end
+    end else begin
+      mem_229 <= _GEN_997;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_230 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_230 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_230 <= _GEN_998;
       end
+    end else begin
+      mem_230 <= _GEN_998;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_231 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_231 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_231 <= _GEN_999;
       end
+    end else begin
+      mem_231 <= _GEN_999;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_232 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_232 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_232 <= _GEN_1000;
       end
+    end else begin
+      mem_232 <= _GEN_1000;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_233 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'he9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_233 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_233 <= _GEN_1001;
       end
+    end else begin
+      mem_233 <= _GEN_1001;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_234 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hea == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_234 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_234 <= _GEN_1002;
       end
+    end else begin
+      mem_234 <= _GEN_1002;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_235 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'heb == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_235 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_235 <= _GEN_1003;
       end
+    end else begin
+      mem_235 <= _GEN_1003;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_236 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hec == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_236 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_236 <= _GEN_1004;
       end
+    end else begin
+      mem_236 <= _GEN_1004;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_237 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hed == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_237 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_237 <= _GEN_1005;
       end
+    end else begin
+      mem_237 <= _GEN_1005;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_238 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hee == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_238 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_238 <= _GEN_1006;
       end
+    end else begin
+      mem_238 <= _GEN_1006;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_239 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hef == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_239 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_239 <= _GEN_1007;
       end
+    end else begin
+      mem_239 <= _GEN_1007;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_240 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf0 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_240 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_240 <= _GEN_1008;
       end
+    end else begin
+      mem_240 <= _GEN_1008;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_241 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf1 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_241 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_241 <= _GEN_1009;
       end
+    end else begin
+      mem_241 <= _GEN_1009;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_242 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf2 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_242 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_242 <= _GEN_1010;
       end
+    end else begin
+      mem_242 <= _GEN_1010;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_243 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf3 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_243 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_243 <= _GEN_1011;
       end
+    end else begin
+      mem_243 <= _GEN_1011;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_244 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf4 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_244 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_244 <= _GEN_1012;
       end
+    end else begin
+      mem_244 <= _GEN_1012;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_245 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf5 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_245 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_245 <= _GEN_1013;
       end
+    end else begin
+      mem_245 <= _GEN_1013;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_246 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf6 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_246 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_246 <= _GEN_1014;
       end
+    end else begin
+      mem_246 <= _GEN_1014;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_247 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf7 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_247 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_247 <= _GEN_1015;
       end
+    end else begin
+      mem_247 <= _GEN_1015;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_248 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf8 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_248 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_248 <= _GEN_1016;
       end
+    end else begin
+      mem_248 <= _GEN_1016;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_249 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hf9 == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_249 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_249 <= _GEN_1017;
       end
+    end else begin
+      mem_249 <= _GEN_1017;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_250 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hfa == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_250 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_250 <= _GEN_1018;
       end
+    end else begin
+      mem_250 <= _GEN_1018;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_251 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hfb == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_251 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_251 <= _GEN_1019;
       end
+    end else begin
+      mem_251 <= _GEN_1019;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_252 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hfc == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_252 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_252 <= _GEN_1020;
       end
+    end else begin
+      mem_252 <= _GEN_1020;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_253 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hfd == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_253 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_253 <= _GEN_1021;
       end
+    end else begin
+      mem_253 <= _GEN_1021;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_254 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hfe == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_254 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_254 <= _GEN_1022;
       end
+    end else begin
+      mem_254 <= _GEN_1022;
     end
     if (reset) begin // @[RAMWrapper.scala 41:20]
       mem_255 <= 2'h0; // @[RAMWrapper.scala 41:20]
     end else if (io_web) begin // @[RAMWrapper.scala 49:16]
       if (8'hff == io_addrb) begin // @[RAMWrapper.scala 50:19]
         mem_255 <= io_dinb; // @[RAMWrapper.scala 50:19]
+      end else begin
+        mem_255 <= _GEN_1023;
       end
+    end else begin
+      mem_255 <= _GEN_1023;
     end
     if (8'hff == io_addra) begin // @[RAMWrapper.scala 43:22]
       io_douta_REG <= mem_255; // @[RAMWrapper.scala 43:22]
@@ -3409,27 +4947,33 @@ endmodule
 module DualPortBRAM(
   input        clock,
   input        reset,
+  input        io_wea,
   input        io_web,
   input  [7:0] io_addra,
   input  [7:0] io_addrb,
+  input  [1:0] io_dina,
   input  [1:0] io_dinb,
   output [1:0] io_douta,
   output [1:0] io_doutb
 );
   wire  sim_dual_port_bram_clock; // @[RAMWrapper.scala 30:36]
   wire  sim_dual_port_bram_reset; // @[RAMWrapper.scala 30:36]
+  wire  sim_dual_port_bram_io_wea; // @[RAMWrapper.scala 30:36]
   wire  sim_dual_port_bram_io_web; // @[RAMWrapper.scala 30:36]
   wire [7:0] sim_dual_port_bram_io_addra; // @[RAMWrapper.scala 30:36]
   wire [7:0] sim_dual_port_bram_io_addrb; // @[RAMWrapper.scala 30:36]
+  wire [1:0] sim_dual_port_bram_io_dina; // @[RAMWrapper.scala 30:36]
   wire [1:0] sim_dual_port_bram_io_dinb; // @[RAMWrapper.scala 30:36]
   wire [1:0] sim_dual_port_bram_io_douta; // @[RAMWrapper.scala 30:36]
   wire [1:0] sim_dual_port_bram_io_doutb; // @[RAMWrapper.scala 30:36]
   SimDualPortBRAM sim_dual_port_bram ( // @[RAMWrapper.scala 30:36]
     .clock(sim_dual_port_bram_clock),
     .reset(sim_dual_port_bram_reset),
+    .io_wea(sim_dual_port_bram_io_wea),
     .io_web(sim_dual_port_bram_io_web),
     .io_addra(sim_dual_port_bram_io_addra),
     .io_addrb(sim_dual_port_bram_io_addrb),
+    .io_dina(sim_dual_port_bram_io_dina),
     .io_dinb(sim_dual_port_bram_io_dinb),
     .io_douta(sim_dual_port_bram_io_douta),
     .io_doutb(sim_dual_port_bram_io_doutb)
@@ -3438,9 +4982,11 @@ module DualPortBRAM(
   assign io_doutb = sim_dual_port_bram_io_doutb; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_clock = clock;
   assign sim_dual_port_bram_reset = reset;
+  assign sim_dual_port_bram_io_wea = io_wea; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_io_web = io_web; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_io_addra = io_addra; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_io_addrb = io_addrb; // @[RAMWrapper.scala 31:27]
+  assign sim_dual_port_bram_io_dina = io_dina; // @[RAMWrapper.scala 31:27]
   assign sim_dual_port_bram_io_dinb = io_dinb; // @[RAMWrapper.scala 31:27]
 endmodule
 module SimDualPortBRAM_1(
@@ -6906,19 +8452,15 @@ module BPU(
 );
 `ifdef RANDOMIZE_REG_INIT
   reg [31:0] _RAND_0;
-  reg [31:0] _RAND_1;
-  reg [31:0] _RAND_2;
-  reg [31:0] _RAND_3;
-  reg [31:0] _RAND_4;
-  reg [31:0] _RAND_5;
-  reg [63:0] _RAND_6;
-  reg [31:0] _RAND_7;
+  reg [63:0] _RAND_1;
 `endif // RANDOMIZE_REG_INIT
   wire  history_clock; // @[BPU.scala 86:23]
   wire  history_reset; // @[BPU.scala 86:23]
+  wire  history_io_wea; // @[BPU.scala 86:23]
   wire  history_io_web; // @[BPU.scala 86:23]
   wire [7:0] history_io_addra; // @[BPU.scala 86:23]
   wire [7:0] history_io_addrb; // @[BPU.scala 86:23]
+  wire [1:0] history_io_dina; // @[BPU.scala 86:23]
   wire [1:0] history_io_dinb; // @[BPU.scala 86:23]
   wire [1:0] history_io_douta; // @[BPU.scala 86:23]
   wire [1:0] history_io_doutb; // @[BPU.scala 86:23]
@@ -6930,10 +8472,6 @@ module BPU(
   wire [61:0] buffer_io_dina; // @[BPU.scala 87:23]
   wire [61:0] buffer_io_douta; // @[BPU.scala 87:23]
   wire [61:0] buffer_io_doutb; // @[BPU.scala 87:23]
-  reg [7:0] bht_cache_tag_0; // @[BPU.scala 77:27]
-  reg [1:0] bht_cache_stat_0; // @[BPU.scala 78:31]
-  reg  cache_or_update_hit; // @[BPU.scala 82:32]
-  reg [1:0] chosen_result; // @[BPU.scala 83:26]
   wire  _waddr_T = ~io_update_dec_v; // @[BPU.scala 90:24]
   wire [63:0] waddr = ~io_update_dec_v ? io_update_exe_pc_br : io_update_dec_pc_br; // @[BPU.scala 90:23]
   wire  exe_update = io_update_exe_taken ? ~(&io_update_exe_pc_br[1:0]) : |io_update_exe_pc_br[1:0]; // @[BPU.scala 91:23]
@@ -6943,53 +8481,52 @@ module BPU(
   wire [1:0] _wdata_T_6 = io_update_exe_pc_br[1:0] - 2'h1; // @[BPU.scala 93:126]
   wire [1:0] _wdata_T_7 = io_update_exe_taken ? _wdata_T_3 : _wdata_T_6; // @[BPU.scala 93:45]
   wire [1:0] _wdata_T_10 = io_update_dec_pc_br[1:0] - 2'h1; // @[BPU.scala 93:160]
-  wire  history_io_addrb_higher_hi_hi_hi = waddr[16] ^ waddr[15] ^ waddr[9]; // @[BPU.scala 60:56]
-  wire  history_io_addrb_higher_hi_hi_lo = waddr[15] ^ waddr[14] ^ waddr[8]; // @[BPU.scala 60:105]
-  wire  history_io_addrb_higher_hi_lo = waddr[14] ^ waddr[13] ^ waddr[7]; // @[BPU.scala 60:154]
-  wire  history_io_addrb_higher_lo_hi_hi = waddr[13] ^ waddr[12] ^ waddr[6]; // @[BPU.scala 60:203]
-  wire  history_io_addrb_higher_lo_hi_lo = waddr[12] ^ waddr[11] ^ waddr[5]; // @[BPU.scala 60:252]
-  wire  history_io_addrb_higher_lo_lo = waddr[11] ^ waddr[10] ^ waddr[4]; // @[BPU.scala 60:300]
-  wire  history_io_addrb_lo = waddr[10] ^ waddr[9] ^ waddr[3]; // @[BPU.scala 64:40]
-  wire  history_io_addrb_lo_1 = waddr[2]; // @[BPU.scala 74:35]
-  wire [7:0] _history_io_addrb_T_4 = {history_io_addrb_higher_hi_hi_hi,history_io_addrb_higher_hi_hi_lo,
-    history_io_addrb_higher_hi_lo,history_io_addrb_higher_lo_hi_hi,history_io_addrb_higher_lo_hi_lo,
-    history_io_addrb_higher_lo_lo,history_io_addrb_lo,history_io_addrb_lo_1}; // @[Cat.scala 30:58]
-  wire  history_io_addrb_higher_hi_hi_hi_1 = io_req_next_line[16] ^ io_req_next_line[15] ^ io_req_next_line[9]; // @[BPU.scala 60:56]
-  wire  history_io_addrb_higher_hi_hi_lo_1 = io_req_next_line[15] ^ io_req_next_line[14] ^ io_req_next_line[8]; // @[BPU.scala 60:105]
-  wire  history_io_addrb_higher_hi_lo_1 = io_req_next_line[14] ^ io_req_next_line[13] ^ io_req_next_line[7]; // @[BPU.scala 60:154]
-  wire  history_io_addrb_higher_lo_hi_hi_1 = io_req_next_line[13] ^ io_req_next_line[12] ^ io_req_next_line[6]; // @[BPU.scala 60:203]
-  wire  history_io_addrb_higher_lo_hi_lo_1 = io_req_next_line[12] ^ io_req_next_line[11] ^ io_req_next_line[5]; // @[BPU.scala 60:252]
-  wire  history_io_addrb_higher_lo_lo_1 = io_req_next_line[11] ^ io_req_next_line[10] ^ io_req_next_line[4]; // @[BPU.scala 60:300]
-  wire  history_io_addrb_lo_2 = io_req_next_line[10] ^ io_req_next_line[9] ^ io_req_next_line[3]; // @[BPU.scala 64:40]
+  wire  updateA = update & ~waddr[0]; // @[BPU.scala 95:27]
+  wire  updateB = update & waddr[0]; // @[BPU.scala 96:27]
+  wire  history_io_addra_higher_hi_hi_hi = waddr[16] ^ waddr[15] ^ waddr[9]; // @[BPU.scala 60:56]
+  wire  history_io_addra_higher_hi_hi_lo = waddr[15] ^ waddr[14] ^ waddr[8]; // @[BPU.scala 60:105]
+  wire  history_io_addra_higher_hi_lo = waddr[14] ^ waddr[13] ^ waddr[7]; // @[BPU.scala 60:154]
+  wire  history_io_addra_higher_lo_hi_hi = waddr[13] ^ waddr[12] ^ waddr[6]; // @[BPU.scala 60:203]
+  wire  history_io_addra_higher_lo_hi_lo = waddr[12] ^ waddr[11] ^ waddr[5]; // @[BPU.scala 60:252]
+  wire  history_io_addra_higher_lo_lo = waddr[11] ^ waddr[10] ^ waddr[4]; // @[BPU.scala 60:300]
+  wire  history_io_addra_lo = waddr[10] ^ waddr[9] ^ waddr[3]; // @[BPU.scala 64:40]
+  wire  history_io_addra_lo_1 = waddr[2]; // @[BPU.scala 74:35]
+  wire [7:0] _history_io_addra_T_4 = {history_io_addra_higher_hi_hi_hi,history_io_addra_higher_hi_hi_lo,
+    history_io_addra_higher_hi_lo,history_io_addra_higher_lo_hi_hi,history_io_addra_higher_lo_hi_lo,
+    history_io_addra_higher_lo_lo,history_io_addra_lo,history_io_addra_lo_1}; // @[Cat.scala 30:58]
+  wire  history_io_addra_higher_hi_hi_hi_1 = io_req_next_line[16] ^ io_req_next_line[15] ^ io_req_next_line[9]; // @[BPU.scala 60:56]
+  wire  history_io_addra_higher_hi_hi_lo_1 = io_req_next_line[15] ^ io_req_next_line[14] ^ io_req_next_line[8]; // @[BPU.scala 60:105]
+  wire  history_io_addra_higher_hi_lo_1 = io_req_next_line[14] ^ io_req_next_line[13] ^ io_req_next_line[7]; // @[BPU.scala 60:154]
+  wire  history_io_addra_higher_lo_hi_hi_1 = io_req_next_line[13] ^ io_req_next_line[12] ^ io_req_next_line[6]; // @[BPU.scala 60:203]
+  wire  history_io_addra_higher_lo_hi_lo_1 = io_req_next_line[12] ^ io_req_next_line[11] ^ io_req_next_line[5]; // @[BPU.scala 60:252]
+  wire  history_io_addra_higher_lo_lo_1 = io_req_next_line[11] ^ io_req_next_line[10] ^ io_req_next_line[4]; // @[BPU.scala 60:300]
+  wire  history_io_addra_lo_2 = io_req_next_line[10] ^ io_req_next_line[9] ^ io_req_next_line[3]; // @[BPU.scala 64:40]
+  wire  history_io_addra_lo_3 = io_req_next_line[2]; // @[BPU.scala 74:35]
+  wire [7:0] _history_io_addra_T_9 = {history_io_addra_higher_hi_hi_hi_1,history_io_addra_higher_hi_hi_lo_1,
+    history_io_addra_higher_hi_lo_1,history_io_addra_higher_lo_hi_hi_1,history_io_addra_higher_lo_hi_lo_1,
+    history_io_addra_higher_lo_lo_1,history_io_addra_lo_2,history_io_addra_lo_3}; // @[Cat.scala 30:58]
+  wire [63:0] _history_io_addrb_T_6 = io_req_next_line + 64'h4; // @[BPU.scala 101:101]
+  wire  history_io_addrb_higher_hi_hi_hi_1 = _history_io_addrb_T_6[16] ^ _history_io_addrb_T_6[15] ^
+    _history_io_addrb_T_6[9]; // @[BPU.scala 60:56]
+  wire  history_io_addrb_higher_hi_hi_lo_1 = _history_io_addrb_T_6[15] ^ _history_io_addrb_T_6[14] ^
+    _history_io_addrb_T_6[8]; // @[BPU.scala 60:105]
+  wire  history_io_addrb_higher_hi_lo_1 = _history_io_addrb_T_6[14] ^ _history_io_addrb_T_6[13] ^ _history_io_addrb_T_6[
+    7]; // @[BPU.scala 60:154]
+  wire  history_io_addrb_higher_lo_hi_hi_1 = _history_io_addrb_T_6[13] ^ _history_io_addrb_T_6[12] ^
+    _history_io_addrb_T_6[6]; // @[BPU.scala 60:203]
+  wire  history_io_addrb_higher_lo_hi_lo_1 = _history_io_addrb_T_6[12] ^ _history_io_addrb_T_6[11] ^
+    _history_io_addrb_T_6[5]; // @[BPU.scala 60:252]
+  wire  history_io_addrb_higher_lo_lo_1 = _history_io_addrb_T_6[11] ^ _history_io_addrb_T_6[10] ^ _history_io_addrb_T_6[
+    4]; // @[BPU.scala 60:300]
+  wire  history_io_addrb_lo_2 = _history_io_addrb_T_6[10] ^ _history_io_addrb_T_6[9] ^ _history_io_addrb_T_6[3]; // @[BPU.scala 64:40]
   wire [6:0] history_io_addrb_hi_3 = {history_io_addrb_higher_hi_hi_hi_1,history_io_addrb_higher_hi_hi_lo_1,
     history_io_addrb_higher_hi_lo_1,history_io_addrb_higher_lo_hi_hi_1,history_io_addrb_higher_lo_hi_lo_1,
     history_io_addrb_higher_lo_lo_1,history_io_addrb_lo_2}; // @[Cat.scala 30:58]
-  wire  history_io_addrb_lo_3 = io_req_next_line[2]; // @[BPU.scala 74:35]
-  wire [7:0] _history_io_addrb_T_9 = {history_io_addrb_higher_hi_hi_hi_1,history_io_addrb_higher_hi_hi_lo_1,
+  wire  history_io_addrb_lo_3 = _history_io_addrb_T_6[2]; // @[BPU.scala 74:35]
+  wire [7:0] _history_io_addrb_T_11 = {history_io_addrb_higher_hi_hi_hi_1,history_io_addrb_higher_hi_hi_lo_1,
     history_io_addrb_higher_hi_lo_1,history_io_addrb_higher_lo_hi_hi_1,history_io_addrb_higher_lo_hi_lo_1,
     history_io_addrb_higher_lo_lo_1,history_io_addrb_lo_2,history_io_addrb_lo_3}; // @[Cat.scala 30:58]
-  wire [63:0] _history_io_addra_T_1 = io_req_next_line + 64'h4; // @[BPU.scala 98:60]
-  wire  history_io_addra_higher_hi_hi_hi = _history_io_addra_T_1[16] ^ _history_io_addra_T_1[15] ^ _history_io_addra_T_1
-    [9]; // @[BPU.scala 60:56]
-  wire  history_io_addra_higher_hi_hi_lo = _history_io_addra_T_1[15] ^ _history_io_addra_T_1[14] ^ _history_io_addra_T_1
-    [8]; // @[BPU.scala 60:105]
-  wire  history_io_addra_higher_hi_lo = _history_io_addra_T_1[14] ^ _history_io_addra_T_1[13] ^ _history_io_addra_T_1[7]
-    ; // @[BPU.scala 60:154]
-  wire  history_io_addra_higher_lo_hi_hi = _history_io_addra_T_1[13] ^ _history_io_addra_T_1[12] ^ _history_io_addra_T_1
-    [6]; // @[BPU.scala 60:203]
-  wire  history_io_addra_higher_lo_hi_lo = _history_io_addra_T_1[12] ^ _history_io_addra_T_1[11] ^ _history_io_addra_T_1
-    [5]; // @[BPU.scala 60:252]
-  wire  history_io_addra_higher_lo_lo = _history_io_addra_T_1[11] ^ _history_io_addra_T_1[10] ^ _history_io_addra_T_1[4]
-    ; // @[BPU.scala 60:300]
-  wire  history_io_addra_lo = _history_io_addra_T_1[10] ^ _history_io_addra_T_1[9] ^ _history_io_addra_T_1[3]; // @[BPU.scala 64:40]
-  wire [6:0] history_io_addra_hi_1 = {history_io_addra_higher_hi_hi_hi,history_io_addra_higher_hi_hi_lo,
-    history_io_addra_higher_hi_lo,history_io_addra_higher_lo_hi_hi,history_io_addra_higher_lo_hi_lo,
-    history_io_addra_higher_lo_lo,history_io_addra_lo}; // @[Cat.scala 30:58]
-  wire  history_io_addra_lo_1 = _history_io_addra_T_1[2]; // @[BPU.scala 74:35]
-  reg  last_update; // @[BPU.scala 104:28]
-  wire [1:0] _bht_first_T_1 = cache_or_update_hit ? chosen_result : 2'h0; // @[BPU.scala 105:41]
-  wire [1:0] bht_first = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 105:24]
-  wire [63:0] _buffer_io_addra_T = io_update_exe_errpr ? io_update_exe_pc_br : io_req_next_line; // @[BPU.scala 115:45]
+  wire [63:0] _buffer_io_addra_T = io_update_exe_errpr ? io_update_exe_pc_br : io_req_next_line; // @[BPU.scala 118:45]
   wire  buffer_io_addra_higher_hi_hi_hi = _buffer_io_addra_T[16] ^ _buffer_io_addra_T[15] ^ _buffer_io_addra_T[9]; // @[BPU.scala 60:56]
   wire  buffer_io_addra_higher_hi_hi_lo = _buffer_io_addra_T[15] ^ _buffer_io_addra_T[14] ^ _buffer_io_addra_T[8]; // @[BPU.scala 60:105]
   wire  buffer_io_addra_higher_hi_lo = _buffer_io_addra_T[14] ^ _buffer_io_addra_T[13] ^ _buffer_io_addra_T[7]; // @[BPU.scala 60:154]
@@ -7001,18 +8538,17 @@ module BPU(
     buffer_io_addra_higher_hi_lo,buffer_io_addra_higher_lo_hi_hi,buffer_io_addra_higher_lo_hi_lo,
     buffer_io_addra_higher_lo_lo,buffer_io_addra_lo}; // @[Cat.scala 30:58]
   wire  buffer_io_addra_lo_1 = _buffer_io_addra_T[2]; // @[BPU.scala 74:35]
-  reg  io_resp_target_0_REG; // @[BPU.scala 121:39]
-  reg [61:0] io_resp_target_0_REG_1; // @[BPU.scala 121:63]
-  wire [61:0] io_resp_target_0_hi = io_resp_target_0_REG ? io_resp_target_0_REG_1 : buffer_io_douta; // @[BPU.scala 121:31]
-  wire  hit_in_bht_cache = bht_cache_tag_0 == _history_io_addrb_T_9; // @[BPU.scala 128:28]
-  reg [7:0] bht_cache_tag_0_REG; // @[BPU.scala 143:49]
-  wire  update_query_hit = _history_io_addrb_T_9 == _history_io_addrb_T_4; // @[BPU.scala 148:64]
+  reg  io_resp_target_0_REG; // @[BPU.scala 124:39]
+  reg [61:0] io_resp_target_0_REG_1; // @[BPU.scala 124:63]
+  wire [61:0] io_resp_target_0_hi = io_resp_target_0_REG ? io_resp_target_0_REG_1 : buffer_io_douta; // @[BPU.scala 124:31]
   DualPortBRAM history ( // @[BPU.scala 86:23]
     .clock(history_clock),
     .reset(history_reset),
+    .io_wea(history_io_wea),
     .io_web(history_io_web),
     .io_addra(history_io_addra),
     .io_addrb(history_io_addrb),
+    .io_dina(history_io_dina),
     .io_dinb(history_io_dinb),
     .io_douta(history_io_douta),
     .io_doutb(history_io_doutb)
@@ -7027,67 +8563,27 @@ module BPU(
     .io_douta(buffer_io_douta),
     .io_doutb(buffer_io_doutb)
   );
-  assign io_resp_taken_vec_0 = bht_first[1]; // @[BPU.scala 107:36]
-  assign io_resp_taken_vec_1 = history_io_doutb[1]; // @[BPU.scala 108:43]
-  assign io_resp_target_0 = {io_resp_target_0_hi,bht_first}; // @[Cat.scala 30:58]
+  assign io_resp_taken_vec_0 = history_io_douta[1]; // @[BPU.scala 110:43]
+  assign io_resp_taken_vec_1 = history_io_doutb[1]; // @[BPU.scala 111:43]
+  assign io_resp_target_0 = {io_resp_target_0_hi,history_io_douta}; // @[Cat.scala 30:58]
   assign io_resp_target_1 = {buffer_io_doutb,history_io_doutb}; // @[Cat.scala 30:58]
   assign history_clock = clock;
   assign history_reset = reset;
-  assign history_io_web = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 92:23]
-  assign history_io_addra = {history_io_addra_hi_1,history_io_addra_lo_1}; // @[Cat.scala 30:58]
-  assign history_io_addrb = update ? _history_io_addrb_T_4 : _history_io_addrb_T_9; // @[BPU.scala 97:26]
+  assign history_io_wea = update & ~waddr[0]; // @[BPU.scala 95:27]
+  assign history_io_web = update & waddr[0]; // @[BPU.scala 96:27]
+  assign history_io_addra = updateA ? _history_io_addra_T_4 : _history_io_addra_T_9; // @[BPU.scala 100:26]
+  assign history_io_addrb = updateB ? _history_io_addra_T_4 : _history_io_addrb_T_11; // @[BPU.scala 101:26]
+  assign history_io_dina = _waddr_T ? _wdata_T_7 : _wdata_T_10; // @[BPU.scala 93:23]
   assign history_io_dinb = _waddr_T ? _wdata_T_7 : _wdata_T_10; // @[BPU.scala 93:23]
   assign buffer_clock = clock;
   assign buffer_reset = reset;
-  assign buffer_io_wea = io_update_exe_errpr & io_update_exe_v; // @[BPU.scala 113:40]
+  assign buffer_io_wea = io_update_exe_errpr & io_update_exe_v; // @[BPU.scala 116:40]
   assign buffer_io_addra = {buffer_io_addra_hi_1,buffer_io_addra_lo_1}; // @[Cat.scala 30:58]
-  assign buffer_io_addrb = {history_io_addra_hi_1,history_io_addra_lo_1}; // @[Cat.scala 30:58]
-  assign buffer_io_dina = io_update_exe_target[63:2]; // @[BPU.scala 117:41]
+  assign buffer_io_addrb = {history_io_addrb_hi_3,history_io_addrb_lo_3}; // @[Cat.scala 30:58]
+  assign buffer_io_dina = io_update_exe_target[63:2]; // @[BPU.scala 120:41]
   always @(posedge clock) begin
-    if (!(update & hit_in_bht_cache)) begin // @[BPU.scala 135:36]
-      if (io_resp_taken_vec_0 & ~hit_in_bht_cache) begin // @[BPU.scala 139:57]
-        bht_cache_tag_0 <= bht_cache_tag_0_REG; // @[BPU.scala 143:39]
-      end
-    end
-    if (reset) begin // @[BPU.scala 78:31]
-      bht_cache_stat_0 <= 2'h0; // @[BPU.scala 78:31]
-    end else if (update & hit_in_bht_cache) begin // @[BPU.scala 135:36]
-      bht_cache_stat_0 <= 2'h0; // @[BPU.scala 137:25]
-    end else if (io_resp_taken_vec_0 & ~hit_in_bht_cache) begin // @[BPU.scala 139:57]
-      if (last_update) begin // @[BPU.scala 105:24]
-        bht_cache_stat_0 <= _bht_first_T_1;
-      end else begin
-        bht_cache_stat_0 <= history_io_douta;
-      end
-    end
-    cache_or_update_hit <= hit_in_bht_cache | update_query_hit; // @[BPU.scala 149:43]
-    if (update_query_hit) begin // @[BPU.scala 150:23]
-      if (_waddr_T) begin // @[BPU.scala 93:23]
-        if (io_update_exe_taken) begin // @[BPU.scala 93:45]
-          chosen_result <= _wdata_T_3;
-        end else begin
-          chosen_result <= _wdata_T_6;
-        end
-      end else begin
-        chosen_result <= _wdata_T_10;
-      end
-    end else begin
-      chosen_result <= bht_cache_stat_0;
-    end
-    if (_waddr_T) begin // @[BPU.scala 92:23]
-      if (~io_update_exe_v) begin // @[BPU.scala 92:45]
-        last_update <= 1'h0;
-      end else if (io_update_exe_taken) begin // @[BPU.scala 91:23]
-        last_update <= ~(&io_update_exe_pc_br[1:0]);
-      end else begin
-        last_update <= |io_update_exe_pc_br[1:0];
-      end
-    end else begin
-      last_update <= 1'h1;
-    end
-    io_resp_target_0_REG <= buffer_io_wea; // @[BPU.scala 121:39]
-    io_resp_target_0_REG_1 <= buffer_io_dina; // @[BPU.scala 121:63]
-    bht_cache_tag_0_REG <= {history_io_addrb_hi_3,history_io_addrb_lo_3}; // @[Cat.scala 30:58]
+    io_resp_target_0_REG <= buffer_io_wea; // @[BPU.scala 124:39]
+    io_resp_target_0_REG_1 <= buffer_io_dina; // @[BPU.scala 124:63]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
@@ -7126,21 +8622,9 @@ initial begin
     `endif
 `ifdef RANDOMIZE_REG_INIT
   _RAND_0 = {1{`RANDOM}};
-  bht_cache_tag_0 = _RAND_0[7:0];
-  _RAND_1 = {1{`RANDOM}};
-  bht_cache_stat_0 = _RAND_1[1:0];
-  _RAND_2 = {1{`RANDOM}};
-  cache_or_update_hit = _RAND_2[0:0];
-  _RAND_3 = {1{`RANDOM}};
-  chosen_result = _RAND_3[1:0];
-  _RAND_4 = {1{`RANDOM}};
-  last_update = _RAND_4[0:0];
-  _RAND_5 = {1{`RANDOM}};
-  io_resp_target_0_REG = _RAND_5[0:0];
-  _RAND_6 = {2{`RANDOM}};
-  io_resp_target_0_REG_1 = _RAND_6[61:0];
-  _RAND_7 = {1{`RANDOM}};
-  bht_cache_tag_0_REG = _RAND_7[7:0];
+  io_resp_target_0_REG = _RAND_0[0:0];
+  _RAND_1 = {2{`RANDOM}};
+  io_resp_target_0_REG_1 = _RAND_1[61:0];
 `endif // RANDOMIZE_REG_INIT
   `endif // RANDOMIZE
 end // initial
