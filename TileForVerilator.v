@@ -32289,6 +32289,8 @@ module MetaNway(
   wire [43:0] data_io_dinb_lo_1 = {update_set_blocks_1_dirty,valid_1,tag_1,update_set_blocks_0_dirty,valid_0,tag_0}; // @[Dcache.scala 445:79]
   wire [90:0] _data_io_dinb_T_1 = {update_set_lru_ind,update_set_blocks_3_dirty,valid_3,tag_3,update_set_blocks_2_dirty,
     valid_2,tag_2,data_io_dinb_lo_1}; // @[Dcache.scala 445:79]
+  wire  _GEN_36 = 2'h1 == lru_idx_replace ? dirty_1 : dirty_0; // @[Dcache.scala 447:18 Dcache.scala 447:18]
+  wire  _GEN_37 = 2'h2 == lru_idx_replace ? dirty_2 : _GEN_36; // @[Dcache.scala 447:18 Dcache.scala 447:18]
   wire [19:0] _GEN_40 = 2'h1 == lru_idx_replace ? tag_1 : tag_0; // @[Dcache.scala 449:18 Dcache.scala 449:18]
   wire [19:0] _GEN_41 = 2'h2 == lru_idx_replace ? tag_2 : _GEN_40; // @[Dcache.scala 449:18 Dcache.scala 449:18]
   DualPortBRAM_3 data ( // @[Dcache.scala 384:20]
@@ -32303,7 +32305,7 @@ module MetaNway(
   assign io_hit = valid_0 & tag_0 == io_tag_update | (valid_1 & tag_1 == io_tag_update | (valid_2 & tag_2 ==
     io_tag_update | valid_3 & tag_3 == io_tag_update)); // @[Dcache.scala 402:104]
   assign io_tag_repl = 2'h3 == lru_idx_replace ? tag_3 : _GEN_41; // @[Dcache.scala 449:18 Dcache.scala 449:18]
-  assign io_dirty = 2'h3 == lru_idx_hit ? dirty_3 : _GEN_2; // @[Dcache.scala 447:18 Dcache.scala 447:18]
+  assign io_dirty = 2'h3 == lru_idx_replace ? dirty_3 : _GEN_37; // @[Dcache.scala 447:18 Dcache.scala 447:18]
   assign io_idx_hit = _hit_T_9 ? 2'h0 : _lru_idx_hit_T_5; // @[Dcache.scala 405:87]
   assign io_idx_repl = &_lru_idx_replace_T ? valid_lru_idx : invalid_lru_idx; // @[Dcache.scala 416:28]
   assign data_clock = clock;
