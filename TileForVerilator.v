@@ -41917,7 +41917,7 @@ end // initial
 `endif
 `endif // SYNTHESIS
 endmodule
-module DcacheDPFilter(
+module DcacheFilter(
   input          clock,
   input          reset,
   input          io_dcache_cpu_req_valid,
@@ -43650,7 +43650,7 @@ module TileForVerilator(
     .io_bar_resp_valid(icache_io_bar_resp_valid),
     .io_bar_resp_data(icache_io_bar_resp_data)
   );
-  DcacheDPFilter dcache ( // @[Tile.scala 105:22]
+  DcacheFilter dcache ( // @[Tile.scala 105:22]
     .clock(dcache_clock),
     .reset(dcache_reset),
     .io_dcache_cpu_req_valid(dcache_io_dcache_cpu_req_valid),
