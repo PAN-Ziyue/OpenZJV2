@@ -26888,74 +26888,57 @@ module BPU(
   reg [31:0] _RAND_12;
   reg [63:0] _RAND_13;
 `endif // RANDOMIZE_REG_INIT
-  wire  history_clock; // @[BPU.scala 91:23]
-  wire  history_reset; // @[BPU.scala 91:23]
-  wire  history_io_wea; // @[BPU.scala 91:23]
-  wire [9:0] history_io_addra; // @[BPU.scala 91:23]
-  wire [9:0] history_io_addrb; // @[BPU.scala 91:23]
-  wire [1:0] history_io_dina; // @[BPU.scala 91:23]
-  wire [1:0] history_io_douta; // @[BPU.scala 91:23]
-  wire [1:0] history_io_doutb; // @[BPU.scala 91:23]
-  wire  buffer_clock; // @[BPU.scala 92:23]
-  wire  buffer_reset; // @[BPU.scala 92:23]
-  wire  buffer_io_wea; // @[BPU.scala 92:23]
-  wire [9:0] buffer_io_addra; // @[BPU.scala 92:23]
-  wire [9:0] buffer_io_addrb; // @[BPU.scala 92:23]
-  wire [61:0] buffer_io_dina; // @[BPU.scala 92:23]
-  wire [61:0] buffer_io_douta; // @[BPU.scala 92:23]
-  wire [61:0] buffer_io_doutb; // @[BPU.scala 92:23]
-  reg [9:0] bht_cache_tag_0; // @[BPU.scala 82:27]
-  reg [9:0] bht_cache_tag_1; // @[BPU.scala 82:27]
-  reg [9:0] bht_cache_tag_2; // @[BPU.scala 82:27]
-  reg [9:0] bht_cache_tag_3; // @[BPU.scala 82:27]
-  reg [1:0] bht_cache_stat_0; // @[BPU.scala 83:31]
-  reg [1:0] bht_cache_stat_1; // @[BPU.scala 83:31]
-  reg [1:0] bht_cache_stat_2; // @[BPU.scala 83:31]
-  reg [1:0] bht_cache_stat_3; // @[BPU.scala 83:31]
-  reg [1:0] update_cache_index; // @[BPU.scala 86:55]
-  reg  cache_or_update_hit; // @[BPU.scala 87:32]
-  reg [1:0] chosen_result; // @[BPU.scala 88:26]
-  wire  _waddr_T = ~io_update_dec_v; // @[BPU.scala 95:24]
-  wire [63:0] waddr = ~io_update_dec_v ? io_update_exe_pc_br : io_update_dec_pc_br; // @[BPU.scala 95:23]
-  wire  exe_update = io_update_exe_taken ? ~(&io_update_exe_pc_br[1:0]) : |io_update_exe_pc_br[1:0]; // @[BPU.scala 96:23]
-  wire  _update_T_2 = ~io_update_exe_v ? 1'h0 : exe_update; // @[BPU.scala 97:45]
-  wire  update = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 97:23]
-  wire [1:0] _wdata_T_3 = io_update_exe_pc_br[1:0] + 2'h1; // @[BPU.scala 98:93]
-  wire [1:0] _wdata_T_6 = io_update_exe_pc_br[1:0] - 2'h1; // @[BPU.scala 98:126]
-  wire [1:0] _wdata_T_7 = io_update_exe_taken ? _wdata_T_3 : _wdata_T_6; // @[BPU.scala 98:45]
-  wire [1:0] _wdata_T_10 = io_update_dec_pc_br[1:0] - 2'h1; // @[BPU.scala 98:160]
-  wire [9:0] history_io_addra_hi = waddr[11:2]; // @[BPU.scala 73:11]
-  wire  history_io_addra_lo = waddr[2]; // @[BPU.scala 79:35]
-  wire [10:0] _history_io_addra_T = {history_io_addra_hi,history_io_addra_lo}; // @[Cat.scala 30:58]
-  wire [9:0] history_io_addra_hi_1 = io_req_next_line[11:2]; // @[BPU.scala 73:11]
-  wire  history_io_addra_lo_1 = io_req_next_line[2]; // @[BPU.scala 79:35]
-  wire [10:0] _history_io_addra_T_1 = {history_io_addra_hi_1,history_io_addra_lo_1}; // @[Cat.scala 30:58]
-  wire [10:0] _history_io_addra_T_2 = update ? _history_io_addra_T : _history_io_addra_T_1; // @[BPU.scala 102:26]
-  wire [63:0] _history_io_addrb_T_1 = io_req_next_line + 64'h4; // @[BPU.scala 103:60]
-  wire [9:0] history_io_addrb_hi = _history_io_addrb_T_1[11:2]; // @[BPU.scala 73:11]
-  wire  history_io_addrb_lo = _history_io_addrb_T_1[2]; // @[BPU.scala 79:35]
-  wire [10:0] _history_io_addrb_T_2 = {history_io_addrb_hi,history_io_addrb_lo}; // @[Cat.scala 30:58]
-  reg  last_update; // @[BPU.scala 109:28]
-  wire [1:0] _bht_first_T_1 = cache_or_update_hit ? chosen_result : 2'h0; // @[BPU.scala 110:41]
-  wire [1:0] bht_first = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 110:24]
-  wire [63:0] _buffer_io_addra_T = io_update_exe_errpr ? io_update_exe_pc_br : io_req_next_line; // @[BPU.scala 120:45]
-  wire [9:0] buffer_io_addra_hi = _buffer_io_addra_T[11:2]; // @[BPU.scala 73:11]
-  wire  buffer_io_addra_lo = _buffer_io_addra_T[2]; // @[BPU.scala 79:35]
-  wire [10:0] _buffer_io_addra_T_1 = {buffer_io_addra_hi,buffer_io_addra_lo}; // @[Cat.scala 30:58]
-  reg  io_resp_target_0_REG; // @[BPU.scala 126:39]
-  reg [61:0] io_resp_target_0_REG_1; // @[BPU.scala 126:63]
-  wire [61:0] io_resp_target_0_hi = io_resp_target_0_REG ? io_resp_target_0_REG_1 : buffer_io_douta; // @[BPU.scala 126:31]
-  wire [10:0] _GEN_33 = {{1'd0}, bht_cache_tag_0}; // @[BPU.scala 133:28]
-  wire [10:0] _GEN_34 = {{1'd0}, bht_cache_tag_1}; // @[BPU.scala 133:28]
-  wire [10:0] _GEN_35 = {{1'd0}, bht_cache_tag_2}; // @[BPU.scala 133:28]
-  wire [10:0] _GEN_36 = {{1'd0}, bht_cache_tag_3}; // @[BPU.scala 133:28]
-  wire  hit_in_bht_cache = _GEN_36 == _history_io_addra_T_1 | (_GEN_35 == _history_io_addra_T_1 | (_GEN_34 ==
-    _history_io_addra_T_1 | _GEN_33 == _history_io_addra_T_1)); // @[BPU.scala 133:71 BPU.scala 134:24]
-  wire [1:0] _update_cache_index_T_1 = update_cache_index + 2'h1; // @[BPU.scala 147:50]
-  wire [9:0] _bht_cache_tag_update_cache_index = history_io_addra; // @[BPU.scala 149:41 BPU.scala 149:41]
-  wire [1:0] _bht_cache_stat_update_cache_index = history_io_dina; // @[BPU.scala 150:42 BPU.scala 150:42]
-  wire  update_query_hit = _history_io_addra_T_1 == _history_io_addra_T; // @[BPU.scala 155:64]
-  DualPortBRAM history ( // @[BPU.scala 91:23]
+  wire  history_clock; // @[BPU.scala 97:23]
+  wire  history_reset; // @[BPU.scala 97:23]
+  wire  history_io_wea; // @[BPU.scala 97:23]
+  wire [9:0] history_io_addra; // @[BPU.scala 97:23]
+  wire [9:0] history_io_addrb; // @[BPU.scala 97:23]
+  wire [1:0] history_io_dina; // @[BPU.scala 97:23]
+  wire [1:0] history_io_douta; // @[BPU.scala 97:23]
+  wire [1:0] history_io_doutb; // @[BPU.scala 97:23]
+  wire  buffer_clock; // @[BPU.scala 98:23]
+  wire  buffer_reset; // @[BPU.scala 98:23]
+  wire  buffer_io_wea; // @[BPU.scala 98:23]
+  wire [9:0] buffer_io_addra; // @[BPU.scala 98:23]
+  wire [9:0] buffer_io_addrb; // @[BPU.scala 98:23]
+  wire [61:0] buffer_io_dina; // @[BPU.scala 98:23]
+  wire [61:0] buffer_io_douta; // @[BPU.scala 98:23]
+  wire [61:0] buffer_io_doutb; // @[BPU.scala 98:23]
+  reg [9:0] bht_cache_tag_0; // @[BPU.scala 88:27]
+  reg [9:0] bht_cache_tag_1; // @[BPU.scala 88:27]
+  reg [9:0] bht_cache_tag_2; // @[BPU.scala 88:27]
+  reg [9:0] bht_cache_tag_3; // @[BPU.scala 88:27]
+  reg [1:0] bht_cache_stat_0; // @[BPU.scala 89:31]
+  reg [1:0] bht_cache_stat_1; // @[BPU.scala 89:31]
+  reg [1:0] bht_cache_stat_2; // @[BPU.scala 89:31]
+  reg [1:0] bht_cache_stat_3; // @[BPU.scala 89:31]
+  reg [1:0] update_cache_index; // @[BPU.scala 92:55]
+  reg  cache_or_update_hit; // @[BPU.scala 93:32]
+  reg [1:0] chosen_result; // @[BPU.scala 94:26]
+  wire  _waddr_T = ~io_update_dec_v; // @[BPU.scala 101:24]
+  wire [63:0] waddr = ~io_update_dec_v ? io_update_exe_pc_br : io_update_dec_pc_br; // @[BPU.scala 101:23]
+  wire  exe_update = io_update_exe_taken ? ~(&io_update_exe_pc_br[1:0]) : |io_update_exe_pc_br[1:0]; // @[BPU.scala 102:23]
+  wire  _update_T_2 = ~io_update_exe_v ? 1'h0 : exe_update; // @[BPU.scala 103:45]
+  wire  update = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 103:23]
+  wire [1:0] _wdata_T_3 = io_update_exe_pc_br[1:0] + 2'h1; // @[BPU.scala 104:93]
+  wire [1:0] _wdata_T_6 = io_update_exe_pc_br[1:0] - 2'h1; // @[BPU.scala 104:126]
+  wire [1:0] _wdata_T_7 = io_update_exe_taken ? _wdata_T_3 : _wdata_T_6; // @[BPU.scala 104:45]
+  wire [1:0] _wdata_T_10 = io_update_dec_pc_br[1:0] - 2'h1; // @[BPU.scala 104:160]
+  wire [63:0] _history_io_addrb_T_1 = io_req_next_line + 64'h4; // @[BPU.scala 109:50]
+  reg  last_update; // @[BPU.scala 115:28]
+  wire [1:0] _bht_first_T_1 = cache_or_update_hit ? chosen_result : 2'h0; // @[BPU.scala 116:41]
+  wire [1:0] bht_first = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 116:24]
+  wire [63:0] _buffer_io_addra_T = io_update_exe_errpr ? io_update_exe_pc_br : io_req_next_line; // @[BPU.scala 126:35]
+  reg  io_resp_target_0_REG; // @[BPU.scala 132:39]
+  reg [61:0] io_resp_target_0_REG_1; // @[BPU.scala 132:63]
+  wire [61:0] io_resp_target_0_hi = io_resp_target_0_REG ? io_resp_target_0_REG_1 : buffer_io_douta; // @[BPU.scala 132:31]
+  wire  hit_in_bht_cache = bht_cache_tag_3 == io_req_next_line[11:2] | (bht_cache_tag_2 == io_req_next_line[11:2] | (
+    bht_cache_tag_1 == io_req_next_line[11:2] | bht_cache_tag_0 == io_req_next_line[11:2])); // @[BPU.scala 139:61 BPU.scala 140:24]
+  wire [1:0] _update_cache_index_T_1 = update_cache_index + 2'h1; // @[BPU.scala 153:50]
+  wire [9:0] _bht_cache_tag_update_cache_index = history_io_addra; // @[BPU.scala 155:41 BPU.scala 155:41]
+  wire [1:0] _bht_cache_stat_update_cache_index = history_io_dina; // @[BPU.scala 156:42 BPU.scala 156:42]
+  wire  update_query_hit = io_req_next_line[11:2] == waddr[11:2]; // @[BPU.scala 161:54]
+  DualPortBRAM history ( // @[BPU.scala 97:23]
     .clock(history_clock),
     .reset(history_reset),
     .io_wea(history_io_wea),
@@ -26965,7 +26948,7 @@ module BPU(
     .io_douta(history_io_douta),
     .io_doutb(history_io_doutb)
   );
-  DualPortBRAM_1 buffer ( // @[BPU.scala 92:23]
+  DualPortBRAM_1 buffer ( // @[BPU.scala 98:23]
     .clock(buffer_clock),
     .reset(buffer_reset),
     .io_wea(buffer_io_wea),
@@ -26975,98 +26958,98 @@ module BPU(
     .io_douta(buffer_io_douta),
     .io_doutb(buffer_io_doutb)
   );
-  assign io_resp_taken_vec_0 = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 110:24]
-  assign io_resp_taken_vec_1 = history_io_doutb; // @[BPU.scala 113:24]
+  assign io_resp_taken_vec_0 = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 116:24]
+  assign io_resp_taken_vec_1 = history_io_doutb; // @[BPU.scala 119:24]
   assign io_resp_target_0 = {io_resp_target_0_hi,bht_first}; // @[Cat.scala 30:58]
   assign io_resp_target_1 = {buffer_io_doutb,history_io_doutb}; // @[Cat.scala 30:58]
   assign history_clock = clock;
   assign history_reset = reset;
-  assign history_io_wea = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 97:23]
-  assign history_io_addra = _history_io_addra_T_2[9:0]; // @[BPU.scala 102:20]
-  assign history_io_addrb = _history_io_addrb_T_2[9:0]; // @[BPU.scala 103:20]
-  assign history_io_dina = _waddr_T ? _wdata_T_7 : _wdata_T_10; // @[BPU.scala 98:23]
+  assign history_io_wea = _waddr_T ? _update_T_2 : 1'h1; // @[BPU.scala 103:23]
+  assign history_io_addra = update ? waddr[11:2] : io_req_next_line[11:2]; // @[BPU.scala 108:26]
+  assign history_io_addrb = _history_io_addrb_T_1[11:2]; // @[BPU.scala 83:9]
+  assign history_io_dina = _waddr_T ? _wdata_T_7 : _wdata_T_10; // @[BPU.scala 104:23]
   assign buffer_clock = clock;
   assign buffer_reset = reset;
-  assign buffer_io_wea = io_update_exe_errpr & io_update_exe_v; // @[BPU.scala 118:40]
-  assign buffer_io_addra = _buffer_io_addra_T_1[9:0]; // @[BPU.scala 120:19]
-  assign buffer_io_addrb = _history_io_addrb_T_2[9:0]; // @[BPU.scala 121:19]
-  assign buffer_io_dina = io_update_exe_target[63:2]; // @[BPU.scala 122:41]
+  assign buffer_io_wea = io_update_exe_errpr & io_update_exe_v; // @[BPU.scala 124:40]
+  assign buffer_io_addra = _buffer_io_addra_T[11:2]; // @[BPU.scala 83:9]
+  assign buffer_io_addrb = _history_io_addrb_T_1[11:2]; // @[BPU.scala 83:9]
+  assign buffer_io_dina = io_update_exe_target[63:2]; // @[BPU.scala 128:41]
   always @(posedge clock) begin
-    if (update) begin // @[BPU.scala 140:16]
-      if (!(hit_in_bht_cache)) begin // @[BPU.scala 141:28]
-        if (2'h0 == update_cache_index) begin // @[BPU.scala 149:41]
-          bht_cache_tag_0 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 149:41]
+    if (update) begin // @[BPU.scala 146:16]
+      if (!(hit_in_bht_cache)) begin // @[BPU.scala 147:28]
+        if (2'h0 == update_cache_index) begin // @[BPU.scala 155:41]
+          bht_cache_tag_0 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 155:41]
         end
       end
     end
-    if (update) begin // @[BPU.scala 140:16]
-      if (!(hit_in_bht_cache)) begin // @[BPU.scala 141:28]
-        if (2'h1 == update_cache_index) begin // @[BPU.scala 149:41]
-          bht_cache_tag_1 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 149:41]
+    if (update) begin // @[BPU.scala 146:16]
+      if (!(hit_in_bht_cache)) begin // @[BPU.scala 147:28]
+        if (2'h1 == update_cache_index) begin // @[BPU.scala 155:41]
+          bht_cache_tag_1 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 155:41]
         end
       end
     end
-    if (update) begin // @[BPU.scala 140:16]
-      if (!(hit_in_bht_cache)) begin // @[BPU.scala 141:28]
-        if (2'h2 == update_cache_index) begin // @[BPU.scala 149:41]
-          bht_cache_tag_2 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 149:41]
+    if (update) begin // @[BPU.scala 146:16]
+      if (!(hit_in_bht_cache)) begin // @[BPU.scala 147:28]
+        if (2'h2 == update_cache_index) begin // @[BPU.scala 155:41]
+          bht_cache_tag_2 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 155:41]
         end
       end
     end
-    if (update) begin // @[BPU.scala 140:16]
-      if (!(hit_in_bht_cache)) begin // @[BPU.scala 141:28]
-        if (2'h3 == update_cache_index) begin // @[BPU.scala 149:41]
-          bht_cache_tag_3 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 149:41]
+    if (update) begin // @[BPU.scala 146:16]
+      if (!(hit_in_bht_cache)) begin // @[BPU.scala 147:28]
+        if (2'h3 == update_cache_index) begin // @[BPU.scala 155:41]
+          bht_cache_tag_3 <= _bht_cache_tag_update_cache_index; // @[BPU.scala 155:41]
         end
       end
     end
-    if (reset) begin // @[BPU.scala 83:31]
-      bht_cache_stat_0 <= 2'h0; // @[BPU.scala 83:31]
-    end else if (update) begin // @[BPU.scala 140:16]
-      if (hit_in_bht_cache) begin // @[BPU.scala 141:28]
-        bht_cache_stat_0 <= 2'h0; // @[BPU.scala 143:27]
-      end else if (2'h0 == update_cache_index) begin // @[BPU.scala 150:42]
-        bht_cache_stat_0 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 150:42]
+    if (reset) begin // @[BPU.scala 89:31]
+      bht_cache_stat_0 <= 2'h0; // @[BPU.scala 89:31]
+    end else if (update) begin // @[BPU.scala 146:16]
+      if (hit_in_bht_cache) begin // @[BPU.scala 147:28]
+        bht_cache_stat_0 <= 2'h0; // @[BPU.scala 149:27]
+      end else if (2'h0 == update_cache_index) begin // @[BPU.scala 156:42]
+        bht_cache_stat_0 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 156:42]
       end
     end
-    if (reset) begin // @[BPU.scala 83:31]
-      bht_cache_stat_1 <= 2'h0; // @[BPU.scala 83:31]
-    end else if (update) begin // @[BPU.scala 140:16]
-      if (hit_in_bht_cache) begin // @[BPU.scala 141:28]
-        bht_cache_stat_1 <= 2'h0; // @[BPU.scala 143:27]
-      end else if (2'h1 == update_cache_index) begin // @[BPU.scala 150:42]
-        bht_cache_stat_1 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 150:42]
+    if (reset) begin // @[BPU.scala 89:31]
+      bht_cache_stat_1 <= 2'h0; // @[BPU.scala 89:31]
+    end else if (update) begin // @[BPU.scala 146:16]
+      if (hit_in_bht_cache) begin // @[BPU.scala 147:28]
+        bht_cache_stat_1 <= 2'h0; // @[BPU.scala 149:27]
+      end else if (2'h1 == update_cache_index) begin // @[BPU.scala 156:42]
+        bht_cache_stat_1 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 156:42]
       end
     end
-    if (reset) begin // @[BPU.scala 83:31]
-      bht_cache_stat_2 <= 2'h0; // @[BPU.scala 83:31]
-    end else if (update) begin // @[BPU.scala 140:16]
-      if (hit_in_bht_cache) begin // @[BPU.scala 141:28]
-        bht_cache_stat_2 <= 2'h0; // @[BPU.scala 143:27]
-      end else if (2'h2 == update_cache_index) begin // @[BPU.scala 150:42]
-        bht_cache_stat_2 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 150:42]
+    if (reset) begin // @[BPU.scala 89:31]
+      bht_cache_stat_2 <= 2'h0; // @[BPU.scala 89:31]
+    end else if (update) begin // @[BPU.scala 146:16]
+      if (hit_in_bht_cache) begin // @[BPU.scala 147:28]
+        bht_cache_stat_2 <= 2'h0; // @[BPU.scala 149:27]
+      end else if (2'h2 == update_cache_index) begin // @[BPU.scala 156:42]
+        bht_cache_stat_2 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 156:42]
       end
     end
-    if (reset) begin // @[BPU.scala 83:31]
-      bht_cache_stat_3 <= 2'h0; // @[BPU.scala 83:31]
-    end else if (update) begin // @[BPU.scala 140:16]
-      if (hit_in_bht_cache) begin // @[BPU.scala 141:28]
-        bht_cache_stat_3 <= 2'h0; // @[BPU.scala 143:27]
-      end else if (2'h3 == update_cache_index) begin // @[BPU.scala 150:42]
-        bht_cache_stat_3 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 150:42]
+    if (reset) begin // @[BPU.scala 89:31]
+      bht_cache_stat_3 <= 2'h0; // @[BPU.scala 89:31]
+    end else if (update) begin // @[BPU.scala 146:16]
+      if (hit_in_bht_cache) begin // @[BPU.scala 147:28]
+        bht_cache_stat_3 <= 2'h0; // @[BPU.scala 149:27]
+      end else if (2'h3 == update_cache_index) begin // @[BPU.scala 156:42]
+        bht_cache_stat_3 <= _bht_cache_stat_update_cache_index; // @[BPU.scala 156:42]
       end
     end
-    if (reset) begin // @[BPU.scala 86:55]
-      update_cache_index <= 2'h0; // @[BPU.scala 86:55]
-    end else if (update) begin // @[BPU.scala 140:16]
-      if (!(hit_in_bht_cache)) begin // @[BPU.scala 141:28]
-        update_cache_index <= _update_cache_index_T_1; // @[BPU.scala 147:28]
+    if (reset) begin // @[BPU.scala 92:55]
+      update_cache_index <= 2'h0; // @[BPU.scala 92:55]
+    end else if (update) begin // @[BPU.scala 146:16]
+      if (!(hit_in_bht_cache)) begin // @[BPU.scala 147:28]
+        update_cache_index <= _update_cache_index_T_1; // @[BPU.scala 153:28]
       end
     end
-    cache_or_update_hit <= hit_in_bht_cache | update_query_hit; // @[BPU.scala 156:43]
-    if (update_query_hit) begin // @[BPU.scala 157:23]
-      if (_waddr_T) begin // @[BPU.scala 98:23]
-        if (io_update_exe_taken) begin // @[BPU.scala 98:45]
+    cache_or_update_hit <= hit_in_bht_cache | update_query_hit; // @[BPU.scala 162:43]
+    if (update_query_hit) begin // @[BPU.scala 163:23]
+      if (_waddr_T) begin // @[BPU.scala 104:23]
+        if (io_update_exe_taken) begin // @[BPU.scala 104:45]
           chosen_result <= _wdata_T_3;
         end else begin
           chosen_result <= _wdata_T_6;
@@ -27074,19 +27057,19 @@ module BPU(
       end else begin
         chosen_result <= _wdata_T_10;
       end
-    end else if (_GEN_36 == _history_io_addra_T_1) begin // @[BPU.scala 133:71]
-      chosen_result <= bht_cache_stat_3; // @[BPU.scala 136:26]
-    end else if (_GEN_35 == _history_io_addra_T_1) begin // @[BPU.scala 133:71]
-      chosen_result <= bht_cache_stat_2; // @[BPU.scala 136:26]
-    end else if (_GEN_34 == _history_io_addra_T_1) begin // @[BPU.scala 133:71]
-      chosen_result <= bht_cache_stat_1; // @[BPU.scala 136:26]
+    end else if (bht_cache_tag_3 == io_req_next_line[11:2]) begin // @[BPU.scala 139:61]
+      chosen_result <= bht_cache_stat_3; // @[BPU.scala 142:26]
+    end else if (bht_cache_tag_2 == io_req_next_line[11:2]) begin // @[BPU.scala 139:61]
+      chosen_result <= bht_cache_stat_2; // @[BPU.scala 142:26]
+    end else if (bht_cache_tag_1 == io_req_next_line[11:2]) begin // @[BPU.scala 139:61]
+      chosen_result <= bht_cache_stat_1; // @[BPU.scala 142:26]
     end else begin
-      chosen_result <= bht_cache_stat_0; // @[BPU.scala 131:20]
+      chosen_result <= bht_cache_stat_0; // @[BPU.scala 137:20]
     end
-    if (_waddr_T) begin // @[BPU.scala 97:23]
-      if (~io_update_exe_v) begin // @[BPU.scala 97:45]
+    if (_waddr_T) begin // @[BPU.scala 103:23]
+      if (~io_update_exe_v) begin // @[BPU.scala 103:45]
         last_update <= 1'h0;
-      end else if (io_update_exe_taken) begin // @[BPU.scala 96:23]
+      end else if (io_update_exe_taken) begin // @[BPU.scala 102:23]
         last_update <= ~(&io_update_exe_pc_br[1:0]);
       end else begin
         last_update <= |io_update_exe_pc_br[1:0];
@@ -27094,8 +27077,8 @@ module BPU(
     end else begin
       last_update <= 1'h1;
     end
-    io_resp_target_0_REG <= buffer_io_wea; // @[BPU.scala 126:39]
-    io_resp_target_0_REG_1 <= buffer_io_dina; // @[BPU.scala 126:63]
+    io_resp_target_0_REG <= buffer_io_wea; // @[BPU.scala 132:39]
+    io_resp_target_0_REG_1 <= buffer_io_dina; // @[BPU.scala 132:63]
   end
 // Register and memory initialization
 `ifdef RANDOMIZE_GARBAGE_ASSIGN
