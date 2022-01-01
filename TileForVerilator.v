@@ -6892,8 +6892,8 @@ module BPU(
   input         clock,
   input         reset,
   input  [63:0] io_req_next_line,
-  output [1:0]  io_resp_taken_vec_0,
-  output [1:0]  io_resp_taken_vec_1,
+  output        io_resp_taken_vec_0,
+  output        io_resp_taken_vec_1,
   output [63:0] io_resp_target_0,
   output [63:0] io_resp_target_1,
   input         io_update_dec_v,
@@ -7027,8 +7027,8 @@ module BPU(
     .io_douta(buffer_io_douta),
     .io_doutb(buffer_io_doutb)
   );
-  assign io_resp_taken_vec_0 = last_update ? _bht_first_T_1 : history_io_douta; // @[BPU.scala 105:24]
-  assign io_resp_taken_vec_1 = history_io_doutb; // @[BPU.scala 108:24]
+  assign io_resp_taken_vec_0 = bht_first[1]; // @[BPU.scala 107:36]
+  assign io_resp_taken_vec_1 = history_io_doutb[1]; // @[BPU.scala 108:43]
   assign io_resp_target_0 = {io_resp_target_0_hi,bht_first}; // @[Cat.scala 30:58]
   assign io_resp_target_1 = {buffer_io_doutb,history_io_doutb}; // @[Cat.scala 30:58]
   assign history_clock = clock;
@@ -7045,7 +7045,7 @@ module BPU(
   assign buffer_io_dina = io_update_exe_target[63:2]; // @[BPU.scala 117:41]
   always @(posedge clock) begin
     if (!(update & hit_in_bht_cache)) begin // @[BPU.scala 135:36]
-      if (io_resp_taken_vec_0[1] & ~hit_in_bht_cache) begin // @[BPU.scala 139:60]
+      if (io_resp_taken_vec_0 & ~hit_in_bht_cache) begin // @[BPU.scala 139:57]
         bht_cache_tag_0 <= bht_cache_tag_0_REG; // @[BPU.scala 143:39]
       end
     end
@@ -7053,7 +7053,7 @@ module BPU(
       bht_cache_stat_0 <= 2'h0; // @[BPU.scala 78:31]
     end else if (update & hit_in_bht_cache) begin // @[BPU.scala 135:36]
       bht_cache_stat_0 <= 2'h0; // @[BPU.scala 137:25]
-    end else if (io_resp_taken_vec_0[1] & ~hit_in_bht_cache) begin // @[BPU.scala 139:60]
+    end else if (io_resp_taken_vec_0 & ~hit_in_bht_cache) begin // @[BPU.scala 139:57]
       if (last_update) begin // @[BPU.scala 105:24]
         bht_cache_stat_0 <= _bht_first_T_1;
       end else begin
@@ -7156,8 +7156,8 @@ module PCGen(
   input         io_redirect,
   input  [31:0] io_redirect_pc,
   output [31:0] io_pc_o,
-  output [1:0]  io_predict_taken_o_0,
-  output [1:0]  io_predict_taken_o_1,
+  output        io_predict_taken_o_0,
+  output        io_predict_taken_o_1,
   output [31:0] io_predict_target_o_0,
   output [31:0] io_predict_target_o_1,
   output        io_fetch_word_o,
@@ -7175,8 +7175,8 @@ module PCGen(
   wire  bpu_clock; // @[Frontend.scala 32:19]
   wire  bpu_reset; // @[Frontend.scala 32:19]
   wire [63:0] bpu_io_req_next_line; // @[Frontend.scala 32:19]
-  wire [1:0] bpu_io_resp_taken_vec_0; // @[Frontend.scala 32:19]
-  wire [1:0] bpu_io_resp_taken_vec_1; // @[Frontend.scala 32:19]
+  wire  bpu_io_resp_taken_vec_0; // @[Frontend.scala 32:19]
+  wire  bpu_io_resp_taken_vec_1; // @[Frontend.scala 32:19]
   wire [63:0] bpu_io_resp_target_0; // @[Frontend.scala 32:19]
   wire [63:0] bpu_io_resp_target_1; // @[Frontend.scala 32:19]
   wire  bpu_io_update_dec_v; // @[Frontend.scala 32:19]
@@ -7192,12 +7192,12 @@ module PCGen(
   wire [63:0] branch_target_0 = {branch_target_0_hi,2'h0}; // @[Cat.scala 30:58]
   wire [61:0] branch_target_1_hi = bpu_io_resp_target_1[63:2]; // @[Frontend.scala 37:50]
   wire [63:0] branch_target_1 = {branch_target_1_hi,2'h0}; // @[Cat.scala 30:58]
-  wire [31:0] _first_target_T_2 = pc + 32'h4; // @[Frontend.scala 38:76]
-  wire [63:0] first_target = bpu_io_resp_taken_vec_0[1] ? branch_target_0 : {{32'd0}, _first_target_T_2}; // @[Frontend.scala 38:25]
-  wire [31:0] _legal_target_T_3 = pc + 32'h8; // @[Frontend.scala 42:67]
-  wire [63:0] _legal_target_T_4 = bpu_io_resp_taken_vec_1[1] ? branch_target_1 : {{32'd0}, _legal_target_T_3}; // @[Frontend.scala 42:16]
-  wire [63:0] _legal_target_T_5 = bpu_io_resp_taken_vec_0[1] ? branch_target_0 : _legal_target_T_4; // @[Frontend.scala 41:14]
-  wire [63:0] legal_target = cross_line ? first_target : _legal_target_T_5; // @[Frontend.scala 40:13]
+  wire [31:0] _first_target_T_1 = pc + 32'h4; // @[Frontend.scala 38:73]
+  wire [63:0] first_target = bpu_io_resp_taken_vec_0 ? branch_target_0 : {{32'd0}, _first_target_T_1}; // @[Frontend.scala 38:25]
+  wire [31:0] _legal_target_T_1 = pc + 32'h8; // @[Frontend.scala 42:64]
+  wire [63:0] _legal_target_T_2 = bpu_io_resp_taken_vec_1 ? branch_target_1 : {{32'd0}, _legal_target_T_1}; // @[Frontend.scala 42:16]
+  wire [63:0] _legal_target_T_3 = bpu_io_resp_taken_vec_0 ? branch_target_0 : _legal_target_T_2; // @[Frontend.scala 41:14]
+  wire [63:0] legal_target = cross_line ? first_target : _legal_target_T_3; // @[Frontend.scala 40:13]
   wire [63:0] _npc_T = io_please_wait ? {{32'd0}, pc} : legal_target; // @[Frontend.scala 43:49]
   wire [63:0] npc = io_redirect ? {{32'd0}, io_redirect_pc} : _npc_T; // @[Frontend.scala 43:16]
   BPU bpu ( // @[Frontend.scala 32:19]
@@ -8060,8 +8060,8 @@ module Frontend(
   wire  pc_gen_io_redirect; // @[Frontend.scala 72:30]
   wire [31:0] pc_gen_io_redirect_pc; // @[Frontend.scala 72:30]
   wire [31:0] pc_gen_io_pc_o; // @[Frontend.scala 72:30]
-  wire [1:0] pc_gen_io_predict_taken_o_0; // @[Frontend.scala 72:30]
-  wire [1:0] pc_gen_io_predict_taken_o_1; // @[Frontend.scala 72:30]
+  wire  pc_gen_io_predict_taken_o_0; // @[Frontend.scala 72:30]
+  wire  pc_gen_io_predict_taken_o_1; // @[Frontend.scala 72:30]
   wire [31:0] pc_gen_io_predict_target_o_0; // @[Frontend.scala 72:30]
   wire [31:0] pc_gen_io_predict_target_o_1; // @[Frontend.scala 72:30]
   wire  pc_gen_io_fetch_word_o; // @[Frontend.scala 72:30]
@@ -8132,8 +8132,8 @@ module Frontend(
   wire [1:0] fire_number_respn = _fire_number_respn_T + 2'h1; // @[Frontend.scala 87:48]
   reg [31:0] decode_pc_predict_target_0; // @[Frontend.scala 90:37]
   reg [31:0] decode_pc_predict_target_1; // @[Frontend.scala 90:37]
-  reg [1:0] decode_pc_predict_taken_0; // @[Frontend.scala 91:37]
-  reg [1:0] decode_pc_predict_taken_1; // @[Frontend.scala 91:37]
+  reg  decode_pc_predict_taken_0; // @[Frontend.scala 91:37]
+  reg  decode_pc_predict_taken_1; // @[Frontend.scala 91:37]
   reg  delayed_early_update; // @[Frontend.scala 92:37]
   wire  cache_stall = ~io_icache_resp_valid & last_req_valid; // @[Frontend.scala 105:43]
   wire  stall_f = io_fb_fmbs_please_wait | cache_stall; // @[Frontend.scala 102:29]
@@ -8155,17 +8155,15 @@ module Frontend(
   wire  kill_d = io_fb_bmfs_redirect_kill | delayed_early_update; // @[Frontend.scala 146:39]
   wire  _GEN_5 = ~stall_f | decode_valid_reg; // @[Frontend.scala 150:25 Frontend.scala 154:30 Frontend.scala 82:34]
   wire  frontend_fire = ~cache_stall & decode_valid_reg & ~delayed_early_update; // @[Frontend.scala 157:53]
-  wire [1:0] _io_fb_fmbs_instn_T_3 = decode_pc_predict_taken_0[1] ? 2'h1 : fire_number_respn; // @[Frontend.scala 158:62]
+  wire [1:0] _io_fb_fmbs_instn_T_2 = decode_pc_predict_taken_0 ? 2'h1 : fire_number_respn; // @[Frontend.scala 158:62]
   wire [32:0] _T_1 = {{1'd0}, decode_pc_low_reg}; // @[Frontend.scala 161:39]
-  wire [29:0] hi = decode_pc_predict_target_0[31:2]; // @[Frontend.scala 164:57]
   wire [133:0] io_fb_fmbs_inst_ops_0_lo = {Dec_io_mops_rs1,Dec_io_mops_rs2,Dec_io_mops_rd,Dec_io_mops_imm,Dec_io_mops_pc
     ,Dec_io_mops_predict_taken,Dec_io_mops_target_pc,Dec_io_mops_ysyx_debug,Dec_io_mops_ysyx_print,Dec_io_mops_inst}; // @[Frontend.scala 165:44]
   wire [11:0] io_fb_fmbs_inst_ops_0_hi_lo = {Dec_io_mops_write_dest,Dec_io_mops_alu_op,Dec_io_mops_alu_expand,
     Dec_io_mops_mem_width,Dec_io_mops_write_src}; // @[Frontend.scala 165:44]
   wire [26:0] io_fb_fmbs_inst_ops_0_hi = {Dec_io_mops_illegal,Dec_io_mops_next_pc,Dec_io_mops_alu_mdu_lsu,
     Dec_io_mops_branch_type,Dec_io_mops_src_a,Dec_io_mops_src_b,io_fb_fmbs_inst_ops_0_hi_lo}; // @[Frontend.scala 165:44]
-  wire [31:0] _T_6 = decode_pc_low_reg + 32'h4; // @[Frontend.scala 161:39]
-  wire [29:0] hi_1 = decode_pc_predict_target_1[31:2]; // @[Frontend.scala 164:57]
+  wire [31:0] _T_4 = decode_pc_low_reg + 32'h4; // @[Frontend.scala 161:39]
   wire [133:0] io_fb_fmbs_inst_ops_1_lo = {Dec_1_io_mops_rs1,Dec_1_io_mops_rs2,Dec_1_io_mops_rd,Dec_1_io_mops_imm,
     Dec_1_io_mops_pc,Dec_1_io_mops_predict_taken,Dec_1_io_mops_target_pc,Dec_1_io_mops_ysyx_debug,
     Dec_1_io_mops_ysyx_print,Dec_1_io_mops_inst}; // @[Frontend.scala 165:44]
@@ -8177,10 +8175,9 @@ module Frontend(
     Dec_1_io_inst[6:0]; // @[Frontend.scala 96:76]
   wire  predict_taken_but_not_br_1 = Dec_1_io_bht_predict_taken & ~_predict_taken_but_not_br_1_T_10; // @[Frontend.scala 166:62]
   wire [1:0] _GEN_12 = {{1'd0}, next_respn}; // @[Frontend.scala 168:35]
-  wire [1:0] _dec_update_T_3 = {predict_taken_but_not_br_1,predict_taken_but_not_br_0}; // @[Frontend.scala 168:142]
-  wire  _dec_update_T_5 = _GEN_12 == 2'h0 | decode_pc_predict_taken_0[1] ? predict_taken_but_not_br_0 : |_dec_update_T_3
-    ; // @[Frontend.scala 168:23]
-  wire  dec_update = _dec_update_T_5 & frontend_fire; // @[Frontend.scala 168:152]
+  wire [1:0] _dec_update_T_2 = {predict_taken_but_not_br_1,predict_taken_but_not_br_0}; // @[Frontend.scala 168:139]
+  wire  _dec_update_T_4 = _GEN_12 == 2'h0 | decode_pc_predict_taken_0 ? predict_taken_but_not_br_0 : |_dec_update_T_2; // @[Frontend.scala 168:23]
+  wire  dec_update = _dec_update_T_4 & frontend_fire; // @[Frontend.scala 168:149]
   wire [31:0] _dec_kill_redirect_pc_T_3 = decode_pc_low_reg + 32'h8; // @[Frontend.scala 170:143]
   PCGen pc_gen ( // @[Frontend.scala 72:30]
     .clock(pc_gen_clock),
@@ -8256,7 +8253,7 @@ module Frontend(
     .io_mops_ysyx_print(Dec_1_io_mops_ysyx_print),
     .io_mops_inst(Dec_1_io_mops_inst)
   );
-  assign io_fb_fmbs_instn = io_fb_fmbs_please_wait | ~frontend_fire ? 2'h0 : _io_fb_fmbs_instn_T_3; // @[Frontend.scala 158:26]
+  assign io_fb_fmbs_instn = io_fb_fmbs_please_wait | ~frontend_fire ? 2'h0 : _io_fb_fmbs_instn_T_2; // @[Frontend.scala 158:26]
   assign io_fb_fmbs_inst_ops_0 = {io_fb_fmbs_inst_ops_0_hi,io_fb_fmbs_inst_ops_0_lo}; // @[Frontend.scala 165:44]
   assign io_fb_fmbs_inst_ops_1 = {io_fb_fmbs_inst_ops_1_hi,io_fb_fmbs_inst_ops_1_lo}; // @[Frontend.scala 165:44]
   assign io_icache_req_valid = 1'h1; // @[Frontend.scala 129:28]
@@ -8277,12 +8274,12 @@ module Frontend(
   assign pc_gen_io_bpu_update_exe_taken = io_fb_bmfs_bpu_taken; // @[Frontend.scala 116:28]
   assign Dec_io_pc = _T_1[31:0]; // @[Frontend.scala 161:39]
   assign Dec_io_inst = io_icache_resp_bits_rdata_0; // @[Frontend.scala 162:18]
-  assign Dec_io_bht_predict_taken = decode_pc_predict_taken_0[1]; // @[Frontend.scala 163:60]
-  assign Dec_io_target_pc = {hi,decode_pc_predict_taken_0}; // @[Cat.scala 30:58]
+  assign Dec_io_bht_predict_taken = decode_pc_predict_taken_0; // @[Frontend.scala 163:31]
+  assign Dec_io_target_pc = decode_pc_predict_target_0; // @[Frontend.scala 164:23]
   assign Dec_1_io_pc = decode_pc_low_reg + 32'h4; // @[Frontend.scala 161:39]
   assign Dec_1_io_inst = io_icache_resp_bits_rdata_1; // @[Frontend.scala 162:18]
-  assign Dec_1_io_bht_predict_taken = decode_pc_predict_taken_1[1]; // @[Frontend.scala 163:60]
-  assign Dec_1_io_target_pc = {hi_1,decode_pc_predict_taken_1}; // @[Cat.scala 30:58]
+  assign Dec_1_io_bht_predict_taken = decode_pc_predict_taken_1; // @[Frontend.scala 163:31]
+  assign Dec_1_io_target_pc = decode_pc_predict_target_1; // @[Frontend.scala 164:23]
   always @(posedge clock) begin
     if (reset) begin // @[Frontend.scala 74:31]
       last_req_valid <= 1'h0; // @[Frontend.scala 74:31]
@@ -8340,7 +8337,7 @@ module Frontend(
     if (io_fb_fmbs_please_wait) begin // @[Frontend.scala 170:38]
       dec_kill_redirect_pc_REG <= decode_pc_low_reg;
     end else if (predict_taken_but_not_br_0) begin // @[Frontend.scala 170:70]
-      dec_kill_redirect_pc_REG <= _T_6;
+      dec_kill_redirect_pc_REG <= _T_4;
     end else begin
       dec_kill_redirect_pc_REG <= _dec_kill_redirect_pc_T_3;
     end
@@ -8403,9 +8400,9 @@ initial begin
   _RAND_7 = {1{`RANDOM}};
   decode_pc_predict_target_1 = _RAND_7[31:0];
   _RAND_8 = {1{`RANDOM}};
-  decode_pc_predict_taken_0 = _RAND_8[1:0];
+  decode_pc_predict_taken_0 = _RAND_8[0:0];
   _RAND_9 = {1{`RANDOM}};
-  decode_pc_predict_taken_1 = _RAND_9[1:0];
+  decode_pc_predict_taken_1 = _RAND_9[0:0];
   _RAND_10 = {1{`RANDOM}};
   delayed_early_update = _RAND_10[0:0];
   _RAND_11 = {1{`RANDOM}};
